@@ -22,6 +22,14 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
+import {
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+} from "recharts";
 
 const Portfolio = () => {
   const [isDark, setIsDark] = useState(false);
@@ -81,46 +89,28 @@ const Portfolio = () => {
   // Skills data
   const skillCategories = [
     {
-      title: "Mobile Development",
+      title: "Frontend",
       skills: [
-        "React Native (Expert)",
-        "JavaScript ES6+ (Expert)",
-        "TypeScript (Advanced)",
-        "React.js (Beginner)",
+        { name: "React Native", level: 95 },
+        { name: "JavaScript (ES6+)", level: 90 },
+        { name: "TypeScript", level: 85 },
       ],
     },
     {
-      title: "State Management",
+      title: "State & Backend",
       skills: [
-        "Redux (Expert)",
-        "Redux Toolkit (Advanced)",
-        "Context API (Advanced)",
+        { name: "Redux Toolkit", level: 90 },
+        { name: "Firebase", level: 85 },
+        { name: "GraphQL", level: 70 },
       ],
     },
     {
-      title: "UI/UX Development",
+      title: "Tools & Platforms",
       skills: [
-        "React Native Reanimated (Advanced)",
-        "Styled Components (Advanced)",
-        "Lottie Animations (Intermediate)",
-      ],
-    },
-    {
-      title: "Backend & APIs",
-      skills: [
-        "RESTful APIs (Expert)",
-        "GraphQL (Intermediate)",
-        "Node.js (Intermediate)",
-        "Firebase (Advanced)",
-      ],
-    },
-    {
-      title: "Development Tools",
-      skills: [
-        "Git (Expert)",
-        "GitHub (Expert)",
-        "Xcode (Advanced)",
-        "Android Studio (Advanced)",
+        { name: "Xcode", level: 80 },
+        { name: "Android Studio", level: 85 },
+        { name: "App Store Connect", level: 75 },
+        { name: "Google Play Console", level: 75 },
       ],
     },
   ];
@@ -489,13 +479,25 @@ const Portfolio = () => {
                   <h3 className="text-lg font-semibold mb-4 text-blue-600">
                     {category.title}
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-4">
                     {category.skills.map((skill, skillIndex) => (
-                      <li
-                        key={skillIndex}
-                        className="text-gray-600 dark:text-gray-300"
-                      >
-                        {skill}
+                      <li key={skillIndex}>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-gray-600 dark:text-gray-300">
+                            {skill.name}
+                          </span>
+                          <span className="text-gray-500 dark:text-gray-400">
+                            {skill.level}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <motion.div
+                            className="bg-blue-600 h-2 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${skill.level}%` }}
+                            transition={{ duration: 0.8 }}
+                          />
+                        </div>
                       </li>
                     ))}
                   </ul>
