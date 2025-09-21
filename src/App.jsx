@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css"; // Assuming you have Tailwind CSS setup
+import "./index.css";
 import Portfolio from "./Portfolio";
 
 function App() {
