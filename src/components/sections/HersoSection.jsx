@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Mail, Download } from "lucide-react";
 
-const HeroSection = ({ scrollToSection }) => (
+const HeroSection = () => (
   <div className="flex items-center justify-center min-h-screen px-4 pt-16">
     <div className="max-w-4xl mx-auto text-center">
       <motion.div
@@ -25,19 +25,23 @@ const HeroSection = ({ scrollToSection }) => (
           users.
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <motion.button
+          {/* Get in Touch -> Opens email */}
+          <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection("#contact")}
+            href="mailto:neeleshy263@gmail.com"
             className="flex items-center justify-center gap-2 px-8 py-3 font-medium text-white transition-colors duration-200 bg-blue-600 rounded-lg hover:bg-blue-700"
           >
             <Mail className="w-5 h-5" />
             Get In Touch
-          </motion.button>
+          </motion.a>
+
+          {/* Download Resume -> Downloads PDF */}
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#"
+            href="/resume.pdf"
+            download="Neelesh_Yadav_Resume.pdf"
             className="flex items-center justify-center gap-2 px-8 py-3 font-medium text-blue-600 transition-all duration-200 border-2 border-blue-600 rounded-lg hover:bg-blue-600 hover:text-white"
           >
             <Download className="w-5 h-5" />

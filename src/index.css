@@ -3,26 +3,30 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  body {
-    @apply antialiased;
+  html {
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
 @layer components {
   .section-container {
-    @apply container mx-auto px-6 py-16;
+    @apply container px-6 py-16 mx-auto;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white;
+    @apply mb-12 text-3xl font-bold text-center text-gray-800 md:text-4xl dark:text-white;
   }
 
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+    @apply p-6 transition-all duration-300 bg-white shadow-lg dark:bg-gray-800 rounded-xl hover:shadow-xl;
   }
 }
 
