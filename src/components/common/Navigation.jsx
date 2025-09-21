@@ -94,7 +94,6 @@ const Navigation = ({
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
