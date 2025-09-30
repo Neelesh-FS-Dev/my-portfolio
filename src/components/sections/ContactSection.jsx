@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, Github, Send } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, Instagram, Send } from "lucide-react";
 
 const ContactSection = ({ isDark }) => {
   const handleSubmit = async (e) => {
@@ -70,6 +70,24 @@ const ContactSection = ({ isDark }) => {
                   className="transition-colors hover:text-blue-600"
                 >
                   github.com/Neelesh-FS-Dev
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Linkedin className="w-5 h-5 text-blue-600" />
+                <a
+                  href="https://www.linkedin.com/in/neeleshyadav/"
+                  className="transition-colors hover:text-blue-600"
+                >
+                  linkedin.com/in/neeleshyadav
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Instagram className="w-5 h-5 text-pink-500" />
+                <a
+                  href="https://www.instagram.com/neelesh.yadav25"
+                  className="transition-colors hover:text-pink-500"
+                >
+                  instagram.com/neelesh.yadav25
                 </a>
               </div>
             </div>
