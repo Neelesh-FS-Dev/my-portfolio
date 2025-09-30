@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Download } from "lucide-react";
 
+// Mouse pointer trail
+const MouseTrail = () => {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const move = (e) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  return (
+    <div
+      className="fixed w-4 h-4 transition-transform duration-100 bg-blue-500 rounded-full shadow-lg pointer-events-none"
+      style={{
+        left: pos.x - 8,
+        top: pos.y - 8,
+        transform: "translate3d(0,0,0)",
+      }}
+    />
+  );
+};
+
 const HeroSection = () => (
-  <div className="flex items-center justify-center min-h-screen px-4 pt-16">
+  <div className="relative flex items-center justify-center min-h-screen px-4 pt-16 overflow-hidden">
+    {/* Animated gradient background */}
+    <div className="absolute inset-0 -z-10 animate-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-[length:400%_400%]" />
+
+    {/* Mouse pointer */}
+    <MouseTrail />
+
     <div className="max-w-4xl mx-auto text-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}

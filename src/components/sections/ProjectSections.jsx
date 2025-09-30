@@ -23,7 +23,7 @@ const ProjectsSection = ({ isDark }) => {
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="text-xl font-semibold">{project.title}</h3>
-                <ExternalLink className="w-5 h-5 text-gray-400 hover:text-blue-600" />
+                {/* <ExternalLink className="w-5 h-5 text-gray-400 hover:text-blue-600" /> */}
               </div>
               <p className="mb-3 text-sm text-blue-600">{project.tech}</p>
               <p className="mb-4 text-gray-600 dark:text-gray-300">
