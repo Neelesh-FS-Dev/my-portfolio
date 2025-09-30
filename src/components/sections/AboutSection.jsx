@@ -46,7 +46,6 @@ const AboutSection = ({ isDark }) => {
         "Always exploring cutting-edge technologies and best practices to deliver modern, scalable mobile solutions.",
     },
   ];
-
   return (
     <div className="max-w-6xl px-4 mx-auto mb-14">
       <h2 className="mb-12 text-3xl font-bold text-center md:text-4xl">
