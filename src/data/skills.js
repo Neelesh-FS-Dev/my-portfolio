@@ -13,6 +13,7 @@ export const skillCategories = [
       { name: "Redux Toolkit", level: 90 },
       { name: "Firebase", level: 85 },
       { name: "GraphQL", level: 70 },
+      { name: "REST API", level: 90 },
     ],
   },
   {

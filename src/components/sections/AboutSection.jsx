@@ -48,7 +48,7 @@ const AboutSection = ({ isDark }) => {
   ];
 
   return (
-    <div className="max-w-6xl px-4 mx-auto">
+    <div className="max-w-6xl px-4 mx-auto mb-14">
       <h2 className="mb-12 text-3xl font-bold text-center md:text-4xl">
         About Me
       </h2>

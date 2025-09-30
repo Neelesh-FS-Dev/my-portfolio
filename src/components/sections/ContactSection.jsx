@@ -3,6 +3,32 @@ import { motion } from "framer-motion";
 import { Mail, Phone, Github, Send } from "lucide-react";
 
 const ContactSection = ({ isDark }) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const data = new URLSearchParams();
+    data.append("entry.1781500597", formData.get("name")); // Name
+    data.append("entry.1640447617", formData.get("email")); // Email
+    data.append("entry.2040870261", formData.get("message")); // Message
+
+    try {
+      await fetch(
+        "https://docs.google.com/forms/d/e/1FAIpQLSfhiC1j8SjWTzbMjQnAX9zIh4UdfTxbeWvUP8ci5sUMJVSTPQ/formResponse",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: data,
+        }
+      );
+      alert("Message sent! Thank you.");
+      form.reset();
+    } catch (err) {
+      alert("Oops! Something went wrong.");
+    }
+  };
+
   return (
     <div className={`py-20 ${isDark ? "bg-gray-800/50" : "bg-gray-50"}`}>
       <div className="max-w-4xl px-4 mx-auto">
@@ -10,6 +36,7 @@ const ContactSection = ({ isDark }) => {
           Get In Touch
         </h2>
         <div className="grid gap-12 md:grid-cols-2">
+          {/* Contact Info */}
           <div>
             <h3 className="mb-6 text-xl font-semibold">Let's work together!</h3>
             <p className="mb-8 text-gray-600 dark:text-gray-300">
@@ -47,32 +74,38 @@ const ContactSection = ({ isDark }) => {
               </div>
             </div>
           </div>
+
+          {/* Custom Form */}
           <div
             className={`p-6 rounded-xl ${isDark ? "bg-gray-800" : "bg-white"}`}
           >
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block mb-2 text-sm font-medium">Name</label>
                 <input
                   type="text"
+                  name="name"
                   className={`w-full px-4 py-2 rounded-lg border transition-colors ${
                     isDark
                       ? "bg-gray-700 border-gray-600 focus:border-blue-500"
                       : "bg-white border-gray-300 focus:border-blue-500"
                   } focus:outline-none`}
                   placeholder="Your name"
+                  required
                 />
               </div>
               <div>
                 <label className="block mb-2 text-sm font-medium">Email</label>
                 <input
                   type="email"
+                  name="email"
                   className={`w-full px-4 py-2 rounded-lg border transition-colors ${
                     isDark
                       ? "bg-gray-700 border-gray-600 focus:border-blue-500"
                       : "bg-white border-gray-300 focus:border-blue-500"
                   } focus:outline-none`}
                   placeholder="your.email@example.com"
+                  required
                 />
               </div>
               <div>
@@ -81,12 +114,14 @@ const ContactSection = ({ isDark }) => {
                 </label>
                 <textarea
                   rows={4}
+                  name="message"
                   className={`w-full px-4 py-2 rounded-lg border transition-colors ${
                     isDark
                       ? "bg-gray-700 border-gray-600 focus:border-blue-500"
                       : "bg-white border-gray-300 focus:border-blue-500"
                   } focus:outline-none resize-none`}
                   placeholder="Your message here..."
+                  required
                 />
               </div>
               <motion.button

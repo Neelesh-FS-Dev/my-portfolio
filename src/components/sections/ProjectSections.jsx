@@ -23,13 +23,13 @@ const ProjectsSection = ({ isDark }) => {
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="text-xl font-semibold">{project.title}</h3>
-                <ExternalLink className="w-5 h-5 text-gray-400 transition-colors cursor-pointer hover:text-blue-600" />
+                <ExternalLink className="w-5 h-5 text-gray-400 hover:text-blue-600" />
               </div>
               <p className="mb-3 text-sm text-blue-600">{project.tech}</p>
               <p className="mb-4 text-gray-600 dark:text-gray-300">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.achievements.map((achievement, achIndex) => (
                   <span
                     key={achIndex}
@@ -42,6 +42,29 @@ const ProjectsSection = ({ isDark }) => {
                     {achievement}
                   </span>
                 ))}
+              </div>
+              {/* Android & iOS buttons */}
+              <div className="flex gap-4 mt-2">
+                {project.androidLink && (
+                  <a
+                    href={project.androidLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 text-sm font-semibold text-white transition bg-green-600 rounded-lg hover:bg-green-700"
+                  >
+                    Android
+                  </a>
+                )}
+                {project.iosLink && (
+                  <a
+                    href={project.iosLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 text-sm font-semibold text-white transition bg-blue-600 rounded-lg hover:bg-blue-700"
+                  >
+                    iOS
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}

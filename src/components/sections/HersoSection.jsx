@@ -40,8 +40,8 @@ const HeroSection = () => (
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="/resume.pdf"
-            download="Neelesh_Yadav_Resume.pdf"
+            href="../../../public/Neelesh-Yadav-React-Native-Developer-2-5Y.pdf"
+            download="Neelesh-Yadav-React-Native-Developer-2-5Y.pdf"
             className="flex items-center justify-center gap-2 px-8 py-3 font-medium text-blue-600 transition-all duration-200 border-2 border-blue-600 rounded-lg hover:bg-blue-600 hover:text-white"
           >
             <Download className="w-5 h-5" />
