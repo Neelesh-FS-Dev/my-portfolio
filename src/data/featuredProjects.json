@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "title": "Soul33 - Wellness & Meditation App",
+    "description": "Led end-to-end development serving 15,000+ users with 4.7 rating. Features real-time group chat supporting 200+ concurrent sessions, centralized audio playback with offline tracking, and background downloads. Enhanced performance by 40% through New React Native Architecture.",
+    "technologies": [
+      "React Native",
+      "Redux",
+      "WebSocket",
+      "AWS S3",
+      "react-native-track-player"
+    ],
+    "image": "/images/soul33.jpg",
+    "github": "https://github.com/Neelesh-FS-Dev",
+    "appStore": "https://apps.apple.com/app/soul33",
+    "playStore": "https://play.google.com/store/apps/details?id=com.soul33",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Yoke App - Social Wellness Platform",
+    "description": "Developed Instagram-like Reels feature with advanced video optimization. Integrated live streaming with ZegoCloud SDK for real-time audience interaction. Built comprehensive creator profiles with optimized tabs. Reduced re-renders by 40% through component memoization and lazy loading.",
+    "technologies": [
+      "React Native",
+      "Redux",
+      "ZegoCloud SDK",
+      "react-native-video-cache",
+      "Video Streaming"
+    ],
+    "image": "/images/yoke.jpg",
+    "github": "https://github.com/Neelesh-FS-Dev",
+    "appStore": "https://apps.apple.com/app/yoke",
+    "playStore": "https://play.google.com/store/apps/details?id=com.yoke",
+    "featured": true
+  }
+]

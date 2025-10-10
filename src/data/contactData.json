@@ -1,0 +1,65 @@
+{
+  "header": {
+    "title": "Get In Touch",
+    "subtitle": "Have a project in mind or want to discuss React Native development opportunities? I'd love to hear from you. Let's build something amazing together."
+  },
+  "contactInfo": [
+    {
+      "type": "Email",
+      "icon": "FiMail",
+      "value": "neeleshy263@gmail.com",
+      "link": "mailto:neeleshy263@gmail.com"
+    },
+    {
+      "type": "Phone",
+      "icon": "FiPhone",
+      "value": "+91 91661 17663",
+      "link": "tel:+919166117663"
+    },
+    {
+      "type": "Location",
+      "icon": "FiMapPin",
+      "value": "Pune, Maharashtra, India"
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "GitHub",
+      "icon": "FiGithub",
+      "link": "https://github.com/Neelesh-FS-Dev"
+    },
+    {
+      "platform": "LinkedIn",
+      "icon": "FiLinkedin",
+      "link": "https://linkedin.com/in/neelesh-yadav"
+    },
+    {
+      "platform": "Email",
+      "icon": "FiMail",
+      "link": "mailto:neeleshy263@gmail.com"
+    },
+    {
+      "platform": "Instagram",
+      "icon": "FiInstagram",
+      "link": "https://instagram.com/neelesh.yadav25"
+    }
+  ],
+  "form": {
+    "fields": {
+      "name": { "label": "Your Name", "placeholder": "Your Name" },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "your.email@example.com"
+      },
+      "subject": {
+        "label": "Subject",
+        "placeholder": "React Native Project Discussion"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Tell me about your project requirements..."
+      }
+    },
+    "submitButton": "Send Message"
+  }
+}

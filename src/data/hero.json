@@ -1,0 +1,27 @@
+{
+  "name": "Neelesh Yadav",
+  "initials": "NY",
+  "title": "React Native Developer",
+  "description": "Building high-performance, cross-platform mobile applications serving 20,000+ active users. Experienced in creating pixel-perfect UIs, real-time features, and optimizing app performance. Passionate about mentoring developers and delivering exceptional user experiences.",
+  "cta": [
+    { "label": "View My Work", "link": "/projects", "type": "primary" },
+    { "label": "Get In Touch", "link": "/contact", "type": "secondary" }
+  ],
+  "socials": [
+    {
+      "icon": "FiGithub",
+      "link": "https://github.com/Neelesh-FS-Dev",
+      "external": true
+    },
+    {
+      "icon": "FiLinkedin",
+      "link": "https://linkedin.com/in/neelesh-yadav",
+      "external": true
+    },
+    {
+      "icon": "FiMail",
+      "link": "mailto:neeleshy263@gmail.com",
+      "external": false
+    }
+  ]
+}

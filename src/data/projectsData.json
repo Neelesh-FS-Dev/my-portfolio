@@ -1,0 +1,76 @@
+{
+  "header": {
+    "title": "My Projects",
+    "subtitle": "Explore my portfolio of production-ready React Native applications. Each project showcases real-world solutions serving thousands of users with advanced features and optimized performance."
+  },
+  "projects": [
+    {
+      "title": "Soul33 - Wellness & Meditation App",
+      "description": "Led end-to-end development of a wellness app serving 15,000+ users with a 4.7 rating. Features real-time group chat with 200+ concurrent sessions, voicemail system with message replies and file sharing, centralized audio playback with offline progress tracking, and background downloads. Enhanced performance by 40% through New React Native Architecture implementation.",
+      "technologies": [
+        "React Native",
+        "Redux",
+        "WebSocket",
+        "AWS S3",
+        "react-native-track-player",
+        "AsyncStorage"
+      ],
+      "image": "/images/soul33.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+      "appStore": "https://apps.apple.com/app/soul33",
+      "playStore": "https://play.google.com/store/apps/details?id=com.soul33",
+      "category": "Wellness"
+    },
+    {
+      "title": "Yoke App - Social Wellness Platform",
+      "description": "Developed an Instagram-like Reels feature with advanced video optimization including preloading, caching, and seamless playback. Integrated live streaming with ZegoCloud SDK enabling recording and real-time audience interaction. Built comprehensive creator profiles with optimized tabs and gallery components. Reduced re-renders by 40% on complex UI screens through component memoization and lazy loading.",
+      "technologies": [
+        "React Native",
+        "Redux",
+        "ZegoCloud SDK",
+        "react-native-video-cache",
+        "Video Streaming"
+      ],
+      "image": "/images/yoke.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+      "appStore": "https://apps.apple.com/app/yoke",
+      "playStore": "https://play.google.com/store/apps/details?id=com.yoke",
+      "category": "Social"
+    },
+    {
+      "title": "Co-stack Barva - E-commerce & AR Beauty Platform",
+      "description": "Developed full-scale e-commerce platform with Shopify API integration for products, cart, authentication, and order management supporting 100+ beauty products. Implemented AR-powered lipstick try-on using Three.js and MediaPipe Face Landmarker for real-time virtual makeup experiences. Built notification system with Firebase Cloud Messaging for 5k+ users.",
+      "technologies": [
+        "React Native",
+        "Redux",
+        "Shopify API",
+        "Three.js",
+        "MediaPipe",
+        "Firebase",
+        "react-native-fast-image"
+      ],
+      "image": "/images/costack-barva.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+      "appStore": "https://apps.apple.com/app/costack-barva",
+      "playStore": "https://play.google.com/store/apps/details?id=com.costack.barva",
+      "category": "E-commerce"
+    },
+    {
+      "title": "Culture Max - Interactive Card Game Platform",
+      "description": "Upgraded React Native from 0.72.4 to 0.81.1, migrating Android from Java to Kotlin and iOS AppDelegate to Swift. Implemented monetization system with sponsor cards, banner ads, and reward vouchers, increasing user engagement by 35%. Built advanced card caching system supporting 1,000+ daily active users with real-time analytics for sponsor clicks and view counts.",
+      "technologies": [
+        "React Native",
+        "Redux",
+        "Firebase",
+        "Kotlin",
+        "Swift",
+        "AsyncStorage"
+      ],
+      "image": "/images/culture-max.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+      "appStore": "https://apps.apple.com/app/culture-max",
+      "playStore": "https://play.google.com/store/apps/details?id=com.culturemax",
+      "category": "Gaming"
+    }
+  ]
+}

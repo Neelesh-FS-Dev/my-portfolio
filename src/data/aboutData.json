@@ -1,0 +1,37 @@
+{
+  "title": "About Me",
+  "paragraphs": [
+    "With 2.5+ years of hands-on experience in React Native, I’ve built 10+ cross-platform apps serving 20K+ active users with consistent 4.5★+ ratings.",
+    "Starting as a Full-Stack Developer with React.js and Next.js, I crafted responsive web apps with 95+ PageSpeed scores, which laid a strong foundation for building smooth, high-performing mobile apps.",
+    "I’m passionate about performance optimization, clean architecture, and mentoring developers. In Agile setups, I’ve implemented CI/CD pipelines that cut deployment time by 60%."
+  ],
+  "skills": [
+    "React Native",
+    "JavaScript ES6+",
+    "TypeScript",
+    "Redux Toolkit",
+    "React Native Reanimated",
+    "Firebase",
+    "Git & GitHub",
+    "RESTful APIs",
+    "WebSocket",
+    "Xcode & Android Studio"
+  ],
+  "stats": [
+    {
+      "icon": "FiCode",
+      "title": "10+ Apps",
+      "description": "Deployed to Production"
+    },
+    {
+      "icon": "FiSmartphone",
+      "title": "20K+ Users",
+      "description": "Active Monthly"
+    },
+    {
+      "icon": "FiUsers",
+      "title": "5+ Developers",
+      "description": "Mentored"
+    }
+  ]
+}

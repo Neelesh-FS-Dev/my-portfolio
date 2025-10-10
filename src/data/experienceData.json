@@ -1,0 +1,58 @@
+{
+  "header": {
+    "title": "Work Experience",
+    "subtitle": "My journey from full-stack web development to specialized React Native development, building high-performance mobile applications serving thousands of users."
+  },
+  "experiences": [
+    {
+      "company": "EC Info Solutions Pvt. Ltd.",
+      "position": "React Native Developer",
+      "duration": "Sep 2023 - Present",
+      "location": "Pune, Maharashtra",
+      "description": "Leading development of cross-platform mobile applications serving 20,000+ active users. Mentoring junior developers and establishing best practices for React Native development.",
+      "achievements": [
+        "Developed 10+ cross-platform mobile applications with consistent 4.5+ star ratings on App Store and Play Store",
+        "Implemented Redux Toolkit for state management, reducing component re-renders and improving load time by 1.5 seconds",
+        "Established CI/CD pipelines using GitHub Actions, reducing manual deployment time by 60%",
+        "Optimized application bundle size through code splitting and lazy loading techniques",
+        "Mentored 5+ junior developers on React Native best practices, improving team productivity",
+        "Integrated RESTful APIs and WebSocket connections with 99.8% uptime"
+      ],
+      "technologies": [
+        "React Native",
+        "Redux Toolkit",
+        "JavaScript ES6+",
+        "TypeScript",
+        "React Native Reanimated",
+        "MMKV/AsyncStorage",
+        "WebSocket",
+        "Firebase",
+        "GitHub Actions"
+      ]
+    },
+    {
+      "company": "The Special Character Pvt. Ltd.",
+      "position": "Full-Stack Developer",
+      "duration": "Jan 2023 - Aug 2023",
+      "location": "Ahmedabad, Gujarat",
+      "description": "Developed responsive web applications using React.js and Next.js. Built digital card business platform with focus on performance optimization and user experience.",
+      "achievements": [
+        "Developed responsive web applications achieving 95+ Google PageSpeed scores supporting 10,000+ concurrent users",
+        "Built digital card business platform with Tailwind CSS, reducing CSS bundle size by 500KB",
+        "Implemented JWT authentication system handling thousands of daily user sessions",
+        "Integrated payment gateways processing $10,000+ in monthly transactions with 99.7% success rate",
+        "Optimized database queries reducing response time from 800ms to 400ms",
+        "Developed automated testing suites, significantly reducing production bugs"
+      ],
+      "technologies": [
+        "React.js",
+        "Next.js",
+        "Tailwind CSS",
+        "JavaScript",
+        "JWT Authentication",
+        "REST APIs",
+        "Payment Gateway Integration"
+      ]
+    }
+  ]
+}
