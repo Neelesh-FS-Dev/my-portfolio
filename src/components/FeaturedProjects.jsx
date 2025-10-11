@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
-import featuredProjects from "../data/featuredProjects.json"; // import JSON
-
+import featuredProjects from "../data/featuredProjects.json";
 const FeaturedProjects = () => {
   console.log(featuredProjects);
   return (
