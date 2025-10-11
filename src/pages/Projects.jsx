@@ -43,7 +43,7 @@ const Projects = () => {
               </div>
 
               {/* Project Image */}
-              <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 group rounded-xl">
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 group">
                 {/* Project banner image */}
                 <img
                   src={project.image}

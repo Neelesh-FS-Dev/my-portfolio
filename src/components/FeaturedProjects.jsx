@@ -27,7 +27,7 @@ const FeaturedProjects = () => {
               className="overflow-hidden transition-all duration-500 shadow-lg bg-gray-50 dark:bg-gray-800 rounded-2xl hover:shadow-2xl animate-slide-up group"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="relative overflow-hidden h-90 rounded-xl group">
+              <div className="relative overflow-hidden h-90 group">
                 {/* Project banner image */}
                 <img
                   src={project.image}
