@@ -21,6 +21,7 @@
       "playStore": "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33",
       "category": "Wellness"
     },
+
     {
       "title": "Yoke App - Social Wellness Platform",
       "description": "Developed an Instagram-like Reels feature with advanced video optimization including preloading, caching, and seamless playback. Integrated live streaming with ZegoCloud SDK enabling recording and real-time audience interaction. Built comprehensive creator profiles with optimized tabs and gallery components. Reduced re-renders by 40% on complex UI screens through component memoization and lazy loading.",
@@ -71,6 +72,42 @@
       "appStore": "https://apps.apple.com/in/app/culture-max/id6478849232",
       "playStore": "https://play.google.com/store/apps/details?id=com.culturemaxapk",
       "category": "Gaming"
+    },
+    {
+      "title": "Netra's - Social Commerce Platform",
+      "description": "Developed social-commerce app integrating Shopify Storefront API via GraphQL for complete e-commerce functionality including products, cart, checkout, and order management. Engineered TikTok-style short-form video feed with preloading and seamless playback state persistence. Built long-form video player with immersive full-screen experience. Implemented blog and recipe sections with rich HTML rendering and embedded YouTube videos. Enhanced performance with FastImage for cached media loading and Reanimated for smooth transitions.",
+      "technologies": [
+        "React Native",
+        "Redux Toolkit",
+        "Shopify API",
+        "GraphQL",
+        "Apollo Client",
+        "react-native-fast-image",
+        "react-native-reanimated"
+      ],
+      "image": "5.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+      "appStore": "https://apps.apple.com/in/app/netras/id6745164461",
+      "playStore": "https://play.google.com/store/apps/details?id=com.netras",
+      "category": "E-commerce"
+    },
+
+    {
+      "title": "Flairish - Dual-App Learning Marketplace",
+      "description": "Architected and developed two interconnected apps: Flairish (Hobbyist) and FlairWiz (Instructor), connecting learners with instructors through live video sessions. Integrated Zoom Video SDK for real-time video sessions with custom UI and session lifecycle management. Implemented complete In-App Purchase flows for iOS and Android using react-native-iap with transaction verification. Engineered OAuth authentication with Google and Apple Sign-In. Managed 50+ production releases across both platforms.",
+      "technologies": [
+        "React Native",
+        "Redux Toolkit",
+        "Zoom Video SDK",
+        "react-native-iap",
+        "Google Sign-In",
+        "Apple Sign-In",
+        "Firebase"
+      ],
+      "image": "3.jpg",
+      "github": "https://github.com/Neelesh-FS-Dev",
+
+      "category": "Education"
     }
   ]
 }

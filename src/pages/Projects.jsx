@@ -56,10 +56,24 @@ const Projects = () => {
               </div>
 
               {/* Project Content */}
+              {/* Project Content */}
               <div className="p-6">
-                <p className="mb-6 leading-relaxed text-gray-600 dark:text-gray-300">
-                  {project.description}
-                </p>
+                <ul className="mb-6 space-y-2 text-gray-600 dark:text-gray-300">
+                  {project.description
+                    .split(". ")
+                    .filter((item) => item.trim())
+                    .map((point, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className="mr-2 text-primary-600 dark:text-primary-400">
+                          •
+                        </span>
+                        <span className="leading-relaxed">
+                          {point.trim()}
+                          {point.endsWith(".") ? "" : "."}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
