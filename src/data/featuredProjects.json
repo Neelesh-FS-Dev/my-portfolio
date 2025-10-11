@@ -10,7 +10,7 @@
       "AWS S3",
       "react-native-track-player"
     ],
-    "image": "/images/soul33.jpg",
+    "image": "/public/2.jpg",
     "github": "https://github.com/Neelesh-FS-Dev",
     "appStore": "https://apps.apple.com/app/soul33",
     "playStore": "https://play.google.com/store/apps/details?id=com.soul33",
@@ -27,7 +27,7 @@
       "react-native-video-cache",
       "Video Streaming"
     ],
-    "image": "/images/yoke.jpg",
+    "image": "/public/6.png",
     "github": "https://github.com/Neelesh-FS-Dev",
     "appStore": "https://apps.apple.com/app/yoke",
     "playStore": "https://play.google.com/store/apps/details?id=com.yoke",

@@ -4,6 +4,7 @@ import { FiGithub, FiExternalLink } from "react-icons/fi";
 import featuredProjects from "../data/featuredProjects.json"; // import JSON
 
 const FeaturedProjects = () => {
+  console.log(featuredProjects);
   return (
     <section
       id="projects"
@@ -27,22 +28,34 @@ const FeaturedProjects = () => {
               className="overflow-hidden transition-all duration-500 shadow-lg bg-gray-50 dark:bg-gray-800 rounded-2xl hover:shadow-2xl animate-slide-up group"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600">
-                <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-20">
-                  <div className="flex space-x-4 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+              <div className="relative overflow-hidden h-90 rounded-xl group">
+                {/* Project banner image */}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                />
+
+                {/* Overlay with hover effect */}
+                <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-30">
+                  {/* <div className="flex space-x-4 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
                     <a
                       href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-3 text-gray-800 transition-colors duration-300 bg-white rounded-full hover:bg-gray-100"
                     >
                       <FiGithub size={20} />
                     </a>
                     <a
                       href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-3 text-gray-800 transition-colors duration-300 bg-white rounded-full hover:bg-gray-100"
                     >
                       <FiExternalLink size={20} />
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -65,7 +78,7 @@ const FeaturedProjects = () => {
                   ))}
                 </div>
                 <div className="flex space-x-4">
-                  {/* GitHub Link */}
+                  {/* GitHub Link
                   <a
                     href={project.github}
                     target="_blank"
@@ -74,7 +87,7 @@ const FeaturedProjects = () => {
                   >
                     <FiGithub className="mr-2" />
                     Code
-                  </a>
+                  </a> */}
 
                   {/* App Store Link */}
                   {project.appStore && (

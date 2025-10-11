@@ -43,7 +43,15 @@ const Projects = () => {
               </div>
 
               {/* Project Image */}
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600">
+              <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 group rounded-xl">
+                {/* Project banner image */}
+                <img
+                  src={project.image}
+                  alt={project.name}
+                  className="absolute inset-0 object-cover w-full h-full transition-transform duration-500 opacity-90 group-hover:scale-105"
+                />
+
+                {/* Hover overlay */}
                 <div className="absolute inset-0 transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-20" />
               </div>
 
@@ -67,7 +75,7 @@ const Projects = () => {
 
                 {/* Action Buttons */}
                 <div className="grid grid-cols-3 gap-3">
-                  <a
+                  {/* <a
                     href={project.github}
                     className="flex items-center justify-center px-2 py-3 text-gray-700 transition-colors duration-300 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 group"
                     title="View Code"
@@ -76,7 +84,7 @@ const Projects = () => {
                       className="transition-transform duration-300 group-hover:scale-110"
                       size={20}
                     />
-                  </a>
+                  </a> */}
                   {project.appStore && (
                     <a
                       href={project.appStore}
