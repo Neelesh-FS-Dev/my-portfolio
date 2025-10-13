@@ -83,7 +83,7 @@ const ProjectDetails = () => {
                     href={projectData.appStore}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 px-8 py-4 text-white transition-all duration-300 rounded-lg shadow-lg bg-primary-600 hover:bg-primary-700 hover:shadow-xl hover:scale-105"
+                    className="flex items-center gap-3 px-8 py-4 text-black transition-all duration-300 bg-white rounded-lg shadow hover:bg-gray-100 hover:shadow-lg hover:scale-105"
                   >
                     <SiApple size={28} />
                     <div className="text-left">
@@ -98,7 +98,7 @@ const ProjectDetails = () => {
                     href={projectData.playStore}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 px-8 py-4 text-white transition-all duration-300 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 hover:shadow-xl hover:scale-105"
+                    className="flex items-center gap-3 px-8 py-4 text-black transition-all duration-300 bg-white rounded-lg shadow hover:bg-gray-100 hover:shadow-lg hover:scale-105"
                   >
                     <SiGoogleplay size={28} />
                     <div className="text-left">
