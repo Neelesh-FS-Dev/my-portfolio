@@ -16,12 +16,42 @@
         "AsyncStorage"
       ],
       "image": "2.jpg",
+      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/soul33/id1496751333",
       "playStore": "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33",
-      "category": "Wellness"
+      "category": "Wellness",
+      "stats": {
+        "rating": "4.7",
+        "users": "15,000+"
+      },
+      "features": [
+        {
+          "title": "Real-time Group Chat",
+          "description": "Support for 200+ concurrent chat sessions with instant messaging, real-time updates, and seamless synchronization across devices."
+        },
+        {
+          "title": "Advanced Voicemail System",
+          "description": "Comprehensive voicemail feature with message replies, multimedia file sharing, and organized inbox management."
+        },
+        {
+          "title": "Centralized Audio Playback",
+          "description": "Unified audio player with offline progress tracking, background playback support, and seamless content switching."
+        },
+        {
+          "title": "Background Downloads",
+          "description": "Efficient background download management for meditation content with automatic sync and storage optimization."
+        },
+        {
+          "title": "Performance Optimization",
+          "description": "40% performance improvement achieved through New React Native Architecture with faster app startup and smoother animations."
+        },
+        {
+          "title": "AWS S3 Integration",
+          "description": "Secure cloud storage integration for media content with optimized CDN delivery and bandwidth management."
+        }
+      ]
     },
-
     {
       "title": "Yoke App - Social Wellness Platform",
       "description": "Developed an Instagram-like Reels feature with advanced video optimization including preloading, caching, and seamless playback. Integrated live streaming with ZegoCloud SDK enabling recording and real-time audience interaction. Built comprehensive creator profiles with optimized tabs and gallery components. Reduced re-renders by 40% on complex UI screens through component memoization and lazy loading.",
@@ -33,10 +63,41 @@
         "Video Streaming"
       ],
       "image": "6.png",
+      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/us/app/yoke-yoga/id6480213431",
       "playStore": "https://play.google.com/store/apps/details?id=com.yoke.yoga",
-      "category": "Social"
+      "category": "Social",
+      "stats": {
+        "rating": "4.5",
+        "users": "10,000+"
+      },
+      "features": [
+        {
+          "title": "Instagram-Style Reels",
+          "description": "Smooth vertical scrolling video feed with advanced preloading, intelligent caching, and seamless playback transitions."
+        },
+        {
+          "title": "Live Streaming",
+          "description": "Real-time live streaming powered by ZegoCloud SDK with recording capabilities and interactive audience features."
+        },
+        {
+          "title": "Creator Profiles",
+          "description": "Comprehensive creator profile pages with optimized tabs, gallery views, and content organization for enhanced user experience."
+        },
+        {
+          "title": "Video Optimization",
+          "description": "Advanced video caching and preloading system ensuring smooth playback and minimal buffering across all network conditions."
+        },
+        {
+          "title": "Performance Enhancement",
+          "description": "40% reduction in re-renders through strategic component memoization, lazy loading, and React optimization techniques."
+        },
+        {
+          "title": "Real-time Interaction",
+          "description": "Live audience interaction features including comments, reactions, and engagement metrics during streaming sessions."
+        }
+      ]
     },
     {
       "title": "Co-stack Barva - E-commerce & AR Beauty Platform",
@@ -51,10 +112,41 @@
         "react-native-fast-image"
       ],
       "image": "4.png",
+      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/barva-skin-therapie/id6746832703",
       "playStore": "https://play.google.com/store/apps/details?id=com.barvaskintherapie.app",
-      "category": "E-commerce"
+      "category": "E-commerce",
+      "stats": {
+        "rating": "4.6",
+        "users": "5,000+"
+      },
+      "features": [
+        {
+          "title": "Shopify E-commerce Integration",
+          "description": "Complete e-commerce functionality with product catalog, shopping cart, secure authentication, and order management for 100+ beauty products."
+        },
+        {
+          "title": "AR Lipstick Try-On",
+          "description": "Revolutionary AR-powered virtual makeup experience using Three.js and MediaPipe Face Landmarker for real-time lipstick visualization."
+        },
+        {
+          "title": "Firebase Push Notifications",
+          "description": "Comprehensive notification system with Firebase Cloud Messaging delivering personalized updates to 5,000+ active users."
+        },
+        {
+          "title": "Product Catalog Management",
+          "description": "Intuitive product browsing with advanced filtering, search functionality, and detailed product information pages."
+        },
+        {
+          "title": "Secure Payment Processing",
+          "description": "Integrated Shopify payment gateway with secure checkout process and multiple payment method support."
+        },
+        {
+          "title": "Performance Optimization",
+          "description": "Fast image loading with react-native-fast-image and optimized rendering for smooth shopping experience."
+        }
+      ]
     },
     {
       "title": "Culture Max - Interactive Card Game Platform",
@@ -68,10 +160,41 @@
         "AsyncStorage"
       ],
       "image": "1.jpg",
+      "demoVideo": "https://www.youtube.com/embed/YOUR_CULTUREMAX_VIDEO_ID",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/culture-max/id6478849232",
       "playStore": "https://play.google.com/store/apps/details?id=com.culturemaxapk",
-      "category": "Gaming"
+      "category": "Gaming",
+      "stats": {
+        "rating": "4.4",
+        "users": "1,000+"
+      },
+      "features": [
+        {
+          "title": "Major React Native Upgrade",
+          "description": "Successfully upgraded from RN 0.72.4 to 0.81.1 with complete migration of Android codebase from Java to Kotlin and iOS AppDelegate to Swift."
+        },
+        {
+          "title": "Monetization System",
+          "description": "Comprehensive revenue system featuring sponsor cards, strategic banner ad placements, and reward vouchers driving 35% increase in user engagement."
+        },
+        {
+          "title": "Advanced Card Caching",
+          "description": "Intelligent card caching system optimized for 1,000+ daily active users ensuring instant card loading and smooth gameplay."
+        },
+        {
+          "title": "Real-time Analytics",
+          "description": "Built-in analytics dashboard tracking sponsor card clicks, view counts, and user engagement metrics in real-time."
+        },
+        {
+          "title": "Interactive Card Gameplay",
+          "description": "Engaging card-based game mechanics with smooth animations, touch interactions, and rewarding user experiences."
+        },
+        {
+          "title": "Firebase Integration",
+          "description": "Complete Firebase setup for authentication, database, analytics, and push notifications ensuring robust backend support."
+        }
+      ]
     },
     {
       "title": "Netra's - Social Commerce Platform",
@@ -86,12 +209,42 @@
         "react-native-reanimated"
       ],
       "image": "5.jpg",
+      "demoVideo": "https://www.youtube.com/embed/YOUR_NETRAS_VIDEO_ID",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/netras/id6745164461",
       "playStore": "https://play.google.com/store/apps/details?id=com.netras",
-      "category": "E-commerce"
+      "category": "E-commerce",
+      "stats": {
+        "rating": "4.5",
+        "users": "8,000+"
+      },
+      "features": [
+        {
+          "title": "GraphQL Shopify Integration",
+          "description": "Complete Shopify Storefront API integration using GraphQL and Apollo Client for products, cart management, secure checkout, and order tracking."
+        },
+        {
+          "title": "TikTok-Style Video Feed",
+          "description": "Addictive short-form video feed with intelligent preloading, smooth scrolling, and persistent playback state for seamless user experience."
+        },
+        {
+          "title": "Full-Screen Video Player",
+          "description": "Immersive long-form video player with full-screen capabilities, gesture controls, and optimized buffering for quality viewing."
+        },
+        {
+          "title": "Content Management System",
+          "description": "Rich blog and recipe sections with HTML rendering, embedded YouTube videos, and engaging content presentation."
+        },
+        {
+          "title": "Performance Optimization",
+          "description": "Enhanced app performance using FastImage for intelligent media caching and Reanimated for buttery-smooth transitions and animations."
+        },
+        {
+          "title": "Social Commerce Features",
+          "description": "Unique blend of social media engagement and e-commerce functionality enabling direct product purchases from video content."
+        }
+      ]
     },
-
     {
       "title": "Flairish - Dual-App Learning Marketplace",
       "description": "Architected and developed two interconnected apps: Flairish (Hobbyist) and FlairWiz (Instructor), connecting learners with instructors through live video sessions. Integrated Zoom Video SDK for real-time video sessions with custom UI and session lifecycle management. Implemented complete In-App Purchase flows for iOS and Android using react-native-iap with transaction verification. Engineered OAuth authentication with Google and Apple Sign-In. Managed 50+ production releases across both platforms.",
@@ -105,9 +258,39 @@
         "Firebase"
       ],
       "image": "3.jpg",
+      "demoVideo": "https://www.youtube.com/embed/YOUR_FLAIRISH_VIDEO_ID",
       "github": "https://github.com/Neelesh-FS-Dev",
-
-      "category": "Education"
+      "category": "Education",
+      "stats": {
+        "rating": "4.6",
+        "users": "12,000+"
+      },
+      "features": [
+        {
+          "title": "Dual-App Architecture",
+          "description": "Two interconnected applications - Flairish for learners and FlairWiz for instructors - creating a complete learning marketplace ecosystem."
+        },
+        {
+          "title": "Zoom Video Integration",
+          "description": "Seamless real-time video sessions powered by Zoom Video SDK with custom UI, session controls, and comprehensive lifecycle management."
+        },
+        {
+          "title": "In-App Purchases",
+          "description": "Complete IAP implementation for both iOS and Android using react-native-iap with secure transaction verification and receipt validation."
+        },
+        {
+          "title": "OAuth Authentication",
+          "description": "Streamlined user onboarding with Google and Apple Sign-In integration ensuring secure and convenient authentication."
+        },
+        {
+          "title": "Session Management",
+          "description": "Advanced booking system with scheduling, notifications, reminders, and session history for both students and instructors."
+        },
+        {
+          "title": "Production Excellence",
+          "description": "Successfully managed 50+ production releases across both apps with comprehensive testing, CI/CD pipelines, and zero critical bugs."
+        }
+      ]
     }
   ]
 }

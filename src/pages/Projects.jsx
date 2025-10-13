@@ -1,10 +1,16 @@
 import React from "react";
-import { FiGithub, FiSmartphone } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiGithub, FiSmartphone, FiArrowRight } from "react-icons/fi";
 import { SiApple, SiGoogleplay } from "react-icons/si";
 import projectsData from "../data/projectsData.json";
 
 const Projects = () => {
   const { header, projects } = projectsData;
+  const navigate = useNavigate();
+
+  const handleViewDetails = (index) => {
+    navigate(`/project/${index}`);
+  };
 
   return (
     <div className="min-h-screen pt-20 section-padding bg-gray-50 dark:bg-gray-900">
@@ -24,8 +30,9 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="overflow-hidden transition-all duration-500 bg-white shadow-lg dark:bg-gray-800 rounded-2xl hover:shadow-2xl group animate-slide-up"
+              className="overflow-hidden transition-all duration-500 bg-white shadow-lg cursor-pointer dark:bg-gray-800 rounded-2xl hover:shadow-2xl group animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => handleViewDetails(index)}
             >
               {/* Project Header */}
               <div className="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -44,32 +51,33 @@ const Projects = () => {
 
               {/* Project Image */}
               <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 group">
-                {/* Project banner image */}
                 <img
                   src={project.image}
-                  alt={project.name}
+                  alt={project.title}
                   className="absolute inset-0 object-cover w-full h-full transition-transform duration-500 opacity-90 group-hover:scale-105"
                 />
-
-                {/* Hover overlay */}
                 <div className="absolute inset-0 transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-20" />
               </div>
 
-              {/* Project Content */}
               {/* Project Content */}
               <div className="p-6">
                 <ul className="mb-6 space-y-2 text-gray-600 dark:text-gray-300">
                   {project.description
                     .split(". ")
                     .filter((item) => item.trim())
+                    .slice(0, 3)
                     .map((point, idx) => (
                       <li key={idx} className="flex items-start">
                         <span className="mr-2 text-primary-600 dark:text-primary-400">
                           •
                         </span>
                         <span className="leading-relaxed">
-                          {point.trim()}
-                          {point.endsWith(".") ? "" : "."}
+                          {point.trim().substring(0, 60)}
+                          {point.trim().length > 60
+                            ? "..."
+                            : point.endsWith(".")
+                            ? ""
+                            : "."}
                         </span>
                       </li>
                     ))}
@@ -77,7 +85,7 @@ const Projects = () => {
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
+                  {project.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
@@ -85,26 +93,23 @@ const Projects = () => {
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 3 && (
+                    <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                      +{project.technologies.length - 3} more
+                    </span>
+                  )}
                 </div>
 
                 {/* Action Buttons */}
                 <div className="grid grid-cols-3 gap-3">
-                  {/* <a
-                    href={project.github}
-                    className="flex items-center justify-center px-2 py-3 text-gray-700 transition-colors duration-300 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 group"
-                    title="View Code"
-                  >
-                    <FiGithub
-                      className="transition-transform duration-300 group-hover:scale-110"
-                      size={20}
-                    />
-                  </a> */}
                   {project.appStore && (
                     <a
                       href={project.appStore}
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center justify-center px-2 py-3 text-white transition-colors duration-300 bg-gray-900 rounded-lg dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 group"
                       title="App Store"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <SiApple
                         className="transition-transform duration-300 group-hover:scale-110"
@@ -115,9 +120,11 @@ const Projects = () => {
                   {project.playStore && (
                     <a
                       href={project.playStore}
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center justify-center px-2 py-3 text-white transition-colors duration-300 bg-green-600 rounded-lg hover:bg-green-700 group"
                       title="Play Store"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <SiGoogleplay
                         className="transition-transform duration-300 group-hover:scale-110"
@@ -125,6 +132,17 @@ const Projects = () => {
                       />
                     </a>
                   )}
+                  <button
+                    onClick={() => handleViewDetails(index)}
+                    className="flex items-center justify-center gap-2 px-2 py-3 text-white transition-colors duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 group"
+                    title="View Details"
+                  >
+                    <span className="text-sm font-medium">Details</span>
+                    <FiArrowRight
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      size={16}
+                    />
+                  </button>
                 </div>
               </div>
             </div>
