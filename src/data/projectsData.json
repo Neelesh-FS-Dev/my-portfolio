@@ -6,17 +6,21 @@
   "projects": [
     {
       "title": "Soul33 - Wellness & Meditation App",
-      "description": "Led end-to-end development of a wellness app serving 15,000+ users with a 4.7 rating. Features real-time group chat with 200+ concurrent sessions, voicemail system with message replies and file sharing, centralized audio playback with offline progress tracking, and background downloads. Enhanced performance by 40% through New React Native Architecture implementation.",
+      "description": "Led end-to-end development of a comprehensive wellness platform serving 15,000+ users with a 4.7 rating. Architected real-time group chat with 200+ concurrent sessions, voicemail system with audio message replies and file sharing, centralized audio playback with offline progress tracking, and intelligent background downloads. Enhanced performance by 40% through New React Native Architecture implementation and advanced state management.",
       "technologies": [
         "React Native",
+        "TypeScript",
         "Redux",
         "WebSocket",
         "AWS S3",
         "react-native-track-player",
-        "AsyncStorage"
+        "AsyncStorage",
+        "React Navigation",
+        "Firebase",
+        "React Native Reanimated"
       ],
       "image": "2.jpg",
-      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
+      "demoVideo": "",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/soul33/id1496751333",
       "playStore": "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33",
@@ -27,28 +31,28 @@
       },
       "features": [
         {
-          "title": "Real-time Group Chat",
-          "description": "Support for 200+ concurrent chat sessions with instant messaging, real-time updates, and seamless synchronization across devices."
+          "title": "Real-time Group Chat & Messaging",
+          "description": "Advanced WebSocket integration supporting 200+ concurrent sessions with instant messaging, audio message upload/download, reply functionality, read receipts, and message deletion. Features swipe-to-reply gestures and superuser moderation capabilities."
         },
         {
-          "title": "Advanced Voicemail System",
-          "description": "Comprehensive voicemail feature with message replies, multimedia file sharing, and organized inbox management."
+          "title": "Centralized Audio Playback System",
+          "description": "Architected robust audio infrastructure using react-native-track-player with global state management, offline progress tracking via AsyncStorage, background playback, intelligent sync on connectivity restore, and memory-safe cleanup on navigation."
         },
         {
-          "title": "Centralized Audio Playback",
-          "description": "Unified audio player with offline progress tracking, background playback support, and seamless content switching."
+          "title": "Intelligent Download Management",
+          "description": "Multi-user download system with personalized and normal content categorization, background queue processing, offline storage optimization, and automatic synchronization when returning online."
         },
         {
-          "title": "Background Downloads",
-          "description": "Efficient background download management for meditation content with automatic sync and storage optimization."
+          "title": "Performance & Architecture Optimization",
+          "description": "40% performance improvement through New React Native Architecture implementation, dependency upgrades (react-native-track-player v5), storage migration (MMKV to AsyncStorage), and advanced animation optimization using React Native Reanimated."
         },
         {
-          "title": "Performance Optimization",
-          "description": "40% performance improvement achieved through New React Native Architecture with faster app startup and smoother animations."
+          "title": "Cross-Platform UI/UX Excellence",
+          "description": "Responsive design for tablet and mobile with consistent theming, skeleton loaders, enhanced empty states with contextual icons, font scaling control, and smooth navigation transitions across meditation, tarot, and wellness screens."
         },
         {
-          "title": "AWS S3 Integration",
-          "description": "Secure cloud storage integration for media content with optimized CDN delivery and bandwidth management."
+          "title": "Build & Deployment Automation",
+          "description": "Managed complete CI/CD pipeline with versioning (Android v12.10+, iOS v3.0+), dependency management, store deployment preparation, and crash resolution for both Apple App Store and Google Play Store."
         }
       ]
     },
@@ -63,7 +67,7 @@
         "Video Streaming"
       ],
       "image": "6.png",
-      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
+      "demoVideo": "",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/us/app/yoke-yoga/id6480213431",
       "playStore": "https://play.google.com/store/apps/details?id=com.yoke.yoga",
@@ -112,7 +116,7 @@
         "react-native-fast-image"
       ],
       "image": "4.png",
-      "demoVideo": "https://www.youtube.com/embed/6H5F-BzFwXA?si=duMyxtXZX8iO8pYs",
+      "demoVideo": "",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/barva-skin-therapie/id6746832703",
       "playStore": "https://play.google.com/store/apps/details?id=com.barvaskintherapie.app",
@@ -160,7 +164,7 @@
         "AsyncStorage"
       ],
       "image": "1.jpg",
-      "demoVideo": "https://www.youtube.com/embed/YOUR_CULTUREMAX_VIDEO_ID",
+      "demoVideo": "",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/culture-max/id6478849232",
       "playStore": "https://play.google.com/store/apps/details?id=com.culturemaxapk",
@@ -209,7 +213,7 @@
         "react-native-reanimated"
       ],
       "image": "5.jpg",
-      "demoVideo": "https://www.youtube.com/embed/YOUR_NETRAS_VIDEO_ID",
+      "demoVideo": "",
       "github": "https://github.com/Neelesh-FS-Dev",
       "appStore": "https://apps.apple.com/in/app/netras/id6745164461",
       "playStore": "https://play.google.com/store/apps/details?id=com.netras",
