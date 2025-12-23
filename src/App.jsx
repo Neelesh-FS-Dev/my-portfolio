@@ -2,15 +2,18 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
-import ProjectDetails from "./pages/ProjectDetails"; // Add this import
+import ProjectDetails from "./pages/ProjectDetails";
 import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="w-full min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900">
         <Navbar />
         <main className="w-full">
