@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 function App() {
   return (
     <Router>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <div className="w-full min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900">
         <Navbar />
         <main className="w-full">
