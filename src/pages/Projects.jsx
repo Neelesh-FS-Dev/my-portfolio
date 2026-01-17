@@ -3,13 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { FiGithub, FiSmartphone, FiArrowRight } from "react-icons/fi";
 import { SiApple, SiGoogleplay } from "react-icons/si";
 import projectsData from "../data/projectsData.json";
+const createSlug = (title) => {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-"); // Replace multiple hyphens with single
+};
 
 const Projects = () => {
   const { header, projects } = projectsData;
   const navigate = useNavigate();
 
-  const handleViewDetails = (index) => {
-    navigate(`/project/${index}`);
+  const handleViewDetails = (project) => {
+    const slug = createSlug(project.title);
+    navigate(`/projects/${slug}`);
+  };
+
+  // Helper to truncate description points
+  const truncatePoint = (point, maxLength = 60) => {
+    if (point.length <= maxLength) return point;
+    return point.substring(0, maxLength) + "...";
   };
 
   return (
@@ -29,10 +44,10 @@ const Projects = () => {
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => (
             <div
-              key={index}
+              key={createSlug(project.title)}
               className="overflow-hidden transition-all duration-500 bg-white shadow-lg cursor-pointer dark:bg-gray-800 rounded-2xl hover:shadow-2xl group animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => handleViewDetails(index)}
+              onClick={() => handleViewDetails(project)}
             >
               {/* Project Header */}
               <div className="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -72,12 +87,7 @@ const Projects = () => {
                           •
                         </span>
                         <span className="leading-relaxed">
-                          {point.trim().substring(0, 60)}
-                          {point.trim().length > 60
-                            ? "..."
-                            : point.endsWith(".")
-                            ? ""
-                            : "."}
+                          {truncatePoint(point.trim())}
                         </span>
                       </li>
                     ))}
@@ -133,7 +143,10 @@ const Projects = () => {
                     </a>
                   )}
                   <button
-                    onClick={() => handleViewDetails(index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleViewDetails(project);
+                    }}
                     className="flex items-center justify-center gap-2 px-2 py-3 text-white transition-colors duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 group"
                     title="View Details"
                   >

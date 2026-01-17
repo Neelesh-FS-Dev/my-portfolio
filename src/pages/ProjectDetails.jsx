@@ -4,22 +4,34 @@ import { FiExternalLink } from "react-icons/fi";
 import { SiApple, SiGoogleplay } from "react-icons/si";
 import projectsData from "../data/projectsData.json";
 
+const createSlug = (title) => {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+};
+
 const ProjectDetails = () => {
-  const { id } = useParams();
+  const { projectSlug } = useParams();
   const navigate = useNavigate();
 
-  const projectData = projectsData.projects[parseInt(id)];
+  // Find project by matching slug
+  const project = projectsData.projects.find(
+    (p) => createSlug(p.title) === projectSlug,
+  );
 
-  if (!projectData) {
+  if (!project) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen pt-20 section-padding bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-            Project Not Found
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Project not found
           </h1>
           <button
             onClick={() => navigate("/projects")}
-            className="px-6 py-3 text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700"
+            className="px-6 py-3 text-white bg-primary-600 rounded-lg hover:bg-primary-700"
           >
             Back to Projects
           </button>
@@ -35,38 +47,38 @@ const ProjectDetails = () => {
         <div className="container px-4 mx-auto max-w-7xl">
           <div
             className={`grid gap-8 ${
-              projectData.demoVideo ? "md:grid-cols-2" : "md:grid-cols-1"
+              project.demoVideo ? "md:grid-cols-2" : "md:grid-cols-1"
             }`}
           >
             {/* Left Column - Info */}
             <div className="flex flex-col justify-center text-white">
               <div className="inline-block px-3 py-1 mb-4 text-sm rounded-full bg-white/20 backdrop-blur-sm w-fit">
-                {projectData.category}
+                {project.category}
               </div>
               <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
-                {projectData.title}
+                {project.title}
               </h1>
               <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
-                {projectData.description}
+                {project.description}
               </p>
 
               {/* Stats */}
-              {projectData.stats && (
+              {project.stats && (
                 <div className="flex gap-8 mb-8">
-                  {projectData.stats.rating && (
+                  {project.stats.rating && (
                     <div>
                       <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                        ⭐ {projectData.stats.rating}
+                        ⭐ {project.stats.rating}
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
                         Rating
                       </div>
                     </div>
                   )}
-                  {projectData.stats.users && (
+                  {project.stats.users && (
                     <div>
                       <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                        {projectData.stats.users}
+                        {project.stats.users}
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
                         Active Users
@@ -78,9 +90,9 @@ const ProjectDetails = () => {
 
               {/* Store Buttons */}
               <div className="flex flex-wrap gap-4">
-                {projectData.appStore && (
+                {project.appStore && (
                   <a
-                    href={projectData.appStore}
+                    href={project.appStore}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 px-8 py-4 text-black transition-all duration-300 bg-white rounded-lg shadow hover:bg-gray-100 hover:shadow-lg hover:scale-105"
@@ -93,9 +105,9 @@ const ProjectDetails = () => {
                     <FiExternalLink size={18} className="ml-2" />
                   </a>
                 )}
-                {projectData.playStore && (
+                {project.playStore && (
                   <a
-                    href={projectData.playStore}
+                    href={project.playStore}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 px-8 py-4 text-black transition-all duration-300 bg-white rounded-lg shadow hover:bg-gray-100 hover:shadow-lg hover:scale-105"
@@ -112,11 +124,11 @@ const ProjectDetails = () => {
             </div>
 
             {/* Right Column - Video/Image */}
-            {projectData.demoVideo && (
+            {project.demoVideo && (
               <div className="flex items-center justify-center">
                 <div className="relative w-full overflow-hidden shadow-2xl aspect-video rounded-2xl">
                   <iframe
-                    src={projectData.demoVideo}
+                    src={project.demoVideo}
                     className="w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -139,14 +151,14 @@ const ProjectDetails = () => {
                 About This Project
               </h2>
               <p className="mb-6 leading-relaxed text-gray-600 dark:text-gray-300">
-                {projectData.description}
+                {project.description}
               </p>
 
               <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 Key Highlights
               </h3>
               <ul className="space-y-3">
-                {projectData.description
+                {project.description
                   .split(". ")
                   .filter((point) => point.trim())
                   .map((point, idx) => (
@@ -164,13 +176,13 @@ const ProjectDetails = () => {
             </div>
 
             {/* Features Section */}
-            {projectData.features && (
+            {project.features && (
               <div>
                 <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
                   Features
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2">
-                  {projectData.features.map((feature, idx) => (
+                  {project.features.map((feature, idx) => (
                     <div
                       key={idx}
                       className="p-6 transition-all duration-300 bg-white rounded-lg shadow-lg dark:bg-gray-800 hover:shadow-xl hover:scale-105"
@@ -193,7 +205,7 @@ const ProjectDetails = () => {
                 Technology Stack
               </h2>
               <div className="flex flex-wrap gap-3">
-                {projectData.technologies.map((tech, idx) => (
+                {project.technologies.map((tech, idx) => (
                   <div
                     key={idx}
                     className="px-6 py-3 font-semibold transition-all duration-300 rounded-lg bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 hover:scale-105 hover:shadow-lg"
