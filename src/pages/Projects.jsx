@@ -16,7 +16,7 @@ export default function Projects() {
     "E-commerce / AR",
     "Entertainment",
   ];
-  const webCategories = ["All", "Web App"];
+  const webCategories = ["All", "Web Applications"];
 
   const domainFiltered =
     domainTab === "all"
@@ -33,7 +33,7 @@ export default function Projects() {
             "Social",
             "E-commerce / AR",
             "Entertainment",
-            "Web App",
+            "Web Applications",
           ];
   const filtered =
     category === "All"
@@ -44,12 +44,12 @@ export default function Projects() {
     { id: "all", label: "All Projects", count: projects.length },
     {
       id: "mobile",
-      label: "📱 Mobile",
+      label: "Mobile Apps",
       count: projects.filter((p) => p.type === "mobile").length,
     },
     {
       id: "web",
-      label: "🌐 Web",
+      label: "Web Applications",
       count: projects.filter((p) => p.type === "web").length,
     },
   ];
