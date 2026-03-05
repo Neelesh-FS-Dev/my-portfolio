@@ -52,8 +52,9 @@ export default function Experience() {
               lineHeight: 1.75,
             }}
           >
-            2.5+ years building production-grade mobile apps with React Native
-            and web platforms with React, Next.js & Tailwind CSS.
+            3+ years of experience in software development (including 6 months
+            internship) building production-grade mobile apps with React Native
+            and web platforms using React, Tailwind CSS.
           </p>
 
           {/* Quick domain tags */}

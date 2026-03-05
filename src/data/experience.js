@@ -9,7 +9,7 @@ const experience = [
     companyUrl: "https://www.ecinfosolutions.com/",
     location: "Pune, Maharashtra",
     period: "Sep 2023 – Present",
-    duration: "2+ yrs",
+    duration: "2.6+ years (Present)",
     type: "current", // "current" | "past"
     mobileTech: [
       "React Native",
@@ -36,7 +36,7 @@ const experience = [
     companyUrl: "",
     location: "Ahmedabad, Gujarat",
     period: "Jan 2023 – Aug 2023",
-    duration: "8 months",
+    duration: "8 months (Intern + FT)",
     type: "past",
     mobileTech: [],
     webTech: ["React.js", "Next.js", "Tailwind CSS", "JWT", "Node.js", "MySQL"],
