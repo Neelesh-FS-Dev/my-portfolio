@@ -283,6 +283,105 @@ export default function ProjectCard({ project, featured = false }) {
           ))}
         </div>
 
+        {/* Store badges */}
+        {project.type === "mobile" &&
+          (project.appStoreUrl || project.playStoreUrl) && (
+            <div
+              style={{
+                display: "flex",
+                gap: 6,
+                flexWrap: "wrap",
+                marginTop: 4,
+              }}
+            >
+              {project.appStoreUrl && (
+                <a
+                  href={project.appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    background: "#000",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    textDecoration: "none",
+                    transition: "opacity .2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = ".8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  <svg width={13} height={13} viewBox="0 0 24 24" fill="white">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                  </svg>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: 11,
+                      color: "#fff",
+                    }}
+                  >
+                    App Store
+                  </span>
+                </a>
+              )}
+              {project.playStoreUrl && (
+                <a
+                  href={project.playStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    background: "#000",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    textDecoration: "none",
+                    transition: "opacity .2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = ".8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  <svg width={13} height={13} viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M3.18 23.76c.3.17.64.24.99.2l12.52-11.5L13.44 9.2 3.18 23.76z"
+                      fill="#EA4335"
+                    />
+                    <path
+                      d="M20.54 10.27L17.38 8.5l-3.94 3.96 3.94 3.96 3.19-1.8c.91-.51.91-1.84-.03-2.35z"
+                      fill="#FBBC04"
+                    />
+                    <path
+                      d="M3.18.24C2.82.6 2.6 1.17 2.6 1.9v20.2c0 .73.22 1.3.58 1.66l.09.08 11.32-11.32v-.27L3.27.16l-.09.08z"
+                      fill="#4285F4"
+                    />
+                    <path
+                      d="M16.7 12.46L13.44 9.2 3.18.24c.44-.25.97-.27 1.44-.03l12.08 6.84-3.94 3.96 3.94-.55z"
+                      fill="#34A853"
+                    />
+                  </svg>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: 11,
+                      color: "#fff",
+                    }}
+                  >
+                    Google Play
+                  </span>
+                </a>
+              )}
+            </div>
+          )}
+
         <div
           style={{
             display: "flex",

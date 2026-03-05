@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { personalInfo } from "../data/resume";
+import { personal } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 
 export default function Contact() {
@@ -18,7 +18,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = `mailto:${personalInfo.email}?subject=${encodeURIComponent(form.subject || "Portfolio Inquiry")}&body=${encodeURIComponent(`Hi Neelesh,\n\n${form.message}\n\nBest,\n${form.name}\n${form.email}`)}`;
+    const url = `mailto:${personal.email}?subject=${encodeURIComponent(form.subject || "Portfolio Inquiry")}&body=${encodeURIComponent(`Hi Neelesh,\n\n${form.message}\n\nBest,\n${form.name}\n${form.email}`)}`;
     window.location.href = url;
     setSent(true);
   };
@@ -129,26 +129,26 @@ export default function Contact() {
                 {
                   icon: "✉",
                   label: "Email",
-                  value: personalInfo.email,
-                  href: `mailto:${personalInfo.email}`,
+                  value: personal.email,
+                  href: `mailto:${personal.email}`,
                 },
                 {
                   icon: "☎",
                   label: "Phone",
-                  value: personalInfo.phone,
-                  href: `tel:${personalInfo.phone}`,
+                  value: personal.phone,
+                  href: `tel:${personal.phone}`,
                 },
                 {
                   icon: "📍",
                   label: "Location",
-                  value: personalInfo.location,
+                  value: personal.location,
                   href: null,
                 },
                 {
                   icon: "⌥",
                   label: "GitHub",
                   value: "github.com/Neelesh-FS-Dev",
-                  href: personalInfo.github,
+                  href: personal.github,
                 },
               ].map((item) => (
                 <div

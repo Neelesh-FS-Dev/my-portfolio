@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { personalInfo } from "../data/resume";
+import { personal } from "../data";
 import { useIsSmall } from "../hooks/useMediaQuery";
 
 export default function Footer() {
@@ -47,7 +47,7 @@ export default function Footer() {
               color: "var(--text3)",
             }}
           >
-            © 2024 {personalInfo.name}
+            © 2024 {personal.name}
           </span>
         </div>
 
@@ -55,10 +55,10 @@ export default function Footer() {
           style={{ display: "flex", gap: isSmall ? 16 : 24, flexWrap: "wrap" }}
         >
           {[
-            { label: "GitHub", href: personalInfo.github, external: true },
+            { label: "GitHub", href: personal.github, external: true },
             {
               label: "Email",
-              href: `mailto:${personalInfo.email}`,
+              href: `mailto:${personal.email}`,
               external: false,
             },
           ].map((l) => (

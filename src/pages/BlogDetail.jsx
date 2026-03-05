@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { blogDetails } from "../data/blogContent";
+import { blogs as blogDetails } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 
 export default function BlogDetail() {

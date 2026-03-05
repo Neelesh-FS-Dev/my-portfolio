@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { blogDetails as blogs } from "../data/blogContent";
+import { blogs } from "../data";
 import { useIsMobile, useIsSmall, useIsTablet } from "../hooks/useMediaQuery";
 
 function BlogCard({ post, featured = false }) {

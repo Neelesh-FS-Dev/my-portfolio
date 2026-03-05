@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { personalInfo, skills, techStack, projects } from "../data/resume";
+import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import PhoneMockup from "../components/PhoneMockup";
 import ProjectCard from "../components/ProjectCard";
@@ -191,7 +191,7 @@ function Hero() {
               marginBottom: isSmall ? 28 : 36,
             }}
           >
-            {personalInfo.summary}
+            {personal.summary}
           </p>
 
           <div
@@ -205,10 +205,7 @@ function Hero() {
             <Link to="/projects" className="btn btn-primary">
               View Projects <span>→</span>
             </Link>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="btn btn-outline"
-            >
+            <a href={`mailto:${personal.email}`} className="btn btn-outline">
               Get in Touch
             </a>
           </div>
@@ -223,10 +220,13 @@ function Hero() {
             }}
           >
             {[
-              { value: "10+", label: "Mobile Apps" },
-              { value: "5+", label: "Web Apps" },
-              { value: "20K+", label: "Users Served" },
-              { value: "2.5+", label: "Yrs Experience" },
+              { value: personal.stats.mobileApps, label: "Mobile Apps" },
+              { value: personal.stats.webProjects, label: "Web Apps" },
+              { value: personal.stats.users, label: "Users Served" },
+              {
+                value: personal.stats.experience + " yrs",
+                label: "Experience",
+              },
             ].map((stat) => (
               <div key={stat.label}>
                 <div
@@ -467,7 +467,7 @@ function About() {
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a
-              href={personalInfo.github}
+              href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline"
@@ -476,7 +476,7 @@ function About() {
               GitHub ↗
             </a>
             <a
-              href={`mailto:${personalInfo.email}`}
+              href={`mailto:${personal.email}`}
               className="btn btn-primary"
               style={{ fontSize: 13, padding: "10px 20px" }}
             >
@@ -502,8 +502,10 @@ function Skills() {
       : techStack.filter((s) => s.domain === activeTab || s.domain === "both");
   const filteredSkills =
     activeTab === "all"
-      ? skills
-      : skills.filter((s) => s.domain === activeTab || s.domain === "both");
+      ? skillCategories
+      : skillCategories.filter(
+          (s) => s.domain === activeTab || s.domain === "both",
+        );
 
   const tabs = [
     { id: "all", label: "All Skills" },
@@ -930,7 +932,7 @@ function GetInTouch() {
             marginBottom: 44,
           }}
         >
-          <a href={`mailto:${personalInfo.email}`} className="btn btn-primary">
+          <a href={`mailto:${personal.email}`} className="btn btn-primary">
             Send Email ✉
           </a>
           <Link to="/contact" className="btn btn-outline">
@@ -946,9 +948,9 @@ function GetInTouch() {
           }}
         >
           {[
-            { label: "⌥ GitHub", href: personalInfo.github },
-            { label: "✉ Email", href: `mailto:${personalInfo.email}` },
-            { label: "☎ Phone", href: `tel:${personalInfo.phone}` },
+            { label: "⌥ GitHub", href: personal.github },
+            { label: "✉ Email", href: `mailto:${personal.email}` },
+            { label: "☎ Phone", href: `tel:${personal.phone}` },
           ].map((l) => (
             <a
               key={l.label}

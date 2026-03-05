@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { projects } from "../data/resume";
+import { projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import ProjectCard from "../components/ProjectCard";
 

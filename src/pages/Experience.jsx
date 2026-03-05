@@ -1,4 +1,4 @@
-import { experience } from "../data/resume";
+import { experience, personal } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 
 const roleColors = {
