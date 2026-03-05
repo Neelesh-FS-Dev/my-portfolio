@@ -225,17 +225,10 @@ const projects = [
     title: "Digital Card Platform",
     subtitle: "Business Card Web App",
     description:
-      "Digital business card platform built with Next.js & Tailwind CSS — 95+ Google PageSpeed score, 30% CSS bundle reduction, JWT auth for 5,000+ daily sessions, and ₹1,00,000+ monthly transactions.",
+      "Digital business card platform built with React.js & Tailwind CSS — 95+ Google PageSpeed score, 30% CSS bundle reduction, JWT auth for 5,000+ daily sessions, and ₹1,00,000+ monthly transactions.",
     longDescription:
-      "Built during my tenure at The Special Character Pvt. Ltd., this digital card platform enables businesses to create, share, and manage digital business cards.\n\nBuilt with Next.js for SSR/SSG and Tailwind CSS for a minimal bundle — achieving 95+ Google PageSpeed scores and supporting 10,000+ concurrent users. JWT authentication handles 5,000+ daily sessions with 99.9% security compliance. Payment gateway integration processes ₹1,00,000+ monthly at 99.7% success rate. API response time reduced from 800ms to 400ms.",
-    stack: [
-      "Next.js",
-      "React.js",
-      "Tailwind CSS",
-      "JWT",
-      "Node.js",
-      "PostgreSQL",
-    ],
+      "Built during my tenure at The Special Character Pvt. Ltd., this digital card platform enables businesses to create, share, and manage digital business cards.\n\nBuilt with React.js for SSR/SSG and Tailwind CSS for a minimal bundle — achieving 95+ Google PageSpeed scores and supporting 10,000+ concurrent users. JWT authentication handles 5,000+ daily sessions with 99.9% security compliance. Payment gateway integration processes ₹1,00,000+ monthly at 99.7% success rate. API response time reduced from 800ms to 400ms.",
+    stack: ["React.js", "Tailwind CSS", "JWT", "Node.js", "PostgreSQL"],
     highlights: [
       "95+ Google PageSpeed score on all pages",
       "30% CSS bundle reduction with Tailwind CSS",

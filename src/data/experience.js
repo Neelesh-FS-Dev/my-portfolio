@@ -18,7 +18,7 @@ const experience = [
       "iOS / Android",
       "React Native Reanimated",
     ],
-    webTech: ["React.js", "Vite", "Tailwind CSS", "Next.js"],
+    webTech: ["React.js", "Vite", "Tailwind CSS"],
     highlights: [
       "Delivered 10+ cross-platform React Native applications serving 20,000+ active users with consistent 4.5+ star ratings",
       "Built pixel-perfect, responsive UIs with smooth animations using React Native Reanimated, reducing bounce rates significantly",
@@ -39,9 +39,9 @@ const experience = [
     duration: "8 months (Intern + FT)",
     type: "past",
     mobileTech: [],
-    webTech: ["React.js", "Next.js", "Tailwind CSS", "JWT", "Node.js", "MySQL"],
+    webTech: ["React.js", "Tailwind CSS", "JWT", "Node.js", "MySQL"],
     highlights: [
-      "Developed responsive web applications with React.js & Next.js, achieving 95+ Google PageSpeed scores for 10,000+ concurrent users",
+      "Developed responsive web applications with React.js, achieving 95+ Google PageSpeed scores for 10,000+ concurrent users",
       "Built digital card business platform with Tailwind CSS, reducing CSS bundle by 30% across 15+ device types",
       "Implemented JWT authentication with 99.9% security compliance handling 5,000+ daily sessions",
       "Integrated payment gateways processing ₹1,00,000+ monthly transactions at 99.7% success rate",

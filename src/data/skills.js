@@ -10,7 +10,6 @@ export const techStack = [
   { name: "Redux Toolkit", level: 92, color: "#7c4dff", domain: "both" },
   { name: "Firebase", level: 88, color: "#ff6b35", domain: "both" },
   { name: "React.js", level: 82, color: "#00e5ff", domain: "web" },
-  { name: "Next.js", level: 78, color: "#00ff88", domain: "web" },
   { name: "Tailwind CSS", level: 88, color: "#00ff88", domain: "web" },
 ];
 
@@ -35,7 +34,7 @@ export const skillCategories = [
     domain: "web",
     category: "Web (React)",
     icon: "🌐",
-    items: ["React.js", "Next.js", "Vite", "Tailwind CSS", "HTML5", "CSS3"],
+    items: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3"],
   },
   {
     domain: "both",

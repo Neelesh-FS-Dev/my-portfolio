@@ -69,7 +69,7 @@ export default function Experience() {
                 border: "rgba(0,229,255,0.25)",
               },
               {
-                label: "🌐 React.js / Next.js",
+                label: "🌐 React.js / JavaScript",
                 color: "#b39ddb",
                 bg: "rgba(124,77,255,0.07)",
                 border: "rgba(124,77,255,0.25)",
@@ -291,12 +291,7 @@ export default function Experience() {
                           icon: "🌐",
                           label: "Web",
                           color: "#b39ddb",
-                          items: [
-                            "React.js",
-                            "Vite",
-                            "Tailwind CSS",
-                            "Next.js",
-                          ],
+                          items: ["React.js", "Vite", "Tailwind CSS"],
                         },
                       ].map((d) => (
                         <div

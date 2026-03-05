@@ -162,7 +162,7 @@ function Hero() {
                 background: "rgba(124,77,255,0.07)",
               }}
             >
-              🌐 React.js / Next.js
+              🌐 React.js
             </span>
             <span
               style={{
@@ -394,7 +394,9 @@ function About() {
               <p style={{ color: "#00e5ff" }}>
                 📱 React Native · Redux · TypeScript
               </p>
-              <p style={{ color: "#b39ddb" }}>🌐 React.js · Next.js · Vite</p>
+              <p style={{ color: "#b39ddb" }}>
+                🌐 React.js · JavaScript · Vite
+              </p>
               <p style={{ color: "#00ff88" }}>
                 🎨 Tailwind CSS · Firebase · Node.js
               </p>
@@ -459,8 +461,8 @@ function About() {
               fontSize: isSmall ? 14 : 15,
             }}
           >
-            On the web I work with React.js, Next.js, Vite, and Tailwind CSS —
-            building fast, SEO-ready platforms with clean component
+            On the web I work with React.js, JavaScript, Vite, and Tailwind CSS
+            — building fast, SEO-ready platforms with clean component
             architecture. Whether it's a marketing site, admin dashboard, or
             e-commerce storefront, I care about performance, accessibility, and
             great DX.
