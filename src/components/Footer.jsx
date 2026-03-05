@@ -1,65 +1,97 @@
-import React from "react";
-import * as Icons from "react-icons/fi";
-import footerData from "../data/footer.json";
+import { NavLink } from "react-router-dom";
+import { personalInfo } from "../data/resume";
+import { useIsSmall } from "../hooks/useMediaQuery";
 
-const Footer = () => {
+export default function Footer() {
+  const isSmall = useIsSmall();
   return (
-    <footer className="py-12 text-white bg-gray-900">
-      <div className="container-custom">
-        <div className="grid items-center gap-8 md:grid-cols-3">
-          {/* Brand */}
-          <div className="text-center md:text-left">
-            <h3 className="mb-4 text-2xl font-bold">{footerData.brand.name}</h3>
-            <p className="text-gray-400">{footerData.brand.description}</p>
+    <footer
+      style={{
+        borderTop: "1px solid var(--border)",
+        padding: "36px 0",
+        background: "var(--bg)",
+      }}
+    >
+      <div
+        className="container"
+        style={{
+          display: "flex",
+          flexDirection: isSmall ? "column" : "row",
+          alignItems: isSmall ? "flex-start" : "center",
+          justifyContent: "space-between",
+          gap: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: 8,
+              background: "linear-gradient(135deg,#00e5ff,#7c4dff)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: 12,
+              color: "#090c10",
+            }}
+          >
+            N
           </div>
-
-          {/* Quick Links */}
-          <div className="text-center">
-            {/* <div className="flex flex-wrap justify-center gap-6 mb-4">
-              {footerData.quickLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-gray-400 transition-colors duration-300 hover:text-white"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div> */}
-          </div>
-
-          {/* Social Links */}
-          <div className="text-center md:text-right">
-            <div className="flex justify-center mb-4 space-x-4 md:justify-end">
-              {footerData.socials.map((social) => {
-                const Icon = Icons[social.icon];
-                return (
-                  <a
-                    key={social.icon}
-                    href={social.link}
-                    className="p-2 text-gray-400 transition-all duration-300 bg-gray-800 rounded-lg hover:text-white hover:bg-gray-700"
-                  >
-                    <Icon size={20} />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "var(--text3)",
+            }}
+          >
+            © 2024 {personalInfo.name}
+          </span>
         </div>
 
-        {/* Copyright */}
-        <div className="pt-8 mt-8 text-center border-t border-gray-800">
-          <p className="flex items-center justify-center text-gray-400">
-            Made with{" "}
-            <span className={`mx-2 ${footerData.copyright.heartColor}`}>
-              ❤️
-            </span>{" "}
-            by {footerData.brand.name} • © 2025
-          </p>
+        <div
+          style={{ display: "flex", gap: isSmall ? 16 : 24, flexWrap: "wrap" }}
+        >
+          {[
+            { label: "GitHub", href: personalInfo.github, external: true },
+            {
+              label: "Email",
+              href: `mailto:${personalInfo.email}`,
+              external: false,
+            },
+          ].map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.external ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--text3)",
+                letterSpacing: "0.05em",
+                transition: "color .2s",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = "var(--accent)")}
+              onMouseLeave={(e) => (e.target.style.color = "var(--text3)")}
+            >
+              {l.label}
+            </a>
+          ))}
         </div>
+
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            color: "var(--text3)",
+          }}
+        >
+          React Native · React.js · Tailwind
+        </span>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

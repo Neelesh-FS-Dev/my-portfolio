@@ -1,169 +1,273 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { FiGithub, FiSmartphone, FiArrowRight } from "react-icons/fi";
-import { SiApple, SiGoogleplay } from "react-icons/si";
-import projectsData from "../data/projectsData.json";
-const createSlug = (title) => {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .replace(/-+/g, "-"); // Replace multiple hyphens with single
-};
+import { useState } from "react";
+import { projects } from "../data/resume";
+import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import ProjectCard from "../components/ProjectCard";
 
-const Projects = () => {
-  const { header, projects } = projectsData;
-  const navigate = useNavigate();
+export default function Projects() {
+  const [domainTab, setDomainTab] = useState("all");
+  const [category, setCategory] = useState("All");
+  const isMobile = useIsMobile();
+  const isSmall = useIsSmall();
 
-  const handleViewDetails = (project) => {
-    const slug = createSlug(project.title);
-    navigate(`/projects/${slug}`);
-  };
+  const mobileCategories = [
+    "All",
+    "Wellness",
+    "Social",
+    "E-commerce / AR",
+    "Entertainment",
+  ];
+  const webCategories = ["All", "Web App"];
 
-  // Helper to truncate description points
-  const truncatePoint = (point, maxLength = 60) => {
-    if (point.length <= maxLength) return point;
-    return point.substring(0, maxLength) + "...";
-  };
+  const domainFiltered =
+    domainTab === "all"
+      ? projects
+      : projects.filter((p) => p.type === domainTab);
+  const categories =
+    domainTab === "web"
+      ? webCategories
+      : domainTab === "mobile"
+        ? mobileCategories
+        : [
+            "All",
+            "Wellness",
+            "Social",
+            "E-commerce / AR",
+            "Entertainment",
+            "Web App",
+          ];
+  const filtered =
+    category === "All"
+      ? domainFiltered
+      : domainFiltered.filter((p) => p.category === category);
+
+  const domainTabs = [
+    { id: "all", label: "All Projects", count: projects.length },
+    {
+      id: "mobile",
+      label: "📱 Mobile",
+      count: projects.filter((p) => p.type === "mobile").length,
+    },
+    {
+      id: "web",
+      label: "🌐 Web",
+      count: projects.filter((p) => p.type === "web").length,
+    },
+  ];
 
   return (
-    <div className="min-h-screen pt-20 section-padding bg-gray-50 dark:bg-gray-900">
-      <div className="container-custom">
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <h1 className="mb-6 text-5xl font-bold text-gray-900 dark:text-white">
-            {header.title}
+    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      {/* Header */}
+      <section
+        style={{
+          padding: isMobile ? "40px 0 52px" : "60px 0 80px",
+          background: "var(--bg2)",
+          borderBottom: "1px solid var(--border)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+        className="grid-bg"
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "60%",
+            transform: "translate(-50%,-50%)",
+            width: 600,
+            height: 400,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(ellipse,rgba(0,229,255,0.06) 0%,transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="container">
+          <div className="section-label">Portfolio</div>
+          <h1 className="section-title" style={{ marginBottom: 14 }}>
+            Mobile & Web
+            <br />
+            <span style={{ color: "var(--accent)" }}>Projects</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-xl text-gray-600 dark:text-gray-300">
-            {header.subtitle}
+          <p
+            style={{
+              color: "var(--text2)",
+              fontSize: isSmall ? 14 : 17,
+              maxWidth: 520,
+              lineHeight: 1.75,
+            }}
+          >
+            Production apps and web platforms shipped to real users — from App
+            Store & Play Store mobile apps to SEO-optimised web platforms.
           </p>
         </div>
+      </section>
 
-        {/* Projects Grid */}
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project, index) => (
+      {/* Sticky filter bar */}
+      <div
+        style={{
+          borderBottom: "1px solid var(--border)",
+          position: "sticky",
+          top: isMobile ? 60 : 64,
+          zIndex: 100,
+          background: "rgba(9,12,16,0.96)",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        <div className="container">
+          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+            {/* Domain tabs row */}
             <div
-              key={createSlug(project.title)}
-              className="overflow-hidden transition-all duration-500 bg-white shadow-lg cursor-pointer dark:bg-gray-800 rounded-2xl hover:shadow-2xl group animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => handleViewDetails(project)}
+              style={{
+                display: "flex",
+                gap: 0,
+                paddingTop: 10,
+                paddingBottom: 0,
+                borderBottom: "1px solid var(--border)",
+                overflowX: "auto",
+                scrollbarWidth: "none",
+              }}
             >
-              {/* Project Header */}
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2">
-                    <FiSmartphone className="text-primary-600 dark:text-primary-400" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400">
-                  {project.title}
-                </h3>
-              </div>
-
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 group">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="absolute inset-0 object-cover w-full h-full transition-transform duration-500 opacity-90 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-20" />
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <ul className="mb-6 space-y-2 text-gray-600 dark:text-gray-300">
-                  {project.description
-                    .split(". ")
-                    .filter((item) => item.trim())
-                    .slice(0, 3)
-                    .map((point, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="mr-2 text-primary-600 dark:text-primary-400">
-                          •
-                        </span>
-                        <span className="leading-relaxed">
-                          {truncatePoint(point.trim())}
-                        </span>
-                      </li>
-                    ))}
-                </ul>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.slice(0, 3).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                      +{project.technologies.length - 3} more
-                    </span>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="grid grid-cols-3 gap-3">
-                  {project.appStore && (
-                    <a
-                      href={project.appStore}
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center justify-center px-2 py-3 text-white transition-colors duration-300 bg-gray-900 rounded-lg dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 group"
-                      title="App Store"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <SiApple
-                        className="transition-transform duration-300 group-hover:scale-110"
-                        size={20}
-                      />
-                    </a>
-                  )}
-                  {project.playStore && (
-                    <a
-                      href={project.playStore}
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center justify-center px-2 py-3 text-white transition-colors duration-300 bg-green-600 rounded-lg hover:bg-green-700 group"
-                      title="Play Store"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <SiGoogleplay
-                        className="transition-transform duration-300 group-hover:scale-110"
-                        size={20}
-                      />
-                    </a>
-                  )}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleViewDetails(project);
+              {domainTabs.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => {
+                    setDomainTab(t.id);
+                    setCategory("All");
+                  }}
+                  style={{
+                    padding: isSmall ? "8px 14px" : "10px 20px",
+                    border: "none",
+                    fontFamily: "var(--font-display)",
+                    fontSize: isSmall ? 12 : 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all .2s",
+                    whiteSpace: "nowrap",
+                    background: "transparent",
+                    color:
+                      domainTab === t.id ? "var(--accent)" : "var(--text3)",
+                    borderBottom:
+                      domainTab === t.id
+                        ? "2px solid var(--accent)"
+                        : "2px solid transparent",
+                    marginBottom: -1,
+                  }}
+                >
+                  {t.label}
+                  <span
+                    style={{
+                      marginLeft: 6,
+                      padding: "1px 6px",
+                      borderRadius: 100,
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      background:
+                        domainTab === t.id
+                          ? "rgba(0,229,255,0.15)"
+                          : "rgba(255,255,255,0.05)",
+                      color:
+                        domainTab === t.id ? "var(--accent)" : "var(--text3)",
                     }}
-                    className="flex items-center justify-center gap-2 px-2 py-3 text-white transition-colors duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 group"
-                    title="View Details"
                   >
-                    <span className="text-sm font-medium">Details</span>
-                    <FiArrowRight
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                      size={16}
-                    />
-                  </button>
-                </div>
-              </div>
+                    {t.count}
+                  </span>
+                </button>
+              ))}
             </div>
-          ))}
+
+            {/* Category chips row */}
+            <div
+              style={{
+                display: "flex",
+                gap: 4,
+                padding: "8px 0",
+                overflowX: "auto",
+                scrollbarWidth: "none",
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  style={{
+                    padding: isSmall ? "5px 12px" : "6px 16px",
+                    borderRadius: 100,
+                    border: "1px solid",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: isSmall ? 10 : 11,
+                    whiteSpace: "nowrap",
+                    transition: "all .2s",
+                    cursor: "pointer",
+                    borderColor:
+                      category === cat ? "var(--accent)" : "transparent",
+                    background:
+                      category === cat ? "rgba(0,229,255,0.1)" : "transparent",
+                    color: category === cat ? "var(--accent)" : "var(--text3)",
+                  }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Projects grid */}
+      <section className="section">
+        <div className="container">
+          {filtered.length === 0 ? (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "60px 0",
+                color: "var(--text3)",
+              }}
+            >
+              <div style={{ fontSize: 40, marginBottom: 16 }}>🔍</div>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}>
+                No projects in this category yet
+              </p>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                gap: 16,
+              }}
+            >
+              {filtered.map((project, i) => (
+                <div
+                  key={project.id}
+                  style={{
+                    gridColumn:
+                      i === 0 &&
+                      filtered.length > 1 &&
+                      !isMobile &&
+                      category === "All" &&
+                      domainTab !== "web"
+                        ? "1 / -1"
+                        : "auto",
+                  }}
+                >
+                  <ProjectCard
+                    project={project}
+                    featured={
+                      i === 0 &&
+                      filtered.length > 1 &&
+                      !isMobile &&
+                      category === "All" &&
+                      domainTab !== "web"
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
-};
-
-export default Projects;
+}
