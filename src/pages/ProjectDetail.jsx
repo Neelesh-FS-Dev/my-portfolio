@@ -200,7 +200,7 @@ function AppScreenshot({ screenshot, accentColor, index }) {
 
   // Each project should place images in /public/screenshots/<id>.jpg
   // e.g. /public/screenshots/soul33-1.jpg
-  const src = `/screenshots/${screenshot.id}.jpg`;
+  const src = screenshot.url || "";
 
   return (
     <div
@@ -216,7 +216,7 @@ function AppScreenshot({ screenshot, accentColor, index }) {
       <div
         style={{
           width: isSmall ? 130 : 150,
-          aspectRatio: "9/16",
+          // aspectRatio: "9/16",
           borderRadius: 24,
           border: "2px solid rgba(255,255,255,0.1)",
           background: "var(--surface2)",
@@ -255,7 +255,7 @@ function AppScreenshot({ screenshot, accentColor, index }) {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
               objectPosition: "top",
             }}
           />
@@ -284,10 +284,10 @@ function AppScreenshot({ screenshot, accentColor, index }) {
                 lineHeight: 1.4,
               }}
             >
-              Add screenshot
+              Add screenshot URL
               <br />
               <span style={{ color: accentColor, fontSize: 8 }}>
-                {screenshot.id}.jpg
+                {screenshot.label}
               </span>
             </div>
           </div>
@@ -484,7 +484,7 @@ function ScreenshotsSection({ project, accentColor }) {
       >
         App Screenshots
       </h2>
-      <p
+      {/* <p
         style={{
           color: "var(--text3)",
           fontFamily: "var(--font-mono)",
@@ -503,13 +503,13 @@ function ScreenshotsSection({ project, accentColor }) {
         >
           public/screenshots/
         </code>
-      </p>
+      </p> */}
 
       {/* Horizontally scrollable on mobile, 4-col grid on desktop */}
       <div
         style={{
           display: isMobile ? "flex" : "grid",
-          gridTemplateColumns: isMobile ? undefined : "repeat(4, 1fr)",
+          gridTemplateColumns: isMobile ? undefined : "repeat(6, 1fr)",
           gap: isSmall ? 12 : 20,
           overflowX: isMobile ? "auto" : "visible",
           paddingBottom: isMobile ? 12 : 0,
@@ -517,14 +517,16 @@ function ScreenshotsSection({ project, accentColor }) {
           scrollbarWidth: "none",
         }}
       >
-        {project.screenshots.map((shot, i) => (
-          <AppScreenshot
-            key={shot.id}
-            screenshot={shot}
-            accentColor={accentColor}
-            index={i}
-          />
-        ))}
+        {project.screenshots
+          .filter((s) => s.url)
+          .map((shot, i) => (
+            <AppScreenshot
+              key={i}
+              screenshot={shot}
+              accentColor={accentColor}
+              index={i}
+            />
+          ))}
       </div>
     </div>
   );

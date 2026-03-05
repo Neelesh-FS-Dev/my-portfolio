@@ -6,7 +6,7 @@
 //  playStoreUrl: Google Play Store link (leave "" if not available)
 //  liveUrl:      Website / live URL
 //  videoUrl:     YouTube or Loom URL for demo video ("" = no video)
-//  screenshots:  Drop 9:16 JPGs in /public/screenshots/<id>.jpg
+//  screenshots:  Array of { url: 'https://...', label: 'Screen name' }
 // ═══════════════════════════════════════════════════════════════
 
 const projects = [
@@ -48,10 +48,34 @@ const projects = [
     liveUrl: "https://www.soul33.com/the-app",
     videoUrl: "", // paste YouTube/Loom URL when ready
     screenshots: [
-      { id: "soul33-1", label: "Home Screen" },
-      { id: "soul33-2", label: "Meditation Player" },
-      { id: "soul33-3", label: "Group Chat" },
-      { id: "soul33-4", label: "Downloads" },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9d/b9/a9/9db9a928-a5fe-7099-ffb8-9cea5180c7b6/Frame_11.jpg/400x800bb.png",
+        label: "Home Screen",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/06/0f/4b/060f4b57-4de4-f95e-44f2-548543abae5f/Frame_12.jpg/400x800bb.png",
+        label: "Meditation Player",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dc/0d/c6/dc0dc6cc-cf30-52f4-0d10-a906092e0636/Frame_13.jpg/400x800bb.png",
+        label: "Group Chat",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/6b/e2/28/6be2280b-b9c1-22cd-0f61-5a65eec0f253/Frame_14.jpg/400x800bb.png",
+        label: "Digital Guidance Cards",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/98/1d/90981dc0-1f3c-9c50-a3bb-06bb7914d48d/Frame_16.jpg/400x800bb.png",
+        label: "Podcast & Teachings",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6e/c2/47/6ec247ff-127e-1e5b-3e0d-c8d3a60c0967/Frame_19.jpg/400x800bb.png",
+        label: "Videos & Remote Healing",
+      },
+      {
+        url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/6d/cd/026dcde5-d951-e97c-10df-deda8f4b7bb2/Frame_20.jpg/400x800bb.png",
+        label: "Soul journal & Mood Tracking",
+      },
     ],
   },
 
@@ -90,10 +114,10 @@ const projects = [
     liveUrl: "",
     videoUrl: "",
     screenshots: [
-      { id: "yoke-1", label: "Reels Feed" },
-      { id: "yoke-2", label: "Live Stream" },
-      { id: "yoke-3", label: "Creator Profile" },
-      { id: "yoke-4", label: "Explore" },
+      { url: "", label: "Reels Feed" },
+      { url: "", label: "Live Stream" },
+      { url: "", label: "Creator Profile" },
+      { url: "", label: "Explore" },
     ],
   },
 
@@ -133,10 +157,10 @@ const projects = [
     liveUrl: "https://barvaskintherapie.com/",
     videoUrl: "",
     screenshots: [
-      { id: "barva-1", label: "Product Listing" },
-      { id: "barva-2", label: "AR Try-On" },
-      { id: "barva-3", label: "Cart" },
-      { id: "barva-4", label: "Order Detail" },
+      { url: "", label: "Product Listing" },
+      { url: "", label: "AR Try-On" },
+      { url: "", label: "Cart" },
+      { url: "", label: "Order Detail" },
     ],
   },
 
@@ -175,10 +199,10 @@ const projects = [
     liveUrl: "https://netras.in/",
     videoUrl: "",
     screenshots: [
-      { id: "netras-1", label: "Home / Offers" },
-      { id: "netras-2", label: "Product Listing" },
-      { id: "netras-3", label: "Bundle Builder" },
-      { id: "netras-4", label: "Cart & Checkout" },
+      { url: "", label: "Home / Offers" },
+      { url: "", label: "Product Listing" },
+      { url: "", label: "Bundle Builder" },
+      { url: "", label: "Cart & Checkout" },
     ],
   },
 
@@ -211,10 +235,10 @@ const projects = [
     liveUrl: "",
     videoUrl: "",
     screenshots: [
-      { id: "culture-1", label: "Card Game" },
-      { id: "culture-2", label: "Daily Challenge" },
-      { id: "culture-3", label: "Leaderboard" },
-      { id: "culture-4", label: "Rewards" },
+      { url: "", label: "Card Game" },
+      { url: "", label: "Daily Challenge" },
+      { url: "", label: "Leaderboard" },
+      { url: "", label: "Rewards" },
     ],
   },
 
@@ -225,10 +249,17 @@ const projects = [
     title: "Digital Card Platform",
     subtitle: "Business Card Web App",
     description:
-      "Digital business card platform built with React.js & Tailwind CSS — 95+ Google PageSpeed score, 30% CSS bundle reduction, JWT auth for 5,000+ daily sessions, and ₹1,00,000+ monthly transactions.",
+      "Digital business card platform built with Next.js & Tailwind CSS — 95+ Google PageSpeed score, 30% CSS bundle reduction, JWT auth for 5,000+ daily sessions, and ₹1,00,000+ monthly transactions.",
     longDescription:
-      "Built during my tenure at The Special Character Pvt. Ltd., this digital card platform enables businesses to create, share, and manage digital business cards.\n\nBuilt with React.js for SSR/SSG and Tailwind CSS for a minimal bundle — achieving 95+ Google PageSpeed scores and supporting 10,000+ concurrent users. JWT authentication handles 5,000+ daily sessions with 99.9% security compliance. Payment gateway integration processes ₹1,00,000+ monthly at 99.7% success rate. API response time reduced from 800ms to 400ms.",
-    stack: ["React.js", "Tailwind CSS", "JWT", "Node.js", "PostgreSQL"],
+      "Built during my tenure at The Special Character Pvt. Ltd., this digital card platform enables businesses to create, share, and manage digital business cards.\n\nBuilt with Next.js for SSR/SSG and Tailwind CSS for a minimal bundle — achieving 95+ Google PageSpeed scores and supporting 10,000+ concurrent users. JWT authentication handles 5,000+ daily sessions with 99.9% security compliance. Payment gateway integration processes ₹1,00,000+ monthly at 99.7% success rate. API response time reduced from 800ms to 400ms.",
+    stack: [
+      "Next.js",
+      "React.js",
+      "Tailwind CSS",
+      "JWT",
+      "Node.js",
+      "PostgreSQL",
+    ],
     highlights: [
       "95+ Google PageSpeed score on all pages",
       "30% CSS bundle reduction with Tailwind CSS",
