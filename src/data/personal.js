@@ -11,22 +11,25 @@ const personal = {
 
   // ── Contact ──────────────────────────────────────────────────
   email: "neeleshy263@gmail.com",
-  phone: "+91 91661 17663",
+  phone: "+91 9166117663",
   location: "Pune, Maharashtra, India",
 
   // ── Social / Links ───────────────────────────────────────────
   github: "https://github.com/Neelesh-FS-Dev",
-  linkedin: "https://www.linkedin.com/in/neeleshyadav",
-  portfolio: "https://neeleshyadav.vercel.app/",
+  linkedin: "https://www.linkedin.com/in/neeleshyadav/",
+  instagram: "https://www.instagram.com/neelesh.yadav25/",
+  // twitter: "https://twitter.com/",
+  // portfolio: "https://neeleshyadav.vercel.app/",
+  // resume: "/Neelesh-Yadav-React-Native-Developer.pdf",
 
   // ── Hero stats ───────────────────────────────────────────────
   stats: {
-    experience: "3+", // years total (2.5 full-time + 6-month internship)
-    mobileApps: "10+", // mobile apps shipped to stores
-    users: "20K+", // combined active users across all apps
-    rating: "4.5+", // average App Store / Play Store rating
-    webProjects: "5+", // web projects delivered
-    sprints: "5+", // extra features per sprint delivered
+    experience: "3+",
+    mobileApps: "10+",
+    users: "20K+",
+    rating: "4.5+",
+    webProjects: "2+",
+    sprints: "5+",
   },
 
   // ── Availability badge in hero ───────────────────────────────

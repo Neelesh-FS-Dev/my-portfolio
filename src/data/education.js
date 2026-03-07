@@ -11,13 +11,39 @@ export const degrees = [
     period: "Jul 2019 – May 2023",
     duration: "4 Years",
     icon: "🎓",
+    // Institution highlights shown on portfolio
+    institutionBadges: [
+      "NAAC A+ Accredited",
+      "NBA Accredited — CSE",
+      "NIRF Top 150 Engineering",
+      "Top 10 Private Universities in India",
+      "#1 Engineering College in Gujarat",
+    ],
+    institutionAbout:
+      "Institute of Technology, Nirma University is one of India's top-ranked private engineering institutions, consistently placed among the top 150 engineering colleges nationally by NIRF and ranked #1 in Gujarat. The university holds NAAC A+ accreditation (2022) and the CSE programme is NBA accredited under Tier-I. Recruiters include Google, Amazon, Deloitte, Wipro, and Cognizant.",
+    coursework: [
+      "Data Structures & Algorithms",
+      "Operating Systems",
+      "Database Management Systems",
+      "Computer Networks",
+      "Object-Oriented Programming",
+      "Web Technologies",
+      "Software Engineering",
+      "Mobile Application Development",
+    ],
+    activities: [
+      "President — ISTE Students' Chapter (2021–22)",
+      "Executive Member — ISTE Students' Chapter (2019–21)",
+      "Organised 10+ hackathons, workshops & industry speaker sessions for 500+ students",
+      "Managed 50+ member volunteer team with end-to-end event ownership",
+    ],
   },
 ];
 
 export const certifications = [
   {
     name: "Algorithmic Toolbox",
-    issuer: "Coursera",
+    issuer: "Coursera / UC San Diego",
     year: "Nov 2021",
     credentialId: "XTNMD5CG83VY",
     icon: "📊",
@@ -25,14 +51,14 @@ export const certifications = [
   },
   {
     name: "Programming for Everybody (Python)",
-    issuer: "Coursera",
+    issuer: "Coursera / University of Michigan",
     year: "Oct 2020",
     credentialId: "FMYUVTTL22PK",
     icon: "🐍",
     color: "var(--accent2)",
   },
   {
-    name: "React Native Certification",
+    name: "React Native — Professional",
     issuer: "Self / Professional",
     year: "2023",
     credentialId: "",
@@ -50,9 +76,12 @@ export const certifications = [
 ];
 
 export const achievements = [
-  "Successfully deployed 9+ applications to production (App Store & Play Store)",
-  "Led development of 3 high-impact production projects",
-  "Delivered 5+ additional features per sprint consistently",
-  "Trained 100+ professionals in React Native & front-end technologies",
-  "Improved team productivity by 40% through mentorship",
+  "Deployed 10+ applications to App Store & Google Play serving 20,000+ active users",
+  "Built 5 production React Native apps at EC Info Solutions — each with 4.5+ star ratings",
+  "Led end-to-end delivery of Soul33 (15K users), Yoke Yoga (10K users) & Barva Skin Therapie",
+  "Reduced app re-renders by 40% through memoisation & architecture optimisation across projects",
+  "Migrated Android Java → Kotlin & iOS Obj-C → Swift on CultureMax production app",
+  "Trained 50+ developers at The Special Character & 5+ juniors at EC Info Solutions",
+  "Consistently delivered 5+ additional features per sprint across all active projects",
+  "Elected President of ISTE Students' Chapter — led 500+ member technical community",
 ];

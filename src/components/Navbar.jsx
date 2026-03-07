@@ -90,7 +90,7 @@ export default function Navbar() {
                 flexShrink: 0,
               }}
             >
-              N
+              NY
             </div>
             <span
               style={{
@@ -101,7 +101,7 @@ export default function Navbar() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Neelesh<span style={{ color: "var(--accent)" }}>.</span>
+              Neelesh Yadav<span style={{ color: "var(--accent)" }}>.</span>
             </span>
           </NavLink>
 

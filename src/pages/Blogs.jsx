@@ -124,7 +124,7 @@ function BlogCard({ post, featured = false }) {
                   : "rgba(0,229,255,0.06)",
             }}
           >
-            {post.domain === "web" ? "🌐 Web" : "📱 Mobile"}
+            {post.domain === "web" ? " Web" : " Mobile"}
           </span>
         </div>
 
@@ -268,12 +268,12 @@ export default function Blogs() {
               { id: "all", label: "All Posts", count: blogs.length },
               {
                 id: "mobile",
-                label: "📱 Mobile",
+                label: " Mobile",
                 count: blogs.filter((b) => b.domain === "mobile").length,
               },
               {
                 id: "web",
-                label: "🌐 Web",
+                label: " Web",
                 count: blogs.filter((b) => b.domain === "web").length,
               },
             ].map((t) => (

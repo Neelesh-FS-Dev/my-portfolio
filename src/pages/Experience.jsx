@@ -1,4 +1,4 @@
-import { experience, personal } from "../data";
+import { experience, degrees, certifications } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 
 const roleColors = {
@@ -9,6 +9,7 @@ const roleColors = {
 export default function Experience() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
+  const edu = degrees[0];
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
@@ -52,12 +53,9 @@ export default function Experience() {
               lineHeight: 1.75,
             }}
           >
-            3+ years of experience in software development (including 6 months
-            internship) building production-grade mobile apps with React Native
-            and web platforms using React, Tailwind CSS.
+            3+ years of experience building production-grade mobile apps with
+            React Native and web platforms using React & Tailwind CSS.
           </p>
-
-          {/* Quick domain tags */}
           <div
             style={{ display: "flex", gap: 8, marginTop: 24, flexWrap: "wrap" }}
           >
@@ -130,6 +128,10 @@ export default function Experience() {
 
             {experience.map((job, idx) => {
               const lineColor = roleColors[job.type];
+              const allTech = [
+                ...(job.mobileTech || []),
+                ...(job.webTech || []),
+              ];
               return (
                 <div
                   key={idx}
@@ -212,28 +214,44 @@ export default function Experience() {
                       >
                         {job.role}
                       </h2>
-                      <p
-                        style={{
-                          fontSize: 15,
-                          color: lineColor,
-                          fontWeight: 500,
-                          marginBottom: 2,
-                        }}
-                      >
-                        {job.company}
-                      </p>
+                      {job.companyUrl ? (
+                        <a
+                          href={job.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            fontSize: 15,
+                            color: lineColor,
+                            fontWeight: 500,
+                            marginBottom: 2,
+                            textDecoration: "none",
+                          }}
+                        >
+                          {job.company} ↗
+                        </a>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: 15,
+                            color: lineColor,
+                            fontWeight: 500,
+                            marginBottom: 2,
+                          }}
+                        >
+                          {job.company}
+                        </p>
+                      )}
                       <p
                         style={{
                           fontFamily: "var(--font-mono)",
                           fontSize: 12,
                           color: "var(--text3)",
+                          marginTop: 2,
                         }}
                       >
                         {job.location}
                       </p>
                     </div>
-
-                    {/* Date card */}
                     <div
                       style={{
                         background: "var(--surface)",
@@ -265,8 +283,8 @@ export default function Experience() {
                     </div>
                   </div>
 
-                  {/* What I worked on — domain split for current role */}
-                  {job.type === "current" && (
+                  {/* Tech stack — domain split for current, flat chips for past */}
+                  {job.type === "current" && job.mobileTech?.length > 0 && (
                     <div
                       style={{
                         display: "grid",
@@ -280,18 +298,13 @@ export default function Experience() {
                           icon: "📱",
                           label: "Mobile",
                           color: "var(--accent)",
-                          items: [
-                            "React Native",
-                            "Redux Toolkit",
-                            "TypeScript",
-                            "iOS / Android",
-                          ],
+                          items: job.mobileTech,
                         },
                         {
                           icon: "🌐",
                           label: "Web",
                           color: "#b39ddb",
-                          items: ["React.js", "Vite", "Tailwind CSS"],
+                          items: job.webTech,
                         },
                       ].map((d) => (
                         <div
@@ -339,6 +352,34 @@ export default function Experience() {
                             ))}
                           </div>
                         </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {job.type !== "current" && allTech.length > 0 && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 6,
+                        marginBottom: 16,
+                      }}
+                    >
+                      {allTech.map((t) => (
+                        <span
+                          key={t}
+                          style={{
+                            padding: "3px 10px",
+                            borderRadius: 100,
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 11,
+                            color: "var(--text2)",
+                            border: "1px solid var(--border)",
+                            background: "var(--surface)",
+                          }}
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
                   )}
@@ -403,89 +444,267 @@ export default function Experience() {
             Academic Background
           </h2>
 
+          {/* Degree card */}
           <div
             style={{
               background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: 20,
-              padding: isSmall ? "22px" : "32px",
-              display: "flex",
-              gap: isSmall ? 16 : 24,
-              alignItems: "center",
-              flexWrap: "wrap",
+              overflow: "hidden",
             }}
           >
+            {/* Top accent bar */}
             <div
               style={{
-                width: 56,
-                height: 56,
-                borderRadius: 14,
-                flexShrink: 0,
+                height: 3,
                 background:
-                  "linear-gradient(135deg,var(--accent),var(--accent2))",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 24,
+                  "linear-gradient(90deg, var(--accent), var(--accent2))",
               }}
-            >
-              🎓
-            </div>
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: isSmall ? 15 : 18,
-                  fontWeight: 700,
-                  marginBottom: 4,
-                }}
-              >
-                Bachelor of Computer Science Engineering
-              </h3>
-              <p
-                style={{
-                  color: "var(--accent)",
-                  fontSize: 14,
-                  marginBottom: 2,
-                }}
-              >
-                Institute of Technology, Nirma University
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--text3)",
-                }}
-              >
-                Ahmedabad, Gujarat
-              </p>
-            </div>
-            <div style={{ flexShrink: 0 }}>
+            />
+
+            <div style={{ padding: isSmall ? "22px" : "32px" }}>
+              {/* Header row */}
               <div
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--text3)",
-                  marginBottom: 4,
+                  display: "flex",
+                  gap: isSmall ? 16 : 24,
+                  alignItems: "flex-start",
+                  flexWrap: "wrap",
+                  marginBottom: 20,
                 }}
               >
-                Jul 2019 – May 2023
+                <div
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: 14,
+                    flexShrink: 0,
+                    background:
+                      "linear-gradient(135deg,var(--accent),var(--accent2))",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 24,
+                  }}
+                >
+                  {edu.icon}
+                </div>
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: isSmall ? 15 : 19,
+                      fontWeight: 700,
+                      marginBottom: 4,
+                    }}
+                  >
+                    {edu.degree}
+                  </h3>
+                  <p
+                    style={{
+                      color: "var(--accent)",
+                      fontSize: 14,
+                      marginBottom: 2,
+                    }}
+                  >
+                    {edu.institution}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      color: "var(--text3)",
+                    }}
+                  >
+                    {edu.location}
+                  </p>
+                </div>
+                <div style={{ flexShrink: 0, textAlign: "right" }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      color: "var(--text3)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {edu.period}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: 20,
+                      fontWeight: 700,
+                    }}
+                  >
+                    {edu.duration}
+                  </div>
+                </div>
               </div>
+
+              {/* Institution badges */}
+              {edu.institutionBadges && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 6,
+                    marginBottom: 18,
+                  }}
+                >
+                  {edu.institutionBadges.map((badge) => (
+                    <span
+                      key={badge}
+                      style={{
+                        padding: "4px 10px",
+                        borderRadius: 100,
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10,
+                        color: "var(--accent)",
+                        border: "1px solid rgba(0,229,255,0.25)",
+                        background: "rgba(0,229,255,0.07)",
+                      }}
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* About institution */}
+              {edu.institutionAbout && (
+                <p
+                  style={{
+                    color: "var(--text2)",
+                    fontSize: isSmall ? 13 : 14,
+                    lineHeight: 1.75,
+                    marginBottom: 20,
+                    padding: "14px 16px",
+                    background: "var(--bg2)",
+                    borderRadius: 12,
+                    borderLeft: "3px solid var(--accent)",
+                  }}
+                >
+                  {edu.institutionAbout}
+                </p>
+              )}
+
+              {/* Coursework + Activities */}
               <div
                 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 20,
-                  fontWeight: 700,
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                  gap: 16,
                 }}
               >
-                4 Years
+                {edu.coursework && (
+                  <div
+                    style={{
+                      background: "var(--bg2)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 14,
+                      padding: "16px 18px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10,
+                        color: "var(--accent2)",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        marginBottom: 12,
+                      }}
+                    >
+                      📚 Key Coursework
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {edu.coursework.map((c) => (
+                        <span
+                          key={c}
+                          style={{
+                            padding: "3px 9px",
+                            borderRadius: 100,
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 11,
+                            color: "var(--text2)",
+                            border: "1px solid var(--border)",
+                          }}
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {edu.activities && (
+                  <div
+                    style={{
+                      background: "var(--bg2)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 14,
+                      padding: "16px 18px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10,
+                        color: "var(--green)",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        marginBottom: 12,
+                      }}
+                    >
+                      🏆 Activities
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                      }}
+                    >
+                      {edu.activities.map((a, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            display: "flex",
+                            gap: 8,
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "var(--green)",
+                              fontSize: 9,
+                              marginTop: 5,
+                              flexShrink: 0,
+                            }}
+                          >
+                            ▸
+                          </span>
+                          <span
+                            style={{
+                              color: "var(--text2)",
+                              fontSize: isSmall ? 12 : 13,
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {a}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Certifications */}
-          <div style={{ marginTop: 36 }}>
+          {/* ── CERTIFICATIONS ────────────────────────────────────── */}
+          <div style={{ marginTop: 44 }}>
             <div className="section-label">Certifications</div>
             <div
               style={{
@@ -495,32 +714,7 @@ export default function Experience() {
                 marginTop: 18,
               }}
             >
-              {[
-                {
-                  name: "React Native Certification",
-                  year: "2023",
-                  color: "var(--accent)",
-                  icon: "📱",
-                },
-                {
-                  name: "JavaScript ES6+ Advanced",
-                  year: "2022",
-                  color: "var(--accent2)",
-                  icon: "⚡",
-                },
-                {
-                  name: "React.js Development",
-                  year: "2023",
-                  color: "#b39ddb",
-                  icon: "🌐",
-                },
-                {
-                  name: "Tailwind CSS & Modern UI",
-                  year: "2023",
-                  color: "var(--green)",
-                  icon: "🎨",
-                },
-              ].map((cert) => (
+              {certifications.map((cert) => (
                 <div
                   key={cert.name}
                   style={{
@@ -549,7 +743,7 @@ export default function Experience() {
                   >
                     {cert.icon}
                   </div>
-                  <div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div
                       style={{
                         fontFamily: "var(--font-display)",
@@ -567,8 +761,20 @@ export default function Experience() {
                         color: cert.color,
                       }}
                     >
-                      {cert.year}
+                      {cert.issuer} · {cert.year}
                     </div>
+                    {cert.credentialId && (
+                      <div
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: 10,
+                          color: "var(--text3)",
+                          marginTop: 2,
+                        }}
+                      >
+                        ID: {cert.credentialId}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

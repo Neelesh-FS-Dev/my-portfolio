@@ -511,8 +511,8 @@ function Skills() {
 
   const tabs = [
     { id: "all", label: "All Skills" },
-    { id: "mobile", label: "📱 Mobile" },
-    { id: "web", label: "🌐 Web" },
+    { id: "mobile", label: "Mobile" },
+    { id: "web", label: "Web" },
   ];
 
   return (
@@ -817,8 +817,8 @@ function FeaturedProjects() {
         {/* Mobile / Web toggle */}
         <div style={{ display: "flex", gap: 8, marginBottom: 28 }}>
           {[
-            { id: "mobile", label: "📱 Mobile Apps" },
-            { id: "web", label: "🌐 Web Apps" },
+            { id: "mobile", label: "Mobile Apps" },
+            { id: "web", label: "Web Apps" },
           ].map((t) => (
             <button
               key={t.id}

@@ -3,14 +3,28 @@
 // ═══════════════════════════════════════════════════════════════
 
 // Proficiency bars — level: 0-100 | domain: "mobile"|"web"|"both"
+// ═══════════════════════════════════════════════════════════════
+//  skills.js  ← EDIT THIS FILE to update skills & proficiency
+// ═══════════════════════════════════════════════════════════════
+
+// Proficiency bars — level: 0-100 | domain: "mobile"|"web"|"both"
 export const techStack = [
   { name: "React Native", level: 98, color: "#00e5ff", domain: "mobile" },
-  { name: "JavaScript ES6+", level: 95, color: "#00e5ff", domain: "both" },
-  { name: "TypeScript", level: 85, color: "#7c4dff", domain: "both" },
-  { name: "Redux Toolkit", level: 92, color: "#7c4dff", domain: "both" },
-  { name: "Firebase", level: 88, color: "#ff6b35", domain: "both" },
-  { name: "React.js", level: 82, color: "#00e5ff", domain: "web" },
-  { name: "Tailwind CSS", level: 88, color: "#00ff88", domain: "web" },
+  { name: "JavaScript (ES6+)", level: 96, color: "#00e5ff", domain: "both" },
+  { name: "TypeScript", level: 92, color: "#7c4dff", domain: "both" },
+  { name: "React.js", level: 90, color: "#00e5ff", domain: "web" },
+  { name: "Redux Toolkit", level: 94, color: "#7c4dff", domain: "both" },
+  { name: "React Navigation", level: 92, color: "#00e5ff", domain: "mobile" },
+  { name: "REST APIs", level: 95, color: "#00ff88", domain: "both" },
+  { name: "WebSockets", level: 88, color: "#ff6b35", domain: "both" },
+  { name: "Firebase", level: 92, color: "#ff6b35", domain: "both" },
+  {
+    name: "Performance Optimization",
+    level: 90,
+    color: "#00ff88",
+    domain: "both",
+  },
+  { name: "CI/CD", level: 88, color: "#7c4dff", domain: "both" },
 ];
 
 // Skill category cards — domain: "mobile"|"web"|"both"

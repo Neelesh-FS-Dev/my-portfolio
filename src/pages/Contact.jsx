@@ -16,11 +16,33 @@ export default function Contact() {
   const handleChange = (e) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `mailto:${personal.email}?subject=${encodeURIComponent(form.subject || "Portfolio Inquiry")}&body=${encodeURIComponent(`Hi Neelesh,\n\n${form.message}\n\nBest,\n${form.name}\n${form.email}`)}`;
-    window.location.href = url;
+
+    const formData = new FormData();
+
+    formData.append("entry.111111111", form.name);
+    formData.append("entry.222222222", form.email);
+    formData.append("entry.333333333", form.subject);
+    formData.append("entry.444444444", form.message);
+
+    await fetch(
+      "https://docs.google.com/forms/d/e/1FAIpQLSfhiC1j8SjWTzbMjQnAX9zIh4UdfTxbeWvUP8ci5sUMJVSTPQ/formResponse",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      },
+    );
+
     setSent(true);
+
+    setForm({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
   };
 
   const inputBase = {
@@ -145,11 +167,29 @@ export default function Contact() {
                   href: null,
                 },
                 {
-                  icon: "⌥",
+                  icon: "💼",
+                  label: "LinkedIn",
+                  value: "linkedin.com/in/neelesh-yadav",
+                  href: personal.linkedin,
+                },
+                {
+                  icon: "💻",
                   label: "GitHub",
                   value: "github.com/Neelesh-FS-Dev",
                   href: personal.github,
                 },
+                {
+                  icon: "📸",
+                  label: "Instagram",
+                  value: "@neelesh.yadav25",
+                  href: personal.instagram,
+                },
+                // {
+                //   icon: "📄",
+                //   label: "Resume",
+                //   value: "Download Resume",
+                //   href: personal.resume,
+                // },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -305,7 +345,7 @@ export default function Contact() {
                     marginBottom: 10,
                   }}
                 >
-                  Email client opened!
+                  Message Sent!
                 </h3>
                 <p
                   style={{
@@ -314,8 +354,7 @@ export default function Contact() {
                     fontSize: 14,
                   }}
                 >
-                  Your message details are pre-filled. Send it from your email
-                  app.
+                  Thanks for reaching out. I'll get back to you within 24 hours.
                 </p>
                 <button
                   onClick={() => setSent(false)}
