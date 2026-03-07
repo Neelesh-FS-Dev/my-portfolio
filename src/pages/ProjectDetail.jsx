@@ -157,7 +157,7 @@ function StoreButtons({ project, accentColor, isSmall }) {
         </a>
       )}
 
-      {project.liveUrl && (
+      {/* {project.liveUrl && (
         <a
           href={project.liveUrl}
           target="_blank"
@@ -188,7 +188,7 @@ function StoreButtons({ project, accentColor, isSmall }) {
         >
           🌐 Visit Website ↗
         </a>
-      )}
+      )} */}
     </div>
   );
 }
