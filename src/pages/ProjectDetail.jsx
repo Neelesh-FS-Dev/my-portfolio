@@ -882,7 +882,7 @@ export default function ProjectDetail() {
       <section className="section">
         <div className="container">
           {/* Video Demo */}
-          <VideoSection project={project} accentColor={accentColor} />
+          {/* <VideoSection project={project} accentColor={accentColor} /> */}
 
           {/* App Screenshots */}
           {project.screenshots && project.screenshots.length > 0 && (
