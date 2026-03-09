@@ -7,9 +7,11 @@ const accentMap = {
   cyan: "var(--accent)",
   purple: "var(--accent2)",
   orange: "var(--accent3)",
-  green: "var(--green)",
+  green: "#22c55e",
+  amber: "#f59e0b",
+  pink: "#ec4899",
+  teal: "#06b6d4",
 };
-
 /* ── STORE BUTTONS ─────────────────────────────────────────────── */
 function StoreButtons({ project, accentColor, isSmall }) {
   const hasStore =
@@ -472,6 +474,9 @@ function ScreenshotsSection({ project, accentColor }) {
   const isSmall = useIsSmall();
   const isMobile = useIsMobile();
 
+  const screenshots = project.screenshots?.filter((s) => s.url) ?? [];
+  if (screenshots.length === 0) return null;
+
   return (
     <div style={{ marginBottom: 60 }}>
       <h2
@@ -484,28 +489,6 @@ function ScreenshotsSection({ project, accentColor }) {
       >
         App Screenshots
       </h2>
-      {/* <p
-        style={{
-          color: "var(--text3)",
-          fontFamily: "var(--font-mono)",
-          fontSize: 12,
-          marginBottom: 28,
-        }}
-      >
-        Place 9:16 images in{" "}
-        <code
-          style={{
-            color: accentColor,
-            background: `${accentColor}12`,
-            padding: "2px 6px",
-            borderRadius: 4,
-          }}
-        >
-          public/screenshots/
-        </code>
-      </p> */}
-
-      {/* Horizontally scrollable on mobile, 4-col grid on desktop */}
       <div
         style={{
           display: isMobile ? "flex" : "grid",
@@ -517,16 +500,14 @@ function ScreenshotsSection({ project, accentColor }) {
           scrollbarWidth: "none",
         }}
       >
-        {project.screenshots
-          .filter((s) => s.url)
-          .map((shot, i) => (
-            <AppScreenshot
-              key={i}
-              screenshot={shot}
-              accentColor={accentColor}
-              index={i}
-            />
-          ))}
+        {screenshots.map((shot, i) => (
+          <AppScreenshot
+            key={i}
+            screenshot={shot}
+            accentColor={accentColor}
+            index={i}
+          />
+        ))}
       </div>
     </div>
   );
@@ -882,14 +863,19 @@ export default function ProjectDetail() {
       <section className="section">
         <div className="container">
           {/* Video Demo */}
-          {/* <VideoSection project={project} accentColor={accentColor} /> */}
-
-          {/* App Screenshots */}
-          {project.screenshots && project.screenshots.length > 0 && (
-            <ScreenshotsSection project={project} accentColor={accentColor} />
+          {project.videoUrl && (
+            <VideoSection project={project} accentColor={accentColor} />
           )}
-
-          <div className="divider" style={{ marginBottom: 52 }} />
+          {project.screenshots &&
+            project.screenshots.filter((s) => s.url).length > 0 && (
+              <>
+                <ScreenshotsSection
+                  project={project}
+                  accentColor={accentColor}
+                />
+                <div className="divider" style={{ marginBottom: 52 }} />
+              </>
+            )}
 
           {/* About + Highlights */}
           <div
@@ -910,19 +896,21 @@ export default function ProjectDetail() {
               >
                 About the Project
               </h2>
-              {project.longDescription.split("\n\n").map((para, i) => (
-                <p
-                  key={i}
-                  style={{
-                    color: "var(--text2)",
-                    lineHeight: 1.85,
-                    marginBottom: 16,
-                    fontSize: isSmall ? 14 : 15,
-                  }}
-                >
-                  {para}
-                </p>
-              ))}
+              {(project.longDescription || project.description || "")
+                .split("\n\n")
+                .map((para, i) => (
+                  <p
+                    key={i}
+                    style={{
+                      color: "var(--text2)",
+                      lineHeight: 1.85,
+                      marginBottom: 16,
+                      fontSize: isSmall ? 14 : 15,
+                    }}
+                  >
+                    {para}
+                  </p>
+                ))}
             </div>
 
             <div>
