@@ -4,7 +4,19 @@ import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import PhoneMockup from "../components/PhoneMockup";
 import ProjectCard from "../components/ProjectCard";
-
+function getExperience(startDate) {
+  const start = new Date(startDate);
+  const now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  if (years === 0) return `${months} mos`;
+  if (months === 0) return `${years} yrs`;
+  return `${years} yr ${months} mos`;
+}
 /* ── HERO ──────────────────────────────────────────────────────── */
 function Hero() {
   const isMobile = useIsMobile();
@@ -187,13 +199,17 @@ function Hero() {
               color: "var(--text2)",
               fontSize: isSmall ? 14 : 16,
               lineHeight: 1.78,
-              maxWidth: 520,
+              maxWidth: 510,
               marginBottom: isSmall ? 28 : 36,
             }}
           >
-            {personal.summary}
+            React Native & React Developer with {getExperience("2023-01-01")} of
+            experience (including a 6-month internship) building
+            high-performance, scalable mobile and web applications. Experienced
+            in crafting pixel-perfect UIs, real-time features, and
+            production-ready architectures — from App Store & Play Store apps to
+            fast, SEO-optimized web platforms.
           </p>
-
           <div
             style={{
               display: "flex",

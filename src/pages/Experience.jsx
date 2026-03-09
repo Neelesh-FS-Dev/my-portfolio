@@ -5,7 +5,19 @@ const roleColors = {
   current: "var(--accent)",
   past: "var(--accent2)",
 };
-
+function getExperience(startDate) {
+  const start = new Date(startDate);
+  const now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  if (years === 0) return `${months} mos`;
+  if (months === 0) return `${years} yrs`;
+  return `${years} yr ${months} mos`;
+}
 export default function Experience() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
@@ -53,8 +65,9 @@ export default function Experience() {
               lineHeight: 1.75,
             }}
           >
-            3+ years of experience building production-grade mobile apps with
-            React Native and web platforms using React & Tailwind CSS.
+            {getExperience("2023-01-01")} of experience building
+            production-grade mobile apps with React Native and web platforms
+            using React & Tailwind CSS.
           </p>
           <div
             style={{ display: "flex", gap: 8, marginTop: 24, flexWrap: "wrap" }}
@@ -278,7 +291,9 @@ export default function Experience() {
                           fontWeight: 800,
                         }}
                       >
-                        {job.duration}
+                        {job.startDate
+                          ? getExperience(job.startDate)
+                          : job.duration}{" "}
                       </div>
                     </div>
                   </div>

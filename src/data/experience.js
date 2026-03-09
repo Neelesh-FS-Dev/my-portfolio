@@ -9,7 +9,7 @@ const experience = [
     companyUrl: "https://www.ecinfosolutions.com/",
     location: "Pune, Maharashtra",
     period: "Sep 2023 – Present",
-    duration: "2.6+ years (Present)",
+    startDate: "2023-09-01",
     type: "current",
     mobileTech: [
       "React Native",
