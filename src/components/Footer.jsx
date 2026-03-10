@@ -38,7 +38,7 @@ export default function Footer() {
               color: "#090c10",
             }}
           >
-            N
+            NY
           </div>
           <span
             style={{
@@ -47,7 +47,7 @@ export default function Footer() {
               color: "var(--text3)",
             }}
           >
-            © 2024 {personal.name}
+            © 2026 {personal.name}
           </span>
         </div>
 
