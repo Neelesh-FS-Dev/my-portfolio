@@ -1,7 +1,19 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { blogs as blogDetails } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
-
+function getExperience(startDate) {
+  const start = new Date(startDate);
+  const now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  if (years === 0) return `${months} mos`;
+  if (months === 0) return `${years} yrs`;
+  return `${years} yr ${months} mos`;
+}
 export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -379,7 +391,7 @@ export default function BlogDetail() {
                 color: "var(--bg)",
               }}
             >
-              N
+              NY
             </div>
             <div style={{ flex: 1 }}>
               <div
@@ -399,9 +411,9 @@ export default function BlogDetail() {
                   lineHeight: 1.6,
                 }}
               >
-                React Native Developer with 2.5+ years building production
-                mobile apps. Writes about performance, architecture, and mobile
-                engineering.
+                React Native Developer with {getExperience("2023-01-01")} years
+                building production mobile apps. Writes about performance,
+                architecture, and mobile engineering.
               </div>
             </div>
             <a

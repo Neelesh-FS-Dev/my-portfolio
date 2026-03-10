@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { FiGithub, FiMail } from "react-icons/fi";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -313,7 +314,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            Hire Me ✉
+            <FiMail size={15} style={{ marginRight: 6 }} /> Hire Me
           </NavLink>
 
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
@@ -332,7 +333,11 @@ export default function Navbar() {
               }
               onTouchEnd={(e) => (e.currentTarget.style.color = "var(--text3)")}
             >
-              GitHub ↗
+              <FiGithub
+                size={14}
+                style={{ marginRight: 4, verticalAlign: "middle" }}
+              />
+              GitHub
             </a>
             <a
               href="mailto:neeleshy263@gmail.com"
@@ -343,7 +348,11 @@ export default function Navbar() {
                 transition: "color .2s",
               }}
             >
-              Email ↗
+              <FiMail
+                size={14}
+                style={{ marginRight: 4, verticalAlign: "middle" }}
+              />
+              Email
             </a>
           </div>
         </div>

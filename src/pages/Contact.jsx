@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { personal } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import {
+  FiMail,
+  FiGithub,
+  FiInstagram,
+  FiMapPin,
+  FiPhone,
+} from "react-icons/fi";
+import { FiLinkedin } from "react-icons/fi"; // or: import { AiOutlineLinkedin } from 'react-icons/ai'
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -149,37 +157,37 @@ export default function Contact() {
             >
               {[
                 {
-                  icon: "✉",
+                  icon: <FiMail size={18} />,
                   label: "Email",
                   value: personal.email,
                   href: `mailto:${personal.email}`,
                 },
                 {
-                  icon: "☎",
+                  icon: <FiPhone size={18} />,
                   label: "Phone",
                   value: personal.phone,
                   href: `tel:${personal.phone}`,
                 },
                 {
-                  icon: "📍",
+                  icon: <FiMapPin size={18} />,
                   label: "Location",
                   value: personal.location,
                   href: null,
                 },
                 {
-                  icon: "💼",
+                  icon: <FiLinkedin size={18} />,
                   label: "LinkedIn",
                   value: "linkedin.com/in/neelesh-yadav",
                   href: personal.linkedin,
                 },
                 {
-                  icon: "💻",
+                  icon: <FiGithub size={18} />,
                   label: "GitHub",
                   value: "github.com/Neelesh-FS-Dev",
                   href: personal.github,
                 },
                 {
-                  icon: "📸",
+                  icon: <FiInstagram size={18} />,
                   label: "Instagram",
                   value: "@neelesh.yadav25",
                   href: personal.instagram,
