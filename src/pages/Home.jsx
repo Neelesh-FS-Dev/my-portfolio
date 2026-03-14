@@ -4,6 +4,11 @@ import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import PhoneMockup from "../components/PhoneMockup";
 import ProjectCard from "../components/ProjectCard";
+import { SiReact, SiTailwindcss } from "react-icons/si";
+import { TbBrandReactNative } from "react-icons/tb";
+import { skillIconMap } from "../utils/skillIcons";
+
+import { FiMail, FiGithub, FiPhone } from "react-icons/fi";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -144,54 +149,47 @@ function Hero() {
               flexWrap: "wrap",
             }}
           >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "6px 14px",
-                borderRadius: 100,
-                fontFamily: "var(--font-mono)",
-                fontSize: isSmall ? 11 : 12,
+            {[
+              {
+                icon: <TbBrandReactNative size={13} />,
+                label: "React Native",
                 color: "var(--accent)",
-                border: "1px solid rgba(0,229,255,0.25)",
-                background: "rgba(0,229,255,0.07)",
-              }}
-            >
-              📱 React Native
-            </span>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "6px 14px",
-                borderRadius: 100,
-                fontFamily: "var(--font-mono)",
-                fontSize: isSmall ? 11 : 12,
+                border: "rgba(0,229,255,0.25)",
+                bg: "rgba(0,229,255,0.07)",
+              },
+              {
+                icon: <SiReact size={13} />,
+                label: "React.js",
                 color: "#b39ddb",
-                border: "1px solid rgba(124,77,255,0.25)",
-                background: "rgba(124,77,255,0.07)",
-              }}
-            >
-              🌐 React.js
-            </span>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "6px 14px",
-                borderRadius: 100,
-                fontFamily: "var(--font-mono)",
-                fontSize: isSmall ? 11 : 12,
+                border: "rgba(124,77,255,0.25)",
+                bg: "rgba(124,77,255,0.07)",
+              },
+              {
+                icon: <SiTailwindcss size={13} />,
+                label: "Tailwind CSS",
                 color: "var(--green)",
-                border: "1px solid rgba(0,255,136,0.25)",
-                background: "rgba(0,255,136,0.07)",
-              }}
-            >
-              🎨 Tailwind CSS
-            </span>
+                border: "rgba(0,255,136,0.25)",
+                bg: "rgba(0,255,136,0.07)",
+              },
+            ].map((t) => (
+              <span
+                key={t.label}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "6px 14px",
+                  borderRadius: 100,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: isSmall ? 11 : 12,
+                  color: t.color,
+                  border: `1px solid ${t.border}`,
+                  background: t.bg,
+                }}
+              >
+                {t.icon} {t.label}
+              </span>
+            ))}
           </div>
 
           <p
@@ -407,15 +405,36 @@ function About() {
               <span style={{ color: "var(--text3)" }}>cat stack.txt</span>
             </p>
             <div style={{ paddingLeft: 14, marginBottom: 6 }}>
-              <p style={{ color: "#00e5ff" }}>
-                📱 React Native · Redux · TypeScript
-              </p>
-              <p style={{ color: "#b39ddb" }}>
-                🌐 React.js · JavaScript · Vite
-              </p>
-              <p style={{ color: "#00ff88" }}>
-                🎨 Tailwind CSS · Firebase · Node.js
-              </p>
+              {[
+                {
+                  icon: <TbBrandReactNative size={12} />,
+                  text: "React Native · Redux · TypeScript",
+                  color: "#00e5ff",
+                },
+                {
+                  icon: <SiReact size={12} />,
+                  text: "React.js · JavaScript · Vite",
+                  color: "#b39ddb",
+                },
+                {
+                  icon: <SiTailwindcss size={12} />,
+                  text: "Tailwind CSS · Firebase · Node.js",
+                  color: "#00ff88",
+                },
+              ].map((item) => (
+                <p
+                  key={item.text}
+                  style={{
+                    color: item.color,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    marginBottom: 4,
+                  }}
+                >
+                  {item.icon} {item.text}
+                </p>
+              ))}
             </div>
             <p>
               <span style={{ color: "var(--accent)" }}>$</span>{" "}
@@ -747,7 +766,15 @@ function Skills() {
                   marginBottom: 14,
                 }}
               >
-                <span style={{ fontSize: 16 }}>{cat.icon}</span>
+                <span
+                  style={{
+                    fontSize: 18,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {skillIconMap[cat.icon]}
+                </span>
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
@@ -951,7 +978,11 @@ function GetInTouch() {
           }}
         >
           <a href={`mailto:${personal.email}`} className="btn btn-primary">
-            Send Email ✉
+            <FiMail
+              size={15}
+              style={{ marginRight: 6, verticalAlign: "middle" }}
+            />{" "}
+            Send Email
           </a>
           <Link to="/contact" className="btn btn-outline">
             Contact Page
@@ -966,9 +997,42 @@ function GetInTouch() {
           }}
         >
           {[
-            { label: "⌥ GitHub", href: personal.github },
-            { label: "✉ Email", href: `mailto:${personal.email}` },
-            { label: "☎ Phone", href: `tel:${personal.phone}` },
+            {
+              label: (
+                <>
+                  <FiGithub
+                    size={13}
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />
+                  GitHub
+                </>
+              ),
+              href: personal.github,
+            },
+            {
+              label: (
+                <>
+                  <FiMail
+                    size={13}
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />
+                  Email
+                </>
+              ),
+              href: `mailto:${personal.email}`,
+            },
+            {
+              label: (
+                <>
+                  <FiPhone
+                    size={13}
+                    style={{ marginRight: 5, verticalAlign: "middle" }}
+                  />
+                  Phone
+                </>
+              ),
+              href: `tel:${personal.phone}`,
+            },
           ].map((l) => (
             <a
               key={l.label}

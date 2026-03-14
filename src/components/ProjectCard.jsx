@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
-
+import { FiSmartphone, FiMonitor } from "react-icons/fi";
+import { AiFillStar } from "react-icons/ai";
 const accentMap = {
   cyan: "var(--accent)",
   purple: "var(--accent2)",
@@ -178,9 +179,13 @@ export default function ProjectCard({ project, featured = false }) {
               color: accentColor,
               border: `1px solid ${accentColor}30`,
               background: accentColor + "10",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
             }}
           >
-            {isWeb ? "🌐" : "📱"} {project.category}
+            {isWeb ? <FiMonitor size={11} /> : <FiSmartphone size={11} />}
+            {project.category}
           </span>
           <span
             style={{
@@ -193,7 +198,11 @@ export default function ProjectCard({ project, featured = false }) {
               background: "rgba(0,229,255,0.05)",
             }}
           >
-            ⭐ {project.rating}
+            <AiFillStar
+              size={12}
+              style={{ color: "#f59e0b", verticalAlign: "middle" }}
+            />{" "}
+            {project.rating}
           </span>
         </div>
 

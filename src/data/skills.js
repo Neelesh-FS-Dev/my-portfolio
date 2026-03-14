@@ -9,22 +9,83 @@
 
 // Proficiency bars — level: 0-100 | domain: "mobile"|"web"|"both"
 export const techStack = [
-  { name: "React Native", level: 98, color: "#00e5ff", domain: "mobile" },
-  { name: "JavaScript (ES6+)", level: 96, color: "#00e5ff", domain: "both" },
-  { name: "TypeScript", level: 92, color: "#7c4dff", domain: "both" },
-  { name: "React.js", level: 90, color: "#00e5ff", domain: "web" },
-  { name: "Redux Toolkit", level: 94, color: "#7c4dff", domain: "both" },
-  { name: "React Navigation", level: 92, color: "#00e5ff", domain: "mobile" },
-  { name: "REST APIs", level: 95, color: "#00ff88", domain: "both" },
-  { name: "WebSockets", level: 88, color: "#ff6b35", domain: "both" },
-  { name: "Firebase", level: 92, color: "#ff6b35", domain: "both" },
   {
-    name: "Performance Optimization",
+    name: "React Native",
     level: 90,
+    color: "#00e5ff",
+    domain: "mobile",
+    icon: "reactnative",
+  },
+  {
+    name: "JavaScript (ES6+)",
+    level: 88,
+    color: "#00e5ff",
+    domain: "both",
+    icon: "javascript",
+  },
+  {
+    name: "TypeScript",
+    level: 82,
+    color: "#7c4dff",
+    domain: "both",
+    icon: "typescript",
+  },
+  {
+    name: "React.js",
+    level: 78,
+    color: "#00e5ff",
+    domain: "web",
+    icon: "react",
+  },
+  {
+    name: "Redux Toolkit",
+    level: 85,
+    color: "#7c4dff",
+    domain: "both",
+    icon: "redux",
+  },
+  {
+    name: "React Navigation",
+    level: 87,
+    color: "#00e5ff",
+    domain: "mobile",
+    icon: "reactnative",
+  },
+  {
+    name: "REST APIs",
+    level: 84,
     color: "#00ff88",
     domain: "both",
+    icon: "api",
   },
-  { name: "CI/CD", level: 88, color: "#7c4dff", domain: "both" },
+  {
+    name: "WebSockets",
+    level: 75,
+    color: "#ff6b35",
+    domain: "both",
+    icon: "websocket",
+  },
+  {
+    name: "Firebase",
+    level: 78,
+    color: "#ff6b35",
+    domain: "both",
+    icon: "firebase",
+  },
+  {
+    name: "Performance Optimization",
+    level: 80,
+    color: "#00ff88",
+    domain: "both",
+    icon: "performance",
+  },
+  {
+    name: "CI/CD",
+    level: 65,
+    color: "#7c4dff",
+    domain: "both",
+    icon: "github",
+  },
 ];
 
 // Skill category cards — domain: "mobile"|"web"|"both"
@@ -32,7 +93,7 @@ export const skillCategories = [
   {
     domain: "mobile",
     category: "Mobile (React Native)",
-    icon: "📱",
+    icon: "reactnative",
     items: [
       "React Native",
       "JavaScript ES6+",
@@ -47,19 +108,19 @@ export const skillCategories = [
   {
     domain: "web",
     category: "Web (React)",
-    icon: "🌐",
+    icon: "react",
     items: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3"],
   },
   {
     domain: "both",
     category: "State Management",
-    icon: "🗃️",
+    icon: "redux",
     items: ["Redux Toolkit", "Context API", "Zustand", "MMKV", "AsyncStorage"],
   },
   {
     domain: "mobile",
     category: "UI & Animation",
-    icon: "✨",
+    icon: "animation",
     items: [
       "React Native Reanimated",
       "Lottie",
@@ -71,7 +132,7 @@ export const skillCategories = [
   {
     domain: "web",
     category: "Web Styling & UI",
-    icon: "🎨",
+    icon: "tailwind",
     items: [
       "Tailwind CSS",
       "Styled Components",
@@ -83,7 +144,7 @@ export const skillCategories = [
   {
     domain: "both",
     category: "Backend & APIs",
-    icon: "⚡",
+    icon: "api",
     items: [
       "REST APIs",
       "GraphQL",
@@ -98,7 +159,7 @@ export const skillCategories = [
   {
     domain: "both",
     category: "Cloud & DevOps",
-    icon: "☁️",
+    icon: "cloud",
     items: [
       "AWS S3 & Lambda",
       "GCP",
@@ -113,7 +174,7 @@ export const skillCategories = [
   {
     domain: "both",
     category: "Tools & Workflow",
-    icon: "🛠️",
+    icon: "tools",
     items: [
       "Git",
       "GitHub",

@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+
 export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
+  const [now, setNow] = useState(new Date());
+
   const screens = {
     "#00e5ff": {
       bg: "linear-gradient(180deg, #0a1628 0%, #0d1f3c 100%)",
@@ -28,6 +32,23 @@ export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
 
   const s = screens[color] || screens["#00e5ff"];
 
+  const time = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  const date = now.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <div className="phone-frame" style={{ flexShrink: 0 }}>
       {/* Screen content */}
@@ -49,15 +70,34 @@ export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
             marginBottom: 24,
           }}
         >
-          <span
+          <div
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 9,
-              color: "rgba(255,255,255,0.5)",
+              display: "flex",
+              flexDirection: "row",
+              gap: 6,
+              alignItems: "center",
             }}
           >
-            9:41
-          </span>
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 9,
+                color: "rgba(255,255,255,0.5)",
+              }}
+            >
+              {time}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 7,
+                color: "rgba(255,255,255,0.3)",
+              }}
+            >
+              {date}
+            </span>
+          </div>
+
           <div style={{ display: "flex", gap: 4 }}>
             {[...Array(3)].map((_, i) => (
               <div
@@ -87,6 +127,7 @@ export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
         >
           {s.title}
         </div>
+
         <div
           style={{
             fontFamily: "var(--font-body)",
@@ -124,6 +165,7 @@ export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
               }}
             />
           </div>
+
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
@@ -147,6 +189,7 @@ export default function PhoneMockup({ color = "#00e5ff", label = "App" }) {
                   opacity: 0.4,
                 }}
               />
+
               <div
                 style={{
                   flex: 1,

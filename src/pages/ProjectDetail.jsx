@@ -4,7 +4,9 @@ import { projects } from "../data";
 import { useIsMobile, useIsTablet, useIsSmall } from "../hooks/useMediaQuery";
 import { BsApple, BsGooglePlay } from "react-icons/bs";
 import { FiExternalLink } from "react-icons/fi";
-
+import { featureIconMap } from "../utils/featureIcons";
+import { FiUsers, FiMonitor } from "react-icons/fi";
+import { AiFillStar } from "react-icons/ai";
 const accentMap = {
   cyan: "var(--accent)",
   purple: "var(--accent2)",
@@ -559,9 +561,10 @@ function FeaturesSection({ project, accentColor }) {
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 18,
+                  color: accentColor,
                 }}
               >
-                {feat.icon}
+                {featureIconMap[feat.icon] ?? feat.icon}
               </div>
               <span
                 style={{
@@ -764,9 +767,39 @@ export default function ProjectDetail() {
                 }}
               >
                 {[
-                  { v: project.users, l: "Users" },
-                  { v: project.rating + " ⭐", l: "Rating" },
-                  { v: project.screens + "+", l: "Screens" },
+                  {
+                    v: (
+                      <>
+                        <FiUsers size={17} style={{ marginRight: 4 }} />
+                        {project.users}
+                      </>
+                    ),
+                    l: "Users",
+                  },
+                  {
+                    v: (
+                      <>
+                        <AiFillStar
+                          size={17}
+                          style={{
+                            color: "#f59e0b",
+                            marginRight: 4,
+                          }}
+                        />
+                        {project.rating}
+                      </>
+                    ),
+                    l: "Rating",
+                  },
+                  {
+                    v: (
+                      <>
+                        <FiMonitor size={17} style={{ marginRight: 4 }} />
+                        {project.screens}+
+                      </>
+                    ),
+                    l: "Screens",
+                  },
                 ].map((s) => (
                   <div key={s.l}>
                     <div

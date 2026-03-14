@@ -43,7 +43,7 @@ const projects = [
     // Feature breakdown for project detail page
     features: [
       {
-        icon: "🏗️",
+        icon: "architecture",
         title: "Architecture & State",
         items: [
           "Scalable Redux store with 6 slices: auth, downloads, media, profile, updates, misc",
@@ -53,7 +53,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎵",
+        icon: "audio",
         title: "Audio Engine",
         items: [
           "react-native-track-player with background playback service & remote event handling",
@@ -64,7 +64,7 @@ const projects = [
         ],
       },
       {
-        icon: "💬",
+        icon: "chat",
         title: "Real-Time Group Chat",
         items: [
           "WebSocket provider with auto-reconnection, retry limits & heartbeat monitoring",
@@ -75,7 +75,7 @@ const projects = [
         ],
       },
       {
-        icon: "✨",
+        icon: "features",
         title: "Feature Modules",
         items: [
           "Soul Oracle: 3D tarot card-flip animations, progression & mini readings",
@@ -86,7 +86,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚡",
+        icon: "performance",
         title: "Performance & Polish",
         items: [
           "FlatList optimisation: useCallback, useMemo, pagination, infinite scroll",
@@ -171,7 +171,7 @@ const projects = [
     ],
     features: [
       {
-        icon: "🎬",
+        icon: "video",
         title: "Video & Live Streaming",
         items: [
           "TikTok-style Reels feed with infinite scroll and optimised FlatList virtualisation",
@@ -182,7 +182,7 @@ const projects = [
         ],
       },
       {
-        icon: "🏗️",
+        icon: "architecture",
         title: "Architecture & Migration",
         items: [
           "React Native 0.72 → 0.79 full codebase migration with new architecture support",
@@ -193,7 +193,7 @@ const projects = [
         ],
       },
       {
-        icon: "🤝",
+        icon: "chat",
         title: "Social Features",
         items: [
           "Follow/unfollow with optimistic UI updates and real-time sync",
@@ -204,7 +204,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎮",
+        icon: "gamification",
         title: "Gamification & Insights",
         items: [
           "Level progression system with LevelPopup achievement celebrations",
@@ -215,7 +215,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚡",
+        icon: "performance",
         title: "Performance & Config",
         items: [
           "React.memo, useMemo & useCallback across Reels, replies & list components",
@@ -295,7 +295,7 @@ const projects = [
     ],
     features: [
       {
-        icon: "🛒",
+        icon: "cart",
         title: "Shopify E-commerce",
         items: [
           "Paginated product & collection fetching with inventory/sold-out tracking",
@@ -306,7 +306,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎨",
+        icon: "ar",
         title: "AR & Media",
         items: [
           "VisionCamera-powered AR lipstick try-on with real-time camera feed",
@@ -317,7 +317,7 @@ const projects = [
         ],
       },
       {
-        icon: "🔔",
+        icon: "notification",
         title: "Notifications",
         items: [
           "Firebase Cloud Messaging for both iOS & Android with token management",
@@ -328,7 +328,7 @@ const projects = [
         ],
       },
       {
-        icon: "🏗️",
+        icon: "architecture",
         title: "Architecture & State",
         items: [
           "Redux store: auth, posts, cart, profile, misc & notification slices",
@@ -339,7 +339,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚡",
+        icon: "performance",
         title: "Performance & Resilience",
         items: [
           "React.memo, useMemo & useCallback to eliminate unnecessary re-renders",
@@ -409,7 +409,7 @@ const projects = [
     ],
     features: [
       {
-        icon: "🛒",
+        icon: "cart",
         title: "Shopify E-commerce",
         items: [
           "Full Shopify Storefront API — products, collections, variants & inventory tracking",
@@ -420,7 +420,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎁",
+        icon: "bundle",
         title: "Bundle Configurator",
         items: [
           "Buy 4 Get 2 Free dynamic bundle selector with real-time pricing updates",
@@ -430,7 +430,7 @@ const projects = [
         ],
       },
       {
-        icon: "🍱",
+        icon: "catering",
         title: "Catering & Content",
         items: [
           "Home catering enquiry flow with meal selection and scheduling",
@@ -441,7 +441,7 @@ const projects = [
         ],
       },
       {
-        icon: "🔔",
+        icon: "notification",
         title: "Notifications & Tracking",
         items: [
           "FCM push notifications for order confirmations and status updates",
@@ -451,7 +451,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚡",
+        icon: "performance",
         title: "Performance & UX",
         items: [
           "react-native-fast-image with caching for all product and banner images",
@@ -519,7 +519,7 @@ const projects = [
     ],
     features: [
       {
-        icon: "🔄",
+        icon: "migration",
         title: "Platform Migrations",
         items: [
           "Android: MainActivity.java & MainApplication.java → Kotlin with null safety",
@@ -530,7 +530,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎮",
+        icon: "gamification",
         title: "Rewards & Gamification",
         items: [
           "Redeem code input with validation, success/failure feedback & backend sync",
@@ -541,7 +541,7 @@ const projects = [
         ],
       },
       {
-        icon: "📚",
+        icon: "content",
         title: "Cultural Content",
         items: [
           "Idiom of the Day with Fast Image visuals & streamlined navigation flow",
@@ -551,7 +551,7 @@ const projects = [
         ],
       },
       {
-        icon: "🏗️",
+        icon: "architecture",
         title: "Architecture & State",
         items: [
           "Redux store: auth, content (idioms/offers), rewards/redemption & profile slices",
@@ -562,7 +562,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚙️",
+        icon: "build",
         title: "Build & Compliance",
         items: [
           "Gradle wrapper 8.14.3, Kotlin plugin, compile/target SDK 36, edge-to-edge display",
@@ -633,7 +633,7 @@ const projects = [
     ],
     features: [
       {
-        icon: "📱",
+        icon: "mobile",
         title: "Hobbyist App",
         items: [
           "Dynamic content feed with video posts, upcoming sessions & pull-to-refresh",
@@ -644,7 +644,7 @@ const projects = [
         ],
       },
       {
-        icon: "🎓",
+        icon: "instructor",
         title: "Instructor App",
         items: [
           "Media upload: document/image picker, multi-select, type validation, tag count limits & S3 presigned URL pipeline",
@@ -655,7 +655,7 @@ const projects = [
         ],
       },
       {
-        icon: "📹",
+        icon: "video",
         title: "Zoom SDK Integration",
         items: [
           "Zoom Video SDK 2.2.0 with screen sharing & camera sharing on both platforms",
@@ -666,7 +666,7 @@ const projects = [
         ],
       },
       {
-        icon: "💬",
+        icon: "chat",
         title: "Real-Time Chat",
         items: [
           "WebSocket chat (wss://) with dynamic chat freezing based on user state",
@@ -677,7 +677,7 @@ const projects = [
         ],
       },
       {
-        icon: "🔐",
+        icon: "auth",
         title: "Auth & Security",
         items: [
           "Apple Sign-In with first/last name retrieval & OAuth_User undefined protection",
@@ -688,7 +688,7 @@ const projects = [
         ],
       },
       {
-        icon: "⚡",
+        icon: "performance",
         title: "Performance & Release",
         items: [
           "React.memo, useMemo & FlatList optimisation across all three apps",
