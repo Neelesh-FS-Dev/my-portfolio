@@ -1,10 +1,23 @@
+import { useRef, useEffect, useState } from "react";
 import { experience, degrees, certifications } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import {
+  FiSmartphone,
+  FiGlobe,
+  FiBookOpen,
+  FiAward,
+  FiExternalLink,
+} from "react-icons/fi";
+import { TbBrandReactNative } from "react-icons/tb";
+import { SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiPython, SiJavascript, SiCoursera } from "react-icons/si";
+import { FiCpu } from "react-icons/fi";
 
 const roleColors = {
   current: "var(--accent)",
   past: "var(--accent2)",
 };
+
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -18,14 +31,66 @@ function getExperience(startDate) {
   if (months === 0) return `${years} yrs`;
   return `${years} yr ${months} mos`;
 }
+
 export default function Experience() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
   const edu = degrees[0];
 
+  const [visible, setVisible] = useState({});
+  const [certVisible, setCertVisible] = useState(false);
+  const [eduVisible, setEduVisible] = useState(false);
+  const cardRefs = useRef([]);
+  const certRef = useRef(null);
+  const eduRef = useRef(null);
+  const certIconMap = {
+    algo: <FiCpu />,
+    python: <SiPython />,
+    reactnative: <TbBrandReactNative />,
+    javascript: <SiJavascript />,
+  };
+  useEffect(() => {
+    const observers = cardRefs.current.map((ref, idx) => {
+      if (!ref) return null;
+      const obs = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) setVisible((v) => ({ ...v, [idx]: true }));
+        },
+        { threshold: 0.1 },
+      );
+      obs.observe(ref);
+      return obs;
+    });
+    return () => observers.forEach((o) => o?.disconnect());
+  }, []);
+
+  useEffect(() => {
+    if (!certRef.current) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setCertVisible(true);
+      },
+      { threshold: 0.1 },
+    );
+    obs.observe(certRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!eduRef.current) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setEduVisible(true);
+      },
+      { threshold: 0.1 },
+    );
+    obs.observe(eduRef.current);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
-      {/* ── HEADER ──────────────────────────────────────────────── */}
+      {/* HEADER */}
       <section
         style={{
           padding: isMobile ? "40px 0 52px" : "60px 0 80px",
@@ -74,25 +139,29 @@ export default function Experience() {
           >
             {[
               {
-                label: "📱 React Native",
+                icon: <TbBrandReactNative size={12} />,
+                label: "React Native",
                 color: "var(--accent)",
                 bg: "rgba(0,229,255,0.07)",
                 border: "rgba(0,229,255,0.25)",
               },
               {
-                label: "🌐 React.js / JavaScript",
+                icon: <SiReact size={12} />,
+                label: "React.js / JS",
                 color: "#b39ddb",
                 bg: "rgba(124,77,255,0.07)",
                 border: "rgba(124,77,255,0.25)",
               },
               {
-                label: "🎨 Tailwind CSS / Vite",
+                icon: <SiTailwindcss size={12} />,
+                label: "Tailwind CSS / Vite",
                 color: "var(--green)",
                 bg: "rgba(0,255,136,0.07)",
                 border: "rgba(0,255,136,0.25)",
               },
               {
-                label: "⚡ TypeScript / Redux",
+                icon: <SiTypescript size={12} />,
+                label: "TypeScript / Redux",
                 color: "var(--accent3)",
                 bg: "rgba(255,107,53,0.07)",
                 border: "rgba(255,107,53,0.25)",
@@ -113,29 +182,31 @@ export default function Experience() {
                   background: t.bg,
                 }}
               >
-                {t.label}
+                {t.icon} {t.label}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── TIMELINE ────────────────────────────────────────────── */}
+      {/* TIMELINE */}
       <section className="section">
         <div className="container" style={{ maxWidth: 880 }}>
           <div
             style={{ position: "relative", paddingLeft: isMobile ? 28 : 44 }}
           >
-            {/* Vertical line */}
+            {/* Glowing vertical line */}
             <div
               style={{
                 position: "absolute",
                 left: isMobile ? 7 : 2,
                 top: 0,
                 bottom: 0,
-                width: 1,
+                width: 2,
                 background:
-                  "linear-gradient(180deg,var(--accent) 0%,var(--accent2) 50%,transparent 100%)",
+                  "linear-gradient(180deg, var(--accent) 0%, var(--accent2) 40%, #ec4899 75%, transparent 100%)",
+                borderRadius: 2,
+                boxShadow: "0 0 10px rgba(0,229,255,0.25)",
               }}
             />
 
@@ -148,6 +219,7 @@ export default function Experience() {
               return (
                 <div
                   key={idx}
+                  ref={(el) => (cardRefs.current[idx] = el)}
                   style={{
                     position: "relative",
                     marginBottom: 56,
@@ -156,6 +228,11 @@ export default function Experience() {
                       idx < experience.length - 1
                         ? "1px solid var(--border)"
                         : "none",
+                    opacity: visible[idx] ? 1 : 0,
+                    transform: visible[idx]
+                      ? "translateX(0)"
+                      : "translateX(-28px)",
+                    transition: `opacity 0.55s ease ${idx * 0.08}s, transform 0.55s ease ${idx * 0.08}s`,
                   }}
                 >
                   {/* Timeline dot */}
@@ -164,30 +241,42 @@ export default function Experience() {
                       position: "absolute",
                       left: isMobile ? -21 : -43,
                       top: 12,
-                      width: 14,
-                      height: 14,
+                      width: job.type === "current" ? 16 : 12,
+                      height: job.type === "current" ? 16 : 12,
                       borderRadius: "50%",
                       background: lineColor,
-                      boxShadow: `0 0 16px ${lineColor}60`,
+                      boxShadow: `0 0 ${job.type === "current" ? "20px" : "10px"} ${lineColor}80`,
                       border: "2px solid var(--bg)",
                       zIndex: 1,
                     }}
                   >
                     {job.type === "current" && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: -5,
-                          borderRadius: "50%",
-                          border: `1px solid ${lineColor}`,
-                          opacity: 0.4,
-                          animation: "ripple 2s ease-out infinite",
-                        }}
-                      />
+                      <>
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: -5,
+                            borderRadius: "50%",
+                            border: `1px solid ${lineColor}`,
+                            opacity: 0.5,
+                            animation: "ripple 2s ease-out infinite",
+                          }}
+                        />
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: -10,
+                            borderRadius: "50%",
+                            border: `1px solid ${lineColor}`,
+                            opacity: 0.2,
+                            animation: "ripple 2s ease-out infinite 0.5s",
+                          }}
+                        />
+                      </>
                     )}
                   </div>
 
-                  {/* Card header row */}
+                  {/* Card header */}
                   <div
                     style={{
                       display: "flex",
@@ -209,11 +298,23 @@ export default function Experience() {
                             color: "var(--green)",
                             border: "1px solid rgba(0,255,136,0.3)",
                             background: "rgba(0,255,136,0.08)",
-                            display: "inline-block",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 5,
                             marginBottom: 10,
                           }}
                         >
-                          ● CURRENT
+                          <span
+                            style={{
+                              width: 6,
+                              height: 6,
+                              borderRadius: "50%",
+                              background: "var(--green)",
+                              display: "inline-block",
+                              animation: "pulse 1.5s ease-in-out infinite",
+                            }}
+                          />
+                          CURRENT
                         </span>
                       )}
                       <h2
@@ -238,9 +339,12 @@ export default function Experience() {
                             fontWeight: 500,
                             marginBottom: 2,
                             textDecoration: "none",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 5,
                           }}
                         >
-                          {job.company} ↗
+                          {job.company} <FiExternalLink size={13} />
                         </a>
                       ) : (
                         <p
@@ -265,15 +369,30 @@ export default function Experience() {
                         {job.location}
                       </p>
                     </div>
+
+                    {/* Duration card */}
                     <div
                       style={{
                         background: "var(--surface)",
-                        border: "1px solid var(--border)",
+                        border: `1px solid ${lineColor}20`,
                         borderRadius: 14,
                         padding: isSmall ? "12px 16px" : "14px 20px",
                         flexShrink: 0,
+                        position: "relative",
+                        overflow: "hidden",
                       }}
                     >
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: 2,
+                          background: lineColor,
+                          opacity: 0.6,
+                        }}
+                      />
                       <div
                         style={{
                           fontFamily: "var(--font-mono)",
@@ -293,12 +412,12 @@ export default function Experience() {
                       >
                         {job.startDate
                           ? getExperience(job.startDate)
-                          : job.duration}{" "}
+                          : job.duration}
                       </div>
                     </div>
                   </div>
 
-                  {/* Tech stack — domain split for current, flat chips for past */}
+                  {/* Tech stack */}
                   {job.type === "current" && job.mobileTech?.length > 0 && (
                     <div
                       style={{
@@ -310,13 +429,13 @@ export default function Experience() {
                     >
                       {[
                         {
-                          icon: "📱",
+                          icon: <FiSmartphone size={11} />,
                           label: "Mobile",
                           color: "var(--accent)",
                           items: job.mobileTech,
                         },
                         {
-                          icon: "🌐",
+                          icon: <FiGlobe size={11} />,
                           label: "Web",
                           color: "#b39ddb",
                           items: job.webTech,
@@ -339,6 +458,9 @@ export default function Experience() {
                               letterSpacing: "0.1em",
                               textTransform: "uppercase",
                               marginBottom: 10,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 5,
                             }}
                           >
                             {d.icon} {d.label} Stack
@@ -445,7 +567,7 @@ export default function Experience() {
         </div>
       </section>
 
-      {/* ── EDUCATION ───────────────────────────────────────────── */}
+      {/* EDUCATION */}
       <section
         style={{
           padding: "72px 0 100px",
@@ -459,26 +581,26 @@ export default function Experience() {
             Academic Background
           </h2>
 
-          {/* Degree card */}
           <div
+            ref={eduRef}
             style={{
               background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: 20,
               overflow: "hidden",
+              opacity: eduVisible ? 1 : 0,
+              transform: eduVisible ? "translateY(0)" : "translateY(24px)",
+              transition: "opacity 0.6s ease, transform 0.6s ease",
             }}
           >
-            {/* Top accent bar */}
             <div
               style={{
                 height: 3,
                 background:
-                  "linear-gradient(90deg, var(--accent), var(--accent2))",
+                  "linear-gradient(90deg, var(--accent), var(--accent2), #ec4899)",
               }}
             />
-
             <div style={{ padding: isSmall ? "22px" : "32px" }}>
-              {/* Header row */}
               <div
                 style={{
                   display: "flex",
@@ -557,7 +679,6 @@ export default function Experience() {
                 </div>
               </div>
 
-              {/* Institution badges */}
               {edu.institutionBadges && (
                 <div
                   style={{
@@ -586,7 +707,6 @@ export default function Experience() {
                 </div>
               )}
 
-              {/* About institution */}
               {edu.institutionAbout && (
                 <p
                   style={{
@@ -604,7 +724,6 @@ export default function Experience() {
                 </p>
               )}
 
-              {/* Coursework + Activities */}
               <div
                 style={{
                   display: "grid",
@@ -629,9 +748,12 @@ export default function Experience() {
                         letterSpacing: "0.1em",
                         textTransform: "uppercase",
                         marginBottom: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 5,
                       }}
                     >
-                      📚 Key Coursework
+                      <FiBookOpen size={11} /> Key Coursework
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                       {edu.coursework.map((c) => (
@@ -652,7 +774,6 @@ export default function Experience() {
                     </div>
                   </div>
                 )}
-
                 {edu.activities && (
                   <div
                     style={{
@@ -670,9 +791,12 @@ export default function Experience() {
                         letterSpacing: "0.1em",
                         textTransform: "uppercase",
                         marginBottom: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 5,
                       }}
                     >
-                      🏆 Activities
+                      <FiAward size={11} /> Activities
                     </div>
                     <div
                       style={{
@@ -718,18 +842,22 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* ── CERTIFICATIONS ────────────────────────────────────── */}
+          {/* CERTIFICATIONS */}
           <div style={{ marginTop: 44 }}>
             <div className="section-label">Certifications</div>
             <div
+              ref={certRef}
               style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
                 gap: 12,
                 marginTop: 18,
+                opacity: certVisible ? 1 : 0,
+                transform: certVisible ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
               }}
             >
-              {certifications.map((cert) => (
+              {certifications.map((cert, i) => (
                 <div
                   key={cert.name}
                   style={{
@@ -740,6 +868,11 @@ export default function Experience() {
                     display: "flex",
                     gap: 14,
                     alignItems: "center",
+                    opacity: certVisible ? 1 : 0,
+                    transform: certVisible
+                      ? "translateY(0)"
+                      : "translateY(12px)",
+                    transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s`,
                   }}
                 >
                   <div
@@ -756,7 +889,7 @@ export default function Experience() {
                       flexShrink: 0,
                     }}
                   >
-                    {cert.icon}
+                    {certIconMap[cert.icon] ?? cert.icon}{" "}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div
@@ -799,7 +932,8 @@ export default function Experience() {
       </section>
 
       <style>{`
-        @keyframes ripple { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.5);opacity:0} }
+        @keyframes ripple { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.8);opacity:0} }
+        @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:0.3} }
       `}</style>
     </div>
   );

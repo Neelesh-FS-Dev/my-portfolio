@@ -46,7 +46,7 @@ export const certifications = [
     issuer: "Coursera / UC San Diego",
     year: "Nov 2021",
     credentialId: "XTNMD5CG83VY",
-    icon: "📊",
+    icon: "algo",
     color: "var(--accent)",
   },
   {
@@ -54,7 +54,7 @@ export const certifications = [
     issuer: "Coursera / University of Michigan",
     year: "Oct 2020",
     credentialId: "FMYUVTTL22PK",
-    icon: "🐍",
+    icon: "python",
     color: "var(--accent2)",
   },
   {
@@ -62,7 +62,7 @@ export const certifications = [
     issuer: "Self / Professional",
     year: "2023",
     credentialId: "",
-    icon: "📱",
+    icon: "reactnative",
     color: "var(--accent)",
   },
   {
@@ -70,7 +70,7 @@ export const certifications = [
     issuer: "Self / Professional",
     year: "2022",
     credentialId: "",
-    icon: "⚡",
+    icon: "javascript",
     color: "var(--accent2)",
   },
 ];
