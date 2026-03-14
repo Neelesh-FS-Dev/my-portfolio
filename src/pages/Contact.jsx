@@ -20,39 +20,64 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData();
+
+  //   formData.append("entry.111111111", form.name);
+  //   formData.append("entry.222222222", form.email);
+  //   formData.append("entry.333333333", form.subject);
+  //   formData.append("entry.444444444", form.message);
+
+  //   await fetch(
+  //     "https://docs.google.com/forms/d/e/1FAIpQLSfhiC1j8SjWTzbMjQnAX9zIh4UdfTxbeWvUP8ci5sUMJVSTPQ/formResponse",
+  //     {
+  //       method: "POST",
+  //       mode: "no-cors",
+  //       body: formData,
+  //     },
+  //   );
+
+  //   setSent(true);
+
+  //   setForm({
+  //     name: "",
+  //     email: "",
+  //     subject: "",
+  //     message: "",
+  //   });
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const formData = new FormData();
-
-    formData.append("entry.111111111", form.name);
-    formData.append("entry.222222222", form.email);
-    formData.append("entry.333333333", form.subject);
-    formData.append("entry.444444444", form.message);
-
-    await fetch(
-      "https://docs.google.com/forms/d/e/1FAIpQLSfhiC1j8SjWTzbMjQnAX9zIh4UdfTxbeWvUP8ci5sUMJVSTPQ/formResponse",
-      {
+    try {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        mode: "no-cors",
-        body: formData,
-      },
-    );
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    setSent(true);
+      const data = await res.json();
 
-    setForm({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+      if (res.ok) {
+        setSent(true); // show success state
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        alert(data.message || "Something went wrong.");
+      }
+    } catch (err) {
+      alert("Failed to send. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
-
   const inputBase = {
     width: "100%",
     padding: isSmall ? "12px 14px" : "14px 18px",
