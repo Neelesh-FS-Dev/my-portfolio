@@ -345,6 +345,190 @@ const blogs = [
       },
     ],
   },
+
+  {
+    id: 7,
+    slug: "sign-in-with-apple-react-native",
+    title: "Implementing Sign In with Apple in React Native (iOS + Android)",
+    excerpt:
+      "A complete walkthrough of integrating Sign In with Apple using @invertase/react-native-apple-authentication — covering Xcode capability setup, Android workaround via JWT, private email relay, credential state handling, and App Store compliance gotchas.",
+    date: "Mar 2025",
+    readTime: "7 min read",
+    tags: ["React Native", "Authentication", "iOS", "Apple", "Security"],
+    color: "#ffffff",
+    icon: "",
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Apple Sign In is not optional — if your app offers any third-party login (Google, Facebook, etc.), Apple mandates you also offer Sign In with Apple or it gets rejected from the App Store. I learned this the hard way during a review cycle on a client project. This post documents every step from Xcode capability setup to credential state monitoring, plus the often-ignored Android fallback that most guides skip entirely.",
+      },
+      {
+        type: "heading",
+        text: "Why Sign In with Apple is different",
+      },
+      {
+        type: "text",
+        text: "Unlike Google or Facebook OAuth, Apple Sign In has a few unique behaviours you must design around: Apple only sends the user's name and email on the very first login. If the user revokes and re-authorises, you get the user ID but not the name/email again — ever. You must persist name and email immediately on first sign-in, not on a subsequent profile fetch. Apple also offers a private email relay (e.g. abc123@privaterelay.appleid.com) that forwards to the user's real inbox. Your backend must be whitelisted to send to these relay addresses via Apple's developer portal.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Xcode capability and Apple Developer setup",
+      },
+      {
+        type: "text",
+        text: "In Xcode, open your project → select the target → go to Signing & Capabilities → click the + button → add Sign In with Apple. This creates an entitlement file automatically. In the Apple Developer portal, go to Identifiers → select your App ID → enable Sign In with Apple → configure the primary App ID if you're using an extension. For backend token validation, create a Services ID (used as the client_id for web flows) and generate a Key (.p8 file) under Keys — this is your client secret material for the REST API.",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Install the library",
+      },
+      {
+        type: "code",
+        label: "terminal",
+        text: "npm install @invertase/react-native-apple-authentication\n# iOS\ncd ios && pod install\n# No additional linking needed for RN 0.63+",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — Trigger the Sign In flow",
+      },
+      {
+        type: "code",
+        label: "AppleSignInButton.jsx",
+        text: "import appleAuth, {\n  AppleButton,\n  AppleAuthRequestOperation,\n  AppleAuthRequestScope,\n  AppleAuthCredentialState,\n} from '@invertase/react-native-apple-authentication';\nimport { Alert } from 'react-native';\n\nexport default function AppleSignInButton() {\n  async function handleAppleSignIn() {\n    try {\n      const appleAuthRequestResponse = await appleAuth.performRequest({\n        requestedOperation: AppleAuthRequestOperation.LOGIN,\n        requestedScopes: [\n          AppleAuthRequestScope.EMAIL,\n          AppleAuthRequestScope.FULL_NAME,\n        ],\n      });\n\n      const { user, email, fullName, identityToken, nonce } =\n        appleAuthRequestResponse;\n\n      // CRITICAL: persist name/email immediately — Apple won't send again\n      const displayName =\n        fullName?.givenName && fullName?.familyName\n          ? `${fullName.givenName} ${fullName.familyName}`\n          : 'Apple User';\n\n      // Send identityToken + nonce to your backend for JWT verification\n      await sendToBackend({ identityToken, nonce, user, email, displayName });\n\n    } catch (error) {\n      if (error.code === '1001') return; // user cancelled — not an error\n      Alert.alert('Sign In Failed', error.message);\n    }\n  }\n\n  if (!appleAuth.isSupported) return null;\n\n  return (\n    <AppleButton\n      buttonStyle={AppleButton.Style.WHITE}\n      buttonType={AppleButton.Type.SIGN_IN}\n      style={{ width: 200, height: 44 }}\n      onPress={handleAppleSignIn}\n    />\n  );\n}",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — Backend JWT verification",
+      },
+      {
+        type: "text",
+        text: "Never trust the identityToken on the client side alone. Send the identityToken and nonce to your server. On the backend, fetch Apple's public keys from https://appleid.apple.com/auth/keys, verify the JWT signature using the matching key, check the nonce matches, confirm the iss is https://appleid.apple.com, and confirm the aud matches your Bundle ID. Libraries like apple-signin-auth (Node.js) or python-jose handle this cleanly. Only after verification create or update the user record.",
+      },
+      {
+        type: "heading",
+        text: "Step 5 — Monitor credential state changes",
+      },
+      {
+        type: "code",
+        label: "useAppleCredentialListener.js",
+        text: "import { useEffect } from 'react';\nimport appleAuth, {\n  AppleAuthCredentialState,\n} from '@invertase/react-native-apple-authentication';\nimport { useDispatch } from 'react-redux';\nimport { signOut } from '../store/authSlice';\n\nexport function useAppleCredentialListener(userId) {\n  const dispatch = useDispatch();\n\n  useEffect(() => {\n    if (!userId || !appleAuth.isSupported) return;\n\n    // Fires when user revokes Apple Sign In from iOS Settings\n    const unsubscribe = appleAuth.onCredentialRevoked(async () => {\n      const state = await appleAuth.getCredentialStateForUser(userId);\n      if (state === AppleAuthCredentialState.REVOKED) {\n        dispatch(signOut());\n      }\n    });\n\n    return () => unsubscribe();\n  }, [userId]);\n}",
+      },
+      {
+        type: "heading",
+        text: "Android — the forgotten step",
+      },
+      {
+        type: "text",
+        text: "Apple Sign In on Android requires a web-based OAuth flow through a Services ID (not the App ID). You redirect the user to Apple's auth URL in a WebView or browser, receive a code + id_token via your redirect URI (must be HTTPS), and exchange it on your backend. The @invertase library supports this via appleAuthAndroid module. Key difference: you must generate and verify a nonce client-side as a SHA256 hash, pass it raw to Apple, and verify the hashed version in the JWT. Skipping the nonce check is a security hole.",
+      },
+      {
+        type: "code",
+        label: "appleAuthAndroid setup",
+        text: "import { appleAuthAndroid } from '@invertase/react-native-apple-authentication';\nimport 'react-native-get-random-values';\nimport { v4 as uuid } from 'uuid';\nimport SHA256 from 'crypto-js/sha256';\n\nasync function handleAndroidAppleSignIn() {\n  const rawNonce = uuid();\n  const state = uuid();\n\n  appleAuthAndroid.configure({\n    clientId: 'com.yourcompany.yourapp.service', // Services ID\n    redirectUri: 'https://yourapp.com/auth/apple/callback',\n    responseType: appleAuthAndroid.ResponseType.ALL,\n    responseMode: appleAuthAndroid.ResponseMode.QUERY,\n    scope: appleAuthAndroid.Scope.ALL,\n    nonce: rawNonce,\n    state,\n  });\n\n  const response = await appleAuthAndroid.signIn();\n  // Send response.id_token + rawNonce to backend for verification\n}",
+      },
+      {
+        type: "callout",
+        text: "Three things that will get your app rejected: not offering Apple Sign In when you offer other social logins, not handling the credential revocation listener, and sending marketing emails to Apple's private relay without whitelisting your domain in the Apple Developer portal. Check all three before submitting.",
+      },
+    ],
+  },
+  {
+    id: 8,
+    slug: "google-sign-in-react-native",
+    title: "Google Sign In with React Native — The Complete Guide",
+    excerpt:
+      "Everything you need to implement Google Sign In using @react-native-google-signin/google-signin — from SHA-1 fingerprint setup and OAuth client IDs, to silent sign-in, token refresh, Play Integrity, and the iOS URL scheme trap that breaks half of all setups.",
+    date: "Mar 2025",
+    readTime: "8 min read",
+    tags: ["React Native", "Authentication", "Google", "OAuth", "Android"],
+    color: "#4285F4",
+    icon: "🔐",
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Google Sign In looks straightforward until it isn't. The library installs fine, the button renders, then you hit a cryptic DEVELOPER_ERROR on Android or a silent failure on iOS with no stack trace. I've set this up across a dozen React Native projects and the bugs are almost always the same three things: wrong SHA-1 fingerprint in Firebase, missing URL scheme in Info.plist, or a mismatched OAuth client ID. This guide eliminates all of them.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Firebase project and OAuth client setup",
+      },
+      {
+        type: "text",
+        text: "Go to the Firebase console → create or open your project → add an Android app with your exact package name → download google-services.json and place it at android/app/google-services.json. For iOS, add an iOS app with your bundle ID → download GoogleService-Info.plist → drag it into Xcode under the project root (not a subfolder). The OAuth client IDs are embedded in these files — do not hardcode them manually. For Android, you must register both your debug and release SHA-1 fingerprints or sign-in will silently fail in release builds.",
+      },
+      {
+        type: "code",
+        label: "Get SHA-1 fingerprint",
+        text: "# Debug keystore (for development)\nkeytool -list -v \\\n  -keystore ~/.android/debug.keystore \\\n  -alias androiddebugkey \\\n  -storepass android \\\n  -keypass android\n\n# Release keystore (for production — use your actual keystore path)\nkeytool -list -v \\\n  -keystore ./android/app/release.keystore \\\n  -alias your-key-alias",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Install and link",
+      },
+      {
+        type: "code",
+        label: "terminal",
+        text: "npm install @react-native-google-signin/google-signin\n\n# android/build.gradle — add inside dependencies\nclasspath 'com.google.gms:google-services:4.4.1'\n\n# android/app/build.gradle — add at bottom\napply plugin: 'com.google.gms.google-services'\n\n# iOS\ncd ios && pod install",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — iOS URL scheme (the trap everyone falls into)",
+      },
+      {
+        type: "text",
+        text: "Open GoogleService-Info.plist and find the REVERSED_CLIENT_ID value — it looks like com.googleusercontent.apps.xxxxxxxxxx-xxxx. Now open Xcode → your target → Info tab → URL Types → add a new entry → set the URL Scheme to that exact reversed client ID value. Without this, Google's auth callback cannot return to your app on iOS and sign-in will hang indefinitely or silently fail. This is the single most common iOS setup mistake.",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — Configure and implement sign in",
+      },
+      {
+        type: "code",
+        label: "GoogleAuth.js",
+        text: "import {\n  GoogleSignin,\n  GoogleSigninButton,\n  statusCodes,\n} from '@react-native-google-signin/google-signin';\nimport { useEffect } from 'react';\n\n// Call once at app startup (e.g. in App.jsx)\nGoogleSignin.configure({\n  // Found in GoogleService-Info.plist as CLIENT_ID\n  iosClientId: 'YOUR_IOS_CLIENT_ID.apps.googleusercontent.com',\n  // Scopes beyond profile + email\n  scopes: ['profile', 'email'],\n  // Required if you need offline access / refresh tokens on backend\n  offlineAccess: true,\n});\n\nexport async function signInWithGoogle() {\n  try {\n    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });\n\n    const userInfo = await GoogleSignin.signIn();\n    const { idToken } = await GoogleSignin.getTokens();\n\n    // Send idToken to your backend for verification\n    // Never use the userInfo directly to create sessions\n    return { userInfo, idToken };\n\n  } catch (error) {\n    if (error.code === statusCodes.SIGN_IN_CANCELLED) {\n      return null; // user backed out — not an error\n    } else if (error.code === statusCodes.IN_PROGRESS) {\n      return null; // already signing in\n    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {\n      throw new Error('Google Play Services not available');\n    }\n    throw error;\n  }\n}",
+      },
+      {
+        type: "heading",
+        text: "Step 5 — Silent sign-in for returning users",
+      },
+      {
+        type: "text",
+        text: "Don't make returning users tap the button every time. On app start, call GoogleSignin.signInSilently() — it restores the previous session using a cached refresh token without any UI. If it throws a statusCodes.SIGN_IN_REQUIRED error, show the sign-in button. This is also where you refresh the idToken, since Google's idTokens expire after 1 hour. Always call getTokens() after signInSilently() to get a fresh idToken before hitting your backend.",
+      },
+      {
+        type: "code",
+        label: "useSilentSignIn.js",
+        text: "import { useEffect } from 'react';\nimport { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';\nimport { useDispatch } from 'react-redux';\nimport { setUser, clearUser } from '../store/authSlice';\n\nexport function useSilentSignIn() {\n  const dispatch = useDispatch();\n\n  useEffect(() => {\n    async function trySilentSignIn() {\n      try {\n        const userInfo = await GoogleSignin.signInSilently();\n        const { idToken } = await GoogleSignin.getTokens(); // fresh token\n        dispatch(setUser({ userInfo, idToken }));\n      } catch (error) {\n        if (error.code === statusCodes.SIGN_IN_REQUIRED) {\n          dispatch(clearUser()); // expected — show login screen\n        }\n      }\n    }\n\n    trySilentSignIn();\n  }, []);\n}",
+      },
+      {
+        type: "heading",
+        text: "Backend token verification",
+      },
+      {
+        type: "text",
+        text: "On your server, verify the idToken using Google's tokeninfo endpoint or the google-auth-library. Never create a user session based on the client-side userInfo object alone — it can be spoofed. Verify the aud field matches your client ID and the email_verified field is true. If you passed offlineAccess: true during configure, the sign-in response also includes a serverAuthCode — exchange this on your backend for a refresh token, which lets your server call Google APIs on the user's behalf even when the app is closed.",
+      },
+      {
+        type: "code",
+        label: "Backend verification (Node.js)",
+        text: "import { OAuth2Client } from 'google-auth-library';\n\nconst client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);\n\nexport async function verifyGoogleToken(idToken) {\n  const ticket = await client.verifyIdToken({\n    idToken,\n    audience: process.env.GOOGLE_CLIENT_ID,\n  });\n\n  const payload = ticket.getPayload();\n\n  if (!payload.email_verified) {\n    throw new Error('Email not verified by Google');\n  }\n\n  return {\n    googleId: payload.sub,\n    email: payload.email,\n    name: payload.name,\n    avatar: payload.picture,\n  };\n}",
+      },
+      {
+        type: "heading",
+        text: "Common DEVELOPER_ERROR causes",
+      },
+      {
+        type: "text",
+        text: "DEVELOPER_ERROR on Android almost always means one of three things: the SHA-1 fingerprint registered in Firebase doesn't match the keystore you're building with (debug vs release), the package name in Firebase doesn't exactly match applicationId in build.gradle, or the google-services.json file is outdated and doesn't reflect recent Firebase console changes. Download a fresh copy of google-services.json after any Firebase console change — it's cached locally and won't auto-update.",
+      },
+      {
+        type: "callout",
+        text: "Checklist before going to production: register both debug AND release SHA-1 fingerprints in Firebase, add the REVERSED_CLIENT_ID URL scheme in Xcode, verify idTokens on the server — never on the client, handle token expiry with signInSilently + getTokens() on app resume, and test sign-out + sign-in again to confirm the flow works after credential revocation.",
+      },
+    ],
+  },
 ];
 
 export default blogs;
