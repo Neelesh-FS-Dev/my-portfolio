@@ -65,10 +65,9 @@ function BlogCard({ post, featured = false }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 48,
             }}
           >
-            {post.icon}
+            <post.icon size={48} color={post.color} />
           </div>
         </div>
       )}
@@ -151,7 +150,7 @@ function BlogCard({ post, featured = false }) {
         </p>
 
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {post.tags.map((tag) => (
+          {(post.tags || []).map((tag) => (
             <span
               key={tag}
               style={{

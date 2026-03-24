@@ -137,10 +137,9 @@ export default function BlogDetail() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: isSmall ? 24 : 30,
               }}
             >
-              {post.icon}
+              <post.icon size={isSmall ? 24 : 30} color={post.color} />
             </div>
             <div
               style={{
@@ -202,7 +201,7 @@ export default function BlogDetail() {
 
           {/* Tags */}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {post.tags.map((tag) => (
+            {(post.tags || []).map((tag) => (
               <span
                 key={tag}
                 style={{

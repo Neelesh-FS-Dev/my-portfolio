@@ -1,11 +1,70 @@
+import {
+  FiZap,
+  FiMessageSquare,
+  FiEye,
+  FiRefreshCw,
+  FiLayers,
+  FiPenTool,
+  FiLock,
+  FiKey,
+  FiUploadCloud,
+  FiPlay,
+  FiCode,
+  FiServer,
+  FiBox,
+  FiCpu,
+  FiShield,
+} from "react-icons/fi";
+
 // ═══════════════════════════════════════════════════════════════
 //  blogs.js  ← EDIT THIS FILE to add / update blog posts
 //
 //  Each post has:
-//    - metadata (id, title, excerpt, date, tags, color, domain)
+//    - metadata (id, title, excerpt, date, tags, domain)
 //    - content[] array of blocks:
 //        { type: "intro"|"heading"|"text"|"code"|"callout", text, label? }
+//
+//  Colors and icons are auto-assigned below — no need to add
+//  `color` or `icon` fields. New entries pick the next palette slot.
 // ═══════════════════════════════════════════════════════════════
+
+// Add more colors here to extend the palette; cycles automatically
+const BLOG_PALETTE = [
+  "#00e5ff", // electric cyan
+  "#7c4dff", // deep violet
+  "#ff6b35", // vivid orange
+  "#00ff88", // neon green
+  "#ff4d6d", // rose pink
+  "#ffd60a", // golden yellow
+  "#bf5af2", // apple purple
+  "#ff6b6b", // warm red
+  "#0a84ff", // ios blue
+  "#34a853", // google green
+  "#f72585", // hot pink
+  "#4cc9f0", // sky blue
+  "#fb8500", // amber
+  "#06d6a0", // mint
+  "#ef233c", // crimson
+];
+
+// Add more icons here to extend; cycles automatically
+const BLOG_ICONS = [
+  FiZap, // 1 - RN New Architecture (performance)
+  FiMessageSquare, // 2 - WebSocket Chat (real-time messaging)
+  FiEye, // 3 - AR Try-On (visual / camera)
+  FiRefreshCw, // 4 - FlatList Optimization (re-renders)
+  FiLayers, // 5 - Next.js vs Vite (web frameworks)
+  FiPenTool, // 6 - Tailwind CSS (styling / design)
+  FiLock, // 7 - Apple Sign In (auth / iOS)
+  FiKey, // 8 - Google Sign In (auth / credentials)
+  FiUploadCloud, // 9 - App Store Deploy
+  FiPlay, // 10 - Google Play Deploy
+  FiCode, // 11+
+  FiServer,
+  FiBox,
+  FiCpu,
+  FiShield,
+];
 
 const blogs = [
   // ── MOBILE ──────────────────────────────────────────────────
@@ -18,8 +77,6 @@ const blogs = [
     date: "Feb 2024",
     readTime: "8 min read",
     tags: ["React Native", "Performance", "Architecture", "TypeScript"],
-    color: "#00e5ff",
-    icon: "⚡",
     domain: "mobile",
     content: [
       {
@@ -75,8 +132,6 @@ const blogs = [
     date: "Jan 2024",
     readTime: "6 min read",
     tags: ["WebSocket", "Real-time", "React Native", "Redux"],
-    color: "#7c4dff",
-    icon: "🔌",
     domain: "mobile",
     content: [
       {
@@ -129,8 +184,6 @@ const blogs = [
     date: "Dec 2023",
     readTime: "10 min read",
     tags: ["AR", "Three.js", "MediaPipe", "React Native"],
-    color: "#ff6b35",
-    icon: "🎭",
     domain: "mobile",
     content: [
       {
@@ -183,8 +236,6 @@ const blogs = [
     date: "Nov 2023",
     readTime: "5 min read",
     tags: ["Performance", "React Native", "FlatList", "Memoisation"],
-    color: "#00ff88",
-    icon: "🔄",
     domain: "mobile",
     content: [
       {
@@ -247,8 +298,6 @@ const blogs = [
     date: "Oct 2023",
     readTime: "7 min read",
     tags: ["Next.js", "Vite", "React", "Web Performance"],
-    color: "#7c4dff",
-    icon: "🌐",
     domain: "web",
     content: [
       {
@@ -301,8 +350,6 @@ const blogs = [
     date: "Sep 2023",
     readTime: "6 min read",
     tags: ["Tailwind CSS", "React", "CSS Architecture", "DX"],
-    color: "#00ff88",
-    icon: "🎨",
     domain: "web",
     content: [
       {
@@ -355,8 +402,6 @@ const blogs = [
     date: "Mar 2025",
     readTime: "7 min read",
     tags: ["React Native", "Authentication", "iOS", "Apple", "Security"],
-    color: "#ffffff",
-    icon: "",
     domain: "mobile",
     content: [
       {
@@ -442,8 +487,6 @@ const blogs = [
     date: "Mar 2025",
     readTime: "8 min read",
     tags: ["React Native", "Authentication", "Google", "OAuth", "Android"],
-    color: "#4285F4",
-    icon: "🔐",
     domain: "mobile",
     content: [
       {
@@ -529,6 +572,248 @@ const blogs = [
       },
     ],
   },
+  {
+    id: 9,
+    slug: "deploy-react-native-app-store",
+    title:
+      "Deploying a React Native App to the App Store — Full Xcode Walkthrough",
+    excerpt:
+      "A step-by-step production deployment guide for iOS — covering Apple Developer account setup, certificates, provisioning profiles, Xcode archive, TestFlight distribution, App Store Connect metadata, and the review gotchas that cause most first-time rejections.",
+    date: "Mar 2025",
+    readTime: "9 min read",
+    tags: ["React Native", "iOS", "App Store", "Xcode", "Deployment"], // ← must be present
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Deploying to the App Store for the first time feels like navigating a bureaucracy with no map. Certificates expire silently, provisioning profiles mismatch at archive time, and App Store Connect throws validation errors that point nowhere useful. I've shipped over a dozen React Native apps to production on iOS and the process is always the same set of traps. This guide walks through every step — from a fresh Apple Developer account to your app going live — with the exact sequence that avoids those traps.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Apple Developer Program enrollment",
+      },
+      {
+        type: "text",
+        text: "Go to developer.apple.com and enrol in the Apple Developer Program ($99/year). Individual accounts are tied to your personal Apple ID — use a dedicated Apple ID for company projects, not your personal one. Organisation accounts require a D-U-N-S number (free, takes 1–5 business days to process via Dun & Bradstreet). Once enrolled, allow 24–48 hours for full activation before certificates become available. Everything else in this guide depends on an active membership.",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Create an App ID",
+      },
+      {
+        type: "text",
+        text: "In the Apple Developer portal, go to Identifiers → App IDs → register a new App ID. Choose Explicit (not wildcard) and set the Bundle ID to match exactly what you have in Xcode — com.yourcompany.yourapp. Enable the capabilities your app uses: Push Notifications, Sign In with Apple, Associated Domains, etc. You cannot add certain capabilities later without regenerating your provisioning profile, so check this list thoroughly before continuing.",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — Distribution certificate",
+      },
+      {
+        type: "text",
+        text: "Go to Certificates → create a new Apple Distribution certificate. You will need to generate a Certificate Signing Request (CSR) from Keychain Access on your Mac: open Keychain Access → Certificate Assistant → Request a Certificate from a Certificate Authority → save to disk. Upload that CSR to the developer portal, download the resulting .cer file, and double-click it to install into your Mac's keychain. This certificate proves you are an authorised Apple developer. Keep the private key backed up — if you lose it, you must revoke and recreate.",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — Provisioning profile",
+      },
+      {
+        type: "text",
+        text: "Go to Profiles → create a new App Store Distribution profile. Select the App ID you created, select your Distribution certificate, name it clearly (e.g. YourApp AppStore Distribution), and download it. Double-click the .mobileprovision file to install it. In Xcode, go to your target → Signing & Capabilities → uncheck Automatically manage signing → under Release, manually select this provisioning profile and the Distribution certificate. Mismatches between the certificate in the profile and the one installed in your keychain are the most common archive failure.",
+      },
+      {
+        type: "heading",
+        text: "Step 5 — Xcode build settings before archiving",
+      },
+      {
+        type: "code",
+        label: "ios/Podfile — ensure release config",
+        text: "# Make sure your Podfile targets release optimisations\npost_install do |installer|\n  installer.pods_project.targets.each do |target|\n    target.build_configurations.each do |config|\n      if config.name == 'Release'\n        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Owholemodule'\n        config.build_settings['ENABLE_BITCODE'] = 'NO' # Bitcode deprecated in Xcode 14+\n      end\n    end\n  end\nend",
+      },
+      {
+        type: "text",
+        text: "In Xcode, set the active scheme to your app target (not a test target) and the destination to Any iOS Device (arm64) — not a simulator. Open Product → Scheme → Edit Scheme → confirm the Run configuration is set to Release, not Debug. React Native's release build minifies JS and removes the Metro bundler dependency — never ship a Debug build to the App Store. Also bump your CFBundleShortVersionString (marketing version, e.g. 1.0.1) and CFBundleVersion (build number, must increment for every TestFlight or App Store upload) in Info.plist.",
+      },
+      {
+        type: "heading",
+        text: "Step 6 — Archive and upload via Xcode Organizer",
+      },
+      {
+        type: "code",
+        label: "Build release JS bundle first",
+        text: "# From project root — generates the release bundle before archiving\nnpx react-native bundle \\\n  --platform ios \\\n  --dev false \\\n  --entry-file index.js \\\n  --bundle-output ios/main.jsbundle \\\n  --assets-dest ios\n\n# Then in Xcode: Product → Archive",
+      },
+      {
+        type: "text",
+        text: "After archiving, the Xcode Organizer opens automatically. Select your archive → Distribute App → App Store Connect → Upload. Xcode will validate the binary, check entitlements, and upload it to App Store Connect. This process takes 3–10 minutes depending on bundle size. If validation fails with a missing entitlement error, it means a capability is enabled in your code but not in your provisioning profile — go back to the developer portal, enable it on the App ID, and regenerate the profile.",
+      },
+      {
+        type: "heading",
+        text: "Step 7 — TestFlight distribution",
+      },
+      {
+        type: "text",
+        text: "After upload, the build appears in App Store Connect → TestFlight within 5–15 minutes (sometimes longer on first upload). Internal testers (up to 100, no review required) can install immediately. External TestFlight groups require a Beta App Review — usually 1–2 days. Add testers by email or create a public link. TestFlight builds expire after 90 days, so keep pushing builds for longer beta periods. Always test the TestFlight build on a real device before submitting to App Store review — it uses the release bundle, not Metro, and catches issues that never appear in development.",
+      },
+      {
+        type: "heading",
+        text: "Step 8 — App Store Connect metadata",
+      },
+      {
+        type: "text",
+        text: "In App Store Connect, create a new app version. You need: app name (30 chars max), subtitle (30 chars), description (4000 chars), keywords (100 chars total, comma-separated — these drive search ranking), support URL, marketing URL (optional), and privacy policy URL (mandatory for all apps since 2020). Screenshots are required for 6.7-inch iPhone (iPhone 15 Pro Max size), 12.9-inch iPad if you support iPad. Use Xcode Simulator to capture at the right dimensions. App Preview videos (30 seconds max) significantly improve conversion rates.",
+      },
+      {
+        type: "heading",
+        text: "Step 9 — Submit for review",
+      },
+      {
+        type: "text",
+        text: "Select the build from TestFlight, fill in the export compliance (does your app use encryption beyond HTTPS? usually No for most apps), content rights declarations, and advertising identifier (IDFA) usage. Set the release type — automatic after approval, or manual (you release it yourself after approval). Average review time is 24–48 hours for a new app, 12–24 hours for updates. You can check App Review status on the App Store Connect app on iPhone for real-time notifications.",
+      },
+      {
+        type: "heading",
+        text: "Common rejection reasons and fixes",
+      },
+      {
+        type: "text",
+        text: "Guideline 2.1 (App Completeness) — reviewers test on a real device and tap everything. Broken states, placeholder text, or non-functional buttons cause immediate rejection. Guideline 4.0 (Design) — your app must provide genuine value beyond a web view wrapper. Guideline 5.1.1 (Privacy) — every permission you request (camera, location, contacts) must be justified in the NSUsageDescription and actually used visibly. Requesting permissions not used in your app is an automatic rejection. Guideline 3.1.1 (Payments) — any digital goods or subscriptions must use Apple's In-App Purchase, not Stripe or PayPal directly.",
+      },
+      {
+        type: "callout",
+        text: "Before every App Store submission: increment the build number (even for same-version re-submissions), test the exact TestFlight build on a physical device, verify all NSUsageDescription strings are present in Info.plist, confirm your privacy policy URL is live and accessible, and make sure the app works without an account login if reviewers cannot create one (provide demo credentials in the review notes).",
+      },
+    ],
+  },
+  {
+    id: 10,
+    slug: "deploy-react-native-google-play",
+    title:
+      "Deploying a React Native App to Google Play — Android Studio & Play Console Guide",
+    excerpt:
+      "The complete production deployment guide for Android — covering keystore generation, Gradle signing config, AAB builds in Android Studio, Play Console setup, internal/closed/open tracks, Play App Signing, and avoiding the policy violations that get new apps suspended.",
+    date: "Mar 2025",
+    readTime: "9 min read",
+    tags: [
+      "React Native",
+      "Android",
+      "Google Play",
+      "Android Studio",
+      "Deployment",
+    ],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Android deployment has its own class of surprises — keystore files that get lost and brick your app's update capability, AAB vs APK confusion, Play App Signing opt-in that cannot be undone, and policy violations that trigger account suspensions with little explanation. After shipping numerous React Native apps through Play Console, I've documented the exact steps and failure modes so you don't repeat them.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Create a Google Play Developer account",
+      },
+      {
+        type: "text",
+        text: "Go to play.google.com/console and pay the one-time $25 registration fee using a Google account. Use a dedicated Google account for company apps — not your personal Gmail. If registering as an organisation, you will need to verify your developer identity with a government-issued ID or business documents (introduced in 2023 as part of Google's developer verification program). This verification can take 2–7 business days. Your Play Console account is permanent — do not delete it as it cannot be transferred to another Google account.",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Generate a release keystore",
+      },
+      {
+        type: "text",
+        text: "Your release keystore is the cryptographic identity of your app. Google uses it to verify that updates come from the same developer as the original release. If you lose this file and its password, you can never push updates to that app listing — you would have to publish an entirely new app with a new package name and lose all reviews, ratings, and install history. Back this file up in multiple secure locations immediately after creating it.",
+      },
+      {
+        type: "code",
+        label: "Generate release keystore",
+        text: "# Run from your project root — replace ALL placeholder values\nkeytool -genkeypair -v \\\n  -storetype PKCS12 \\\n  -keystore android/app/release.keystore \\\n  -alias your-key-alias \\\n  -keyalg RSA \\\n  -keysize 2048 \\\n  -validity 10000\n\n# You will be prompted for:\n# - Keystore password (store this securely)\n# - Key password (can be same as keystore password)\n# - Your name, organisation, city, state, country code\n\n# IMMEDIATELY back up release.keystore to a password manager or secure cloud storage\n# Add to .gitignore — never commit your keystore to version control",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — Configure Gradle signing",
+      },
+      {
+        type: "code",
+        label: "android/gradle.properties — store credentials",
+        text: "# Add to gradle.properties (this file is in .gitignore by default)\nMYAPP_UPLOAD_STORE_FILE=release.keystore\nMYAPP_UPLOAD_KEY_ALIAS=your-key-alias\nMYAPP_UPLOAD_STORE_PASSWORD=your-keystore-password\nMYAPP_UPLOAD_KEY_PASSWORD=your-key-password",
+      },
+      {
+        type: "code",
+        label: "android/app/build.gradle — signing config",
+        text: "android {\n  ...\n  signingConfigs {\n    debug {\n      storeFile file('debug.keystore')\n      storePassword 'android'\n      keyAlias 'androiddebugkey'\n      keyPassword 'android'\n    }\n    release {\n      if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {\n        storeFile file(MYAPP_UPLOAD_STORE_FILE)\n        storePassword MYAPP_UPLOAD_STORE_PASSWORD\n        keyAlias MYAPP_UPLOAD_KEY_ALIAS\n        keyPassword MYAPP_UPLOAD_KEY_PASSWORD\n      }\n    }\n  }\n  buildTypes {\n    release {\n      signingConfig signingConfigs.release\n      minifyEnabled true  // enables ProGuard/R8\n      shrinkResources true\n      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n    }\n  }\n}",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — Build the release AAB in Android Studio",
+      },
+      {
+        type: "text",
+        text: "Google Play requires Android App Bundle (AAB) format since August 2021 — APKs are no longer accepted for new apps. AAB lets Play generate optimised APKs per device configuration (screen density, CPU architecture), reducing install size by 15–40% compared to a universal APK. In Android Studio: Build → Generate Signed Bundle / APK → Android App Bundle → select your keystore and fill in the credentials → choose release build variant → Finish. The output .aab file will be in android/app/release/.",
+      },
+      {
+        type: "code",
+        label: "Or build from terminal",
+        text: "# From project root — build release AAB without opening Android Studio\ncd android && ./gradlew bundleRelease\n\n# Output: android/app/build/outputs/bundle/release/app-release.aab\n\n# Verify the bundle with bundletool (optional but recommended)\njava -jar bundletool.jar build-apks \\\n  --bundle=app-release.aab \\\n  --output=app.apks \\\n  --ks=app/release.keystore \\\n  --ks-key-alias=your-key-alias \\\n  --ks-pass=pass:your-keystore-password",
+      },
+      {
+        type: "heading",
+        text: "Step 5 — Play Console app setup",
+      },
+      {
+        type: "text",
+        text: "In Play Console, click Create app — choose app or game, free or paid, and confirm policy declarations. Fill in the store listing: title (30 chars), short description (80 chars), full description (4000 chars), and upload graphics. Required assets: feature graphic (1024×500px), at least 2 screenshots per form factor you support (phone mandatory, tablet if applicable), and a high-res icon (512×512px PNG). The feature graphic appears as a banner when your app is featured — make it visually compelling even if you never get featured.",
+      },
+      {
+        type: "heading",
+        text: "Step 6 — Play App Signing (mandatory for AAB)",
+      },
+      {
+        type: "text",
+        text: "When uploading your first AAB, Play Console will prompt you to opt into Play App Signing. This is now mandatory for all new apps. Google stores and manages the final signing key used to sign APKs delivered to users. You upload with your upload key (the keystore you generated), Google re-signs with their app signing key before delivery. The critical implication: your upload keystore password is now only needed for uploads — if you lose it, Google can reset your upload key via identity verification. Register your upload key's SHA-1 and SHA-256 in Firebase to keep Google Sign In working.",
+      },
+      {
+        type: "heading",
+        text: "Step 7 — Release tracks",
+      },
+      {
+        type: "text",
+        text: "Play Console has four release tracks: Internal Testing (up to 100 testers, instant publish, no review, use this for daily builds), Closed Testing / Alpha (specific tester groups, no review, takes ~hours), Open Testing / Beta (public opt-in, no review, good for stress testing), and Production (full rollout or staged, requires Google review for new apps — typically 1–3 days). Always start with Internal Testing to verify the AAB installs correctly on real devices before pushing to Production. Use staged rollout (start at 10–20%) for production releases to catch crashes before they hit all users.",
+      },
+      {
+        type: "code",
+        label: "Staged rollout via Gradle Play Publisher (optional automation)",
+        text: "# build.gradle — automate deployments with gradle-play-publisher\nplugins {\n  id 'com.github.triplet.play' version '3.8.4'\n}\n\nplay {\n  serviceAccountCredentials.set(file('play-service-account.json'))\n  track.set('internal')          // or 'alpha', 'beta', 'production'\n  userFraction.set(0.1)          // 10% staged rollout\n  updatePriority.set(2)          // 0-5, used by Play Core for in-app updates\n  defaultToAppBundles.set(true)\n}\n\n// Then run: ./gradlew publishReleaseBundle",
+      },
+      {
+        type: "heading",
+        text: "Step 8 — Content rating, target audience, and data safety",
+      },
+      {
+        type: "text",
+        text: "Play Console requires three declarations before you can publish: Content Rating (complete the IARC questionnaire — takes 5 minutes, assigns age ratings for all regions automatically), Target Audience and Content (specify minimum age, whether the app targets children — if yes, additional COPPA compliance requirements apply), and Data Safety section (mandatory since 2022 — declare every data type your app collects, whether it's shared with third parties, and whether users can request deletion). The data safety form must match your privacy policy. Inconsistencies between the two are a policy violation and can cause suspension.",
+      },
+      {
+        type: "heading",
+        text: "ProGuard and common release build crashes",
+      },
+      {
+        type: "text",
+        text: "minifyEnabled true turns on R8 code shrinking which renames classes — this breaks reflection-based libraries and causes crashes in release that never appear in debug. Add keep rules to proguard-rules.pro for any library that uses reflection: Gson models, Retrofit interfaces, React Native native modules. If you get a ClassNotFoundException in release, the class was shrunk away. Check the R8 mapping file at android/app/build/outputs/mapping/release/mapping.txt to trace obfuscated stack traces back to readable class names — upload this file to Play Console's Android Vitals for automatic deobfuscation in crash reports.",
+      },
+      {
+        type: "code",
+        label: "proguard-rules.pro — common React Native rules",
+        text: "# Keep React Native\n-keep class com.facebook.react.** { *; }\n-keep class com.facebook.hermes.** { *; }\n-keep class com.facebook.jni.** { *; }\n\n# Keep your app's native modules\n-keep class com.yourcompany.yourapp.** { *; }\n\n# Keep Gson models (if using Gson)\n-keepattributes Signature\n-keepattributes *Annotation*\n-dontwarn sun.misc.**\n-keep class com.google.gson.** { *; }\n\n# Keep OkHttp (used by many RN libraries)\n-dontwarn okhttp3.**\n-dontwarn okio.**",
+      },
+      {
+        type: "callout",
+        text: "Critical checklist before first Play Store submission: back up your release keystore in at least 2 separate secure locations, opt into Play App Signing and save your upload key certificate, complete the Data Safety form honestly (mismatches with your privacy policy cause suspensions), test the exact release AAB via Internal Testing on 2–3 physical devices before promoting to Production, and upload your ProGuard mapping.txt to Android Vitals so crash reports are readable.",
+      },
+    ],
+  },
 ];
 
-export default blogs;
+export default blogs.map((b, i) => ({
+  ...b,
+  color: BLOG_PALETTE[i % BLOG_PALETTE.length],
+  icon: BLOG_ICONS[i % BLOG_ICONS.length],
+}));
