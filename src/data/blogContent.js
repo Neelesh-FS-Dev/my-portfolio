@@ -9,7 +9,6 @@ export const blogDetails = [
     readTime: "8 min read",
     tags: ["React Native", "Performance", "Architecture"],
     color: "#00e5ff",
-    icon: "⚡",
     domain: "mobile",
     content: [
       {
@@ -52,7 +51,6 @@ export const blogDetails = [
     readTime: "6 min read",
     tags: ["WebSocket", "Real-time", "React Native"],
     color: "#7c4dff",
-    icon: "🔌",
     domain: "mobile",
     content: [
       {
@@ -90,7 +88,6 @@ export const blogDetails = [
     readTime: "10 min read",
     tags: ["AR", "Three.js", "MediaPipe"],
     color: "#ff6b35",
-    icon: "🎭",
     domain: "mobile",
     content: [
       {
@@ -128,7 +125,6 @@ export const blogDetails = [
     readTime: "5 min read",
     tags: ["Performance", "React Native", "FlatList"],
     color: "#00ff88",
-    icon: "🔄",
     domain: "mobile",
     content: [
       {
@@ -167,7 +163,6 @@ export const blogDetails = [
     readTime: "7 min read",
     tags: ["Next.js", "Vite", "React", "Web"],
     color: "#7c4dff",
-    icon: "🌐",
     domain: "web",
     content: [
       {
@@ -210,7 +205,6 @@ export const blogDetails = [
     readTime: "6 min read",
     tags: ["Tailwind CSS", "React", "CSS Architecture"],
     color: "#00ff88",
-    icon: "🎨",
     domain: "web",
     content: [
       {

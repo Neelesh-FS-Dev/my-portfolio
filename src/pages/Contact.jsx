@@ -7,6 +7,8 @@ import {
   FiInstagram,
   FiMapPin,
   FiPhone,
+  FiCheckCircle,
+  FiSend,
 } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi"; // or: import { AiOutlineLinkedin } from 'react-icons/ai'
 
@@ -369,7 +371,10 @@ export default function Contact() {
           >
             {sent ? (
               <div style={{ textAlign: "center", padding: "32px 0" }}>
-                <div style={{ fontSize: 44, marginBottom: 16 }}>✅</div>
+                <FiCheckCircle
+                  size={44}
+                  style={{ marginBottom: 16, color: "var(--green)" }}
+                />
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
@@ -504,7 +509,11 @@ export default function Contact() {
                       cursor: "pointer",
                     }}
                   >
-                    Send Message ✉
+                    Send Message{" "}
+                    <FiSend
+                      size={14}
+                      style={{ verticalAlign: "middle", marginLeft: 4 }}
+                    />
                   </button>
                 </form>
               </>

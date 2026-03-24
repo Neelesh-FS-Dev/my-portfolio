@@ -8,7 +8,7 @@ import { SiReact, SiTailwindcss } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { skillIconMap } from "../utils/skillIcons";
 
-import { FiMail, FiGithub, FiPhone } from "react-icons/fi";
+import { FiMail, FiGithub, FiPhone, FiCheck } from "react-icons/fi";
 import GitHubGraph from "../components/GitHubGraph";
 function getExperience(startDate) {
   const start = new Date(startDate);
@@ -455,8 +455,15 @@ function About() {
               <span style={{ color: "var(--text3)" }}>echo $STATUS</span>
             </p>
             <p style={{ color: "var(--text3)" }}>
-              <span style={{ color: "var(--green)" }}>✓</span> Open to
-              opportunities
+              <FiCheck
+                size={13}
+                style={{
+                  color: "var(--green)",
+                  verticalAlign: "middle",
+                  marginRight: 2,
+                }}
+              />{" "}
+              Open to opportunities
               <span
                 style={{
                   animation: "blink 1s steps(1) infinite",

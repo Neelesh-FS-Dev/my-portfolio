@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { projects } from "../data";
 import { useIsMobile, useIsTablet, useIsSmall } from "../hooks/useMediaQuery";
 import { BsApple, BsGooglePlay } from "react-icons/bs";
-import { FiExternalLink } from "react-icons/fi";
+import { FiExternalLink, FiSmartphone } from "react-icons/fi";
 import { featureIconMap } from "../utils/featureIcons";
 import { FiUsers, FiMonitor } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
@@ -251,7 +251,7 @@ function AppScreenshot({ screenshot, accentColor, index }) {
               padding: 16,
             }}
           >
-            <div style={{ fontSize: 28, opacity: 0.5 }}>📱</div>
+            <FiSmartphone size={28} style={{ opacity: 0.4 }} />
             <div
               style={{
                 fontFamily: "var(--font-mono)",

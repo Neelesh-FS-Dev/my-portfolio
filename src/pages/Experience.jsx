@@ -624,7 +624,7 @@ export default function Experience() {
                     fontSize: 24,
                   }}
                 >
-                  {edu.icon}
+                  <edu.icon size={24} color="white" />
                 </div>
                 <div style={{ flex: 1, minWidth: 200 }}>
                   <h3

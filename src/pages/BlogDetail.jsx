@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { blogs as blogDetails } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import { FiInfo } from "react-icons/fi";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -337,9 +338,10 @@ export default function BlogDetail() {
                       alignItems: "flex-start",
                     }}
                   >
-                    <span style={{ fontSize: 20, flexShrink: 0, marginTop: 2 }}>
-                      💡
-                    </span>
+                    <FiInfo
+                      size={20}
+                      style={{ flexShrink: 0, marginTop: 2, color: post.color }}
+                    />
                     <p
                       style={{
                         fontFamily: "var(--font-body)",

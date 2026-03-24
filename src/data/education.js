@@ -1,3 +1,5 @@
+import { FiBook } from "react-icons/fi";
+
 // ═══════════════════════════════════════════════════════════════
 //  education.js  ← EDIT THIS FILE to update education & certs
 // ═══════════════════════════════════════════════════════════════
@@ -10,7 +12,7 @@ export const degrees = [
     location: "Ahmedabad, Gujarat",
     period: "Jul 2019 – May 2023",
     duration: "4 Years",
-    icon: "🎓",
+    icon: FiBook,
     // Institution highlights shown on portfolio
     institutionBadges: [
       "NAAC A+ Accredited",

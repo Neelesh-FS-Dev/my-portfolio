@@ -2,6 +2,7 @@ import { useState } from "react";
 import { projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import ProjectCard from "../components/ProjectCard";
+import { FiSearch } from "react-icons/fi";
 
 export default function Projects() {
   const [domainTab, setDomainTab] = useState("all");
@@ -225,7 +226,7 @@ export default function Projects() {
                 color: "var(--text3)",
               }}
             >
-              <div style={{ fontSize: 40, marginBottom: 16 }}>🔍</div>
+              <FiSearch size={40} style={{ marginBottom: 16, opacity: 0.4 }} />
               <p style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}>
                 No projects in this category yet
               </p>
