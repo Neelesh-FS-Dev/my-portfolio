@@ -9,6 +9,7 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { skillIconMap } from "../utils/skillIcons";
 
 import { FiMail, FiGithub, FiPhone } from "react-icons/fi";
+import GitHubGraph from "../components/GitHubGraph";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -1067,6 +1068,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
+      <GitHubGraph />
       <FeaturedProjects />
       <GetInTouch />
     </>

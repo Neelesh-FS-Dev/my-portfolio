@@ -4,8 +4,24 @@ export const config = {
   },
 };
 
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "";
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  const origin = req.headers.origin || "";
+  if (ALLOWED_ORIGIN && origin === ALLOWED_ORIGIN) {
+    res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+  } else if (!ALLOWED_ORIGIN) {
+    res.setHeader("Access-Control-Allow-Origin", origin || "*");
+  }
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -23,6 +39,22 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
+  // Basic length limits
+  if (
+    name.length > 100 ||
+    email.length > 254 ||
+    (subject && subject.length > 200) ||
+    message.length > 5000
+  ) {
+    return res.status(400).json({ message: "Input exceeds allowed length" });
+  }
+
+  // Validate email format
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    return res.status(400).json({ message: "Invalid email address" });
+  }
+
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -35,16 +67,16 @@ export default async function handler(req, res) {
         to: ["neeleshy263@gmail.com"],
         reply_to: email,
         subject: subject
-          ? `[Portfolio] ${subject}`
-          : `[Portfolio] Message from ${name}`,
+          ? `[Portfolio] ${escapeHtml(subject)}`
+          : `[Portfolio] Message from ${escapeHtml(name)}`,
         html: `
           <h2>New message from your portfolio</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ""}
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+          ${subject ? `<p><strong>Subject:</strong> ${escapeHtml(subject)}</p>` : ""}
           <hr/>
           <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, "<br/>")}</p>
+          <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
         `,
       }),
     });
