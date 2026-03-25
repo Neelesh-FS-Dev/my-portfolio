@@ -776,21 +776,25 @@ export default function ProjectDetail() {
                     ),
                     l: "Users",
                   },
-                  {
-                    v: (
-                      <>
-                        <AiFillStar
-                          size={17}
-                          style={{
-                            color: "#f59e0b",
-                            marginRight: 4,
-                          }}
-                        />
-                        {project.rating}
-                      </>
-                    ),
-                    l: "Rating",
-                  },
+                  ...(project.rating
+                    ? [
+                        {
+                          v: (
+                            <>
+                              <AiFillStar
+                                size={17}
+                                style={{
+                                  color: "#f59e0b",
+                                  marginRight: 4,
+                                }}
+                              />
+                              {project.rating}
+                            </>
+                          ),
+                          l: "Rating",
+                        },
+                      ]
+                    : []),
                   {
                     v: (
                       <>

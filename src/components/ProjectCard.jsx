@@ -187,23 +187,25 @@ export default function ProjectCard({ project, featured = false }) {
             {isWeb ? <FiMonitor size={11} /> : <FiSmartphone size={11} />}
             {project.category}
           </span>
-          <span
-            style={{
-              padding: "3px 10px",
-              borderRadius: 100,
-              fontFamily: "var(--font-mono)",
-              fontSize: 10,
-              color: "var(--accent)",
-              border: "1px solid rgba(0,229,255,0.2)",
-              background: "rgba(0,229,255,0.05)",
-            }}
-          >
-            <AiFillStar
-              size={12}
-              style={{ color: "#f59e0b", verticalAlign: "middle" }}
-            />{" "}
-            {project.rating}
-          </span>
+          {project.rating && (
+            <span
+              style={{
+                padding: "3px 10px",
+                borderRadius: 100,
+                fontFamily: "var(--font-mono)",
+                fontSize: 10,
+                color: "var(--accent)",
+                border: "1px solid rgba(0,229,255,0.2)",
+                background: "rgba(0,229,255,0.05)",
+              }}
+            >
+              <AiFillStar
+                size={12}
+                style={{ color: "#f59e0b", verticalAlign: "middle" }}
+              />{" "}
+              {project.rating}
+            </span>
+          )}
         </div>
 
         <div>
