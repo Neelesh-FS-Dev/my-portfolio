@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { blogs } from "../data";
 import { useIsMobile, useIsSmall, useIsTablet } from "../hooks/useMediaQuery";
@@ -190,10 +190,31 @@ export default function Blogs() {
   const isSmall = useIsSmall();
   const isTablet = useIsTablet();
 
-  const filtered =
-    domainFilter === "all"
-      ? blogs
-      : blogs.filter((b) => b.domain === domainFilter);
+  const filtered = useMemo(
+    () =>
+      domainFilter === "all"
+        ? blogs
+        : blogs.filter((b) => b.domain === domainFilter),
+    [domainFilter],
+  );
+
+  const blogTabs = useMemo(
+    () => [
+      { id: "all", label: "All Posts", count: blogs.length },
+      {
+        id: "mobile",
+        label: " Mobile",
+        count: blogs.filter((b) => b.domain === "mobile").length,
+      },
+      {
+        id: "web",
+        label: " Web",
+        count: blogs.filter((b) => b.domain === "web").length,
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    ],
+    [],
+  );
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
@@ -263,19 +284,7 @@ export default function Blogs() {
               scrollbarWidth: "none",
             }}
           >
-            {[
-              { id: "all", label: "All Posts", count: blogs.length },
-              {
-                id: "mobile",
-                label: " Mobile",
-                count: blogs.filter((b) => b.domain === "mobile").length,
-              },
-              {
-                id: "web",
-                label: " Web",
-                count: blogs.filter((b) => b.domain === "web").length,
-              },
-            ].map((t) => (
+            {blogTabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setDomainFilter(t.id)}

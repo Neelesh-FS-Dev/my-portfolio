@@ -839,7 +839,7 @@ function FeaturedProjects() {
   return (
     <section
       className="section"
-      style={{ background: "var(--bg2)", borderTop: "1px solid var(--border)" }}
+      style={{ borderTop: "1px solid var(--border)" }}
     >
       <div className="container">
         <div

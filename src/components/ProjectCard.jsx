@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
@@ -105,7 +106,7 @@ function BrowserMockup({ color }) {
   );
 }
 
-export default function ProjectCard({ project, featured = false }) {
+function ProjectCard({ project, featured = false }) {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -432,3 +433,5 @@ export default function ProjectCard({ project, featured = false }) {
     </div>
   );
 }
+
+export default memo(ProjectCard);

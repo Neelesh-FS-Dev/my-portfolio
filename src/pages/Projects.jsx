@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import ProjectCard from "../components/ProjectCard";
@@ -10,50 +10,60 @@ export default function Projects() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
 
-  const mobileCategories = [
-    "All",
-    "Wellness",
-    "Social",
-    "E-commerce / AR",
-    "Entertainment",
-  ];
-  const webCategories = ["All", "Web Applications"];
+  const mobileCategories = useMemo(
+    () => ["All", "Wellness", "Social", "E-commerce / AR", "Entertainment"],
+    [],
+  );
+  const webCategories = useMemo(() => ["All", "Web Applications"], []);
 
-  const domainFiltered =
-    domainTab === "all"
-      ? projects
-      : projects.filter((p) => p.type === domainTab);
-  const categories =
-    domainTab === "web"
-      ? webCategories
-      : domainTab === "mobile"
-        ? mobileCategories
-        : [
-            "All",
-            "Wellness",
-            "Social",
-            "E-commerce / AR",
-            "Entertainment",
-            "Web Applications",
-          ];
-  const filtered =
-    category === "All"
-      ? domainFiltered
-      : domainFiltered.filter((p) => p.category === category);
+  const domainFiltered = useMemo(
+    () =>
+      domainTab === "all"
+        ? projects
+        : projects.filter((p) => p.type === domainTab),
+    [domainTab],
+  );
+  const categories = useMemo(
+    () =>
+      domainTab === "web"
+        ? webCategories
+        : domainTab === "mobile"
+          ? mobileCategories
+          : [
+              "All",
+              "Wellness",
+              "Social",
+              "E-commerce / AR",
+              "Entertainment",
+              "Web Applications",
+            ],
+    [domainTab, mobileCategories, webCategories],
+  );
+  const filtered = useMemo(
+    () =>
+      category === "All"
+        ? domainFiltered
+        : domainFiltered.filter((p) => p.category === category),
+    [category, domainFiltered],
+  );
 
-  const domainTabs = [
-    { id: "all", label: "All Projects", count: projects.length },
-    {
-      id: "mobile",
-      label: "Mobile Apps",
-      count: projects.filter((p) => p.type === "mobile").length,
-    },
-    {
-      id: "web",
-      label: "Web Applications",
-      count: projects.filter((p) => p.type === "web").length,
-    },
-  ];
+  const domainTabs = useMemo(
+    () => [
+      { id: "all", label: "All Projects", count: projects.length },
+      {
+        id: "mobile",
+        label: "Mobile Apps",
+        count: projects.filter((p) => p.type === "mobile").length,
+      },
+      {
+        id: "web",
+        label: "Web Applications",
+        count: projects.filter((p) => p.type === "web").length,
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    ],
+    [],
+  );
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>

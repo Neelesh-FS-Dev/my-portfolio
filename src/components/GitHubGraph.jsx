@@ -120,11 +120,13 @@ export default function GitHubGraph() {
   return (
     <section
       ref={containerRef}
+      className="section"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
         transition: "opacity 0.7s ease, transform 0.7s ease",
-        padding: "60px 0",
+        background: "var(--bg2)",
+        borderTop: "1px solid var(--border)",
       }}
     >
       <div className="container">
