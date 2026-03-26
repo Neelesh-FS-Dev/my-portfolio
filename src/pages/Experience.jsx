@@ -199,7 +199,7 @@ export default function Experience() {
             <div
               style={{
                 position: "absolute",
-                left: isMobile ? 7 : 2,
+                left: isMobile ? 13 : 7,
                 top: 0,
                 bottom: 0,
                 width: 2,
@@ -541,9 +541,9 @@ export default function Experience() {
                         <span
                           style={{
                             color: lineColor,
-                            marginTop: 5,
                             flexShrink: 0,
-                            fontSize: 9,
+                            fontSize: isSmall ? 13 : 15,
+                            lineHeight: 1.65,
                           }}
                         >
                           ▸
