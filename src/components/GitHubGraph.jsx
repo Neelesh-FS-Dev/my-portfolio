@@ -103,6 +103,19 @@ export default function GitHubGraph() {
     return startYear === endYear ? `${startYear}` : `${startYear} – ${endYear}`;
   })();
 
+  // Which day-of-week indices (0=Sun…6=Sat) have any contributions
+  const daysWithActivity = data
+    ? new Set(
+        data.calendar.weeks
+          .flatMap((w) => w.contributionDays)
+          .filter((d) => d.contributionCount > 0)
+          .map((d) => new Date(d.date).getDay()),
+      )
+    : new Set();
+
+  // Days we want to label (all except Thu to match GitHub style)
+  const LABELED_DAYS = new Set([0, 1, 2, 3, 4, 5, 6]); // Sun Mon Tue Wed Thu Fri Sat
+
   const totalPrivate = data
     ? data.accounts.reduce((a, acc) => a + (acc.privateCount || 0), 0)
     : 0;
@@ -424,7 +437,10 @@ export default function GitHubGraph() {
                             width: "22px",
                             fontFamily: "var(--font-mono)",
                             fontSize: "9px",
-                            color: d % 2 === 1 ? "var(--text3)" : "transparent",
+                            color:
+                              LABELED_DAYS.has(d) && daysWithActivity.has(d)
+                                ? "var(--text3)"
+                                : "transparent",
                             lineHeight: "11px",
                           }}
                         >
