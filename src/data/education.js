@@ -13,7 +13,6 @@ export const degrees = [
     period: "Jul 2019 – May 2023",
     duration: "4 Years",
     icon: FiBook,
-    // Institution highlights shown on portfolio
     institutionBadges: [
       "NAAC A+ Accredited",
       "NBA Accredited — CSE",
