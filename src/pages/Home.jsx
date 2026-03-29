@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
@@ -945,6 +945,27 @@ function FeaturedProjects() {
 /* ── GET IN TOUCH ──────────────────────────────────────────────── */
 function GetInTouch() {
   const isSmall = useIsSmall();
+
+  // useEffect(() => {
+  //   // Load LinkedIn badge script
+  //   const script = document.createElement("script");
+  //   script.src = "https://platform.linkedin.com/badges/js/profile.js";
+  //   script.async = true;
+  //   script.defer = true;
+  //   script.charset = "utf-8";
+  //   document.body.appendChild(script);
+
+  //   return () => {
+  //     // Cleanup if needed
+  //     const linkedInScript = document.querySelector(
+  //       `script[src="https://platform.linkedin.com/badges/js/profile.js"]`,
+  //     );
+  //     if (linkedInScript && linkedInScript.parentNode) {
+  //       linkedInScript.parentNode.removeChild(linkedInScript);
+  //     }
+  //   };
+  // }, []);
+
   return (
     <section
       className="section"
@@ -996,6 +1017,33 @@ function GetInTouch() {
             Contact Page
           </Link>
         </div>
+
+        {/* LinkedIn Badge
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: 44,
+          }}
+        >
+          <div
+            className="badge-base LI-profile-badge"
+            data-locale="en_US"
+            data-size="medium"
+            data-theme="dark"
+            data-type="VERTICAL"
+            data-vanity="neeleshyadav"
+            data-version="v1"
+          >
+            <a
+              className="badge-base__link LI-simple-link"
+              href="https://in.linkedin.com/in/neeleshyadav?trk=profile-badge"
+            >
+              Neelesh Yadav
+            </a>
+          </div>
+        </div> */}
+
         <div
           style={{
             display: "flex",
