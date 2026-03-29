@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 
-export default function Cursor() {
+function Cursor() {
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
 
@@ -73,3 +73,5 @@ export default function Cursor() {
     </>
   );
 }
+
+export default memo(Cursor);

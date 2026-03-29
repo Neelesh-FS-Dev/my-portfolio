@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FiGithub, FiMail } from "react-icons/fi";
 
@@ -10,7 +10,7 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -397,3 +397,5 @@ export default function Navbar() {
     </>
   );
 }
+
+export default memo(Navbar);
