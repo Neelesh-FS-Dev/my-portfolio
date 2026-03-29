@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
@@ -111,35 +111,58 @@ function ProjectCard({ project, featured = false }) {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
 
-  const accentColor = accentMap[project.accent] || project.color;
-  const isWeb = project.type === "web";
-  const showFeatured = featured && !isMobile && !isTablet;
+  const accentColor = useMemo(
+    () => accentMap[project.accent] || project.color,
+    [project.accent, project.color],
+  );
+  const isWeb = useMemo(() => project.type === "web", [project.type]);
+  const showFeatured = useMemo(
+    () => featured && !isMobile && !isTablet,
+    [featured, isMobile, isTablet],
+  );
+
+  const handleMouseEnter = useCallback(
+    (e) => {
+      e.currentTarget.style.borderColor = accentColor + "40";
+      e.currentTarget.style.transform = "translateY(-5px)";
+      e.currentTarget.style.boxShadow = `0 20px 50px ${accentColor}12`;
+    },
+    [accentColor],
+  );
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.borderColor = "var(--border)";
+    e.currentTarget.style.transform = "translateY(0)";
+    e.currentTarget.style.boxShadow = "none";
+  }, []);
+
+  const handleClick = useCallback(
+    () => navigate(`/projects/${project.id}`),
+    [navigate, project.id],
+  );
+
+  const cardStyle = useMemo(
+    () => ({
+      background: "var(--surface)",
+      border: "1px solid var(--border)",
+      borderRadius: 20,
+      overflow: "hidden",
+      cursor: "pointer",
+      transition: "all 0.35s ease",
+      position: "relative",
+      display: showFeatured ? "grid" : "flex",
+      gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
+      flexDirection: showFeatured ? undefined : "column",
+    }),
+    [showFeatured],
+  );
 
   return (
     <div
-      onClick={() => navigate(`/projects/${project.id}`)}
-      style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: 20,
-        overflow: "hidden",
-        cursor: "pointer",
-        transition: "all 0.35s ease",
-        position: "relative",
-        display: showFeatured ? "grid" : "flex",
-        gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
-        flexDirection: showFeatured ? undefined : "column",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = accentColor + "40";
-        e.currentTarget.style.transform = "translateY(-5px)";
-        e.currentTarget.style.boxShadow = `0 20px 50px ${accentColor}12`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
+      onClick={handleClick}
+      style={cardStyle}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Top accent line */}
       <div

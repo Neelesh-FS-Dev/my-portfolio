@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
@@ -24,10 +24,7 @@ function getExperience(startDate) {
   return `${years} yr ${months} mos`;
 }
 /* ── HERO ──────────────────────────────────────────────────────── */
-function Hero() {
-  const isMobile = useIsMobile();
-  const isSmall = useIsSmall();
-
+function Hero({ isMobile, isSmall }) {
   return (
     <section
       style={{
@@ -321,10 +318,7 @@ function Hero() {
 }
 
 /* ── ABOUT ─────────────────────────────────────────────────────── */
-function About() {
-  const isMobile = useIsMobile();
-  const isSmall = useIsSmall();
-
+function About({ isMobile, isSmall }) {
   return (
     <section
       className="section"
@@ -536,10 +530,8 @@ function About() {
 }
 
 /* ── SKILLS ────────────────────────────────────────────────────── */
-function Skills() {
+function Skills({ isMobile, isSmall }) {
   const [activeTab, setActiveTab] = useState("all");
-  const isMobile = useIsMobile();
-  const isSmall = useIsSmall();
 
   const filteredStack =
     activeTab === "all"
@@ -827,10 +819,8 @@ function Skills() {
 }
 
 /* ── FEATURED PROJECTS ─────────────────────────────────────────── */
-function FeaturedProjects() {
+function FeaturedProjects({ isMobile, isSmall }) {
   const [tab, setTab] = useState("mobile");
-  const isMobile = useIsMobile();
-  const isSmall = useIsSmall();
 
   const mobileProjects = projects.filter((p) => p.type === "mobile");
   const webProjects = projects.filter((p) => p.type === "web");
@@ -943,9 +933,7 @@ function FeaturedProjects() {
 }
 
 /* ── GET IN TOUCH ──────────────────────────────────────────────── */
-function GetInTouch() {
-  const isSmall = useIsSmall();
-
+function GetInTouch({ isSmall }) {
   // useEffect(() => {
   //   // Load LinkedIn badge script
   //   const script = document.createElement("script");
@@ -1118,14 +1106,17 @@ function GetInTouch() {
 }
 
 export default function Home() {
+  const isMobile = useIsMobile();
+  const isSmall = useIsSmall();
+
   return (
     <>
-      <Hero />
-      <About />
-      <Skills />
+      <Hero isMobile={isMobile} isSmall={isSmall} />
+      <About isMobile={isMobile} isSmall={isSmall} />
+      <Skills isMobile={isMobile} isSmall={isSmall} />
       <GitHubGraph />
-      <FeaturedProjects />
-      <GetInTouch />
+      <FeaturedProjects isMobile={isMobile} isSmall={isSmall} />
+      <GetInTouch isSmall={isSmall} />
     </>
   );
 }

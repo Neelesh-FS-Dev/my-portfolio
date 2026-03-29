@@ -1,4 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+
+// Memoize query strings to prevent unnecessary re-renders
+const QUERY_MOBILE = "(max-width: 767px)";
+const QUERY_TABLET = "(max-width: 1023px)";
+const QUERY_SMALL = "(max-width: 479px)";
 
 export function useMediaQuery(query) {
   const [matches, setMatches] = useState(() =>
@@ -13,13 +18,13 @@ export function useMediaQuery(query) {
   return matches;
 }
 
-// Convenience hooks
+// Convenience hooks with memoized query strings
 export function useIsMobile() {
-  return useMediaQuery("(max-width: 767px)");
+  return useMediaQuery(QUERY_MOBILE);
 }
 export function useIsTablet() {
-  return useMediaQuery("(max-width: 1023px)");
+  return useMediaQuery(QUERY_TABLET);
 }
 export function useIsSmall() {
-  return useMediaQuery("(max-width: 479px)");
+  return useMediaQuery(QUERY_SMALL);
 }

@@ -105,7 +105,8 @@ const projects = [
     rating: "4.7",
     // ↓ UPDATE THESE — paste the actual store links here
     appStoreUrl: "https://apps.apple.com/us/app/soul33/id1496751333",
-    playStoreUrl: "", // add Play Store URL if available
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33&pcampaignid=web_share", // add Play Store URL if available
     liveUrl: "https://www.soul33.com/the-app",
     videoUrl: "", // paste YouTube/Loom URL when ready
     screenshots: [
@@ -232,8 +233,9 @@ const projects = [
     screens: 100,
     users: "10K+",
     rating: "4.5",
-    appStoreUrl: "",
-    playStoreUrl: "",
+    appStoreUrl: "https://apps.apple.com/us/app/yoke-yoga/id6480213431",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.yoke.yoga&pcampaignid=web_share",
     liveUrl: "",
     videoUrl: "",
     screenshots: [
@@ -356,8 +358,10 @@ const projects = [
     screens: 40,
     users: "5K+",
     rating: "4.6",
-    appStoreUrl: "",
-    playStoreUrl: "",
+    appStoreUrl:
+      "https://apps.apple.com/in/app/barva-skin-therapie/id6746832703",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.barvaskintherapie.app&pcampaignid=web_share",
     liveUrl: "https://barvaskintherapie.com/",
     videoUrl: "",
     screenshots: [
@@ -468,8 +472,9 @@ const projects = [
     screens: 25,
     users: "2K+",
     rating: "4.5",
-    appStoreUrl: "",
-    playStoreUrl: "",
+    appStoreUrl: "https://apps.apple.com/in/app/netras/id6745164461",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.netras&pcampaignid=web_share",
     liveUrl: "https://netras.in/",
     videoUrl: "",
     screenshots: [
@@ -579,8 +584,9 @@ const projects = [
     screens: 30,
     users: "1K+",
     rating: "4.4",
-    appStoreUrl: "",
-    playStoreUrl: "",
+    appStoreUrl: "https://apps.apple.com/us/app/culture-max/id6478849232",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.culturemaxapk&pcampaignid=web_share",
     liveUrl: "",
     videoUrl: "",
     screenshots: [
