@@ -10,7 +10,7 @@ export const degrees = [
     shortDegree: "B.Tech, Computer Science",
     institution: "Institute of Technology, Nirma University",
     location: "Ahmedabad, Gujarat",
-    period: "Jul 2019 – May 2023",
+    period: "Jul 2019 – June 2023",
     duration: "4 Years",
     icon: FiBook,
     institutionBadges: [
