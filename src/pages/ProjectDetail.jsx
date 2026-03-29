@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { projects } from "../data";
 import { useIsMobile, useIsTablet, useIsSmall } from "../hooks/useMediaQuery";
-import { BsApple, BsGooglePlay } from "react-icons/bs";
+import { BsApple } from "react-icons/bs";
 import {
   FiExternalLink,
   FiSmartphone,
@@ -304,7 +304,30 @@ function StoreButtons({ project, accentColor, isSmall }) {
             e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
           }}
         >
-          <BsGooglePlay size={20} color="#fff" />
+          {/* Google Play colored SVG icon */}
+          <svg
+            width={isSmall ? 18 : 22}
+            height={isSmall ? 18 : 22}
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M3.18 23.76c.3.17.64.24.99.2l12.52-11.5L13.44 9.2 3.18 23.76z"
+              fill="#EA4335"
+            />
+            <path
+              d="M20.54 10.27L17.38 8.5l-3.94 3.96 3.94 3.96 3.19-1.8c.91-.51.91-1.84-.03-2.35z"
+              fill="#FBBC04"
+            />
+            <path
+              d="M3.18.24C2.82.6 2.6 1.17 2.6 1.9v20.2c0 .73.22 1.3.58 1.66l.09.08 11.32-11.32v-.27L3.27.16l-.09.08z"
+              fill="#4285F4"
+            />
+            <path
+              d="M16.7 12.46L13.44 9.2 3.18.24c.44-.25.97-.27 1.44-.03l12.08 6.84-3.94 3.96 3.94-.55z"
+              fill="#34A853"
+            />
+          </svg>
           <div>
             <div
               style={{

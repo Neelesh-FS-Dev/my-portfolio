@@ -31,7 +31,7 @@ const projects = [
       "Crashlytics",
     ],
     highlights: [
-      "15,000+ active users with 4.7 ⭐ App Store rating",
+      "15,000+ active users with 4.7★ App Store rating",
       "Multilingual: English, Spanish & Mandarin meditations",
       "Real-time group chat — swipe-to-reply, typing indicators, audio messages, read receipts",
       "40% runtime performance boost via New React Native Architecture",
