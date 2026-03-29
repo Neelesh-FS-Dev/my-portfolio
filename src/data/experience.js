@@ -4,7 +4,7 @@
 
 const experience = [
   {
-    role: "Senior React Native Developer",
+    role: "React Native Developer",
     company: "EC Info Solutions Pvt. Ltd.",
     companyUrl: "https://www.ecinfosolutions.com/",
     location: "Pune, Maharashtra",
