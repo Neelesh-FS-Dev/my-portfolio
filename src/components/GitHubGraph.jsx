@@ -135,6 +135,7 @@ export default function GitHubGraph() {
       ref={containerRef}
       className="section"
       style={{
+        position: "relative",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
         transition: "opacity 0.7s ease, transform 0.7s ease",
@@ -469,7 +470,15 @@ export default function GitHubGraph() {
                               key={di}
                               onMouseEnter={(e) => {
                                 const rect = e.target.getBoundingClientRect();
-                                setTooltip({ day, x: rect.left, y: rect.top });
+                                const containerRect =
+                                  containerRef.current?.getBoundingClientRect();
+                                if (containerRect) {
+                                  setTooltip({
+                                    day,
+                                    x: rect.left - containerRect.left,
+                                    y: rect.top - containerRect.top,
+                                  });
+                                }
                               }}
                               onMouseLeave={() => setTooltip(null)}
                               style={{
@@ -586,7 +595,7 @@ export default function GitHubGraph() {
       {tooltip && (
         <div
           style={{
-            position: "fixed",
+            position: "absolute",
             top: tooltip.y - 44,
             left: tooltip.x - 30,
             background: "var(--surface2)",
