@@ -153,6 +153,7 @@ function ProjectCard({ project, featured = false }) {
       display: showFeatured ? "grid" : "flex",
       gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
       flexDirection: showFeatured ? undefined : "column",
+      height: "100%",
     }),
     [showFeatured],
   );
@@ -183,6 +184,7 @@ function ProjectCard({ project, featured = false }) {
           display: "flex",
           flexDirection: "column",
           gap: 13,
+          flex: 1,
         }}
       >
         {/* Type badge + rating */}
@@ -261,6 +263,10 @@ function ProjectCard({ project, featured = false }) {
             color: "var(--text2)",
             fontSize: isMobile ? 13 : 14,
             lineHeight: 1.7,
+            display: "-webkit-box",
+            WebkitLineClamp: showFeatured ? 4 : 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
           {project.description}
