@@ -2,6 +2,7 @@ import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { blogs } from "../data";
 import { useIsMobile, useIsSmall, useIsTablet } from "../hooks/useMediaQuery";
+import SEO from "../components/SEO";
 
 /* ── Hook: triggers once when element enters viewport ── */
 function useReveal(threshold = 0.1) {
@@ -33,7 +34,7 @@ function BlogCard({ post, featured = false, idx = 0, visible = true }) {
 
   return (
     <article
-      onClick={() => navigate("/blogs/" + post.id)}
+      onClick={() => navigate("/blogs/" + (post.slug || post.id))}
       style={{
         background: "var(--surface)",
         border: `1px solid ${hovered ? post.color + "45" : "var(--border)"}`,
@@ -300,6 +301,11 @@ export default function Blogs() {
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      <SEO
+        title="Blog — Neelesh Yadav | React Native & Web Development Insights"
+        description="Technical blog posts on React Native, TypeScript, performance optimization, WebSocket, app deployment, and mobile development best practices."
+        path="/blogs"
+      />
       {/* ─── HEADER ─── */}
       <section
         ref={headerRef}

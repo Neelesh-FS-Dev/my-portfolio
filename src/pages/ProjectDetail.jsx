@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import { featureIconMap } from "../utils/featureIcons";
 import { FiUsers, FiMonitor } from "react-icons/fi";
+import SEO, { SITE_URL } from "../components/SEO";
 import { AiFillStar } from "react-icons/ai";
 const accentMap = {
   cyan: "var(--accent)",
@@ -899,6 +900,21 @@ export default function ProjectDetail() {
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      <SEO
+        title={`${project.title} — Neelesh Yadav`}
+        description={project.description}
+        path={`/projects/${project.id}`}
+        image={project.screenshots?.[0]?.url || `${SITE_URL}/logo.png`}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: project.title,
+          description: project.description,
+          applicationCategory: project.type === "mobile" ? "MobileApplication" : "WebApplication",
+          author: { "@type": "Person", name: "Neelesh Yadav" },
+          operatingSystem: project.type === "mobile" ? "iOS, Android" : "Web",
+        }}
+      />
       {/* ── HERO HEADER ─────────────────────────────────────────── */}
       <section
         style={{

@@ -3,6 +3,7 @@ import { projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import ProjectCard from "../components/ProjectCard";
 import { FiSearch } from "react-icons/fi";
+import SEO from "../components/SEO";
 
 /* ── Hook: triggers once when element enters viewport ── */
 function useReveal(threshold = 0.08) {
@@ -143,6 +144,11 @@ export default function Projects() {
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      <SEO
+        title="Projects — Neelesh Yadav | Mobile & Web Apps Portfolio"
+        description="Explore 10+ production mobile and web apps built by Neelesh Yadav — React Native, TypeScript, Redux, Firebase. Published on App Store & Play Store."
+        path="/projects"
+      />
       {/* ─── HEADER ─── */}
       <section
         ref={headerRef}

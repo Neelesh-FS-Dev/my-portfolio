@@ -10,6 +10,7 @@ import { skillIconMap } from "../utils/skillIcons";
 
 import { FiMail, FiGithub, FiPhone, FiCheck } from "react-icons/fi";
 import GitHubGraph from "../components/GitHubGraph";
+import SEO from "../components/SEO";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -1111,6 +1112,7 @@ export default function Home() {
 
   return (
     <>
+      <SEO path="/" />
       <Hero isMobile={isMobile} isSmall={isSmall} />
       <About isMobile={isMobile} isSmall={isSmall} />
       <Skills isMobile={isMobile} isSmall={isSmall} />

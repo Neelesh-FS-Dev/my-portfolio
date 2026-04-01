@@ -12,6 +12,7 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { SiPython, SiJavascript } from "react-icons/si";
 import { FiCpu } from "react-icons/fi";
+import SEO from "../components/SEO";
 
 const roleColors = {
   current: "var(--accent)",
@@ -528,6 +529,11 @@ export default function Experience() {
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      <SEO
+        title="Experience — Neelesh Yadav | 3+ Years React Native & React"
+        description="3+ years of professional experience as a React Native & React Developer. Work history, education, and certifications — Neelesh Yadav, Pune, India."
+        path="/experience"
+      />
       {/* ─── HEADER ─── */}
       <section
         ref={headerRef}

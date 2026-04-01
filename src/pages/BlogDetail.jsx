@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { blogs as blogDetails } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import { FiInfo } from "react-icons/fi";
+import SEO from "../components/SEO";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -39,6 +40,21 @@ export default function BlogDetail() {
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+      <SEO
+        title={`${post.title} — Neelesh Yadav`}
+        description={post.excerpt}
+        path={`/blogs/${post.slug || post.id}`}
+        type="article"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          author: { "@type": "Person", name: "Neelesh Yadav" },
+          datePublished: post.date,
+          keywords: post.tags?.join(", "),
+        }}
+      />
       {/* Hero header */}
       <section
         style={{
@@ -456,7 +472,7 @@ export default function BlogDetail() {
               <div
                 key={p.id}
                 onClick={() => {
-                  navigate(`/blogs/${p.id}`);
+                  navigate(`/blogs/${p.slug || p.id}`);
                   window.scrollTo(0, 0);
                 }}
                 style={{
