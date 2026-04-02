@@ -1,5 +1,10 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import { projects } from "../data";
+import {
+  projects,
+  mobileCategories,
+  webCategories,
+  allCategories,
+} from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import ProjectCard from "../components/ProjectCard";
 import { FiSearch } from "react-icons/fi";
@@ -77,12 +82,6 @@ export default function Projects() {
   const [headerRef, headerVisible] = useReveal(0.05);
   const [emptyRef, emptyVisible] = useReveal(0.1);
 
-  const mobileCategories = useMemo(
-    () => ["All", "Wellness", "Social", "E-commerce / AR", "Entertainment"],
-    [],
-  );
-  const webCategories = useMemo(() => ["All", "Web Applications"], []);
-
   const domainFiltered = useMemo(
     () =>
       domainTab === "all"
@@ -96,15 +95,8 @@ export default function Projects() {
         ? webCategories
         : domainTab === "mobile"
           ? mobileCategories
-          : [
-              "All",
-              "Wellness",
-              "Social",
-              "E-commerce / AR",
-              "Entertainment",
-              "Web Applications",
-            ],
-    [domainTab, mobileCategories, webCategories],
+          : allCategories,
+    [domainTab],
   );
   const filtered = useMemo(
     () =>

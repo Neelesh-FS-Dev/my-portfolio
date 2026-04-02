@@ -1,14 +1,7 @@
 import { useState, useEffect, useRef, memo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FiGithub, FiMail } from "react-icons/fi";
-
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/projects", label: "Projects" },
-  { to: "/experience", label: "Experience" },
-  { to: "/blogs", label: "Blogs" },
-  { to: "/contact", label: "Contact" },
-];
+import { navLinks } from "../data";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);

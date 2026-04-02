@@ -13,11 +13,7 @@ import { SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { SiPython, SiJavascript } from "react-icons/si";
 import { FiCpu } from "react-icons/fi";
 import SEO from "../components/SEO";
-
-const roleColors = {
-  current: "var(--accent)",
-  past: "var(--accent2)",
-};
+import { roleColors } from "../data";
 
 function getExperience(startDate) {
   const start = new Date(startDate);

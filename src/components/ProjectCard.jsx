@@ -4,15 +4,7 @@ import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
 import { FiSmartphone, FiMonitor } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
-const accentMap = {
-  cyan: "var(--accent)",
-  purple: "var(--accent2)",
-  orange: "var(--accent3)",
-  green: "#22c55e",
-  amber: "#f59e0b",
-  pink: "#ec4899",
-  teal: "#06b6d4",
-};
+import { accentMap } from "../data";
 
 /* Minimal browser window mockup for web projects */
 function BrowserMockup({ color }) {
