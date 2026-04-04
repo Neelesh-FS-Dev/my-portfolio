@@ -4,6 +4,7 @@ export const mobileCategories = [
   "Social",
   "E-commerce / AR",
   "Entertainment",
+  "Productivity / Career",
 ];
 
 export const webCategories = ["All", "Web Applications"];
@@ -14,5 +15,6 @@ export const allCategories = [
   "Social",
   "E-commerce / AR",
   "Entertainment",
+  "Productivity / Career",
   "Web Applications",
 ];
