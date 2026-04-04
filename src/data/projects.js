@@ -813,7 +813,7 @@ const projects = [
     category: "Productivity / Career",
     screens: 8,
     users: "Case Study",
-    rating: "4.8",
+    rating: "",
     appStoreUrl: "",
     playStoreUrl: "",
     liveUrl: "",
