@@ -237,7 +237,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.yoke.yoga&pcampaignid=web_share",
     liveUrl: "",
-    videoUrl: "",
+    videoUrl: "/ApplyMate.mov",
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2b/2b/8d/2b2b8d0d-126d-ad32-3faf-1375aa0adddf/IOS_U20281242__U00d7_2688-9.jpg/157x340bb.webp",
@@ -363,7 +363,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.barvaskintherapie.app&pcampaignid=web_share",
     liveUrl: "https://barvaskintherapie.com/",
-    videoUrl: "",
+    videoUrl: "/ApplyMate.mov",
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fb/26/0b/fb260bd2-b526-b7f8-cfcf-aa97c792a6e3/Page_44.jpg/400x800bb.png",
@@ -817,7 +817,7 @@ const projects = [
     appStoreUrl: "",
     playStoreUrl: "",
     liveUrl: "",
-    videoUrl: "",
+    videoUrl: "/ApplyMate.mov",
     color: "#7bbde8",
     accent: "teal",
     screenshots: [],
