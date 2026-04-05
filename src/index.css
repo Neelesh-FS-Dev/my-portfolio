@@ -34,11 +34,11 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  cursor: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 @media (hover: none) {
   body {
@@ -105,7 +105,7 @@ img {
   display: block;
 }
 button {
-  cursor: none;
+  cursor: pointer;
   border: none;
   background: none;
   font-family: inherit;
@@ -253,7 +253,7 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: all 0.3s ease;
-  cursor: none;
+  cursor: pointer;
   white-space: nowrap;
 }
 @media (hover: none) {
@@ -284,6 +284,15 @@ body::before {
   border-color: var(--accent);
   color: var(--accent);
   transform: translateY(-2px);
+}
+
+.interactive-card {
+  text-align: left;
+}
+
+.interactive-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .divider {

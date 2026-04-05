@@ -234,6 +234,12 @@ export default function Contact() {
     transition: "color 0.2s",
   };
 
+  const linkedInHandle = personal.linkedin.replace(/^https?:\/\/(www\.)?/, "");
+  const githubHandle = personal.github.replace(/^https?:\/\/(www\.)?/, "");
+  const instagramHandle = personal.instagram
+    .replace(/^https?:\/\/(www\.)?instagram\.com\//, "@")
+    .replace(/\/$/, "");
+
   const contactItems = [
     {
       icon: <FiMail size={18} />,
@@ -256,19 +262,19 @@ export default function Contact() {
     {
       icon: <FiLinkedin size={18} />,
       label: "LinkedIn",
-      value: "linkedin.com/in/neelesh-yadav",
+      value: linkedInHandle,
       href: personal.linkedin,
     },
     {
       icon: <FiGithub size={18} />,
       label: "GitHub",
-      value: "github.com/Neelesh-FS-Dev",
+      value: githubHandle,
       href: personal.github,
     },
     {
       icon: <FiInstagram size={18} />,
       label: "Instagram",
-      value: "@neelesh.yadav25",
+      value: instagramHandle,
       href: personal.instagram,
     },
   ];

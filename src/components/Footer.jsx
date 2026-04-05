@@ -1,10 +1,33 @@
-import { NavLink } from "react-router-dom";
 import { personal } from "../data";
 import { useIsSmall } from "../hooks/useMediaQuery";
 import { FiGithub, FiMail } from "react-icons/fi";
 
 export default function Footer() {
   const isSmall = useIsSmall();
+  const currentYear = new Date().getFullYear();
+  const links = [
+    {
+      label: (
+        <>
+          <FiGithub size={13} style={{ marginRight: 4, verticalAlign: "middle" }} />
+          GitHub
+        </>
+      ),
+      href: personal.github,
+      external: true,
+    },
+    {
+      label: (
+        <>
+          <FiMail size={13} style={{ marginRight: 4, verticalAlign: "middle" }} />
+          Email
+        </>
+      ),
+      href: `mailto:${personal.email}`,
+      external: false,
+    },
+  ];
+
   return (
     <footer
       style={{
@@ -48,44 +71,16 @@ export default function Footer() {
               color: "var(--text3)",
             }}
           >
-            © 2026 {personal.name}
+            © {currentYear} {personal.name}
           </span>
         </div>
 
         <div
           style={{ display: "flex", gap: isSmall ? 16 : 24, flexWrap: "wrap" }}
         >
-          {[
-            {
-              label: (
-                <>
-                  <FiGithub
-                    size={13}
-                    style={{ marginRight: 4, verticalAlign: "middle" }}
-                  />
-                  GitHub
-                </>
-              ),
-              href: personal.github,
-              external: true,
-            },
-            {
-              label: (
-                <>
-                  <FiMail
-                    size={13}
-                    style={{ marginRight: 4, verticalAlign: "middle" }}
-                  />
-                  Email
-                </>
-              ),
-              href: `mailto:${personal.email}`,
-              external: false,
-            },
-            ,
-          ].map((l) => (
+          {links.map((l) => (
             <a
-              key={l.label}
+              key={l.href}
               href={l.href}
               target={l.external ? "_blank" : undefined}
               rel="noopener noreferrer"

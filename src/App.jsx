@@ -1,16 +1,17 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, memo } from "react";
+import { useEffect, memo, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import Experience from "./pages/Experience";
-import Blogs from "./pages/Blogs";
-import BlogDetail from "./pages/BlogDetail";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+
+const Home = lazy(() => import("./pages/Home"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const Experience = lazy(() => import("./pages/Experience"));
+const Blogs = lazy(() => import("./pages/Blogs"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,7 +22,28 @@ function ScrollToTop() {
 }
 
 const MemoScrollToTop = memo(ScrollToTop);
-
+function RouteFallback() {
+  return (
+    <main>
+      <div
+        className="container"
+        style={{
+          minHeight: "60vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "var(--text2)",
+          fontFamily: "var(--font-mono)",
+          fontSize: 13,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+        }}
+      >
+        Loading...
+      </div>
+    </main>
+  );
+}
 
 export default function App() {
   return (
@@ -29,18 +51,20 @@ export default function App() {
       <Cursor />
       <MemoScrollToTop />
       <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+      <Suspense fallback={<RouteFallback />}>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </Suspense>
       <Footer />
     </>
   );

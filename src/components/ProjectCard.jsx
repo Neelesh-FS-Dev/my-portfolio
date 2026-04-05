@@ -133,6 +133,16 @@ function ProjectCard({ project, featured = false }) {
     [navigate, project.id],
   );
 
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        navigate(`/projects/${project.id}`);
+      }
+    },
+    [navigate, project.id],
+  );
+
   const cardStyle = useMemo(
     () => ({
       background: "var(--surface)",
@@ -151,11 +161,18 @@ function ProjectCard({ project, featured = false }) {
   );
 
   return (
-    <div
+    <article
+      className="interactive-card"
+      role="link"
+      tabIndex={0}
+      aria-label={`View project: ${project.title}`}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
     >
       {/* Top accent line */}
       <div
@@ -451,7 +468,7 @@ function ProjectCard({ project, featured = false }) {
           )}
         </div>
       )}
-    </div>
+    </article>
   );
 }
 

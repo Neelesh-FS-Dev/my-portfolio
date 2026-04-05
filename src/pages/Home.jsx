@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { personal, skillCategories, techStack, projects } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
@@ -9,8 +9,12 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { skillIconMap } from "../utils/skillIcons";
 
 import { FiMail, FiGithub, FiPhone, FiCheck } from "react-icons/fi";
-import GitHubGraph from "../components/GitHubGraph";
 import SEO from "../components/SEO";
+
+const ParticleNetwork = lazy(() => import("../components/ParticleNetwork"));
+const Phone3D = lazy(() => import("../components/Phone3D"));
+const GitHubGraph = lazy(() => import("../components/GitHubGraph"));
+
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -25,6 +29,20 @@ function getExperience(startDate) {
   return `${years} yr ${months} mos`;
 }
 /* ── HERO ──────────────────────────────────────────────────────── */
+function VisualFallback({ children, style }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        pointerEvents: "none",
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function Hero({ isMobile, isSmall }) {
   return (
     <section
@@ -39,32 +57,9 @@ function Hero({ isMobile, isSmall }) {
       }}
       className="grid-bg"
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "15%",
-          left: "-8%",
-          width: 500,
-          height: 500,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10%",
-          right: "-5%",
-          width: 400,
-          height: 400,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle,rgba(124,77,255,0.07) 0%,transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+      <Suspense fallback={null}>
+        <ParticleNetwork />
+      </Suspense>
 
       <div
         className="container"
@@ -280,35 +275,62 @@ function Hero({ isMobile, isSmall }) {
               flexShrink: 0,
             }}
           >
-            <div
-              style={{
-                transform: "rotate(-8deg) translateX(-20px)",
-                zIndex: 1,
-                opacity: 0.55,
-                filter: "blur(1px)",
-              }}
+            <Suspense
+              fallback={
+                <VisualFallback
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 0,
+                  }}
+                >
+                  <div style={{ transform: "translateX(-20px) rotate(-8deg)", opacity: 0.55, filter: "blur(1px)" }}>
+                    <PhoneMockup color="#7c4dff" />
+                  </div>
+                  <div style={{ transform: "translateY(-10px)", position: "relative", marginLeft: -40 }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: -20,
+                        borderRadius: 56,
+                        background:
+                          "radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%)",
+                      }}
+                    />
+                    <PhoneMockup color="#00e5ff" />
+                  </div>
+                </VisualFallback>
+              }
             >
-              <PhoneMockup color="#7c4dff" />
-            </div>
-            <div
-              style={{
-                transform: "translateY(-10px)",
-                zIndex: 2,
-                position: "relative",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: -20,
-                  borderRadius: 56,
-                  background:
-                    "radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%)",
-                  pointerEvents: "none",
-                }}
-              />
-              <PhoneMockup color="#00e5ff" />
-            </div>
+              <Phone3D
+                offsetX={-20}
+                initialRotateZ={-8}
+                floatDelay={0}
+                intensity={12}
+                style={{ zIndex: 1, opacity: 0.55, filter: "blur(1px)" }}
+              >
+                <PhoneMockup color="#7c4dff" />
+              </Phone3D>
+              <Phone3D
+                offsetY={-10}
+                floatDelay={Math.PI}
+                intensity={15}
+                style={{ zIndex: 2, position: "relative" }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: -20,
+                    borderRadius: 56,
+                    background:
+                      "radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                <PhoneMockup color="#00e5ff" />
+              </Phone3D>
+            </Suspense>
           </div>
         )}
       </div>
@@ -544,6 +566,8 @@ function Skills({ isMobile, isSmall }) {
       : skillCategories.filter(
           (s) => s.domain === activeTab || s.domain === "both",
         );
+  const highlightedStack = filteredStack.slice(0, isMobile ? 6 : 8);
+  const previewCount = isSmall ? 4 : 5;
 
   const tabs = [
     { id: "all", label: "All Skills" },
@@ -599,26 +623,66 @@ function Skills({ isMobile, isSmall }) {
           </div>
         </div>
 
-        {/* Skill bars */}
+        {/* Core stack preview */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: isMobile ? "flex-start" : "center",
+            justifyContent: "space-between",
+            gap: 12,
+            marginBottom: isMobile ? 18 : 20,
+            flexWrap: "wrap",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: isSmall ? 18 : 22,
+                fontWeight: 700,
+                marginBottom: 4,
+              }}
+            >
+              Core Stack
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--text3)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              Top tools up front, broader coverage below
+            </div>
+          </div>
+          {filteredStack.length > highlightedStack.length && (
+            <span className="tag tag-cyan">
+              +{filteredStack.length - highlightedStack.length} more in domains
+            </span>
+          )}
+        </div>
+
         <div
           style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-            gap: 10,
-            marginBottom: isMobile ? 28 : 44,
+            gap: 8,
+            marginBottom: isMobile ? 24 : 34,
           }}
         >
-          {filteredStack.map((skill) => (
+          {highlightedStack.map((skill) => (
             <div
               key={skill.name}
               style={{
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: 14,
-                padding: isSmall ? "14px 16px" : "16px 20px",
+                padding: isSmall ? "12px 14px" : "14px 18px",
                 display: "flex",
                 alignItems: "center",
-                gap: 14,
+                gap: 12,
               }}
             >
               {/* Domain indicator dot */}
@@ -642,7 +706,7 @@ function Skills({ isMobile, isSmall }) {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginBottom: 8,
+                    marginBottom: 7,
                   }}
                 >
                   <span
@@ -685,46 +749,6 @@ function Skills({ isMobile, isSmall }) {
           ))}
         </div>
 
-        {/* Legend */}
-        <div
-          style={{
-            display: "flex",
-            gap: 20,
-            justifyContent: "center",
-            marginBottom: 36,
-            flexWrap: "wrap",
-          }}
-        >
-          {[
-            { color: "var(--accent)", label: "Mobile (React Native)" },
-            { color: "var(--accent2)", label: "Web (React)" },
-            { color: "var(--green)", label: "Both Platforms" },
-          ].map((l) => (
-            <div
-              key={l.label}
-              style={{ display: "flex", alignItems: "center", gap: 8 }}
-            >
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: l.color,
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--text3)",
-                }}
-              >
-                {l.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
         {/* Skill categories */}
         <div
           style={{
@@ -744,7 +768,7 @@ function Skills({ isMobile, isSmall }) {
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: 16,
-                padding: isSmall ? "18px" : "22px",
+                padding: isSmall ? "16px" : "18px",
                 transition: "border-color .3s",
               }}
               onMouseEnter={(e) =>
@@ -764,7 +788,7 @@ function Skills({ isMobile, isSmall }) {
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  marginBottom: 14,
+                  marginBottom: 12,
                 }}
               >
                 <span
@@ -793,12 +817,12 @@ function Skills({ isMobile, isSmall }) {
                   {cat.category}
                 </span>
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {cat.items.map((item) => (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                {cat.items.slice(0, previewCount).map((item) => (
                   <span
                     key={item}
                     style={{
-                      padding: "3px 9px",
+                      padding: "3px 8px",
                       borderRadius: 100,
                       fontFamily: "var(--font-mono)",
                       fontSize: 11,
@@ -810,6 +834,21 @@ function Skills({ isMobile, isSmall }) {
                     {item}
                   </span>
                 ))}
+                {cat.items.length > previewCount && (
+                  <span
+                    style={{
+                      padding: "3px 8px",
+                      borderRadius: 100,
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      color: "var(--text3)",
+                      border: "1px dashed var(--border-bright)",
+                      background: "rgba(255,255,255,0.02)",
+                    }}
+                  >
+                    +{cat.items.length - previewCount} more
+                  </span>
+                )}
               </div>
             </div>
           ))}
@@ -1116,7 +1155,40 @@ export default function Home() {
       <Hero isMobile={isMobile} isSmall={isSmall} />
       <About isMobile={isMobile} isSmall={isSmall} />
       <Skills isMobile={isMobile} isSmall={isSmall} />
-      <GitHubGraph />
+      <Suspense
+        fallback={
+          <section
+            className="section"
+            style={{
+              background: "var(--bg2)",
+              borderTop: "1px solid var(--border)",
+            }}
+          >
+            <div className="container">
+              <div
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 14,
+                  minHeight: 320,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--text2)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 13,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Loading GitHub Activity...
+              </div>
+            </div>
+          </section>
+        }
+      >
+        <GitHubGraph />
+      </Suspense>
       <FeaturedProjects isMobile={isMobile} isSmall={isSmall} />
       <GetInTouch isSmall={isSmall} />
     </>

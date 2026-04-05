@@ -181,10 +181,18 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: ["react", "react-dom"],
-            router: ["react-router-dom"],
-            icons: ["react-icons"],
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return;
+
+            if (id.includes("react-router-dom")) return "router";
+            if (id.includes("react-helmet-async")) return "seo";
+            if (id.includes("react-icons")) return "icons";
+            if (id.includes("/three/")) return "three";
+            if (id.includes("/react/") || id.includes("/react-dom/")) {
+              return "vendor";
+            }
+
+            return "vendor";
           },
         },
       },
