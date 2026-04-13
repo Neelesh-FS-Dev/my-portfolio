@@ -237,7 +237,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.yoke.yoga&pcampaignid=web_share",
     liveUrl: "",
-    videoUrl: "/ApplyMate.mov",
+    videoUrl: "",
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2b/2b/8d/2b2b8d0d-126d-ad32-3faf-1375aa0adddf/IOS_U20281242__U00d7_2688-9.jpg/157x340bb.webp",
@@ -363,7 +363,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.barvaskintherapie.app&pcampaignid=web_share",
     liveUrl: "https://barvaskintherapie.com/",
-    videoUrl: "/ApplyMate.mov",
+    videoUrl: "",
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fb/26/0b/fb260bd2-b526-b7f8-cfcf-aa97c792a6e3/Page_44.jpg/400x800bb.png",
@@ -820,6 +820,104 @@ const projects = [
     videoUrl: "/ApplyMate.mov",
     color: "#7bbde8",
     accent: "teal",
+    screenshots: [],
+  },
+  {
+    id: "rn-geofence",
+    type: "mobile",
+    title: "RNGeoFence",
+    subtitle: "Geofence-Based Attendance Tracking App",
+    description:
+      "A React Native mobile app that enables attendance check-in and check-out only inside a configured office geofence using real-time GPS validation.",
+    longDescription:
+      "RNGeoFence is a cross-platform React Native demo app designed as a location-aware attendance solution for iOS and Android. The product verifies whether a user is physically inside a configured office radius before allowing check-in or check-out, combining live device location, map visualization, attendance state management, and local persistence in one focused workflow.\n\nThe core business logic calculates the distance between the user's current coordinates and the office coordinates, then evaluates whether the user is inside the allowed geofence. Once in range, the app enables attendance actions and stores each session locally with timestamps, coordinates, and status context. Attendance history is grouped and displayed for later review, including support for multiple sessions in a day.\n\nThe project was built to showcase practical mobile engineering: real-time geolocation handling, permission flows, reusable TypeScript components, custom hooks, service abstractions, and a clean mobile-first UI. It highlights how product logic, UX clarity, and maintainable architecture can come together in a realistic workforce attendance demo.",
+    stack: [
+      "React Native",
+      "TypeScript",
+      "React Navigation",
+      "AsyncStorage",
+      "@react-native-community/geolocation",
+      "react-native-maps",
+      "Custom Hooks",
+      "Service Layer",
+    ],
+    highlights: [
+      "Geofence-based check-in and check-out restricted to a configured office radius",
+      "Live GPS distance tracking with in-zone / outside-zone status detection",
+      "Map-based office marker and geofence circle visualization using react-native-maps",
+      "Attendance history with local persistence and support for multiple daily sessions",
+      "Permission handling for location access, GPS disabled states, and error messaging",
+      "Reusable TypeScript architecture with screens, components, hooks, services, and theme tokens",
+      "Mobile-first UI with summary cards, banners, badges, and polished attendance interactions",
+      "Built as a portfolio-grade demo showcasing real-world geolocation product thinking",
+    ],
+    features: [
+      {
+        icon: "features",
+        title: "Geofence & Location Logic",
+        items: [
+          "Calculates live distance between user coordinates and office coordinates",
+          "Determines in-zone / outside-zone status based on a configured radius",
+          "Continuously updates location state with geolocation watchers",
+          "Surfaces location accuracy to help users understand unreliable GPS reads",
+          "Restricts attendance actions unless the device is inside the office geofence",
+        ],
+      },
+      {
+        icon: "mobile",
+        title: "Attendance Workflow",
+        items: [
+          "Check-in saves timestamp, coordinates, and office distance for each session",
+          "Check-out updates the latest open attendance session with exit details",
+          "Supports multiple sessions per day for realistic attendance usage",
+          "Attendance history groups and displays locally stored records",
+          "Designed for a simple, mobile-first employee attendance flow",
+        ],
+      },
+      {
+        icon: "features",
+        title: "Map & UI Experience",
+        items: [
+          "Interactive map view with office marker and rendered geofence circle",
+          "Live user location display for clear spatial context",
+          "Status banners, summary cards, badges, and empty states across the app",
+          "Conditional check-in/check-out controls based on real-time location state",
+          "Polished feedback and error messaging for common mobile scenarios",
+        ],
+      },
+      {
+        icon: "architecture",
+        title: "Architecture & Code Organization",
+        items: [
+          "Component-driven React Native architecture with reusable presentational components",
+          "Custom hooks separate stateful attendance and location logic from UI rendering",
+          "Service layer encapsulates geofence calculations and AsyncStorage persistence",
+          "Typed navigation and shared TypeScript models improve maintainability",
+          "Centralized theme tokens keep spacing, colors, typography, and shadows consistent",
+        ],
+      },
+      {
+        icon: "performance",
+        title: "Reliability & Edge Cases",
+        items: [
+          "Handles permission-denied, blocked, GPS-disabled, timeout, and error states",
+          "Balances real-time location updates with a clean, understandable user experience",
+          "Uses local persistence so attendance history remains available across app restarts",
+          "Designed to demonstrate practical cross-platform geolocation engineering concerns",
+          "Built with maintainability in mind for future backend sync, analytics, and admin features",
+        ],
+      },
+    ],
+    category: "Productivity / Career",
+    screens: 4,
+    users: "Portfolio Demo",
+    rating: "",
+    appStoreUrl: "",
+    playStoreUrl: "",
+    liveUrl: "",
+    videoUrl: "/RNGeoFence.mov",
+    color: "#34d399",
+    accent: "green",
     screenshots: [],
   },
   // ── WEB PROJECTS ─────────────────────────────────────────────
