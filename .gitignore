@@ -10,6 +10,8 @@ build/
 
 # ── Environment variables ─────────────────────────────
 .env
+.env.*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
@@ -32,6 +34,7 @@ lerna-debug.log*
 .vscode/*
 !.vscode/extensions.json
 .idea/
+.eslintcache
 *.suo
 *.ntvs*
 *.njsproj
@@ -56,5 +59,4 @@ coverage/
 *.zip
 *.tgz
 .cache/
-.vercel
-.env*.local
+.vercel/
