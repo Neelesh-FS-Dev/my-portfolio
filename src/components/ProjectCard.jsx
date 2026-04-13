@@ -4,7 +4,6 @@ import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
 import { FiSmartphone, FiMonitor } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
-import { accentMap } from "../data";
 
 /* Minimal browser window mockup for web projects */
 function BrowserMockup({ color }) {
@@ -104,8 +103,8 @@ function ProjectCard({ project, featured = false }) {
   const isTablet = useIsTablet();
 
   const accentColor = useMemo(
-    () => accentMap[project.accent] || project.color,
-    [project.accent, project.color],
+    () => project.color || "var(--accent)",
+    [project.color],
   );
   const isWeb = useMemo(() => project.type === "web", [project.type]);
   const showFeatured = useMemo(
@@ -145,8 +144,8 @@ function ProjectCard({ project, featured = false }) {
 
   const cardStyle = useMemo(
     () => ({
-      background: "var(--surface)",
-      border: "1px solid var(--border)",
+      background: `linear-gradient(180deg, ${accentColor}08 0%, var(--surface) 28%)`,
+      border: `1px solid ${accentColor}18`,
       borderRadius: 20,
       overflow: "hidden",
       cursor: "pointer",
@@ -157,7 +156,7 @@ function ProjectCard({ project, featured = false }) {
       flexDirection: showFeatured ? undefined : "column",
       height: "100%",
     }),
-    [showFeatured],
+    [accentColor, showFeatured],
   );
 
   return (
@@ -229,9 +228,9 @@ function ProjectCard({ project, featured = false }) {
                 borderRadius: 100,
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
-                color: "var(--accent)",
-                border: "1px solid rgba(0,229,255,0.2)",
-                background: "rgba(0,229,255,0.05)",
+                color: accentColor,
+                border: `1px solid ${accentColor}30`,
+                background: `${accentColor}10`,
               }}
             >
               <AiFillStar
@@ -291,8 +290,9 @@ function ProjectCard({ project, featured = false }) {
                 borderRadius: 100,
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
-                color: "var(--text3)",
-                border: "1px solid var(--border)",
+                color: "var(--text2)",
+                border: `1px solid ${accentColor}24`,
+                background: `${accentColor}08`,
               }}
             >
               {tech}

@@ -1,7 +1,8 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://neeleshyadav.vercel.app";
-const DEFAULT_TITLE = "Neelesh Yadav — React Native & React Developer | Pune, India";
+const DEFAULT_TITLE =
+  "Neelesh Yadav — React Native & React Developer | Pune, India";
 const DEFAULT_DESCRIPTION =
   "React Native & React Developer with 3+ years building high-performance cross-platform mobile and web apps. Published 10+ apps on App Store & Play Store. TypeScript, Redux, Firebase, REST APIs. Based in Pune, India.";
 

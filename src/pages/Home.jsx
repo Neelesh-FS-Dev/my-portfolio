@@ -285,10 +285,22 @@ function Hero({ isMobile, isSmall }) {
                     gap: 0,
                   }}
                 >
-                  <div style={{ transform: "translateX(-20px) rotate(-8deg)", opacity: 0.55, filter: "blur(1px)" }}>
+                  <div
+                    style={{
+                      transform: "translateX(-20px) rotate(-8deg)",
+                      opacity: 0.55,
+                      filter: "blur(1px)",
+                    }}
+                  >
                     <PhoneMockup color="#7c4dff" />
                   </div>
-                  <div style={{ transform: "translateY(-10px)", position: "relative", marginLeft: -40 }}>
+                  <div
+                    style={{
+                      transform: "translateY(-10px)",
+                      position: "relative",
+                      marginLeft: -40,
+                    }}
+                  >
                     <div
                       style={{
                         position: "absolute",

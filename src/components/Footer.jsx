@@ -9,7 +9,10 @@ export default function Footer() {
     {
       label: (
         <>
-          <FiGithub size={13} style={{ marginRight: 4, verticalAlign: "middle" }} />
+          <FiGithub
+            size={13}
+            style={{ marginRight: 4, verticalAlign: "middle" }}
+          />
           GitHub
         </>
       ),
@@ -19,7 +22,10 @@ export default function Footer() {
     {
       label: (
         <>
-          <FiMail size={13} style={{ marginRight: 4, verticalAlign: "middle" }} />
+          <FiMail
+            size={13}
+            style={{ marginRight: 4, verticalAlign: "middle" }}
+          />
           Email
         </>
       ),

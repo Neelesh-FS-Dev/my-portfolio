@@ -26,9 +26,14 @@ export default function ParticleNetwork() {
     const camera = new THREE.OrthographicCamera(0, width, 0, height, 1, 1000);
     camera.position.z = 100;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: !isMobile,
+    });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2),
+    );
     container.appendChild(renderer.domElement);
 
     // Pointer tracking (mouse + touch)
@@ -97,10 +102,7 @@ export default function ParticleNetwork() {
       "position",
       new THREE.BufferAttribute(positions, 3),
     );
-    pointsGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colors, 3),
-    );
+    pointsGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     pointsGeometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
     const pointsMaterial = new THREE.ShaderMaterial({

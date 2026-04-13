@@ -1,16 +1,4 @@
-// ═══════════════════════════════════════════════════════════════
-//  projects.js  ← EDIT THIS FILE to add / update projects
-//
-//  type:         "mobile" | "web"
-//  appStoreUrl:  Apple App Store link  (leave "" if not available)
-//  playStoreUrl: Google Play Store link (leave "" if not available)
-//  liveUrl:      Website / live URL
-//  videoUrl:     YouTube or Loom URL for demo video ("" = no video)
-//  screenshots:  Array of { url: 'https://...', label: 'Screen name' }
-// ═══════════════════════════════════════════════════════════════
-
 const projects = [
-  // ── MOBILE APPS ──────────────────────────────────────────────
   {
     id: "soul33",
     type: "mobile",
@@ -40,7 +28,6 @@ const projects = [
       "Firebase Crashlytics, FCM push notifications & analytics tracking",
       "TypeScript throughout — scalable, type-safe codebase",
     ],
-    // Feature breakdown for project detail page
     features: [
       {
         icon: "architecture",
@@ -103,12 +90,11 @@ const projects = [
     screens: 50,
     users: "15K+",
     rating: "4.7",
-    // ↓ UPDATE THESE — paste the actual store links here
     appStoreUrl: "https://apps.apple.com/us/app/soul33/id1496751333",
     playStoreUrl:
-      "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33&pcampaignid=web_share", // add Play Store URL if available
+      "https://play.google.com/store/apps/details?id=com.ecinfosolutions.soul33&pcampaignid=web_share",
     liveUrl: "https://www.soul33.com/the-app",
-    videoUrl: "", // paste YouTube/Loom URL when ready
+    videoUrl: "",
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9d/b9/a9/9db9a928-a5fe-7099-ffb8-9cea5180c7b6/Frame_11.jpg/400x800bb.png",
@@ -592,19 +578,15 @@ const projects = [
     screenshots: [
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/94/bc/98/94bc98b5-bdb0-a704-d666-7932239bb1c6/1290__U00d7_2796px.jpg/157x340bb.webp",
-        // label: "Card Game",
       },
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e8/49/d2/e849d2da-e1ca-ec70-1e39-bf0c53bec21a/1290__U00d7_2796px-3.jpg/157x340bb.webp",
-        // label: "Daily Challenge",
       },
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4a/5e/11/4a5e1131-b8b4-0737-8a90-a469f5b8a0f7/1290__U00d7_2796px-4.jpg/157x340bb.webp",
-        // `label: "Leaderboard",
       },
       {
         url: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a3/ac/4c/a3ac4cd5-e78f-7bd0-aa77-a0b6af7d0ce2/1290__U00d7_2796px-1.jpg/157x340bb.webp",
-        // label: "Rewards",
       },
     ],
   },
@@ -818,8 +800,8 @@ const projects = [
     playStoreUrl: "",
     liveUrl: "",
     videoUrl: "/ApplyMate.mov",
-    color: "#7bbde8",
-    accent: "teal",
+    color: "#3b82f6",
+    accent: "blue",
     screenshots: [],
   },
   {
@@ -916,11 +898,10 @@ const projects = [
     playStoreUrl: "",
     liveUrl: "",
     videoUrl: "/RNGeoFence.mov",
-    color: "#34d399",
-    accent: "green",
+    color: "#14b8a6",
+    accent: "teal",
     screenshots: [],
   },
-  // ── WEB PROJECTS ─────────────────────────────────────────────
   {
     id: "rail-academy",
     type: "web",
@@ -1004,8 +985,8 @@ const projects = [
         ],
       },
     ],
-    color: "#00ff88",
-    accent: "green",
+    color: "#e11d48",
+    accent: "rose",
     category: "Web App",
     screens: 8,
     users: "Internal",
@@ -1090,8 +1071,8 @@ const projects = [
         ],
       },
     ],
-    color: "#ff6b35",
-    accent: "orange",
+    color: "#a855f7",
+    accent: "violet",
     category: "Web App",
     screens: 6,
     users: "Live",
@@ -1104,5 +1085,73 @@ const projects = [
     githubUrl: "https://github.com/ecinfo/catering-calculator",
   },
 ];
+
+const COLOR_PALETTE = [
+  { color: "#00e5ff", accent: "cyan" },
+  { color: "#7c4dff", accent: "purple" },
+  { color: "#ff6b35", accent: "orange" },
+  { color: "#22c55e", accent: "green" },
+  { color: "#f59e0b", accent: "amber" },
+  { color: "#ec4899", accent: "pink" },
+  { color: "#3b82f6", accent: "blue" },
+  { color: "#14b8a6", accent: "teal" },
+  { color: "#e11d48", accent: "rose" },
+  { color: "#a855f7", accent: "violet" },
+  { color: "#ef4444", accent: "red" },
+  { color: "#06b6d4", accent: "sky" },
+  { color: "#84cc16", accent: "lime" },
+  { color: "#f97316", accent: "tangerine" },
+  { color: "#8b5cf6", accent: "indigo" },
+  { color: "#d946ef", accent: "fuchsia" },
+  { color: "#0ea5e9", accent: "azure" },
+  { color: "#facc15", accent: "yellow" },
+  { color: "#fb923c", accent: "peach" },
+  { color: "#2dd4bf", accent: "mint" },
+  { color: "#dc2626", accent: "crimson" },
+  { color: "#16a34a", accent: "emerald" },
+  { color: "#2563eb", accent: "cobalt" },
+  { color: "#c026d3", accent: "magenta" },
+  { color: "#ea580c", accent: "rust" },
+  { color: "#0891b2", accent: "cerulean" },
+  { color: "#4f46e5", accent: "iris" },
+  { color: "#db2777", accent: "hotpink" },
+  { color: "#65a30d", accent: "olive" },
+  { color: "#9333ea", accent: "grape" },
+  { color: "#0d9488", accent: "jade" },
+  { color: "#b91c1c", accent: "maroon" },
+  { color: "#7e22ce", accent: "plum" },
+  { color: "#c2410c", accent: "ember" },
+  { color: "#0369a1", accent: "ocean" },
+  { color: "#15803d", accent: "forest" },
+  { color: "#be185d", accent: "berry" },
+  { color: "#a16207", accent: "gold" },
+  { color: "#4338ca", accent: "royal" },
+  { color: "#059669", accent: "seafoam" },
+  { color: "#e04040", accent: "coral" },
+  { color: "#7c3aed", accent: "lavender" },
+  { color: "#d97706", accent: "honey" },
+  { color: "#0284c7", accent: "steel" },
+  { color: "#b45309", accent: "bronze" },
+  { color: "#6d28d9", accent: "amethyst" },
+  { color: "#047857", accent: "pine" },
+  { color: "#9d174d", accent: "wine" },
+  { color: "#1d4ed8", accent: "sapphire" },
+  { color: "#ca8a04", accent: "mustard" },
+];
+
+const usedColors = new Set(projects.filter((p) => p.color).map((p) => p.color));
+
+projects.forEach((p) => {
+  if (!p.color) {
+    const next = COLOR_PALETTE.find((c) => !usedColors.has(c.color));
+    const { color, accent } = next || {
+      color: `hsl(${(projects.indexOf(p) * 137.5) % 360}, 70%, 55%)`,
+      accent: "auto",
+    };
+    p.color = color;
+    p.accent = accent;
+    usedColors.add(color);
+  }
+});
 
 export default projects;

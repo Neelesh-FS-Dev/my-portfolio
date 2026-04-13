@@ -14,7 +14,6 @@ import { featureIconMap } from "../utils/featureIcons";
 import { FiUsers, FiMonitor } from "react-icons/fi";
 import SEO, { SITE_URL } from "../components/SEO";
 import { AiFillStar } from "react-icons/ai";
-import { accentMap } from "../data";
 
 /* ── IMAGE VIEWER MODAL ────────────────────────────────────────── */
 function ImageViewer({
@@ -567,9 +566,7 @@ function VideoSection({ project, accentColor }) {
 
   const videoSource = getVideoSource(project.videoUrl);
   const isPortraitVideo =
-    videoSource?.type === "file" &&
-    videoAspectRatio &&
-    videoAspectRatio < 1;
+    videoSource?.type === "file" && videoAspectRatio && videoAspectRatio < 1;
   const videoWrapperWidth = isPortraitVideo
     ? isMobile
       ? "min(100%, 360px)"
@@ -957,7 +954,7 @@ export default function ProjectDetail() {
       </div>
     );
 
-  const accentColor = accentMap[project.accent] || project.color;
+  const accentColor = project.color || "var(--accent)";
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
@@ -971,7 +968,8 @@ export default function ProjectDetail() {
           "@type": "SoftwareApplication",
           name: project.title,
           description: project.description,
-          applicationCategory: project.type === "mobile" ? "MobileApplication" : "WebApplication",
+          applicationCategory:
+            project.type === "mobile" ? "MobileApplication" : "WebApplication",
           author: { "@type": "Person", name: "Neelesh Yadav" },
           operatingSystem: project.type === "mobile" ? "iOS, Android" : "Web",
         }}
@@ -1368,7 +1366,7 @@ export default function ProjectDetail() {
                 .filter((p) => p.id !== project.id)
                 .slice(0, 3)
                 .map((p) => {
-                  const c = accentMap[p.accent] || p.color;
+                  const c = p.color || "var(--accent)";
                   return (
                     <div
                       key={p.id}

@@ -43,7 +43,8 @@ export default function NotFound() {
           style={{
             fontSize: isMobile ? 80 : 120,
             fontWeight: 800,
-            background: "linear-gradient(135deg, var(--accent), var(--accent2))",
+            background:
+              "linear-gradient(135deg, var(--accent), var(--accent2))",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             lineHeight: 1,
@@ -79,7 +80,8 @@ export default function NotFound() {
             display: "inline-block",
             padding: "12px 32px",
             borderRadius: 10,
-            background: "linear-gradient(135deg, var(--accent), var(--accent2))",
+            background:
+              "linear-gradient(135deg, var(--accent), var(--accent2))",
             color: "#090c10",
             fontWeight: 700,
             fontSize: 15,

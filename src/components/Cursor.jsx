@@ -6,7 +6,9 @@ function Cursor() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reduceMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
     if (!mediaQuery.matches || reduceMotionQuery.matches) return;
 
     const cursor = cursorRef.current;

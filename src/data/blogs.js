@@ -16,50 +16,71 @@ import {
   FiShield,
 } from "react-icons/fi";
 
-// ═══════════════════════════════════════════════════════════════
-//  blogs.js  ← EDIT THIS FILE to add / update blog posts
-//
-//  Each post has:
-//    - metadata (id, title, excerpt, date, tags, domain)
-//    - content[] array of blocks:
-//        { type: "intro"|"heading"|"text"|"code"|"callout", text, label? }
-//
-//  Colors and icons are auto-assigned below — no need to add
-//  `color` or `icon` fields. New entries pick the next palette slot.
-// ═══════════════════════════════════════════════════════════════
-
-// Add more colors here to extend the palette; cycles automatically
 const BLOG_PALETTE = [
-  "#00e5ff", // electric cyan
-  "#7c4dff", // deep violet
-  "#ff6b35", // vivid orange
-  "#00ff88", // neon green
-  "#ff4d6d", // rose pink
-  "#ffd60a", // golden yellow
-  "#bf5af2", // apple purple
-  "#ff6b6b", // warm red
-  "#0a84ff", // ios blue
-  "#34a853", // google green
-  "#f72585", // hot pink
-  "#4cc9f0", // sky blue
-  "#fb8500", // amber
-  "#06d6a0", // mint
-  "#ef233c", // crimson
+  "#00e5ff",
+  "#7c4dff",
+  "#ff6b35",
+  "#22c55e",
+  "#f59e0b",
+  "#ec4899",
+  "#3b82f6",
+  "#14b8a6",
+  "#e11d48",
+  "#a855f7",
+  "#ef4444",
+  "#06b6d4",
+  "#84cc16",
+  "#f97316",
+  "#8b5cf6",
+  "#d946ef",
+  "#0ea5e9",
+  "#facc15",
+  "#fb923c",
+  "#2dd4bf",
+  "#dc2626",
+  "#16a34a",
+  "#2563eb",
+  "#c026d3",
+  "#ea580c",
+  "#0891b2",
+  "#4f46e5",
+  "#db2777",
+  "#65a30d",
+  "#9333ea",
+  "#0d9488",
+  "#b91c1c",
+  "#7e22ce",
+  "#c2410c",
+  "#0369a1",
+  "#15803d",
+  "#be185d",
+  "#a16207",
+  "#4338ca",
+  "#059669",
+  "#e04040",
+  "#7c3aed",
+  "#d97706",
+  "#0284c7",
+  "#b45309",
+  "#6d28d9",
+  "#047857",
+  "#9d174d",
+  "#1d4ed8",
+  "#ca8a04"
 ];
 
-// Add more icons here to extend; cycles automatically
 const BLOG_ICONS = [
-  FiZap, // 1 - RN New Architecture (performance)
-  FiMessageSquare, // 2 - WebSocket Chat (real-time messaging)
-  FiEye, // 3 - AR Try-On (visual / camera)
-  FiRefreshCw, // 4 - FlatList Optimization (re-renders)
-  FiLayers, // 5 - Next.js vs Vite (web frameworks)
-  FiPenTool, // 6 - Tailwind CSS (styling / design)
-  FiLock, // 7 - Apple Sign In (auth / iOS)
-  FiKey, // 8 - Google Sign In (auth / credentials)
-  FiUploadCloud, // 9 - App Store Deploy
-  FiPlay, // 10 - Google Play Deploy
-  FiCode, // 11+
+  FiZap,
+  FiMessageSquare,
+  FiEye,
+  FiRefreshCw,
+  FiLayers,
+  FiPenTool,
+  FiLock,
+  FiKey,
+  FiUploadCloud,
+  FiPlay,
+  FiCode,
   FiServer,
   FiBox,
   FiCpu,
@@ -67,7 +88,6 @@ const BLOG_ICONS = [
 ];
 
 const blogs = [
-  // ── MOBILE ──────────────────────────────────────────────────
   {
     id: 1,
     slug: "rn-new-architecture",
@@ -288,7 +308,6 @@ const blogs = [
     ],
   },
 
-  // ── WEB ─────────────────────────────────────────────────────
   {
     id: 5,
     slug: "nextjs-vs-vite",
@@ -581,7 +600,7 @@ const blogs = [
       "A step-by-step production deployment guide for iOS — covering Apple Developer account setup, certificates, provisioning profiles, Xcode archive, TestFlight distribution, App Store Connect metadata, and the review gotchas that cause most first-time rejections.",
     date: "Mar 2025",
     readTime: "9 min read",
-    tags: ["React Native", "iOS", "App Store", "Xcode", "Deployment"], // ← must be present
+    tags: ["React Native", "iOS", "App Store", "Xcode", "Deployment"],
     domain: "mobile",
     content: [
       {
