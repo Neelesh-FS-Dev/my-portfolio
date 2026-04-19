@@ -9,6 +9,7 @@ import {
   FiX,
   FiChevronLeft,
   FiChevronRight,
+  FiGithub,
 } from "react-icons/fi";
 import { featureIconMap } from "../utils/featureIcons";
 import { FiUsers, FiMonitor } from "react-icons/fi";
@@ -208,13 +209,14 @@ function ImageViewer({
 
 /* ── STORE BUTTONS ─────────────────────────────────────────────── */
 function StoreButtons({ project, accentColor, isSmall }) {
-  const hasStore =
-    project.appStoreUrl || project.playStoreUrl || project.liveUrl;
-  if (!hasStore || project.type === "web") return null;
+  const isWeb = project.type === "web";
+  const showStore = !isWeb && (project.appStoreUrl || project.playStoreUrl);
+  const hasAnything = showStore || project.githubUrl;
+  if (!hasAnything) return null;
 
   return (
     <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 24 }}>
-      {project.appStoreUrl && (
+      {!isWeb && project.appStoreUrl && (
         <a
           href={project.appStoreUrl}
           target="_blank"
@@ -270,7 +272,7 @@ function StoreButtons({ project, accentColor, isSmall }) {
         </a>
       )}
 
-      {project.playStoreUrl && (
+      {!isWeb && project.playStoreUrl && (
         <a
           href={project.playStoreUrl}
           target="_blank"
@@ -379,6 +381,60 @@ function StoreButtons({ project, accentColor, isSmall }) {
 <FiExternalLink size={15} style={{ marginRight: 6 }} /> Visit Website
         </a>
       )} */}
+
+      {project.githubUrl && (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            padding: isSmall ? "10px 16px" : "12px 22px",
+            borderRadius: 14,
+            background: "#0d1117",
+            border: "1px solid rgba(255,255,255,0.15)",
+            textDecoration: "none",
+            transition: "all .25s",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = `0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px ${accentColor}30`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
+          }}
+        >
+          <FiGithub size={isSmall ? 18 : 22} color="#fff" />
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 9,
+                color: "rgba(255,255,255,0.6)",
+                lineHeight: 1,
+                letterSpacing: "0.05em",
+              }}
+            >
+              VIEW SOURCE ON
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: isSmall ? 13 : 15,
+                color: "#fff",
+                lineHeight: 1.2,
+              }}
+            >
+              GitHub
+            </div>
+          </div>
+        </a>
+      )}
     </div>
   );
 }

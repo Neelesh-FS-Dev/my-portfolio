@@ -2,7 +2,7 @@ import { memo, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
 import PhoneMockup from "./PhoneMockup";
-import { FiSmartphone, FiMonitor } from "react-icons/fi";
+import { FiSmartphone, FiMonitor, FiGithub } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 
 /* Minimal browser window mockup for web projects */
@@ -337,8 +337,9 @@ function ProjectCard({ project, featured = false }) {
         </div>
 
         {/* Store badges */}
-        {project.type === "mobile" &&
-          (project.appStoreUrl || project.playStoreUrl) && (
+        {((project.type === "mobile" &&
+          (project.appStoreUrl || project.playStoreUrl)) ||
+          project.githubUrl) && (
             <div
               style={{
                 display: "flex",
@@ -429,6 +430,39 @@ function ProjectCard({ project, featured = false }) {
                     }}
                   >
                     Google Play
+                  </span>
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    background: "#0d1117",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    textDecoration: "none",
+                    transition: "opacity .2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = ".8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  <FiGithub size={13} color="#fff" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: 11,
+                      color: "#fff",
+                    }}
+                  >
+                    GitHub
                   </span>
                 </a>
               )}

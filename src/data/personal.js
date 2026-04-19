@@ -20,7 +20,7 @@ const personal = {
   instagram: "https://www.instagram.com/neelesh.yadav25/",
   // twitter: "https://twitter.com/",
   // portfolio: "https://neeleshyadav.vercel.app/",
-  // resume: "/Neelesh-Yadav-React-Native-Developer.pdf",
+  resume: "/docs/Neelesh_Yadav_Resume_pdf.pdf",
 
   // ── Hero stats ───────────────────────────────────────────────
   stats: {

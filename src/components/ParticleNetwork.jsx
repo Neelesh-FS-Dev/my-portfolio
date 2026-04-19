@@ -278,7 +278,7 @@ export default function ParticleNetwork() {
       style={{
         position: "absolute",
         inset: 0,
-        pointerEvents: "auto",
+        pointerEvents: "none",
         zIndex: 0,
       }}
     />

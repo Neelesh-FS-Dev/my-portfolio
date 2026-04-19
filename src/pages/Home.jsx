@@ -8,10 +8,9 @@ import { SiReact, SiTailwindcss } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { skillIconMap } from "../utils/skillIcons";
 
-import { FiMail, FiGithub, FiPhone, FiCheck } from "react-icons/fi";
+import { FiMail, FiGithub, FiPhone, FiCheck, FiDownload } from "react-icons/fi";
 import SEO from "../components/SEO";
 
-const ParticleNetwork = lazy(() => import("../components/ParticleNetwork"));
 const Phone3D = lazy(() => import("../components/Phone3D"));
 const GitHubGraph = lazy(() => import("../components/GitHubGraph"));
 
@@ -57,10 +56,6 @@ function Hero({ isMobile, isSmall }) {
       }}
       className="grid-bg"
     >
-      <Suspense fallback={null}>
-        <ParticleNetwork />
-      </Suspense>
-
       <div
         className="container"
         style={{
@@ -69,6 +64,8 @@ function Hero({ isMobile, isSmall }) {
           gap: isMobile ? 0 : 48,
           alignItems: "center",
           width: "100%",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         <div>
@@ -213,9 +210,20 @@ function Hero({ isMobile, isSmall }) {
             <Link to="/projects" className="btn btn-primary">
               View Projects <span>→</span>
             </Link>
-            <a href={`mailto:${personal.email}`} className="btn btn-outline">
-              Get in Touch
-            </a>
+            {personal.resume && (
+              <a
+                href={personal.resume}
+                download
+                className="btn btn-outline"
+                aria-label="Download resume PDF"
+              >
+                <FiDownload
+                  size={15}
+                  style={{ marginRight: 6, verticalAlign: "middle" }}
+                />
+                Download Resume
+              </a>
+            )}
           </div>
 
           {/* Stats */}
