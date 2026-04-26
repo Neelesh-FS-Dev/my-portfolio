@@ -4,20 +4,37 @@ import { FiGithub, FiMail } from "react-icons/fi";
 import { navLinks } from "../data";
 
 function Navbar() {
+  const [navVisible, setNavVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const lastScrollY = useRef(0);
+  const navVisibleRef = useRef(true);
   const scrolledRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
-      const isScrolled = window.scrollY > 40;
+      const currentY = window.scrollY;
+      const scrollingUp = currentY < lastScrollY.current;
+      const shouldShow = currentY < 80 || scrollingUp;
+      const isScrolled = currentY > 20;
+
+      if (shouldShow !== navVisibleRef.current) {
+        navVisibleRef.current = shouldShow;
+        setNavVisible(shouldShow);
+      }
+
       if (isScrolled !== scrolledRef.current) {
         scrolledRef.current = isScrolled;
         setScrolled(isScrolled);
       }
+
+      lastScrollY.current = currentY;
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -36,20 +53,24 @@ function Navbar() {
     <>
       <nav
         style={{
-          position: "fixed",
+          position: "sticky",
           top: 0,
-          left: 0,
-          right: 0,
           zIndex: 900,
           height: 64,
-          background:
-            scrolled || menuOpen ? "rgba(9,12,16,0.97)" : "rgba(9,12,16,0.2)",
+          background: menuOpen
+            ? "rgba(9,12,16,0.98)"
+            : scrolled
+              ? "rgba(9,12,16,0.96)"
+              : "rgba(9,12,16,0.9)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.07)"
-            : "1px solid transparent",
-          transition: "background .35s ease, border-color .35s ease",
+            ? "1px solid rgba(255,255,255,0.08)"
+            : "1px solid rgba(255,255,255,0.05)",
+          transform:
+            navVisible || menuOpen ? "translateY(0)" : "translateY(-100%)",
+          transition:
+            "transform .28s ease, background .25s ease, border-color .25s ease",
         }}
       >
         <div

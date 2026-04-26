@@ -14,7 +14,7 @@ export default function NotFound() {
         justifyContent: "center",
         position: "relative",
         overflow: "hidden",
-        paddingTop: isMobile ? 90 : 80,
+        paddingTop: isMobile ? 40 : 48,
       }}
     >
       <Helmet>

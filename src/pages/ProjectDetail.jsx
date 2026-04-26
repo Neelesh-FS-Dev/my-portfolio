@@ -1071,7 +1071,7 @@ export default function ProjectDetail() {
   };
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title={`${project.title} — Neelesh Yadav`}
         description={project.description}

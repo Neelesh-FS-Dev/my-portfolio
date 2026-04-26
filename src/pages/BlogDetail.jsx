@@ -133,7 +133,7 @@ export default function BlogDetail() {
   };
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title={`${post.title} — Neelesh Yadav`}
         description={post.excerpt}

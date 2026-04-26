@@ -300,7 +300,7 @@ export default function Blogs() {
   }));
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title="Blog — Neelesh Yadav | React Native & Web Development Insights"
         description="Technical blog posts on React Native, TypeScript, performance optimization, WebSocket, app deployment, and mobile development best practices."
@@ -414,7 +414,7 @@ export default function Blogs() {
           background: "rgba(9,12,16,0.95)",
           backdropFilter: "blur(20px)",
           position: "sticky",
-          top: isMobile ? 60 : 64,
+          top: 0,
           zIndex: 100,
         }}
       >

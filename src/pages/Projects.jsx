@@ -135,7 +135,7 @@ export default function Projects() {
   }));
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title="Projects — Neelesh Yadav | Mobile & Web Apps Portfolio"
         description="Explore 10+ production mobile and web apps built by Neelesh Yadav — React Native, TypeScript, Redux, Firebase. Published on App Store & Play Store."
@@ -247,7 +247,7 @@ export default function Projects() {
         style={{
           borderBottom: "1px solid var(--border)",
           position: "sticky",
-          top: isMobile ? 60 : 64,
+          top: 0,
           zIndex: 100,
           background: "rgba(9,12,16,0.96)",
           backdropFilter: "blur(20px)",

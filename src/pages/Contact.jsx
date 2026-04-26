@@ -290,7 +290,7 @@ export default function Contact() {
   }));
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title="Contact — Neelesh Yadav | Hire a React Native Developer"
         description="Get in touch with Neelesh Yadav for freelance projects, full-time roles, or collaboration. React Native & React Developer based in Pune, India."

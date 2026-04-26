@@ -524,7 +524,7 @@ export default function Experience() {
   }));
 
   return (
-    <div style={{ paddingTop: isMobile ? 70 : 90 }}>
+    <div>
       <SEO
         title="Experience — Neelesh Yadav | 3+ Years React Native & React"
         description="3+ years of professional experience as a React Native & React Developer. Work history, education, and certifications — Neelesh Yadav, Pune, India."

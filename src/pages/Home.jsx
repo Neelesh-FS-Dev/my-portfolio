@@ -102,7 +102,7 @@ function Hero({ isMobile, isSmall }) {
         alignItems: "center",
         position: "relative",
         overflow: "hidden",
-        paddingTop: isMobile ? 90 : 80,
+        paddingTop: isMobile ? 40 : 48,
         paddingBottom: 40,
       }}
       className="grid-bg"
