@@ -270,6 +270,7 @@ export default function Projects() {
               {domainTabs.map((t) => (
                 <button
                   key={t.id}
+                  aria-pressed={domainTab === t.id}
                   onClick={() => {
                     setDomainTab(t.id);
                     setCategory("All");
@@ -330,6 +331,7 @@ export default function Projects() {
               {categories.map((cat, ci) => (
                 <button
                   key={cat}
+                  aria-pressed={category === cat}
                   onClick={() => setCategory(cat)}
                   className="cat-chip"
                   style={{

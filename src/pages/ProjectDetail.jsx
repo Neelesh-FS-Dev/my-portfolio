@@ -58,6 +58,7 @@ function ImageViewer({
 
       {/* Close button */}
       <button
+        aria-label="Close image viewer"
         onClick={onClose}
         style={{
           position: "absolute",
@@ -104,6 +105,7 @@ function ImageViewer({
         {/* Previous button */}
         {hasPrev && (
           <button
+            aria-label="Show previous screenshot"
             onClick={onPrev}
             style={{
               background: "rgba(255, 255, 255, 0.1)",
@@ -159,6 +161,7 @@ function ImageViewer({
         {/* Next button */}
         {hasNext && (
           <button
+            aria-label="Show next screenshot"
             onClick={onNext}
             style={{
               background: "rgba(255, 255, 255, 0.1)",
@@ -1012,6 +1015,61 @@ export default function ProjectDetail() {
 
   const accentColor = project.color || "var(--accent)";
 
+  // Enhanced Project Schema
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.description,
+    image: project.screenshots?.[0]?.url || `${SITE_URL}/logo.png`,
+    url: `${SITE_URL}/projects/${project.id}`,
+    applicationCategory:
+      project.type === "mobile" ? "MobileApplication" : "WebApplication",
+    author: {
+      "@type": "Person",
+      name: "Neelesh Yadav",
+      url: SITE_URL,
+    },
+    operatingSystem: project.type === "mobile" ? ["iOS", "Android"] : "Web",
+    ...(project.startDate ? { datePublished: project.startDate } : {}),
+    downloadUrl:
+      project.playStoreUrl ||
+      project.appStoreUrl ||
+      project.liveUrl ||
+      undefined,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: `${SITE_URL}/projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: `${SITE_URL}/projects/${project.id}`,
+      },
+    ],
+  };
+
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
       <SEO
@@ -1019,16 +1077,7 @@ export default function ProjectDetail() {
         description={project.description}
         path={`/projects/${project.id}`}
         image={project.screenshots?.[0]?.url || `${SITE_URL}/logo.png`}
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          name: project.title,
-          description: project.description,
-          applicationCategory:
-            project.type === "mobile" ? "MobileApplication" : "WebApplication",
-          author: { "@type": "Person", name: "Neelesh Yadav" },
-          operatingSystem: project.type === "mobile" ? "iOS, Android" : "Web",
-        }}
+        schema={[projectSchema, breadcrumbSchema]}
       />
       {/* ── HERO HEADER ─────────────────────────────────────────── */}
       <section
@@ -1078,6 +1127,7 @@ export default function ProjectDetail() {
             }}
           >
             <button
+              aria-label="Back to projects"
               onClick={() => navigate("/projects")}
               style={{
                 color: "var(--text3)",

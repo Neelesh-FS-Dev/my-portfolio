@@ -2,7 +2,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { blogs as blogDetails } from "../data";
 import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
 import { FiInfo } from "react-icons/fi";
-import SEO from "../components/SEO";
+import SEO, { SITE_URL } from "../components/SEO";
 function getExperience(startDate) {
   const start = new Date(startDate);
   const now = new Date();
@@ -16,6 +16,41 @@ function getExperience(startDate) {
   if (months === 0) return `${years} yrs`;
   return `${years} yr ${months} mos`;
 }
+
+function getBlogContentText(content = []) {
+  return content
+    .map((block) => block.text)
+    .filter(Boolean)
+    .join(" ");
+}
+
+function getIsoMonthDate(dateLabel) {
+  const match = /^([A-Za-z]{3})\s+(\d{4})$/.exec(dateLabel || "");
+  if (!match) return undefined;
+
+  const month = {
+    Jan: "01",
+    Feb: "02",
+    Mar: "03",
+    Apr: "04",
+    May: "05",
+    Jun: "06",
+    Jul: "07",
+    Aug: "08",
+    Sep: "09",
+    Oct: "10",
+    Nov: "11",
+    Dec: "12",
+  }[match[1]];
+
+  return month ? `${match[2]}-${month}-01` : undefined;
+}
+
+function getReadTimeMinutes(readTime) {
+  const minutes = parseInt(readTime, 10);
+  return Number.isNaN(minutes) ? 5 : minutes;
+}
+
 export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -37,6 +72,65 @@ export default function BlogDetail() {
     );
 
   const otherPosts = blogDetails.filter((b) => b.id !== post.id);
+  const articleBody = getBlogContentText(post.content);
+  const readTimeMinutes = getReadTimeMinutes(post.readTime);
+
+  // Enhanced Blog Schema
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.image || `${SITE_URL}/logo.png`,
+    url: `${SITE_URL}/blogs/${post.slug || post.id}`,
+    author: {
+      "@type": "Person",
+      name: "Neelesh Yadav",
+      url: SITE_URL,
+    },
+    datePublished: getIsoMonthDate(post.date),
+    dateModified: getIsoMonthDate(post.updatedDate || post.date),
+    keywords: post.tags?.join(", "),
+    articleBody: articleBody.substring(0, 500) || post.excerpt,
+    wordCount: articleBody ? articleBody.split(/\s+/).length : 0,
+    articleSection: post.category || "Technology",
+    timeRequired: `PT${readTimeMinutes}M`,
+    publisher: {
+      "@type": "Organization",
+      name: "Neelesh Yadav",
+      url: SITE_URL,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/blogs/${post.slug || post.id}`,
+    },
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blogs",
+        item: `${SITE_URL}/blogs`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${SITE_URL}/blogs/${post.slug || post.id}`,
+      },
+    ],
+  };
 
   return (
     <div style={{ paddingTop: isMobile ? 70 : 90 }}>
@@ -45,15 +139,7 @@ export default function BlogDetail() {
         description={post.excerpt}
         path={`/blogs/${post.slug || post.id}`}
         type="article"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
-          description: post.excerpt,
-          author: { "@type": "Person", name: "Neelesh Yadav" },
-          datePublished: post.date,
-          keywords: post.tags?.join(", "),
-        }}
+        schema={[blogSchema, breadcrumbSchema]}
       />
       {/* Hero header */}
       <section
@@ -104,6 +190,7 @@ export default function BlogDetail() {
             }}
           >
             <button
+              aria-label="Back to blogs"
               onClick={() => navigate("/blogs")}
               style={{
                 color: "var(--text3)",

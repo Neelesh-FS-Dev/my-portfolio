@@ -431,6 +431,7 @@ export default function Blogs() {
             {blogTabs.map((t, ti) => (
               <button
                 key={t.id}
+                aria-pressed={domainFilter === t.id}
                 onClick={() => setDomainFilter(t.id)}
                 style={{
                   padding: isSmall ? "12px 14px" : "14px 20px",

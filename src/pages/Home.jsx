@@ -9,7 +9,8 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { skillIconMap } from "../utils/skillIcons";
 
 import { FiMail, FiGithub, FiPhone, FiCheck, FiDownload } from "react-icons/fi";
-import SEO from "../components/SEO";
+import SEO, { SITE_URL } from "../components/SEO";
+import { degrees, certifications, achievements } from "../data";
 
 const Phone3D = lazy(() => import("../components/Phone3D"));
 const GitHubGraph = lazy(() => import("../components/GitHubGraph"));
@@ -26,6 +27,56 @@ function getExperience(startDate) {
   if (years === 0) return `${months} mos`;
   if (months === 0) return `${years} yrs`;
   return `${years} yr ${months} mos`;
+}
+
+// Homepage JSON-LD Schema for better SEO
+function getHomepageSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Neelesh Yadav",
+    url: SITE_URL,
+    image: `${SITE_URL}/logo.png`,
+    jobTitle: "React Native & React Developer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Freelance",
+    },
+    workLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Pune",
+        addressRegion: "Maharashtra",
+        addressCountry: "IN",
+      },
+    },
+    knowsAbout: [
+      "React",
+      "React Native",
+      "TypeScript",
+      "Redux",
+      "Firebase",
+      "REST APIs",
+      "Mobile Development",
+      "Web Development",
+      "JavaScript",
+      "Node.js",
+      "Tailwind CSS",
+      "App Store",
+      "Google Play Store",
+    ],
+    sameAs: [personal.github, personal.linkedin, personal.instagram].filter(
+      Boolean,
+    ),
+    email: personal.email,
+    telephone: personal.phone,
+    description: personal.summary,
+    alumniOf: degrees.map((deg) => ({
+      "@type": "EducationalOrganization",
+      name: deg.institution,
+    })),
+  };
 }
 /* ── HERO ──────────────────────────────────────────────────────── */
 function VisualFallback({ children, style }) {
@@ -622,6 +673,7 @@ function Skills({ isMobile, isSmall }) {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
+                aria-pressed={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
                   padding: isSmall ? "7px 14px" : "8px 20px",
@@ -923,6 +975,7 @@ function FeaturedProjects({ isMobile, isSmall }) {
           ].map((t) => (
             <button
               key={t.id}
+              aria-pressed={tab === t.id}
               onClick={() => setTab(t.id)}
               style={{
                 padding: isSmall ? "8px 16px" : "10px 22px",
@@ -1171,7 +1224,7 @@ export default function Home() {
 
   return (
     <>
-      <SEO path="/" />
+      <SEO path="/" schema={getHomepageSchema()} />
       <Hero isMobile={isMobile} isSmall={isSmall} />
       <About isMobile={isMobile} isSmall={isSmall} />
       <Skills isMobile={isMobile} isSmall={isSmall} />
