@@ -107,8 +107,8 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
                 color: "var(--green)",
-                border: "1px solid rgba(0,255,136,0.3)",
-                background: "rgba(0,255,136,0.08)",
+                border: "1px solid rgba(59,130,246,0.3)",
+                background: "rgba(59,130,246,0.08)",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 5,
@@ -263,7 +263,7 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
             {
               icon: <FiGlobe size={11} />,
               label: "Web",
-              color: "#b39ddb",
+              color: "var(--accent)",
               items: job.webTech,
             },
           ].map((d, di) => (

@@ -86,7 +86,7 @@ export default function ProjectsFilterBar({
                     fontSize: 10,
                     background:
                       domainTab === t.id
-                        ? "rgba(0,229,255,0.15)"
+                        ? "rgba(59,130,246,0.15)"
                         : "rgba(255,255,255,0.05)",
                     color:
                       domainTab === t.id ? "var(--accent)" : "var(--text3)",
@@ -127,7 +127,7 @@ export default function ProjectsFilterBar({
                   borderColor:
                     category === cat ? "var(--accent)" : "transparent",
                   background:
-                    category === cat ? "rgba(0,229,255,0.1)" : "transparent",
+                    category === cat ? "rgba(59,130,246,0.1)" : "transparent",
                   color: category === cat ? "var(--accent)" : "var(--text3)",
                   transform:
                     category === cat ? "translateY(-1px)" : "translateY(0)",
@@ -144,9 +144,9 @@ export default function ProjectsFilterBar({
       <style>{`
         /* Category chip hover glow when not selected */
         .cat-chip:hover {
-          border-color: rgba(0,229,255,0.3) !important;
+          border-color: rgba(59,130,246,0.3) !important;
           color: var(--text2) !important;
-          background: rgba(0,229,255,0.04) !important;
+          background: rgba(59,130,246,0.04) !important;
         }
       `}</style>
     </div>

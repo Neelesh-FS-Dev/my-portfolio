@@ -23,17 +23,17 @@ function BlogAuthor() {
         style={{
           width: 56,
           height: 56,
-          borderRadius: 18,
+          borderRadius: 14,
           flexShrink: 0,
-          background:
-            "linear-gradient(135deg, var(--accent), var(--accent2))",
+          background: "var(--accent)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: "var(--font-display)",
           fontWeight: 800,
-          fontSize: 22,
-          color: "var(--bg)",
+          fontSize: 20,
+          color: "#ffffff",
+          letterSpacing: "-0.02em",
         }}
       >
         NY

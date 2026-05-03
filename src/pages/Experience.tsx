@@ -38,7 +38,7 @@ export default function Experience() {
                 background:
                   "linear-gradient(180deg, var(--accent) 0%, var(--accent2) 40%, #ec4899 75%, transparent 100%)",
                 borderRadius: 2,
-                boxShadow: "0 0 12px rgba(0,229,255,0.3)",
+                boxShadow: "0 0 12px rgba(59,130,246,0.3)",
                 animation: "line-pulse 3s ease-in-out infinite",
               }}
             />
@@ -108,8 +108,8 @@ export default function Experience() {
           50%    { filter: brightness(1.25) drop-shadow(0 0 8px var(--accent2)); }
         }
         @keyframes line-pulse {
-          0%,100%{ opacity:1; box-shadow:0 0 12px rgba(0,229,255,0.3); }
-          50%    { opacity:0.7; box-shadow:0 0 20px rgba(0,229,255,0.5); }
+          0%,100%{ opacity:1; box-shadow:0 0 12px rgba(59,130,246,0.3); }
+          50%    { opacity:0.7; box-shadow:0 0 20px rgba(59,130,246,0.5); }
         }
         @keyframes travel-dot {
           0%  { top: 0%;   opacity:1; }
@@ -143,13 +143,13 @@ export default function Experience() {
         /* Cert card hover */
         .cert-card:hover {
           border-color: var(--accent) !important;
-          box-shadow: 0 6px 28px rgba(0,229,255,0.12) !important;
+          box-shadow: 0 6px 28px rgba(59,130,246,0.12) !important;
           transform: translateY(-2px) !important;
           transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
         }
         .cert-card:hover .cert-icon {
           transform: rotate(-8deg) scale(1.15) !important;
-          box-shadow: 0 4px 16px rgba(0,229,255,0.2) !important;
+          box-shadow: 0 4px 16px rgba(59,130,246,0.2) !important;
         }
 
         /* Card shimmer sweep */

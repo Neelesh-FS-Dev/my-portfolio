@@ -105,8 +105,8 @@ export default function ContactInfo({ isSmall }: ContactInfoProps) {
           padding: "20px",
           borderRadius: 16,
           background:
-            "linear-gradient(135deg,rgba(0,255,136,0.08) 0%,rgba(0,229,255,0.05) 100%)",
-          border: "1px solid rgba(0,255,136,0.2)",
+            "linear-gradient(135deg,rgba(59,130,246,0.08) 0%,rgba(59,130,246,0.05) 100%)",
+          border: "1px solid rgba(59,130,246,0.2)",
           opacity: availVisible ? 1 : 0,
           transform: availVisible
             ? "translateY(0) scale(1)"

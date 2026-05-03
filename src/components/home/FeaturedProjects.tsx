@@ -75,8 +75,8 @@ export default function FeaturedProjects({
                 background:
                   tab === t.id
                     ? t.id === "mobile"
-                      ? "rgba(0,229,255,0.12)"
-                      : "rgba(124,77,255,0.12)"
+                      ? "rgba(59,130,246,0.12)"
+                      : "rgba(59,130,246,0.12)"
                     : "transparent",
                 color:
                   tab === t.id
@@ -87,8 +87,8 @@ export default function FeaturedProjects({
                 borderColor:
                   tab === t.id
                     ? t.id === "mobile"
-                      ? "rgba(0,229,255,0.3)"
-                      : "rgba(124,77,255,0.3)"
+                      ? "rgba(59,130,246,0.3)"
+                      : "rgba(59,130,246,0.3)"
                     : "var(--border)",
               }}
             >

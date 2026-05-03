@@ -36,8 +36,8 @@ function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
         willChange: "transform, opacity",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(0,229,255,0.3)";
-        e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,229,255,0.08)";
+        e.currentTarget.style.borderColor = "rgba(59,130,246,0.3)";
+        e.currentTarget.style.boxShadow = "0 4px 20px rgba(59,130,246,0.08)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)";
@@ -51,8 +51,8 @@ function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
           height: 40,
           borderRadius: 11,
           flexShrink: 0,
-          background: "rgba(0,229,255,0.08)",
-          border: "1px solid rgba(0,229,255,0.15)",
+          background: "rgba(59,130,246,0.08)",
+          border: "1px solid rgba(59,130,246,0.15)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

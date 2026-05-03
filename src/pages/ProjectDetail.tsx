@@ -68,7 +68,7 @@ export default function ProjectDetail() {
       </div>
     );
 
-  const accentColor = project.color || "var(--accent)";
+  const accentColor = "#3b82f6";
 
   // Enhanced Project Schema
   const projectSchema = {

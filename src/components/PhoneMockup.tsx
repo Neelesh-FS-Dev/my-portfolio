@@ -6,10 +6,10 @@ interface PhoneMockupProps {
   label?: string;
 }
 
-function PhoneMockup({ color = "#00e5ff" }: PhoneMockupProps) {
+function PhoneMockup({ color = "#3b82f6" }: PhoneMockupProps) {
   const [now, setNow] = useState<Date>(() => new Date());
 
-  const s = phoneScreens[color] || phoneScreens["#00e5ff"];
+  const s = phoneScreens[color] || phoneScreens["#3b82f6"];
 
   const time = now.toLocaleTimeString("en-US", {
     hour: "2-digit",

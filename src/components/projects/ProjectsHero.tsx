@@ -33,7 +33,7 @@ export default function ProjectsHero() {
           height: 400,
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse,rgba(0,229,255,0.07) 0%,transparent 70%)",
+            "radial-gradient(ellipse,rgba(59,130,246,0.07) 0%,transparent 70%)",
           pointerEvents: "none",
           animation: "breathe 5s ease-in-out infinite",
         }}
@@ -49,7 +49,7 @@ export default function ProjectsHero() {
             width: p.size,
             height: p.size,
             borderRadius: "50%",
-            background: `rgba(0,229,255,${0.18 + (p.id % 3) * 0.14})`,
+            background: `rgba(59,130,246,${0.18 + (p.id % 3) * 0.14})`,
             animation: `float-particle ${p.dur}s ease-in-out ${p.delay}s infinite alternate`,
             pointerEvents: "none",
           }}

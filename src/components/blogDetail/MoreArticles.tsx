@@ -43,15 +43,15 @@ function MoreArticles({ posts }: MoreArticlesProps) {
               style={{
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
-                borderRadius: 16,
+                borderRadius: 14,
                 padding: "20px",
                 cursor: "pointer",
-                transition: "all .3s",
+                transition: "all .25s",
                 position: "relative",
                 overflow: "hidden",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = p.color + "40";
+                e.currentTarget.style.borderColor = "var(--border-bright)";
                 e.currentTarget.style.transform = "translateY(-3px)";
               }}
               onMouseLeave={(e) => {
@@ -59,17 +59,7 @@ function MoreArticles({ posts }: MoreArticlesProps) {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 2,
-                  background: `linear-gradient(90deg, transparent, ${p.color}, transparent)`,
-                }}
-              />
-              <div style={{ fontSize: 22, marginBottom: 10 }}>
+              <div style={{ fontSize: 22, marginBottom: 10, color: "var(--text2)" }}>
                 {p.icon as unknown as React.ReactNode}
               </div>
               <div
@@ -79,6 +69,7 @@ function MoreArticles({ posts }: MoreArticlesProps) {
                   fontSize: 14,
                   lineHeight: 1.3,
                   marginBottom: 8,
+                  color: "var(--text)",
                 }}
               >
                 {p.title}

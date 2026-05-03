@@ -197,7 +197,7 @@ export default function StoreButtons({
             gap: 10,
             padding: isSmall ? "10px 16px" : "12px 22px",
             borderRadius: 14,
-            background: "#0d1117",
+            background: "#0a0a0a",
             border: "1px solid rgba(255,255,255,0.15)",
             textDecoration: "none",
             transition: "all .25s",

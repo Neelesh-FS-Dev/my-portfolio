@@ -15,7 +15,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
     <section
       style={{
         padding: isMobile ? "40px 0 52px" : "60px 0 72px",
-        background: `linear-gradient(180deg, ${post.color}0a 0%, var(--bg) 100%)`,
+        background: "var(--bg)",
         borderBottom: "1px solid var(--border)",
         position: "relative",
         overflow: "hidden",
@@ -28,19 +28,6 @@ export default function BlogHero({ post }: BlogHeroProps) {
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
           backgroundSize: "50px 50px",
-          pointerEvents: "none",
-        }}
-      />
-      {/* Glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "-20%",
-          right: "5%",
-          width: 400,
-          height: 400,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${post.color}0f 0%, transparent 65%)`,
           pointerEvents: "none",
         }}
       />
@@ -72,7 +59,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
               transition: "color .2s",
               padding: 0,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = post.color)}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
             onMouseLeave={(e) =>
               (e.currentTarget.style.color = "var(--text3)")
             }
@@ -82,7 +69,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
           <span>/</span>
           <span
             style={{
-              color: post.color,
+              color: "var(--text2)",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
@@ -106,16 +93,16 @@ export default function BlogHero({ post }: BlogHeroProps) {
             style={{
               width: isSmall ? 52 : 64,
               height: isSmall ? 52 : 64,
-              borderRadius: 18,
+              borderRadius: 14,
               flexShrink: 0,
-              background: `radial-gradient(circle, ${post.color}20 0%, ${post.color}08 100%)`,
-              border: `1px solid ${post.color}30`,
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <post.icon size={isSmall ? 24 : 30} color={post.color} />
+            <post.icon size={isSmall ? 24 : 30} color="var(--text2)" />
           </div>
           <div
             style={{
@@ -150,7 +137,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
         <h1
           style={{
             fontFamily: "var(--font-display)",
-            fontWeight: 800,
+            fontWeight: 700,
             fontSize: isSmall
               ? "26px"
               : isMobile
@@ -159,6 +146,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
             letterSpacing: "-0.03em",
             lineHeight: 1.1,
             marginBottom: 20,
+            color: "var(--text)",
           }}
         >
           {post.title}
@@ -185,9 +173,9 @@ export default function BlogHero({ post }: BlogHeroProps) {
                 borderRadius: 100,
                 fontFamily: "var(--font-mono)",
                 fontSize: 11,
-                color: post.color,
-                border: `1px solid ${post.color}25`,
-                background: post.color + "08",
+                color: "var(--text2)",
+                border: "1px solid var(--border)",
+                background: "var(--bg2)",
               }}
             >
               {tag}

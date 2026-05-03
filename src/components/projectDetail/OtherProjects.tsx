@@ -56,76 +56,64 @@ export default function OtherProjects({ currentId }: OtherProjectsProps) {
         {projects
           .filter((p) => p.id !== currentId)
           .slice(0, 3)
-          .map((p) => {
-            const c = p.color || "var(--accent)";
-            return (
+          .map((p) => (
+            <div
+              key={p.id}
+              onClick={() => {
+                navigate(`/projects/${p.id}`);
+                window.scrollTo(0, 0);
+              }}
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: 14,
+                padding: isSmall ? 18 : 22,
+                cursor: "pointer",
+                transition: "all .25s",
+                position: "relative",
+                overflow: "hidden",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "var(--border-bright)";
+                e.currentTarget.style.transform = "translateY(-3px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--border)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
               <div
-                key={p.id}
-                onClick={() => {
-                  navigate(`/projects/${p.id}`);
-                  window.scrollTo(0, 0);
-                }}
                 style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 16,
-                  padding: isSmall ? 18 : 22,
-                  cursor: "pointer",
-                  transition: "all .3s",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = c + "40";
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.transform = "translateY(0)";
+                  fontFamily: "var(--font-display)",
+                  fontSize: isSmall ? 15 : 17,
+                  fontWeight: 700,
+                  marginBottom: 4,
+                  color: "var(--text)",
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 2,
-                    background: `linear-gradient(90deg, transparent, ${c}, transparent)`,
-                  }}
-                />
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: isSmall ? 15 : 17,
-                    fontWeight: 700,
-                    marginBottom: 4,
-                  }}
-                >
-                  {p.title}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 11,
-                    color: c,
-                    marginBottom: 10,
-                  }}
-                >
-                  {p.subtitle}
-                </div>
-                <p
-                  style={{
-                    color: "var(--text2)",
-                    fontSize: 13,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {p.description.slice(0, 80)}...
-                </p>
+                {p.title}
               </div>
-            );
-          })}
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--text3)",
+                  marginBottom: 10,
+                }}
+              >
+                {p.subtitle}
+              </div>
+              <p
+                style={{
+                  color: "var(--text2)",
+                  fontSize: 13,
+                  lineHeight: 1.6,
+                }}
+              >
+                {p.description.slice(0, 80)}...
+              </p>
+            </div>
+          ))}
       </div>
     </div>
   );

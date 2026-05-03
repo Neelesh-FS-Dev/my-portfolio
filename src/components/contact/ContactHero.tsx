@@ -35,7 +35,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle,rgba(0,229,255,0.08) 0%,transparent 70%)",
+            "radial-gradient(circle,rgba(59,130,246,0.08) 0%,transparent 70%)",
           pointerEvents: "none",
           animation: "breathe 5s ease-in-out infinite",
         }}
@@ -51,7 +51,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
             width: p.size,
             height: p.size,
             borderRadius: "50%",
-            background: `rgba(0,229,255,${0.2 + (p.id % 3) * 0.15})`,
+            background: `rgba(59,130,246,${0.2 + (p.id % 3) * 0.15})`,
             animation: `float-particle ${p.dur}s ease-in-out ${p.delay}s infinite alternate`,
             pointerEvents: "none",
           }}

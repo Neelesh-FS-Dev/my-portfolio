@@ -384,7 +384,7 @@ function GitHubGraph() {
                         background:
                           l === 0
                             ? "var(--surface2)"
-                            : `rgba(0, 255, 136, ${0.15 + l * 0.2})`,
+                            : `rgba(59, 130, 246, ${0.15 + l * 0.2})`,
                       }}
                     />
                   ))}
@@ -499,7 +499,7 @@ function GitHubGraph() {
                                 background:
                                   level === 0
                                     ? "var(--surface2)"
-                                    : `rgba(0, 255, 136, ${0.15 + level * 0.2})`,
+                                    : `rgba(59, 130, 246, ${0.15 + level * 0.2})`,
                                 transition: "transform 0.1s ease",
                               }}
                               onMouseOver={(e) => {

@@ -20,7 +20,7 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
     <section
       style={{
         padding: isMobile ? "36px 0 48px" : "52px 0 64px",
-        background: `linear-gradient(180deg, ${project.color}08 0%, var(--bg) 100%)`,
+        background: "var(--bg)",
         borderBottom: "1px solid var(--border)",
         position: "relative",
         overflow: "hidden",
@@ -33,18 +33,6 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)",
           backgroundSize: "40px 40px",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: "-10%",
-          right: "5%",
-          width: 400,
-          height: 400,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${project.color}0a 0%, transparent 70%)`,
           pointerEvents: "none",
         }}
       />
@@ -76,7 +64,7 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
               transition: "color .2s",
               padding: 0,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = accentColor)}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
             onMouseLeave={(e) =>
               (e.currentTarget.style.color = "var(--text3)")
             }
@@ -84,7 +72,7 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
             ← Projects
           </button>
           <span>/</span>
-          <span style={{ color: accentColor }}>{project.title}</span>
+          <span style={{ color: "var(--text2)" }}>{project.title}</span>
         </div>
 
         <div
@@ -102,9 +90,9 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
                 borderRadius: 100,
                 fontFamily: "var(--font-mono)",
                 fontSize: 11,
-                color: accentColor,
-                border: `1px solid ${accentColor}30`,
-                background: accentColor + "10",
+                color: "var(--text2)",
+                border: "1px solid var(--border)",
+                background: "transparent",
                 display: "inline-block",
                 marginBottom: 14,
               }}
@@ -120,17 +108,18 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
                   : isMobile
                     ? "36px"
                     : "clamp(36px, 5vw, 58px)",
-                fontWeight: 800,
+                fontWeight: 700,
                 letterSpacing: "-0.03em",
                 marginBottom: 8,
                 lineHeight: 1.1,
+                color: "var(--text)",
               }}
             >
               {project.title}
             </h1>
             <p
               style={{
-                color: accentColor,
+                color: "var(--text3)",
                 fontFamily: "var(--font-mono)",
                 fontSize: isSmall ? 12 : 14,
                 marginBottom: 22,
@@ -192,8 +181,8 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
                     style={{
                       fontFamily: "var(--font-display)",
                       fontSize: isSmall ? 20 : 26,
-                      fontWeight: 800,
-                      color: accentColor,
+                      fontWeight: 700,
+                      color: "var(--text)",
                     }}
                   >
                     {s.v}
@@ -231,8 +220,8 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
                     fontFamily: "var(--font-mono)",
                     fontSize: isSmall ? 10 : 12,
                     color: "var(--text2)",
-                    border: "1px solid var(--border-bright)",
-                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid var(--border)",
+                    background: "var(--bg2)",
                   }}
                 >
                   {tech}

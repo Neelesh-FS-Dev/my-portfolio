@@ -70,8 +70,8 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
               padding: "7px 14px",
               borderRadius: 100,
               marginBottom: isSmall ? 20 : 28,
-              border: "1px solid rgba(0,229,255,0.2)",
-              background: "rgba(0,229,255,0.05)",
+              border: "1px solid rgba(59,130,246,0.2)",
+              background: "rgba(59,130,246,0.05)",
             }}
           >
             <div
@@ -112,15 +112,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
           >
             Mobile & Web
             <br />
-            <span
-              style={{
-                background: "linear-gradient(135deg,#00e5ff 0%,#7c4dff 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              App Developer
-            </span>
+            <span style={{ color: "var(--accent)" }}>App Developer</span>
           </h1>
 
           {/* Dual role pills */}
@@ -133,27 +125,9 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
             }}
           >
             {[
-              {
-                icon: <TbBrandReactNative size={13} />,
-                label: "React Native",
-                color: "var(--accent)",
-                border: "rgba(0,229,255,0.25)",
-                bg: "rgba(0,229,255,0.07)",
-              },
-              {
-                icon: <SiReact size={13} />,
-                label: "React.js",
-                color: "#b39ddb",
-                border: "rgba(124,77,255,0.25)",
-                bg: "rgba(124,77,255,0.07)",
-              },
-              {
-                icon: <SiTailwindcss size={13} />,
-                label: "Tailwind CSS",
-                color: "var(--green)",
-                border: "rgba(0,255,136,0.25)",
-                bg: "rgba(0,255,136,0.07)",
-              },
+              { icon: <TbBrandReactNative size={13} />, label: "React Native" },
+              { icon: <SiReact size={13} />, label: "React.js" },
+              { icon: <SiTailwindcss size={13} />, label: "Tailwind CSS" },
             ].map((t) => (
               <span
                 key={t.label}
@@ -165,12 +139,15 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                   borderRadius: 100,
                   fontFamily: "var(--font-mono)",
                   fontSize: isSmall ? 11 : 12,
-                  color: t.color,
-                  border: `1px solid ${t.border}`,
-                  background: t.bg,
+                  color: "var(--text)",
+                  border: "1px solid var(--border)",
+                  background: "var(--surface)",
                 }}
               >
-                {t.icon} {t.label}
+                <span style={{ color: "var(--accent)", display: "inline-flex" }}>
+                  {t.icon}
+                </span>{" "}
+                {t.label}
               </span>
             ))}
           </div>
@@ -292,7 +269,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                       filter: "blur(1px)",
                     }}
                   >
-                    <PhoneMockup color="#7c4dff" />
+                    <PhoneMockup color="#3b82f6" />
                   </div>
                   <div
                     style={{
@@ -307,10 +284,10 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                         inset: -20,
                         borderRadius: 56,
                         background:
-                          "radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%)",
+                          "radial-gradient(circle,rgba(59,130,246,0.15) 0%,transparent 70%)",
                       }}
                     />
-                    <PhoneMockup color="#00e5ff" />
+                    <PhoneMockup color="#3b82f6" />
                   </div>
                 </VisualFallback>
               }
@@ -322,7 +299,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                 intensity={12}
                 style={{ zIndex: 1, opacity: 0.55, filter: "blur(1px)" }}
               >
-                <PhoneMockup color="#7c4dff" />
+                <PhoneMockup color="#3b82f6" />
               </Phone3D>
               <Phone3D
                 offsetY={-10}
@@ -336,11 +313,11 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                     inset: -20,
                     borderRadius: 56,
                     background:
-                      "radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%)",
+                      "radial-gradient(circle,rgba(59,130,246,0.15) 0%,transparent 70%)",
                     pointerEvents: "none",
                   }}
                 />
-                <PhoneMockup color="#00e5ff" />
+                <PhoneMockup color="#3b82f6" />
               </Phone3D>
             </Suspense>
           </div>

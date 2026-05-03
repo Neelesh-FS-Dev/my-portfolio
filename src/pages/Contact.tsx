@@ -51,7 +51,7 @@ export default function Contact() {
         /* Contact row icon lift on hover */
         .contact-row:hover .contact-icon {
           transform: rotate(-8deg) scale(1.15) !important;
-          background: rgba(0,229,255,0.14) !important;
+          background: rgba(59,130,246,0.14) !important;
         }
 
         /* Spinner */

@@ -155,7 +155,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                       : skill.domain === "web"
                         ? "var(--accent2)"
                         : "var(--green)",
-                  boxShadow: `0 0 6px ${skill.domain === "mobile" ? "rgba(0,229,255,0.5)" : skill.domain === "web" ? "rgba(124,77,255,0.5)" : "rgba(0,255,136,0.5)"}`,
+                  boxShadow: `0 0 6px ${skill.domain === "mobile" ? "rgba(59,130,246,0.5)" : skill.domain === "web" ? "rgba(59,130,246,0.5)" : "rgba(59,130,246,0.5)"}`,
                 }}
               />
               <div style={{ flex: 1 }}>
@@ -231,10 +231,10 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
               onMouseEnter={(e) =>
                 (e.currentTarget.style.borderColor =
                   cat.domain === "mobile"
-                    ? "rgba(0,229,255,0.25)"
+                    ? "rgba(59,130,246,0.25)"
                     : cat.domain === "web"
-                      ? "rgba(124,77,255,0.25)"
-                      : "rgba(0,255,136,0.25)")
+                      ? "rgba(59,130,246,0.25)"
+                      : "rgba(59,130,246,0.25)")
               }
               onMouseLeave={(e) =>
                 (e.currentTarget.style.borderColor = "var(--border)")

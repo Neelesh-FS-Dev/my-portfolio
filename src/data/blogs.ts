@@ -19,9 +19,9 @@ import type { IconType } from "react-icons";
 import type { Blog, BlogBase } from "../types";
 
 const BLOG_PALETTE: string[] = [
-  "#00e5ff",
-  "#7c4dff",
-  "#ff6b35",
+  "#3b82f6",
+  "#3b82f6",
+  "#3b82f6",
   "#22c55e",
   "#f59e0b",
   "#ec4899",
@@ -400,7 +400,7 @@ const blogs: BlogBase[] = [
       {
         type: "code",
         label: "tailwind.config.ts — design tokens",
-        text: "export default {\n  content: ['./src/**/*.{ts,tsx}'],\n  theme: {\n    extend: {\n      colors: {\n        brand: {\n          primary:   '#00e5ff',\n          secondary: '#7c4dff',\n          accent:    '#00ff88',\n        },\n        surface: {\n          DEFAULT: 'rgba(255,255,255,0.04)',\n          hover:   'rgba(255,255,255,0.08)',\n        },\n      },\n      fontFamily: {\n        display: ['Plus Jakarta Sans', 'sans-serif'],\n        mono:    ['JetBrains Mono', 'monospace'],\n      },\n      boxShadow: {\n        glow:     '0 0 24px rgba(0,229,255,0.2)',\n        'glow-lg': '0 0 48px rgba(0,229,255,0.15)',\n      },\n    },\n  },\n} satisfies Config;",
+        text: "export default {\n  content: ['./src/**/*.{ts,tsx}'],\n  theme: {\n    extend: {\n      colors: {\n        brand: {\n          primary:   '#3b82f6',\n          secondary: '#3b82f6',\n          accent:    '#3b82f6',\n        },\n        surface: {\n          DEFAULT: 'rgba(255,255,255,0.04)',\n          hover:   'rgba(255,255,255,0.08)',\n        },\n      },\n      fontFamily: {\n        display: ['Plus Jakarta Sans', 'sans-serif'],\n        mono:    ['JetBrains Mono', 'monospace'],\n      },\n      boxShadow: {\n        glow:     '0 0 24px rgba(59,130,246,0.2)',\n        'glow-lg': '0 0 48px rgba(59,130,246,0.15)',\n      },\n    },\n  },\n} satisfies Config;",
       },
       { type: "heading", text: "Pattern 3: The abstraction boundary rule" },
       {

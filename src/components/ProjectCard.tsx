@@ -112,10 +112,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
 
-  const accentColor = useMemo(
-    () => project.color || "var(--accent)",
-    [project.color],
-  );
+  const accentColor = "var(--accent)";
   const isWeb = useMemo(() => project.type === "web", [project.type]);
   const showFeatured = useMemo(
     () => featured && !isMobile && !isTablet,
@@ -125,11 +122,11 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
   const handleMouseEnter = useCallback(
     (e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
       const t = e.currentTarget as HTMLElement;
-      t.style.borderColor = accentColor + "40";
-      t.style.transform = "translateY(-5px)";
-      t.style.boxShadow = `0 20px 50px ${accentColor}12`;
+      t.style.borderColor = "var(--border-bright)";
+      t.style.transform = "translateY(-3px)";
+      t.style.boxShadow = "0 14px 30px rgba(0,0,0,0.4)";
     },
-    [accentColor],
+    [],
   );
 
   const handleMouseLeave = useCallback(
@@ -159,19 +156,19 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
 
   const cardStyle = useMemo(
     () => ({
-      background: `linear-gradient(180deg, ${accentColor}08 0%, var(--surface) 28%)`,
-      border: `1px solid ${accentColor}18`,
-      borderRadius: 20,
+      background: "var(--surface)",
+      border: "1px solid var(--border)",
+      borderRadius: 14,
       overflow: "hidden",
       cursor: "pointer",
-      transition: "all 0.35s ease",
+      transition: "all 0.25s ease",
       position: "relative" as const,
       display: showFeatured ? "grid" : "flex",
       gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
       flexDirection: showFeatured ? undefined : ("column" as const),
       height: "100%",
     }),
-    [accentColor, showFeatured],
+    [showFeatured],
   );
 
   const stopPropagation = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
@@ -192,17 +189,6 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
       onFocus={handleMouseEnter}
       onBlur={handleMouseLeave}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 2,
-          background: `linear-gradient(90deg,transparent,${accentColor},transparent)`,
-        }}
-      />
-
       <div
         style={{
           padding: showFeatured ? "36px 40px" : isMobile ? "20px" : "26px",
@@ -226,9 +212,9 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
               borderRadius: 100,
               fontFamily: "var(--font-mono)",
               fontSize: 10,
-              color: accentColor,
-              border: `1px solid ${accentColor}30`,
-              background: accentColor + "10",
+              color: "var(--text2)",
+              border: "1px solid var(--border)",
+              background: "transparent",
               display: "inline-flex",
               alignItems: "center",
               gap: 5,
@@ -244,9 +230,9 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                 borderRadius: 100,
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
-                color: accentColor,
-                border: `1px solid ${accentColor}30`,
-                background: `${accentColor}10`,
+                color: "var(--text2)",
+                border: "1px solid var(--border)",
+                background: "transparent",
               }}
             >
               <AiFillStar
@@ -262,17 +248,18 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
           <h3
             style={{
               fontFamily: "var(--font-display)",
-              fontWeight: 800,
+              fontWeight: 700,
               fontSize: showFeatured ? 28 : isMobile ? 19 : 21,
               letterSpacing: "-0.02em",
               marginBottom: 3,
+              color: "var(--text)",
             }}
           >
             {project.title}
           </h3>
           <p
             style={{
-              color: accentColor,
+              color: "var(--text3)",
               fontFamily: "var(--font-mono)",
               fontSize: 11,
               letterSpacing: "0.05em",
@@ -306,8 +293,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
                 color: "var(--text2)",
-                border: `1px solid ${accentColor}24`,
-                background: `${accentColor}08`,
+                border: "1px solid var(--border)",
+                background: "var(--bg2)",
               }}
             >
               {tech}
@@ -330,8 +317,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: isMobile ? 17 : 19,
-                  fontWeight: 800,
-                  color: accentColor,
+                  fontWeight: 700,
+                  color: "var(--text)",
                 }}
               >
                 {s.v}
@@ -454,7 +441,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   gap: 5,
                   padding: "5px 10px",
                   borderRadius: 8,
-                  background: "#0d1117",
+                  background: "#0a0a0a",
                   border: "1px solid rgba(255,255,255,0.12)",
                   textDecoration: "none",
                   transition: "opacity .2s",
@@ -481,7 +468,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             display: "flex",
             alignItems: "center",
             gap: 6,
-            color: accentColor,
+            color: "var(--accent)",
             fontFamily: "var(--font-mono)",
             fontSize: 12,
             marginTop: "auto",
@@ -498,11 +485,12 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             alignItems: "center",
             justifyContent: "center",
             padding: 40,
-            background: `radial-gradient(circle at center,${accentColor}08 0%,transparent 70%)`,
+            background: "var(--bg2)",
+            borderLeft: "1px solid var(--border)",
           }}
         >
           {isWeb ? (
-            <BrowserMockup color={accentColor} />
+            <BrowserMockup color="#3b82f6" />
           ) : (
             <PhoneMockup color={project.color} />
           )}

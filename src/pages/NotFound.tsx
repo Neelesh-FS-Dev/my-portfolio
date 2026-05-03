@@ -32,7 +32,7 @@ export default function NotFound() {
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -81,7 +81,7 @@ export default function NotFound() {
             borderRadius: 10,
             background:
               "linear-gradient(135deg, var(--accent), var(--accent2))",
-            color: "#090c10",
+            color: "#000000",
             fontWeight: 700,
             fontSize: 15,
             textDecoration: "none",

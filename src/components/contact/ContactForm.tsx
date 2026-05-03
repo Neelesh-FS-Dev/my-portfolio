@@ -131,8 +131,8 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
               width: 72,
               height: 72,
               borderRadius: "50%",
-              background: "rgba(0,255,136,0.1)",
-              border: "1px solid rgba(0,255,136,0.25)",
+              background: "rgba(59,130,246,0.1)",
+              border: "1px solid rgba(59,130,246,0.25)",
               marginBottom: 20,
               animation: "icon-float 4s ease-in-out infinite",
             }}
@@ -219,7 +219,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                         : "var(--border)",
                     boxShadow:
                       focusedField === "name"
-                        ? "0 0 0 3px rgba(0,229,255,0.08)"
+                        ? "0 0 0 3px rgba(59,130,246,0.08)"
                         : "none",
                   }}
                   onFocus={() => setFocusedField("name")}
@@ -253,7 +253,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                         : "var(--border)",
                     boxShadow:
                       focusedField === "email"
-                        ? "0 0 0 3px rgba(0,229,255,0.08)"
+                        ? "0 0 0 3px rgba(59,130,246,0.08)"
                         : "none",
                   }}
                   onFocus={() => setFocusedField("email")}
@@ -286,7 +286,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                       : "var(--border)",
                   boxShadow:
                     focusedField === "subject"
-                      ? "0 0 0 3px rgba(0,229,255,0.08)"
+                      ? "0 0 0 3px rgba(59,130,246,0.08)"
                       : "none",
                 }}
                 onFocus={() => setFocusedField("subject")}
@@ -322,7 +322,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                       : "var(--border)",
                   boxShadow:
                     focusedField === "message"
-                      ? "0 0 0 3px rgba(0,229,255,0.08)"
+                      ? "0 0 0 3px rgba(59,130,246,0.08)"
                       : "none",
                 }}
                 onFocus={() => setFocusedField("message")}

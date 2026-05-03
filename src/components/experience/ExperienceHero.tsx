@@ -41,7 +41,7 @@ export default function ExperienceHero({
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle,rgba(124,77,255,0.1) 0%,transparent 70%)",
+            "radial-gradient(circle,rgba(59,130,246,0.1) 0%,transparent 70%)",
           pointerEvents: "none",
           animation: "breathe 5s ease-in-out infinite",
         }}
@@ -57,7 +57,7 @@ export default function ExperienceHero({
             width: p.size,
             height: p.size,
             borderRadius: "50%",
-            background: `rgba(0,229,255,${0.2 + (p.id % 3) * 0.15})`,
+            background: `rgba(59,130,246,${0.2 + (p.id % 3) * 0.15})`,
             animation: `float-particle ${p.dur}s ease-in-out ${p.delay}s infinite alternate`,
             pointerEvents: "none",
           }}
@@ -126,29 +126,29 @@ export default function ExperienceHero({
               icon: <TbBrandReactNative size={12} />,
               label: "React Native",
               color: "var(--accent)",
-              bg: "rgba(0,229,255,0.07)",
-              border: "rgba(0,229,255,0.25)",
+              bg: "rgba(59,130,246,0.07)",
+              border: "rgba(59,130,246,0.25)",
             },
             {
               icon: <SiReact size={12} />,
               label: "React.js / JS",
-              color: "#b39ddb",
-              bg: "rgba(124,77,255,0.07)",
-              border: "rgba(124,77,255,0.25)",
+              color: "var(--accent)",
+              bg: "rgba(59,130,246,0.07)",
+              border: "rgba(59,130,246,0.25)",
             },
             {
               icon: <SiTailwindcss size={12} />,
               label: "Tailwind CSS / Vite",
               color: "var(--green)",
-              bg: "rgba(0,255,136,0.07)",
-              border: "rgba(0,255,136,0.25)",
+              bg: "rgba(59,130,246,0.07)",
+              border: "rgba(59,130,246,0.25)",
             },
             {
               icon: <SiTypescript size={12} />,
               label: "TypeScript / Redux",
               color: "var(--accent3)",
-              bg: "rgba(255,107,53,0.07)",
-              border: "rgba(255,107,53,0.25)",
+              bg: "rgba(59,130,246,0.07)",
+              border: "rgba(59,130,246,0.25)",
             },
           ].map((t, i) => (
             <span

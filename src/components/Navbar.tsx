@@ -99,16 +99,17 @@ function Navbar() {
               style={{
                 width: 32,
                 height: 32,
-                borderRadius: 9,
-                background: "linear-gradient(135deg, #00e5ff, #7c4dff)",
+                borderRadius: 8,
+                background: "var(--accent)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: 14,
-                color: "#090c10",
+                fontSize: 13,
+                color: "#ffffff",
                 flexShrink: 0,
+                letterSpacing: "-0.02em",
               }}
             >
               NY
@@ -142,9 +143,9 @@ function Navbar() {
                   fontSize: 14,
                   fontWeight: 500,
                   color: isActive ? "var(--accent)" : "var(--text2)",
-                  background: isActive ? "rgba(0,229,255,0.1)" : "transparent",
+                  background: isActive ? "rgba(59,130,246,0.1)" : "transparent",
                   border: isActive
-                    ? "1px solid rgba(0,229,255,0.22)"
+                    ? "1px solid rgba(59,130,246,0.22)"
                     : "1px solid transparent",
                   transition: "all .2s",
                   textDecoration: "none",
@@ -190,10 +191,10 @@ function Navbar() {
                 justifyContent: "center",
                 gap: 5,
                 cursor: "pointer",
-                background: menuOpen ? "rgba(0,229,255,0.08)" : "transparent",
+                background: menuOpen ? "rgba(59,130,246,0.08)" : "transparent",
                 border: "1px solid",
                 borderColor: menuOpen
-                  ? "rgba(0,229,255,0.25)"
+                  ? "rgba(59,130,246,0.25)"
                   : "rgba(255,255,255,0.1)",
                 borderRadius: 10,
                 transition: "all .25s",
@@ -279,7 +280,7 @@ function Navbar() {
                 fontWeight: 700,
                 fontSize: "clamp(18px, 5vw, 24px)",
                 color: isActive ? "var(--accent)" : "var(--text)",
-                background: isActive ? "rgba(0,229,255,0.06)" : "transparent",
+                background: isActive ? "rgba(59,130,246,0.06)" : "transparent",
                 borderLeft: isActive
                   ? "3px solid var(--accent)"
                   : "3px solid transparent",

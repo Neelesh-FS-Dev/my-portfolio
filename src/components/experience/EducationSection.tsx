@@ -88,7 +88,7 @@ export default function EducationSection({
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: 24,
-                boxShadow: "0 8px 24px rgba(0,229,255,0.25)",
+                boxShadow: "0 8px 24px rgba(59,130,246,0.25)",
                 animation: "icon-float 4s ease-in-out infinite",
               }}
             >
@@ -165,8 +165,8 @@ export default function EducationSection({
                     fontFamily: "var(--font-mono)",
                     fontSize: 10,
                     color: "var(--accent)",
-                    border: "1px solid rgba(0,229,255,0.25)",
-                    background: "rgba(0,229,255,0.07)",
+                    border: "1px solid rgba(59,130,246,0.25)",
+                    background: "rgba(59,130,246,0.07)",
                     opacity: eduVisible ? 1 : 0,
                     transform: eduVisible ? "scale(1)" : "scale(0.8)",
                     transition: `opacity 0.4s ease ${0.3 + bi * 0.06}s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${0.3 + bi * 0.06}s`,

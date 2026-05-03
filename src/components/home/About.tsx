@@ -94,30 +94,32 @@ export default function About({ isMobile, isSmall }: AboutProps) {
                 {
                   icon: <TbBrandReactNative size={12} />,
                   text: "React Native · Redux · TypeScript",
-                  color: "#00e5ff",
                 },
                 {
                   icon: <SiReact size={12} />,
                   text: "React.js · JavaScript · Vite",
-                  color: "#b39ddb",
                 },
                 {
                   icon: <SiTailwindcss size={12} />,
                   text: "Tailwind CSS · Firebase · Node.js",
-                  color: "#00ff88",
                 },
               ].map((item) => (
                 <p
                   key={item.text}
                   style={{
-                    color: item.color,
+                    color: "var(--text)",
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
                     marginBottom: 4,
                   }}
                 >
-                  {item.icon} {item.text}
+                  <span
+                    style={{ color: "var(--accent)", display: "inline-flex" }}
+                  >
+                    {item.icon}
+                  </span>{" "}
+                  {item.text}
                 </p>
               ))}
             </div>

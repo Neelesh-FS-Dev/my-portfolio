@@ -64,15 +64,16 @@ function Footer() {
             style={{
               width: 28,
               height: 28,
-              borderRadius: 8,
-              background: "linear-gradient(135deg,#00e5ff,#7c4dff)",
+              borderRadius: 7,
+              background: "var(--accent)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
               fontSize: 12,
-              color: "#090c10",
+              color: "#ffffff",
+              letterSpacing: "-0.02em",
             }}
           >
             NY

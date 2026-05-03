@@ -71,7 +71,7 @@ export default function BlogContent({ post }: BlogContentProps) {
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: 11,
-                    color: post.color,
+                    color: "var(--text3)",
                     marginBottom: 8,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
@@ -83,8 +83,8 @@ export default function BlogContent({ post }: BlogContentProps) {
               <div
                 style={{
                   background: "var(--surface)",
-                  border: `1px solid ${post.color}20`,
-                  borderLeft: `3px solid ${post.color}`,
+                  border: "1px solid var(--border)",
+                  borderLeft: "3px solid var(--accent)",
                   borderRadius: "0 12px 12px 0",
                   padding: isSmall ? "16px 18px" : "20px 24px",
                   overflow: "auto",
@@ -112,9 +112,10 @@ export default function BlogContent({ post }: BlogContentProps) {
             <div
               key={i}
               style={{
-                background: `linear-gradient(135deg, ${post.color}0d 0%, ${post.color}05 100%)`,
-                border: `1px solid ${post.color}25`,
-                borderRadius: 16,
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderLeft: "3px solid var(--accent)",
+                borderRadius: "0 12px 12px 0",
                 padding: isSmall ? "18px 20px" : "24px 28px",
                 marginBottom: 28,
                 marginTop: 8,
@@ -125,7 +126,7 @@ export default function BlogContent({ post }: BlogContentProps) {
             >
               <FiInfo
                 size={20}
-                style={{ flexShrink: 0, marginTop: 2, color: post.color }}
+                style={{ flexShrink: 0, marginTop: 2, color: "var(--accent)" }}
               />
               <p
                 style={{

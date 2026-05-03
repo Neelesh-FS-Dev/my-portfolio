@@ -1,30 +1,18 @@
 import type { PhoneScreens } from "../types";
 
+const defaultScreen = {
+  bg: "linear-gradient(180deg, #0a0a0a 0%, #141414 100%)",
+  bars: ["#3b82f6", "#3b82f6", "#3b82f6"] as [string, string, string],
+  title: "App",
+  subtitle: "Today's Activity",
+};
+
 const phoneScreens: PhoneScreens = {
-  "#00e5ff": {
-    bg: "linear-gradient(180deg, #0a1628 0%, #0d1f3c 100%)",
-    bars: ["#00e5ff", "#7c4dff", "#00ff88"],
-    title: "Soul33",
-    subtitle: "Today's Meditation",
-  },
-  "#7c4dff": {
-    bg: "linear-gradient(180deg, #0f0a28 0%, #1a0f3c 100%)",
-    bars: ["#7c4dff", "#ff6b35", "#00e5ff"],
-    title: "Yoke",
-    subtitle: "Live Stream",
-  },
-  "#ff6b35": {
-    bg: "linear-gradient(180deg, #1a0a00 0%, #2d1200 100%)",
-    bars: ["#ff6b35", "#00e5ff", "#7c4dff"],
-    title: "Barva",
-    subtitle: "AR Try-On",
-  },
-  "#00ff88": {
-    bg: "linear-gradient(180deg, #001a0f 0%, #002d1f 100%)",
-    bars: ["#00ff88", "#7c4dff", "#ff6b35"],
-    title: "Culture",
-    subtitle: "Card Game",
-  },
+  "#3b82f6": defaultScreen,
+  "#00e5ff": defaultScreen,
+  "#7c4dff": defaultScreen,
+  "#ff6b35": defaultScreen,
+  "#00ff88": defaultScreen,
 };
 
 export default phoneScreens;

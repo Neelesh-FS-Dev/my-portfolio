@@ -10,7 +10,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Feb 2024",
     readTime: "8 min read",
     tags: ["React Native", "Performance", "Architecture"],
-    color: "#00e5ff",
+    color: "#3b82f6",
     domain: "mobile",
     content: [
       {
@@ -52,7 +52,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Jan 2024",
     readTime: "6 min read",
     tags: ["WebSocket", "Real-time", "React Native"],
-    color: "#7c4dff",
+    color: "#3b82f6",
     domain: "mobile",
     content: [
       {
@@ -89,7 +89,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Dec 2023",
     readTime: "10 min read",
     tags: ["AR", "Three.js", "MediaPipe"],
-    color: "#ff6b35",
+    color: "#3b82f6",
     domain: "mobile",
     content: [
       {
@@ -126,7 +126,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Nov 2023",
     readTime: "5 min read",
     tags: ["Performance", "React Native", "FlatList"],
-    color: "#00ff88",
+    color: "#3b82f6",
     domain: "mobile",
     content: [
       {
@@ -164,7 +164,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Oct 2023",
     readTime: "7 min read",
     tags: ["Next.js", "Vite", "React", "Web"],
-    color: "#7c4dff",
+    color: "#3b82f6",
     domain: "web",
     content: [
       {
@@ -206,7 +206,7 @@ export const blogDetails: BlogDetail[] = [
     date: "Sep 2023",
     readTime: "6 min read",
     tags: ["Tailwind CSS", "React", "CSS Architecture"],
-    color: "#00ff88",
+    color: "#3b82f6",
     domain: "web",
     content: [
       {

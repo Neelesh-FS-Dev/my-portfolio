@@ -76,7 +76,7 @@ export default function BlogTabsBar({
                   fontSize: 10,
                   background:
                     active === t.id
-                      ? "rgba(0,229,255,0.15)"
+                      ? "rgba(59,130,246,0.15)"
                       : "rgba(255,255,255,0.05)",
                   color: active === t.id ? "var(--accent)" : "var(--text3)",
                   transition: "background 0.2s, color 0.2s",

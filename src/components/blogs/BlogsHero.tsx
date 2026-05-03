@@ -33,7 +33,7 @@ export default function BlogsHero() {
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle,rgba(255,107,53,0.07) 0%,transparent 70%)",
+            "radial-gradient(circle,rgba(59,130,246,0.07) 0%,transparent 70%)",
           pointerEvents: "none",
           animation: "breathe 5s ease-in-out infinite",
         }}
@@ -49,7 +49,7 @@ export default function BlogsHero() {
             width: p.size,
             height: p.size,
             borderRadius: "50%",
-            background: `rgba(255,107,53,${0.2 + (p.id % 3) * 0.15})`,
+            background: `rgba(59,130,246,${0.2 + (p.id % 3) * 0.15})`,
             animation: `float-particle ${p.dur}s ease-in-out ${p.delay}s infinite alternate`,
             pointerEvents: "none",
           }}
