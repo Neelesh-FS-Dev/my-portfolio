@@ -1,10 +1,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import projects from "../src/data/projects.js";
-import blogs from "../src/data/blogs.js";
-import personal from "../src/data/personal.js";
-import { degrees } from "../src/data/education.js";
+import projects from "../src/data/projects.ts";
+import blogs from "../src/data/blogs.ts";
+import personal from "../src/data/personal.ts";
+import { degrees } from "../src/data/education.ts";
 
 export const SITE_URL = "https://neeleshyadav.vercel.app";
 export const TWITTER_HANDLE = "@neeleshyadav25";

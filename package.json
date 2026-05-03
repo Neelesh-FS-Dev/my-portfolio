@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && vite build && node scripts/prerender-seo.mjs",
+    "build": "tsx scripts/generate-sitemap.mjs && vite build && tsx scripts/prerender-seo.mjs",
     "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs",
+    "typecheck": "tsc -p . --noEmit && tsc -p tsconfig.node.json --noEmit && tsc -p api --noEmit",
+    "lint": "eslint .",
+    "analyze": "ANALYZE=true vite build",
+    "sitemap": "tsx scripts/generate-sitemap.mjs",
+    "validate:seo": "tsx scripts/validate-seo.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -22,10 +25,21 @@
     "three": "^0.183.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "@types/three": "^0.184.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
     "prettier": "^3.8.2",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1",
     "vite": "^5.1.0"
   }
 }
