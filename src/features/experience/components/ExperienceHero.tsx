@@ -1,8 +1,8 @@
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
-import { useReveal } from "../../hooks/useReveal";
-import { generateParticles } from "../../data/particles";
-import { getExperience } from "../../utils/getExperience";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import { generateParticles } from "../../../shared/data/particles";
+import { getExperience } from "../../../shared/utils/getExperience";
 
 export interface ExperienceHeroProps {
   isMobile: boolean;

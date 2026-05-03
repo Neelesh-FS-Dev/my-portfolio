@@ -68,7 +68,7 @@ const BLOG_PALETTE: string[] = [
   "#047857",
   "#9d174d",
   "#1d4ed8",
-  "#ca8a04"
+  "#ca8a04",
 ];
 
 const BLOG_ICONS: IconType[] = [

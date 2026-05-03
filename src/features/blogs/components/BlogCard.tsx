@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Blog } from "../../types";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
+import type { Blog } from "../types";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export interface BlogCardProps {
   post: Blog;

@@ -1,14 +1,30 @@
+import { execSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import projects from "../src/data/projects.ts";
-import blogs from "../src/data/blogs.ts";
-import personal from "../src/data/personal.ts";
-import { degrees } from "../src/data/education.ts";
+import projects from "../src/features/projects/data/projects.ts";
+import blogs from "../src/features/blogs/data/blogs.ts";
+import personal from "../src/shared/data/personal.ts";
+import { degrees } from "../src/features/experience/data/education.ts";
 
 export const SITE_URL = "https://neeleshyadav.vercel.app";
 export const TWITTER_HANDLE = "@neeleshyadav25";
-export const LAST_MOD = "2026-04-26";
+
+function resolveLastMod() {
+  try {
+    const date = execSync("git log -1 --format=%cs HEAD", {
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+  } catch {
+    // git unavailable — fall through
+  }
+  return new Date().toISOString().slice(0, 10);
+}
+
+export const LAST_MOD = resolveLastMod();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = join(__dirname, "..");

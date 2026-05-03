@@ -1,6 +1,6 @@
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
-import { useReveal } from "../../hooks/useReveal";
-import { generateParticles } from "../../data/particles";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import { generateParticles } from "../../../shared/data/particles";
 
 export default function BlogsHero() {
   const isMobile = useIsMobile();
@@ -101,8 +101,7 @@ export default function BlogsHero() {
             lineHeight: 1.75,
             opacity: headerVisible ? 1 : 0,
             transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-            transition:
-              "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
+            transition: "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
           }}
         >
           Technical deep-dives on React Native, React, performance, and

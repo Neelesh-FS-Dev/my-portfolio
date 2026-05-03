@@ -1,5 +1,5 @@
-import type { Blog } from "../../types";
-import { useIsSmall } from "../../hooks/useMediaQuery";
+import type { Blog } from "../types";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
 import { FiInfo } from "react-icons/fi";
 
 export interface BlogContentProps {

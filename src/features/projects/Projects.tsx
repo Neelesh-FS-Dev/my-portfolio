@@ -1,16 +1,16 @@
 import { useState, useMemo } from "react";
+import projects from "./data/projects";
 import {
-  projects,
   mobileCategories,
   webCategories,
   allCategories,
-} from "../data";
-import SEO from "../components/SEO";
-import ProjectsHero from "../components/projects/ProjectsHero";
+} from "./data/projectCategories";
+import SEO from "../../shared/components/ui/SEO";
+import ProjectsHero from "./components/ProjectsHero";
 import ProjectsFilterBar, {
   type DomainTab,
-} from "../components/projects/ProjectsFilterBar";
-import ProjectsGrid from "../components/projects/ProjectsGrid";
+} from "./components/ProjectsFilterBar";
+import ProjectsGrid from "./components/ProjectsGrid";
 
 export default function Projects() {
   const [domainTab, setDomainTab] = useState<DomainTab>("all");

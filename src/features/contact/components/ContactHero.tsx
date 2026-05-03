@@ -1,5 +1,5 @@
-import { useReveal } from "../../hooks/useReveal";
-import { generateParticles } from "../../data/particles";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import { generateParticles } from "../../../shared/data/particles";
 
 export interface ContactHeroProps {
   isMobile: boolean;

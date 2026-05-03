@@ -1,14 +1,16 @@
 import { lazy, Suspense } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { personal } from "../../data";
-import PhoneMockup from "../PhoneMockup";
+import personal from "../../../shared/data/personal";
+import PhoneMockup from "../../../shared/components/effects/PhoneMockup";
 import { SiReact, SiTailwindcss } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { FiDownload } from "react-icons/fi";
-import { getExperience } from "../../utils/getExperience";
+import { getExperience } from "../../../shared/utils/getExperience";
 
-const Phone3D = lazy(() => import("../Phone3D"));
+const Phone3D = lazy(
+  () => import("../../../shared/components/effects/Phone3D"),
+);
 
 interface VisualFallbackProps {
   children: ReactNode;
@@ -147,7 +149,9 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
                   background: "var(--surface)",
                 }}
               >
-                <span style={{ color: "var(--accent)", display: "inline-flex" }}>
+                <span
+                  style={{ color: "var(--accent)", display: "inline-flex" }}
+                >
                   {t.icon}
                 </span>{" "}
                 {t.label}

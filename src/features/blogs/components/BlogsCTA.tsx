@@ -1,15 +1,12 @@
-import { useIsSmall } from "../../hooks/useMediaQuery";
-import { useReveal } from "../../hooks/useReveal";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
+import { useReveal } from "../../../shared/hooks/useReveal";
 
 export default function BlogsCTA() {
   const isSmall = useIsSmall();
   const [ctaRef, ctaVisible] = useReveal<HTMLElement>(0.1);
 
   return (
-    <section
-      ref={ctaRef}
-      style={{ padding: "0 0 100px", textAlign: "center" }}
-    >
+    <section ref={ctaRef} style={{ padding: "0 0 100px", textAlign: "center" }}>
       <div className="container">
         <p
           style={{
@@ -44,12 +41,10 @@ export default function BlogsCTA() {
             fontSize: isSmall ? 14 : 15,
             opacity: ctaVisible ? 1 : 0,
             transform: ctaVisible ? "translateY(0)" : "translateY(14px)",
-            transition:
-              "opacity 0.55s ease 0.18s, transform 0.55s ease 0.18s",
+            transition: "opacity 0.55s ease 0.18s, transform 0.55s ease 0.18s",
           }}
         >
-          Follow my GitHub for code experiments, open-source work, and
-          updates.
+          Follow my GitHub for code experiments, open-source work, and updates.
         </p>
         <a
           href="https://github.com/Neelesh-FS-Dev"

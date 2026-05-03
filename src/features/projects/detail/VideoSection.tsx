@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { Project } from "../../types";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
+import type { Project } from "../types";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export interface VideoSectionProps {
   project: Project;

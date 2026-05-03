@@ -1,4 +1,4 @@
-import { useIsSmall } from "../../hooks/useMediaQuery";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export type BlogDomainFilter = "all" | "mobile" | "web";
 
@@ -62,8 +62,7 @@ export default function BlogTabsBar({
                     ? "2px solid var(--accent)"
                     : "2px solid transparent",
                 transition: "color 0.2s, border-color 0.2s",
-                transform:
-                  active === t.id ? "translateY(0)" : "translateY(0)",
+                transform: active === t.id ? "translateY(0)" : "translateY(0)",
               }}
             >
               {t.label}

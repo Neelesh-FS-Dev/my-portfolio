@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo, useCallback, memo } from "react";
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
 import {
   FiGithub,
   FiGitCommit,
@@ -7,10 +7,7 @@ import {
   FiAlertCircle,
   FiLock,
 } from "react-icons/fi";
-import type {
-  ContributionDay,
-  GitHubContributionsResponse,
-} from "../types";
+import type { ContributionDay, GitHubContributionsResponse } from "../../types";
 
 interface TooltipState {
   day: ContributionDay;

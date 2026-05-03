@@ -1,6 +1,6 @@
 import { FiBookOpen, FiAward } from "react-icons/fi";
-import type { Degree } from "../../types";
-import { useReveal } from "../../hooks/useReveal";
+import type { Degree } from "../types";
+import { useReveal } from "../../../shared/hooks/useReveal";
 import ShimmerLine from "./ShimmerLine";
 
 export interface EducationSectionProps {

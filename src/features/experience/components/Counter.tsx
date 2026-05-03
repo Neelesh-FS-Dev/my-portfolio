@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { useReveal } from "../../hooks/useReveal";
+import { useReveal } from "../../../shared/hooks/useReveal";
 
 export interface CounterProps {
   value: string | number;

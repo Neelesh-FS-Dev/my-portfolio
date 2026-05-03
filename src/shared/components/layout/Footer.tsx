@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
-import { personal } from "../data";
-import { useIsSmall } from "../hooks/useMediaQuery";
+import personal from "../../data/personal";
+import { useIsSmall } from "../../hooks/useMediaQuery";
 import { FiGithub, FiMail } from "react-icons/fi";
 
 function Footer() {

@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
-import type { Screenshot } from "../../types";
-import { useIsSmall } from "../../hooks/useMediaQuery";
+import type { Screenshot } from "../types";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
 import { FiSmartphone } from "react-icons/fi";
 
 export interface AppScreenshotProps {

@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
+import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
 
 interface BarProps {
   w: number | string;
@@ -164,11 +164,7 @@ function ProjectsSkeletonBase() {
       <section style={{ paddingTop: isMobile ? 80 : 96, paddingBottom: 40 }}>
         <div className="container">
           <Bar w={150} h={20} mb={16} />
-          <Bar
-            w={isSmall ? "80%" : "55%"}
-            h={isSmall ? 36 : 56}
-            mb={20}
-          />
+          <Bar w={isSmall ? "80%" : "55%"} h={isSmall ? 36 : 56} mb={20} />
           <Bar w={isSmall ? "100%" : 540} h={14} mb={10} />
           <Bar w={isSmall ? "85%" : 460} h={14} mb={36} />
 
@@ -194,12 +190,7 @@ function ProjectsSkeletonBase() {
             }}
           >
             {Array.from({ length: cards }).map((_, i) => (
-              <Bar
-                key={i}
-                w="100%"
-                h={isSmall ? 240 : 320}
-                r={14}
-              />
+              <Bar key={i} w="100%" h={isSmall ? 240 : 320} r={14} />
             ))}
           </div>
         </div>
@@ -227,11 +218,7 @@ function ProjectDetailSkeletonBase() {
           </div>
 
           <Bar w={120} h={26} r={100} mb={14} />
-          <Bar
-            w={isSmall ? "85%" : "65%"}
-            h={isSmall ? 32 : 56}
-            mb={8}
-          />
+          <Bar w={isSmall ? "85%" : "65%"} h={isSmall ? 32 : 56} mb={8} />
           <Bar w={180} h={14} mb={22} />
 
           {/* Stats row */}
@@ -266,12 +253,7 @@ function ProjectDetailSkeletonBase() {
           </div>
 
           {/* Hero image */}
-          <Bar
-            w="100%"
-            h={isSmall ? 220 : 380}
-            r={14}
-            mb={32}
-          />
+          <Bar w="100%" h={isSmall ? 220 : 380} r={14} mb={32} />
 
           {/* Description */}
           {[100, 95, 90, 88, 70].map((w, i) => (
@@ -379,9 +361,7 @@ function BlogsSkeletonBase() {
           </div>
 
           {/* Grid */}
-          <div
-            style={{ display: "grid", gridTemplateColumns: cols, gap: 14 }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: cols, gap: 14 }}>
             {Array.from({ length: cards }).map((_, i) => (
               <div
                 key={i}
@@ -438,11 +418,7 @@ function BlogDetailSkeletonBase() {
               marginBottom: 24,
             }}
           >
-            <Bar
-              w={isSmall ? 52 : 64}
-              h={isSmall ? 52 : 64}
-              r={14}
-            />
+            <Bar w={isSmall ? 52 : 64} h={isSmall ? 52 : 64} r={14} />
             <div style={{ display: "flex", gap: 8 }}>
               <Bar w={70} h={12} />
               <Bar w={10} h={12} />

@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import phoneScreens from "../data/phoneScreens";
+import phoneScreens from "../../data/phoneScreens";
 
 interface PhoneMockupProps {
   color?: string;

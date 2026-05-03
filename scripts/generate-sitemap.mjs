@@ -1,5 +1,11 @@
 import { join } from "node:path";
-import { getSeoRoutes, LAST_MOD, repoRoot, SITE_URL, writeTextFile } from "./seo-routes.mjs";
+import {
+  getSeoRoutes,
+  LAST_MOD,
+  repoRoot,
+  SITE_URL,
+  writeTextFile,
+} from "./seo-routes.mjs";
 
 function xmlEscape(value) {
   return String(value)

@@ -1,8 +1,8 @@
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
-import SEO from "../components/SEO";
-import ContactHero from "../components/contact/ContactHero";
-import ContactInfo from "../components/contact/ContactInfo";
-import ContactForm from "../components/contact/ContactForm";
+import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
+import SEO from "../../shared/components/ui/SEO";
+import ContactHero from "./components/ContactHero";
+import ContactInfo from "./components/ContactInfo";
+import ContactForm from "./components/ContactForm";
 
 export default function Contact() {
   const isMobile = useIsMobile();

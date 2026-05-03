@@ -30,8 +30,7 @@ import { MdAnimation } from "react-icons/md";
 export const skillIconUrls: Record<string, string> = {
   reactnative: "https://reactnative.dev",
   react: "https://react.dev",
-  javascript:
-    "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  javascript: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   typescript: "https://www.typescriptlang.org",
   redux: "https://redux-toolkit.js.org",
   firebase: "https://firebase.google.com",
@@ -42,8 +41,7 @@ export const skillIconUrls: Record<string, string> = {
   expo: "https://expo.dev",
   vite: "https://vitejs.dev",
   api: "https://developer.mozilla.org/en-US/docs/Web/HTTP",
-  websocket:
-    "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+  websocket: "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
   xcode: "https://developer.apple.com/xcode/",
   androidstudio: "https://developer.android.com/studio",
   graphql: "https://graphql.org",

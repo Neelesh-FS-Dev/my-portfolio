@@ -1,4 +1,4 @@
-import { useReveal } from "../../hooks/useReveal";
+import { useReveal } from "../../../shared/hooks/useReveal";
 
 export default function ShimmerLine() {
   const [ref, visible] = useReveal(0.3);

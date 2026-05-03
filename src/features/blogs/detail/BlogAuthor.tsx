@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { useIsSmall } from "../../hooks/useMediaQuery";
-import { getExperience } from "../../utils/getExperience";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
+import { getExperience } from "../../../shared/utils/getExperience";
 
 function BlogAuthor() {
   const isSmall = useIsSmall();

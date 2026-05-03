@@ -1,4 +1,4 @@
-import type { Project } from "../../types";
+import type { Project } from "../types";
 import { BsApple } from "react-icons/bs";
 import { FiGithub } from "react-icons/fi";
 

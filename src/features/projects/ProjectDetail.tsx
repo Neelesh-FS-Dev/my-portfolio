@@ -1,16 +1,16 @@
 import { useState, useCallback, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import type { Project } from "../types";
-import { projects } from "../data";
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
-import SEO, { SITE_URL } from "../components/SEO";
+import type { Project } from "./types";
+import projects from "./data/projects";
+import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
+import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
 
-import ImageViewer from "../components/projectDetail/ImageViewer";
-import ProjectHero from "../components/projectDetail/ProjectHero";
-import VideoSection from "../components/projectDetail/VideoSection";
-import ScreenshotsSection from "../components/projectDetail/ScreenshotsSection";
-import FeaturesSection from "../components/projectDetail/FeaturesSection";
-import OtherProjects from "../components/projectDetail/OtherProjects";
+import ImageViewer from "./detail/ImageViewer";
+import ProjectHero from "./detail/ProjectHero";
+import VideoSection from "./detail/VideoSection";
+import ScreenshotsSection from "./detail/ScreenshotsSection";
+import FeaturesSection from "./detail/FeaturesSection";
+import OtherProjects from "./detail/OtherProjects";
 
 export default function ProjectDetail() {
   const { id } = useParams();

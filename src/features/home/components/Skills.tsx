@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { skillCategories, techStack } from "../../data";
+import { skillCategories, techStack } from "../data/skills";
 import {
   skillIconMap,
   skillIconColors,
   skillIconUrls,
-} from "../../utils/skillIcons";
+} from "../utils/skillIcons";
 
 export interface SkillsProps {
   isMobile: boolean;
@@ -26,7 +26,10 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
       : skillCategories.filter(
           (s) => s.domain === activeTab || s.domain === "both",
         );
-  const highlightedStack = filteredStack.slice(0, isSmall ? 6 : isMobile ? 9 : 12);
+  const highlightedStack = filteredStack.slice(
+    0,
+    isSmall ? 6 : isMobile ? 9 : 12,
+  );
 
   const tabs = [
     { id: "all", label: "All Skills" },
@@ -220,8 +223,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                   width: isSmall ? 260 : isMobile ? 300 : 320,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor =
-                    "rgba(59,130,246,0.35)";
+                  e.currentTarget.style.borderColor = "rgba(59,130,246,0.35)";
                   e.currentTarget.style.transform = "translateY(-2px)";
                 }}
                 onMouseLeave={(e) => {
@@ -229,60 +231,60 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 12,
-                }}
-              >
-                <span
+                <div
                   style={{
-                    fontSize: 18,
                     display: "flex",
                     alignItems: "center",
-                    color: skillIconColors[cat.icon] ?? "var(--accent)",
+                    gap: 8,
+                    marginBottom: 12,
                   }}
                 >
-                  {skillIconMap[cat.icon]}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    color:
-                      cat.domain === "mobile"
-                        ? "var(--accent)"
-                        : cat.domain === "web"
-                          ? "var(--accent2)"
-                          : "var(--green)",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {cat.category}
-                </span>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                {cat.items.map((item) => (
                   <span
-                    key={item}
                     style={{
-                      padding: "3px 8px",
-                      borderRadius: 100,
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: "var(--text2)",
-                      border: "1px solid var(--border)",
-                      background: "rgba(255,255,255,0.02)",
+                      fontSize: 18,
+                      display: "flex",
+                      alignItems: "center",
+                      color: skillIconColors[cat.icon] ?? "var(--accent)",
                     }}
                   >
-                    {item}
+                    {skillIconMap[cat.icon]}
                   </span>
-                ))}
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      color:
+                        cat.domain === "mobile"
+                          ? "var(--accent)"
+                          : cat.domain === "web"
+                            ? "var(--accent2)"
+                            : "var(--green)",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {cat.category}
+                  </span>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                  {cat.items.map((item) => (
+                    <span
+                      key={item}
+                      style={{
+                        padding: "3px 8px",
+                        borderRadius: 100,
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        color: "var(--text2)",
+                        border: "1px solid var(--border)",
+                        background: "rgba(255,255,255,0.02)",
+                      }}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
             ))}
           </div>
         </div>

@@ -1,16 +1,16 @@
 import { useParams, Link } from "react-router-dom";
-import { blogs as blogDetails } from "../data";
-import { useIsMobile } from "../hooks/useMediaQuery";
-import SEO, { SITE_URL } from "../components/SEO";
+import blogDetails from "./data/blogs";
+import { useIsMobile } from "../../shared/hooks/useMediaQuery";
+import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
 import {
   getBlogContentText,
   getIsoMonthDate,
   getReadTimeMinutes,
-} from "../utils/blogHelpers";
-import BlogHero from "../components/blogDetail/BlogHero";
-import BlogContent from "../components/blogDetail/BlogContent";
-import BlogAuthor from "../components/blogDetail/BlogAuthor";
-import MoreArticles from "../components/blogDetail/MoreArticles";
+} from "./utils/blogHelpers";
+import BlogHero from "./detail/BlogHero";
+import BlogContent from "./detail/BlogContent";
+import BlogAuthor from "./detail/BlogAuthor";
+import MoreArticles from "./detail/MoreArticles";
 
 export default function BlogDetail() {
   const { id } = useParams();

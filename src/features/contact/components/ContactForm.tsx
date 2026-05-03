@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { FiCheckCircle, FiSend } from "react-icons/fi";
-import { useReveal } from "../../hooks/useReveal";
+import { useReveal } from "../../../shared/hooks/useReveal";
 import AnimatedField from "./AnimatedField";
 
 export interface ContactFormProps {

@@ -1,4 +1,4 @@
-import { useIsSmall } from "../../hooks/useMediaQuery";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export type DomainTab = "all" | "mobile" | "web";
 
@@ -66,8 +66,7 @@ export default function ProjectsFilterBar({
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                   background: "transparent",
-                  color:
-                    domainTab === t.id ? "var(--accent)" : "var(--text3)",
+                  color: domainTab === t.id ? "var(--accent)" : "var(--text3)",
                   borderBottom:
                     domainTab === t.id
                       ? "2px solid var(--accent)"

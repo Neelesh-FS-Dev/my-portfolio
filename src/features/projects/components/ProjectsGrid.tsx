@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import type { Project } from "../../types";
-import { useIsMobile } from "../../hooks/useMediaQuery";
-import { useReveal } from "../../hooks/useReveal";
-import ProjectCard from "../ProjectCard";
+import type { Project } from "../types";
+import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import ProjectCard from "./ProjectCard";
 import { FiSearch } from "react-icons/fi";
 
 /* ── Staggered grid wrapper that re-triggers on filter change ── */

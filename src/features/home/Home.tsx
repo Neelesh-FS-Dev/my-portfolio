@@ -1,14 +1,17 @@
 import { lazy, Suspense } from "react";
-import { personal, degrees } from "../data";
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
-import SEO, { SITE_URL } from "../components/SEO";
-import Hero from "../components/home/Hero";
-import About from "../components/home/About";
-import Skills from "../components/home/Skills";
-import FeaturedProjects from "../components/home/FeaturedProjects";
-import GetInTouch from "../components/home/GetInTouch";
+import personal from "../../shared/data/personal";
+import { degrees } from "../experience/data/education";
+import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
+import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import FeaturedProjects from "./components/FeaturedProjects";
+import GetInTouch from "./components/GetInTouch";
 
-const GitHubGraph = lazy(() => import("../components/GitHubGraph"));
+const GitHubGraph = lazy(
+  () => import("../../shared/components/ui/GitHubGraph"),
+);
 
 // Homepage JSON-LD Schema for better SEO
 function getHomepageSchema() {

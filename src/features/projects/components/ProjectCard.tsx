@@ -1,8 +1,8 @@
 import { memo, useCallback, useMemo } from "react";
 import type { FocusEvent, KeyboardEvent, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { useIsMobile, useIsTablet } from "../hooks/useMediaQuery";
-import PhoneMockup from "./PhoneMockup";
+import { useIsMobile, useIsTablet } from "../../../shared/hooks/useMediaQuery";
+import PhoneMockup from "../../../shared/components/effects/PhoneMockup";
 import { FiSmartphone, FiMonitor, FiGithub } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 import type { Project } from "../types";

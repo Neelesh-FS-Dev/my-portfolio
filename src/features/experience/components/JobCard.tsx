@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { FiSmartphone, FiGlobe, FiExternalLink } from "react-icons/fi";
-import type { ExperienceEntry, RoleType } from "../../types";
-import { roleColors } from "../../data";
-import { useReveal } from "../../hooks/useReveal";
-import { useMagnetic } from "../../hooks/useMagnetic";
-import { getExperience } from "../../utils/getExperience";
+import type { ExperienceEntry, RoleType } from "../types";
+import { roleColors } from "../data/colorMapping";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import { useMagnetic } from "../../../shared/hooks/useMagnetic";
+import { getExperience } from "../../../shared/utils/getExperience";
 
 export interface JobCardProps {
   job: ExperienceEntry;

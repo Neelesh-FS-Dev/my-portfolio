@@ -1,5 +1,5 @@
-import { personal } from "../../data";
-import { useReveal } from "../../hooks/useReveal";
+import personal from "../../../shared/data/personal";
+import { useReveal } from "../../../shared/hooks/useReveal";
 import {
   FiMail,
   FiGithub,

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import type { Blog } from "../../types";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
+import type { Blog } from "../types";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export interface BlogHeroProps {
   post: Blog;
@@ -60,9 +60,7 @@ export default function BlogHero({ post }: BlogHeroProps) {
               padding: 0,
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--text3)")
-            }
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text3)")}
           >
             ← Blogs
           </button>

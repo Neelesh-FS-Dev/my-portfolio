@@ -1,6 +1,6 @@
-import type { Project } from "../../types";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
-import { featureIconMap } from "../../utils/featureIcons";
+import type { Project } from "../types";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
+import { featureIconMap } from "../utils/featureIcons";
 
 export interface FeaturesSectionProps {
   project: Project;

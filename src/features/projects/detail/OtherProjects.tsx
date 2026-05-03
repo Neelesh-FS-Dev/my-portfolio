@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { projects } from "../../data";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
+import projects from "../data/projects";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export interface OtherProjectsProps {
   currentId: string;

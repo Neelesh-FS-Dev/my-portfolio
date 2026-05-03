@@ -1203,7 +1203,8 @@ const projects: Project[] = [
     rating: "",
     appStoreUrl: "",
     playStoreUrl: "",
-    liveUrl: "https://www.npmjs.com/package/@neeleshyadav/react-native-html-renderer",
+    liveUrl:
+      "https://www.npmjs.com/package/@neeleshyadav/react-native-html-renderer",
     videoUrl: "",
     screenshots: [],
     githubUrl: "https://github.com/Neelesh-FS-Dev/react-native-html-renderer",

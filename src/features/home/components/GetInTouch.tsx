@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { personal } from "../../data";
+import personal from "../../../shared/data/personal";
 import { FiMail, FiGithub, FiPhone } from "react-icons/fi";
 
 export interface GetInTouchProps {

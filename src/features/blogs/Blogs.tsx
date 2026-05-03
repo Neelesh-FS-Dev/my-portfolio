@@ -1,14 +1,12 @@
 import { useState, useMemo } from "react";
-import { blogs } from "../data";
-import { useIsSmall, useIsTablet } from "../hooks/useMediaQuery";
-import { useReveal } from "../hooks/useReveal";
-import SEO from "../components/SEO";
-import BlogsHero from "../components/blogs/BlogsHero";
-import BlogTabsBar, {
-  type BlogDomainFilter,
-} from "../components/blogs/BlogTabsBar";
-import BlogCard from "../components/blogs/BlogCard";
-import BlogsCTA from "../components/blogs/BlogsCTA";
+import blogs from "./data/blogs";
+import { useIsSmall, useIsTablet } from "../../shared/hooks/useMediaQuery";
+import { useReveal } from "../../shared/hooks/useReveal";
+import SEO from "../../shared/components/ui/SEO";
+import BlogsHero from "./components/BlogsHero";
+import BlogTabsBar, { type BlogDomainFilter } from "./components/BlogTabsBar";
+import BlogCard from "./components/BlogCard";
+import BlogsCTA from "./components/BlogsCTA";
 
 export default function Blogs() {
   const [domainFilter, setDomainFilter] = useState<BlogDomainFilter>("all");

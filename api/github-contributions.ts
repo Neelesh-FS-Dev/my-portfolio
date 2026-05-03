@@ -122,10 +122,7 @@ interface AccountSummary {
   privateCount: number;
 }
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse,
-) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const origin = (req.headers.origin as string) || "";
   if (ALLOWED_ORIGIN && origin === ALLOWED_ORIGIN) {
     res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
@@ -175,7 +172,9 @@ export default async function handler(
     }
 
     const baseData = (personalData || companyData) as GitHubUser;
-    const mergedCalendar: MergedCalendar | GitHubContributionsCollection["contributionCalendar"] =
+    const mergedCalendar:
+      | MergedCalendar
+      | GitHubContributionsCollection["contributionCalendar"] =
       personalData && companyData
         ? mergeCalendars(personalData, companyData)
         : baseData.contributionsCollection.contributionCalendar;

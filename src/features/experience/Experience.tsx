@@ -1,10 +1,11 @@
-import { experience, degrees } from "../data";
-import { useIsMobile, useIsSmall } from "../hooks/useMediaQuery";
-import SEO from "../components/SEO";
-import ExperienceHero from "../components/experience/ExperienceHero";
-import JobCard from "../components/experience/JobCard";
-import EducationSection from "../components/experience/EducationSection";
-import CertificationsSection from "../components/experience/CertificationsSection";
+import experience from "./data/experience";
+import { degrees } from "./data/education";
+import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
+import SEO from "../../shared/components/ui/SEO";
+import ExperienceHero from "./components/ExperienceHero";
+import JobCard from "./components/JobCard";
+import EducationSection from "./components/EducationSection";
+import CertificationsSection from "./components/CertificationsSection";
 
 export default function Experience() {
   const isMobile = useIsMobile();

@@ -1,4 +1,4 @@
-import { personal } from "../../data";
+import personal from "../../../shared/data/personal";
 import { SiReact, SiTailwindcss } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { FiCheck } from "react-icons/fi";

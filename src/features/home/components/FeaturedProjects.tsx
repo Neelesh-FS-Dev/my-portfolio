@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { projects } from "../../data";
-import ProjectCard from "../ProjectCard";
+import projects from "../../projects/data/projects";
+import ProjectCard from "../../projects/components/ProjectCard";
 
 export interface FeaturedProjectsProps {
   isMobile: boolean;

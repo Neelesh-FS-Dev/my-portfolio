@@ -1,5 +1,5 @@
-import type { Screenshot } from "../../types";
-import { useIsMobile } from "../../hooks/useMediaQuery";
+import type { Screenshot } from "../types";
+import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 export interface ImageViewerProps {

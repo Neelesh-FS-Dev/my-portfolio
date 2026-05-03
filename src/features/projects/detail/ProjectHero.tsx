@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import type { Project } from "../../types";
-import { useIsMobile, useIsTablet, useIsSmall } from "../../hooks/useMediaQuery";
+import type { Project } from "../types";
+import {
+  useIsMobile,
+  useIsTablet,
+  useIsSmall,
+} from "../../../shared/hooks/useMediaQuery";
 import { FiUsers, FiMonitor } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 import StoreButtons from "./StoreButtons";
@@ -10,7 +14,10 @@ export interface ProjectHeroProps {
   accentColor: string;
 }
 
-export default function ProjectHero({ project, accentColor }: ProjectHeroProps) {
+export default function ProjectHero({
+  project,
+  accentColor,
+}: ProjectHeroProps) {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -65,9 +72,7 @@ export default function ProjectHero({ project, accentColor }: ProjectHeroProps) 
               padding: 0,
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--text3)")
-            }
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text3)")}
           >
             ← Projects
           </button>

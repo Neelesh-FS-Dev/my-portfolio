@@ -1,5 +1,5 @@
-import type { Project } from "../../types";
-import { useIsMobile, useIsSmall } from "../../hooks/useMediaQuery";
+import type { Project } from "../types";
+import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
 import AppScreenshot from "./AppScreenshot";
 
 export interface ScreenshotsSectionProps {

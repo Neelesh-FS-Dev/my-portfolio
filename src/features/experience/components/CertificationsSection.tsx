@@ -1,6 +1,6 @@
-import { certifications } from "../../data";
-import { useReveal } from "../../hooks/useReveal";
-import { certIconMap } from "../../utils/certIcons";
+import { certifications } from "../data/education";
+import { useReveal } from "../../../shared/hooks/useReveal";
+import { certIconMap } from "../utils/certIcons";
 
 export interface CertificationsSectionProps {
   isMobile: boolean;

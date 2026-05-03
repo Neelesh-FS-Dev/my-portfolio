@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useIsMobile } from "../hooks/useMediaQuery";
+import { useIsMobile } from "../shared/hooks/useMediaQuery";
 
 export default function NotFound() {
   const isMobile = useIsMobile();

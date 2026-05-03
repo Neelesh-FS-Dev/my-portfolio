@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Blog } from "../../types";
-import { useIsSmall } from "../../hooks/useMediaQuery";
+import type { Blog } from "../types";
+import { useIsSmall } from "../../../shared/hooks/useMediaQuery";
 
 export interface MoreArticlesProps {
   posts: Blog[];
@@ -59,7 +59,13 @@ function MoreArticles({ posts }: MoreArticlesProps) {
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div style={{ fontSize: 22, marginBottom: 10, color: "var(--text2)" }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  marginBottom: 10,
+                  color: "var(--text2)",
+                }}
+              >
                 {p.icon as unknown as React.ReactNode}
               </div>
               <div

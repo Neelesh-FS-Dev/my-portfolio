@@ -23,16 +23,20 @@ function jsonForHtml(value) {
 
 function renderMeta(route) {
   const canonical = absoluteUrl(route.path);
-  const image = route.image ? absoluteUrl(route.image) : ogImageUrl(route.title, route.description);
+  const image = route.image
+    ? absoluteUrl(route.image)
+    : ogImageUrl(route.title, route.description);
   const schema = route.schema
-    ? `\n    ${Array.isArray(route.schema)
-        ? route.schema
-            .map(
-              (entry) =>
-                `<script type="application/ld+json">${jsonForHtml(entry)}</script>`,
-            )
-            .join("\n    ")
-        : `<script type="application/ld+json">${jsonForHtml(route.schema)}</script>`}`
+    ? `\n    ${
+        Array.isArray(route.schema)
+          ? route.schema
+              .map(
+                (entry) =>
+                  `<script type="application/ld+json">${jsonForHtml(entry)}</script>`,
+              )
+              .join("\n    ")
+          : `<script type="application/ld+json">${jsonForHtml(route.schema)}</script>`
+      }`
     : "";
 
   return `<title>${htmlEscape(route.title)}</title>
@@ -72,7 +76,10 @@ const baseHtml = await readRepoFile("dist/index.html");
 const routes = getSeoRoutes();
 
 for (const route of routes) {
-  await writeTextFile(routeOutputPath(route.path), replaceSeoBlock(baseHtml, route));
+  await writeTextFile(
+    routeOutputPath(route.path),
+    replaceSeoBlock(baseHtml, route),
+  );
 }
 
 console.log(`Prerendered SEO HTML for ${routes.length} routes`);

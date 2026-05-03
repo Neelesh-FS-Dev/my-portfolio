@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FiGithub, FiMail } from "react-icons/fi";
-import { navLinks } from "../data";
+import navLinks from "../../data/navLinks";
 
 function Navbar() {
   const [navVisible, setNavVisible] = useState(true);
