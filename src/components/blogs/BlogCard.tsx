@@ -26,7 +26,7 @@ function BlogCard({
       onClick={() => navigate("/blogs/" + (post.slug || post.id))}
       style={{
         background: "var(--surface)",
-        border: `1px solid ${hovered ? "var(--border-bright)" : "var(--border)"}`,
+        border: `1px solid ${hovered ? "rgba(59,130,246,0.35)" : "var(--border)"}`,
         borderRadius: 14,
         overflow: "hidden",
         cursor: "pointer",
@@ -36,15 +36,17 @@ function BlogCard({
         flexDirection: "column",
         opacity: visible ? 1 : 0,
         transform: visible
-          ? "translateY(0) scale(1)"
+          ? `translateY(${hovered ? -3 : 0}px) scale(1)`
           : `translateY(${featured ? 28 : 20}px) scale(0.97)`,
         transition: `
           opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${featured ? 0.05 : 0.08 + idx * 0.09}s,
-          transform 0.6s cubic-bezier(0.16,1,0.3,1) ${featured ? 0.05 : 0.08 + idx * 0.09}s,
+          transform 0.4s cubic-bezier(0.16,1,0.3,1),
           border-color 0.25s ease,
           box-shadow 0.25s ease
         `,
-        boxShadow: hovered ? "0 14px 30px rgba(0,0,0,0.4)" : "none",
+        boxShadow: hovered
+          ? "0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(59,130,246,0.1)"
+          : "none",
         willChange: "transform, opacity",
       }}
       onMouseEnter={() => setHovered(true)}

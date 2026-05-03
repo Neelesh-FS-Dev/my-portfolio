@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { skillCategories, techStack } from "../../data";
-import { skillIconMap } from "../../utils/skillIcons";
+import {
+  skillIconMap,
+  skillIconColors,
+  skillIconUrls,
+} from "../../utils/skillIcons";
 
 export interface SkillsProps {
   isMobile: boolean;
@@ -22,8 +26,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
       : skillCategories.filter(
           (s) => s.domain === activeTab || s.domain === "both",
         );
-  const highlightedStack = filteredStack.slice(0, isMobile ? 6 : 8);
-  const previewCount = isSmall ? 4 : 5;
+  const highlightedStack = filteredStack.slice(0, isSmall ? 6 : isMobile ? 9 : 12);
 
   const tabs = [
     { id: "all", label: "All Skills" },
@@ -36,7 +39,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: isMobile ? 36 : 52 }}>
           <div className="section-label" style={{ justifyContent: "center" }}>
-            Skills & Expertise
+            <span className="section-num">02 /</span> Skills & Expertise
           </div>
           <h2 className="section-title" style={{ marginBottom: 20 }}>
             What I Build With
@@ -124,122 +127,108 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-            gap: 8,
+            gridTemplateColumns: isSmall
+              ? "repeat(2, 1fr)"
+              : isMobile
+                ? "repeat(3, 1fr)"
+                : "repeat(4, 1fr)",
+            gap: 10,
             marginBottom: isMobile ? 24 : 34,
           }}
         >
-          {highlightedStack.map((skill) => (
-            <div
-              key={skill.name}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 14,
-                padding: isSmall ? "12px 14px" : "14px 18px",
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              {/* Domain indicator dot */}
-              <div
+          {highlightedStack.map((skill) => {
+            const icon = skillIconMap[skill.icon] ?? null;
+            const href = skillIconUrls[skill.icon];
+            return (
+              <a
+                key={skill.name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${skill.name} — open official site`}
                 style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  flexShrink: 0,
-                  background:
-                    skill.domain === "mobile"
-                      ? "var(--accent)"
-                      : skill.domain === "web"
-                        ? "var(--accent2)"
-                        : "var(--green)",
-                  boxShadow: `0 0 6px ${skill.domain === "mobile" ? "rgba(59,130,246,0.5)" : skill.domain === "web" ? "rgba(59,130,246,0.5)" : "rgba(59,130,246,0.5)"}`,
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 12,
+                  padding: isSmall ? "16px 14px" : "20px 18px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 14,
+                  transition:
+                    "border-color 0.2s ease, transform 0.2s ease, background 0.2s ease",
+                  cursor: href ? "pointer" : "default",
+                  position: "relative",
+                  minHeight: isSmall ? 110 : 130,
+                  textDecoration: "none",
+                  color: "inherit",
                 }}
-              />
-              <div style={{ flex: 1 }}>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(59,130,246,0.35)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.background = "var(--surface2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--border)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.background = "var(--surface)";
+                }}
+              >
                 <div
                   style={{
+                    fontSize: isSmall ? 24 : 28,
+                    color: skillIconColors[skill.icon] ?? "var(--text)",
                     display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 7,
+                    alignItems: "center",
+                    height: isSmall ? 28 : 32,
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 600,
-                      fontSize: isSmall ? 13 : 14,
-                    }}
-                  >
-                    {skill.name}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: skill.color,
-                    }}
-                  >
-                    {skill.level}%
-                  </span>
+                  {icon}
                 </div>
-                <div
+                <span
                   style={{
-                    height: 3,
-                    borderRadius: 100,
-                    background: "rgba(255,255,255,0.06)",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 500,
+                    fontSize: isSmall ? 13 : 14,
+                    color: "var(--text)",
+                    lineHeight: 1.2,
+                    marginTop: "auto",
                   }}
                 >
-                  <div
-                    style={{
-                      height: "100%",
-                      borderRadius: 100,
-                      width: `${skill.level}%`,
-                      background: `linear-gradient(90deg,${skill.color}88,${skill.color})`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+                  {skill.name}
+                </span>
+              </a>
+            );
+          })}
         </div>
 
-        {/* Skill categories */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isSmall
-              ? "1fr"
-              : isMobile
-                ? "1fr 1fr"
-                : "repeat(3,1fr)",
-            gap: 14,
-          }}
-        >
-          {filteredSkills.map((cat) => (
-            <div
-              key={cat.category}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 16,
-                padding: isSmall ? "16px" : "18px",
-                transition: "border-color .3s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.borderColor =
-                  cat.domain === "mobile"
-                    ? "rgba(59,130,246,0.25)"
-                    : cat.domain === "web"
-                      ? "rgba(59,130,246,0.25)"
-                      : "rgba(59,130,246,0.25)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.borderColor = "var(--border)")
-              }
-            >
+        {/* Skill categories — auto-scrolling marquee */}
+        <div className="marquee" aria-label="Skill categories">
+          <div
+            className="marquee-track"
+            style={{ gap: 14, animationDuration: "70s" }}
+          >
+            {[...filteredSkills, ...filteredSkills].map((cat, i) => (
+              <div
+                key={`${cat.category}-${i}`}
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 14,
+                  padding: isSmall ? "16px" : "20px",
+                  transition: "border-color .25s, transform .25s",
+                  flexShrink: 0,
+                  width: isSmall ? 260 : isMobile ? 300 : 320,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "rgba(59,130,246,0.35)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--border)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
               <div
                 style={{
                   display: "flex",
@@ -253,6 +242,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                     fontSize: 18,
                     display: "flex",
                     alignItems: "center",
+                    color: skillIconColors[cat.icon] ?? "var(--accent)",
                   }}
                 >
                   {skillIconMap[cat.icon]}
@@ -275,7 +265,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                 </span>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                {cat.items.slice(0, previewCount).map((item) => (
+                {cat.items.map((item) => (
                   <span
                     key={item}
                     style={{
@@ -291,24 +281,10 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                     {item}
                   </span>
                 ))}
-                {cat.items.length > previewCount && (
-                  <span
-                    style={{
-                      padding: "3px 8px",
-                      borderRadius: 100,
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: "var(--text3)",
-                      border: "1px dashed var(--border-bright)",
-                      background: "rgba(255,255,255,0.02)",
-                    }}
-                  >
-                    +{cat.items.length - previewCount} more
-                  </span>
-                )}
               </div>
             </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

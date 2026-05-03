@@ -48,6 +48,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
       }}
       className="grid-bg"
     >
+      <div className="hero-spotlight" aria-hidden />
       <div
         className="container"
         style={{
@@ -76,11 +77,11 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
           >
             <div
               style={{
-                width: 6,
-                height: 6,
+                width: 7,
+                height: 7,
                 borderRadius: "50%",
-                background: "var(--green)",
-                boxShadow: "0 0 8px var(--green)",
+                background: "#22c55e",
+                boxShadow: "0 0 0 3px rgba(34,197,94,0.18)",
                 animation: "pulse 2s infinite",
               }}
             />
@@ -88,7 +89,8 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: 11,
-                color: "var(--accent)",
+                color: "var(--text2)",
+                letterSpacing: "0.04em",
               }}
             >
               Available for work
@@ -99,15 +101,16 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
           <h1
             style={{
               fontFamily: "var(--font-display)",
-              fontWeight: 800,
+              fontWeight: 600,
               fontSize: isSmall
-                ? "34px"
+                ? "40px"
                 : isMobile
-                  ? "42px"
-                  : "clamp(46px, 6vw, 76px)",
-              lineHeight: 1.0,
-              letterSpacing: "-0.04em",
-              marginBottom: 16,
+                  ? "52px"
+                  : "clamp(58px, 7.2vw, 96px)",
+              lineHeight: 0.98,
+              letterSpacing: "-0.045em",
+              marginBottom: 20,
+              color: "var(--text)",
             }}
           >
             Mobile & Web
@@ -155,10 +158,10 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
           <p
             style={{
               color: "var(--text2)",
-              fontSize: isSmall ? 14 : 16,
-              lineHeight: 1.78,
-              maxWidth: 510,
-              marginBottom: isSmall ? 28 : 36,
+              fontSize: isSmall ? 15 : 17,
+              lineHeight: 1.7,
+              maxWidth: 540,
+              marginBottom: isSmall ? 28 : 40,
             }}
           >
             React Native & React Developer with {getExperience("2023-01-01")} of

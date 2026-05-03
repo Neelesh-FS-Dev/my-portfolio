@@ -20,7 +20,7 @@ export default function GetInTouch({ isSmall }: GetInTouchProps) {
         style={{ textAlign: "center", maxWidth: 600, margin: "0 auto" }}
       >
         <div className="section-label" style={{ justifyContent: "center" }}>
-          Let's Work Together
+          <span className="section-num">04 /</span> Let's Work Together
         </div>
         <h2 className="section-title" style={{ marginBottom: 20 }}>
           Mobile or Web —<br />

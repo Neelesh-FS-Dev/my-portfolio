@@ -122,9 +122,10 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
   const handleMouseEnter = useCallback(
     (e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
       const t = e.currentTarget as HTMLElement;
-      t.style.borderColor = "var(--border-bright)";
+      t.style.borderColor = "rgba(59,130,246,0.35)";
       t.style.transform = "translateY(-3px)";
-      t.style.boxShadow = "0 14px 30px rgba(0,0,0,0.4)";
+      t.style.boxShadow =
+        "0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(59,130,246,0.1)";
     },
     [],
   );

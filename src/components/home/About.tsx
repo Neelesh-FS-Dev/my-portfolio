@@ -164,7 +164,9 @@ export default function About({ isMobile, isSmall }: AboutProps) {
 
         {/* Text */}
         <div>
-          <div className="section-label">About Me</div>
+          <div className="section-label">
+            <span className="section-num">01 /</span> About Me
+          </div>
           <h2 className="section-title" style={{ marginBottom: 20 }}>
             Mobile Apps &<br />
             Web Platforms

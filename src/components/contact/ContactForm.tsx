@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { FiCheckCircle, FiSend } from "react-icons/fi";
 import { useReveal } from "../../hooks/useReveal";
@@ -28,6 +28,16 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const [formRef, formVisible] = useReveal<HTMLDivElement>(0.08);
+  const abortRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      abortRef.current?.abort();
+    };
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -35,24 +45,30 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
+        signal: controller.signal,
       });
       const data = await res.json();
+      if (!mountedRef.current) return;
       if (res.ok) {
         setSent(true);
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
         alert(data.message || "Something went wrong.");
       }
-    } catch {
-      alert("Failed to send. Please try again.");
+    } catch (err) {
+      if ((err as Error).name === "AbortError") return;
+      if (mountedRef.current) alert("Failed to send. Please try again.");
     } finally {
-      setLoading(false);
+      if (mountedRef.current) setLoading(false);
     }
   };
 

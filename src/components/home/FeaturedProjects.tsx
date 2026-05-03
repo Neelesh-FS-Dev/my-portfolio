@@ -36,7 +36,9 @@ export default function FeaturedProjects({
           }}
         >
           <div>
-            <div className="section-label">Featured Work</div>
+            <div className="section-label">
+              <span className="section-num">03 /</span> Featured Work
+            </div>
             <h2 className="section-title">Projects That Ship</h2>
           </div>
           <Link

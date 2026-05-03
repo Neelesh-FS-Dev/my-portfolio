@@ -67,14 +67,23 @@ function GitHubGraph() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/github-contributions")
+    const controller = new AbortController();
+    fetch("/api/github-contributions", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load contributions");
         return r.json() as Promise<GitHubContributionsResponse>;
       })
-      .then(setData)
-      .catch((e: Error) => setError(e.message))
-      .finally(() => setLoading(false));
+      .then((d) => {
+        if (!controller.signal.aborted) setData(d);
+      })
+      .catch((e: Error) => {
+        if (e.name === "AbortError") return;
+        if (!controller.signal.aborted) setError(e.message);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+    return () => controller.abort();
   }, []);
 
   const maxCount = useMemo(

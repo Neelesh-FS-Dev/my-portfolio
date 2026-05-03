@@ -3,6 +3,16 @@ import { useEffect, memo, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
+import {
+  HomeSkeleton,
+  ProjectsSkeleton,
+  ProjectDetailSkeleton,
+  ExperienceSkeleton,
+  BlogsSkeleton,
+  BlogDetailSkeleton,
+  ContactSkeleton,
+  GenericSkeleton,
+} from "./components/RouteSkeletons";
 
 const Home = lazy(() => import("./pages/Home"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -23,30 +33,16 @@ function ScrollToTop() {
 
 const MemoScrollToTop = memo(ScrollToTop);
 
-function RouteFallback() {
+function lazyRoute(
+  Component: React.LazyExoticComponent<React.ComponentType>,
+  Fallback: React.ComponentType,
+) {
   return (
-    <main>
-      <div
-        className="container"
-        style={{
-          minHeight: "60vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "var(--text2)",
-          fontFamily: "var(--font-mono)",
-          fontSize: 13,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
-        Loading...
-      </div>
-    </main>
+    <Suspense fallback={<Fallback />}>
+      <Component />
+    </Suspense>
   );
 }
-
-const MemoRouteFallback = memo(RouteFallback);
 
 export default function App() {
   return (
@@ -54,20 +50,33 @@ export default function App() {
       <Cursor />
       <MemoScrollToTop />
       <Navbar />
-      <Suspense fallback={<MemoRouteFallback />}>
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<ProjectDetail />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/:id" element={<BlogDetail />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </Suspense>
+      <main>
+      <Routes>
+        <Route path="/" element={lazyRoute(Home, HomeSkeleton)} />
+        <Route
+          path="/projects"
+          element={lazyRoute(Projects, ProjectsSkeleton)}
+        />
+        <Route
+          path="/projects/:id"
+          element={lazyRoute(ProjectDetail, ProjectDetailSkeleton)}
+        />
+        <Route
+          path="/experience"
+          element={lazyRoute(Experience, ExperienceSkeleton)}
+        />
+        <Route path="/blogs" element={lazyRoute(Blogs, BlogsSkeleton)} />
+        <Route
+          path="/blogs/:id"
+          element={lazyRoute(BlogDetail, BlogDetailSkeleton)}
+        />
+        <Route
+          path="/contact"
+          element={lazyRoute(Contact, ContactSkeleton)}
+        />
+        <Route path="*" element={lazyRoute(NotFound, GenericSkeleton)} />
+      </Routes>
+      </main>
       <Footer />
     </>
   );
