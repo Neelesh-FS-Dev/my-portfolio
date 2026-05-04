@@ -49,6 +49,12 @@ function getHomepageSchema() {
       "Tailwind CSS",
       "App Store",
       "Google Play Store",
+      "Augmented Reality",
+      "Computer Vision",
+      "MediaPipe FaceMesh",
+      "Shopify Storefront API",
+      "WebRTC",
+      "Vite",
     ],
     sameAs: [personal.github, personal.linkedin, personal.instagram].filter(
       Boolean,

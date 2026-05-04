@@ -1,7 +1,7 @@
 import personal from "../../../shared/data/personal";
 import { SiReact, SiTailwindcss } from "react-icons/si";
-import { TbBrandReactNative } from "react-icons/tb";
-import { FiCheck } from "react-icons/fi";
+import { TbBrandReactNative, TbSparkles } from "react-icons/tb";
+import { FiCheck, FiZap, FiCode } from "react-icons/fi";
 
 export interface AboutProps {
   isMobile: boolean;
@@ -136,6 +136,44 @@ export default function About({ isMobile, isSmall }: AboutProps) {
             >
               iOS · Android · Web · PWA
             </p>
+            <p>
+              <span style={{ color: "var(--accent)" }}>$</span>{" "}
+              <span style={{ color: "var(--text3)" }}>cat ai-workflow.txt</span>
+            </p>
+            <div style={{ paddingLeft: 14, marginBottom: 6 }}>
+              {[
+                {
+                  icon: <TbSparkles size={12} />,
+                  text: "Claude Code · Cursor · Codex · Copilot",
+                },
+                {
+                  icon: <FiZap size={12} />,
+                  text: "Blackbox · DeepSeek · Gemini",
+                },
+                {
+                  icon: <FiCode size={12} />,
+                  text: "pair coding · refactors · code review · debugging",
+                },
+              ].map((item) => (
+                <p
+                  key={item.text}
+                  style={{
+                    color: "var(--text)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    marginBottom: 4,
+                  }}
+                >
+                  <span
+                    style={{ color: "var(--accent)", display: "inline-flex" }}
+                  >
+                    {item.icon}
+                  </span>{" "}
+                  {item.text}
+                </p>
+              ))}
+            </div>
             <p>
               <span style={{ color: "var(--accent)" }}>$</span>{" "}
               <span style={{ color: "var(--text3)" }}>echo $STATUS</span>
