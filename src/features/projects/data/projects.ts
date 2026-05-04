@@ -6,6 +6,18 @@ const projects: Project[] = [
     type: "mobile",
     title: "Soul33 – The Beacon",
     subtitle: "Spirituality, Meditation & Mindfulness Platform",
+    role: "Lead React Native Developer",
+    status: "Live",
+    outcome:
+      "3 RN upgrades shipped to live subscribers (0.71 → 0.81.4 → 0.82.1) with the New Architecture, plus a hoisted MeditationPlayer modal and consolidated WebSocket provider — all delivered without breaking Free / Seeker / Mastery tiers.",
+    relatedBlogs: [
+      "rn-new-architecture",
+      "websocket-chat-rn",
+      "sign-in-with-apple-react-native",
+      "google-sign-in-react-native",
+      "deploy-react-native-app-store",
+      "deploy-react-native-google-play",
+    ],
     description:
       "A cross-platform spiritual wellness app live on iOS & Android with Free, Seeker & Mastery subscription tiers — guided meditations, oracle readings, journaling, weekly homework, and a private real-time community.",
     longDescription:
@@ -141,6 +153,18 @@ const projects: Project[] = [
     type: "mobile",
     title: "Yoke Yoga",
     subtitle: "Social Wellness, Live Yoga & Learning Platform",
+    role: "React Native Developer",
+    status: "Live",
+    outcome:
+      "RN 0.72 → 0.79 + React 19 migration, 12+ Redux Toolkit slices, ZEGOCLOUD trifecta (Live UIKit + ZIM + Express Engine), and a TikTok-style Reels feed holding 60fps on low-end Android — live with 10K+ users and 4.5+ rating.",
+    relatedBlogs: [
+      "flatlist-optimization",
+      "websocket-chat-rn",
+      "deploy-react-native-app-store",
+      "deploy-react-native-google-play",
+      "sign-in-with-apple-react-native",
+      "google-sign-in-react-native",
+    ],
     description:
       "Production yoga social platform — TikTok-style Reels, ZEGOCLOUD live streaming + ZIM chat, react-native-iap memberships, learning center, gamified practice insights, and 12+ Redux slices on RN 0.79 / React 19.",
     longDescription:
@@ -281,6 +305,15 @@ const projects: Project[] = [
     type: "mobile",
     title: "Barva Skin Therapie",
     subtitle: "Ayurveda E-commerce & AR Beauty App",
+    role: "React Native Developer",
+    status: "Live",
+    outcome:
+      "Full Shopify Storefront integration (products, variants, cart, checkout, orders, customer auth) plus VisionCamera-powered AR lipstick try-on — shipped to App Store + Play Store with offline-tolerant network resilience and FCM deep-linked notifications.",
+    relatedBlogs: [
+      "ar-tryon-threejs-mediapipe",
+      "deploy-react-native-app-store",
+      "deploy-react-native-google-play",
+    ],
     description:
       "Full-featured Ayurveda beauty e-commerce app with Shopify API, AR lipstick try-on via VisionCamera, blog & video content, real-time FCM notifications, and complete cart + order management.",
     longDescription:
@@ -399,6 +432,14 @@ const projects: Project[] = [
     type: "mobile",
     title: "Netra's Organic",
     subtitle: "Instant Indian Cuisine E-commerce App",
+    role: "React Native Developer",
+    status: "Live",
+    outcome:
+      "Shopify-powered storefront with cart, checkout, order history, and customer auth — shipped to both stores with optimised image caching and structured product / variant flows.",
+    relatedBlogs: [
+      "deploy-react-native-app-store",
+      "deploy-react-native-google-play",
+    ],
     description:
       "Shopify-powered mobile app for authentic instant Indian cuisine — featuring 50+ products, Buy 4 Get 2 Free bundle configurator, home & B2B catering flows, and real-time order tracking.",
     longDescription:
@@ -508,6 +549,14 @@ const projects: Project[] = [
     type: "mobile",
     title: "Culture Max",
     subtitle: "Gamified Idiom Learning & Rewards Mobile Game",
+    role: "React Native Developer",
+    status: "Live",
+    outcome:
+      "End-to-end JS → TypeScript strict-mode migration across 18+ screens, offline-first Redux Toolkit + redux-persist, three Google Mobile Ads formats integrated cleanly, and reproducible Android/iOS build scripts — live on both stores.",
+    relatedBlogs: [
+      "deploy-react-native-app-store",
+      "deploy-react-native-google-play",
+    ],
     description:
       "A cross-platform React Native + TypeScript app where users solve daily idiom quizzes, earn coins, climb leaderboards, redeem rewards, and explore an Idiom of the Day learning experience.",
     longDescription:
@@ -626,6 +675,15 @@ const projects: Project[] = [
     type: "mobile",
     title: "Flairish",
     subtitle: "Two-Sided Hobby Learning Marketplace (Hobbyist + Instructor Apps)",
+    role: "React Native Developer",
+    status: "Live",
+    outcome:
+      "Twin RN 0.78 + React 19 apps sharing a backend — Zoom Video SDK 2.2.0 with screen + camera sharing, native WebSocket chat with freeze/block, react-native-iap memberships, and Apple/Google 14.x + OTP. Versioned releases: Hobbyist 68→76, Instructor 2.0.7→2.1.5.",
+    relatedBlogs: [
+      "sign-in-with-apple-react-native",
+      "google-sign-in-react-native",
+      "websocket-chat-rn",
+    ],
     description:
       "A two-sided React Native marketplace shipped as two production apps — Flairish Hobbyist (learners) and Flairish Instructor (coaches) — sharing a backend, with Zoom Video SDK 1:1 sessions, WebSocket chat, calendar-based booking, react-native-iap memberships, and a single theme system.",
     longDescription: `Flairish is a hobby & skills learning marketplace shipped as **two interconnected React Native apps** — Flairish Hobbyist for learners and Flairish Instructor for coaches — built on React Native 0.78 + React 19 with TypeScript, Redux Toolkit, and a shared backend.\n\n**Flairish Hobbyist** is the consumer-facing experience: hobbyists discover instructors via a curated home feed and category-based exploration, view portfolios with media galleries, message instructors in real time, book 1:1 sessions through an interactive calendar, pay via in-app purchase, attend live Zoom video sessions, and leave star ratings + written reviews. The Redux store is split across 10+ feature slices (Authentication, Profile, Home, Explore, Chat, BookSession, Calender, SessionManagement, RatingsReviews, Miscellaneous) with redux-persist for offline-first auth hydration. A dynamic content feed uses react-native-video-controls with pull-to-refresh, expandable descriptions, and a block/report system with dynamic report reasons fetched from the API.\n\n**Flairish Instructor** is the creator-facing workspace: instructors build their profile, upload portfolio media (images + videos) to AWS S3 via presigned URLs with thumbnail generation and tag limits, manage availability with timezone-aware slots, conduct live 1:1 sessions, and track earnings + session history. A native WebSocket chat layer powers real-time messaging with a dedicated WebSocket Redux slice. AddAvailabilityScreen ships with animated slide/fade transitions, optimistic updates, and API fallback; CallScreen handles Zoom SDK session cleanup, timer management, and host termination logic. Versioned releases: Hobbyist versionCode 68→76, Instructor 2.0.7→2.1.5.\n\nBoth apps share Zoom Video SDK 2.2.0 with screen sharing and camera sharing on iOS and Android (NDK ABI filter, foreground service + media projection on Android, iOS playback optimisations), Apple Sign-In + Google Sign-In 14.x + OTP via international phone picker, JWT auth with jwt-decode + react-native-pure-jwt, crypto-js encryption for sensitive payloads, react-native-iap for memberships/payments, Formik + Yup forms, Reanimated 3 animations, react-native-calendars + moment-timezone for scheduling, Google Places autocomplete + geolocation, Notifee + FCM push, Firebase Crashlytics + Analytics, iOS 14+ App Tracking Transparency, and a centralized theme system (colors, typography, spacing, shadows) for visual parity across both apps.`,
@@ -755,6 +813,11 @@ const projects: Project[] = [
     type: "web",
     title: "Virtual Jewelry Try-On",
     subtitle: "Real-Time AR Jewelry Try-On in the Browser",
+    role: "Solo Full-Stack Frontend Developer",
+    status: "Active Development",
+    outcome:
+      "Browser-based AR try-on at 30+ FPS using MediaPipe FaceMesh (468 landmarks) — anatomy-aware anchors, custom landmark smoother, head-rotation compensation, and Shopify Storefront GraphQL integration with deep-linked variants.",
+    relatedBlogs: ["ar-tryon-threejs-mediapipe"],
     description:
       "A browser-based AR try-on for necklaces and earrings — runs MediaPipe FaceMesh on a live webcam feed (468 landmarks), composites Shopify-sourced jewelry on a 2D canvas at 30+ FPS, and supports deep-linking from Shopify product pages.",
     longDescription:
@@ -861,6 +924,11 @@ const projects: Project[] = [
     type: "mobile",
     title: "SmartJobTracker (ApplyMate)",
     subtitle: "AI-Assisted Job Application Tracker",
+    role: "Solo React Native Developer",
+    status: "Case Study",
+    outcome:
+      "3-mode Smart Import (natural-language, recruiter email, screenshot OCR) with on-device text extraction, dual list/Kanban dashboards, analytics suite, and offline-first storage — built as a focused case study.",
+    relatedBlogs: ["flatlist-optimization"],
     description:
       "Cross-platform productivity app for job seekers with smart job import (natural text, recruiter email, screenshot OCR), Kanban pipeline tracking, and analytics dashboards.",
     longDescription:

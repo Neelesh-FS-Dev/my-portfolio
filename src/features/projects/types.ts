@@ -11,6 +11,13 @@ export interface ProjectFeatureGroup {
   items: string[];
 }
 
+export type ProjectStatus =
+  | "Live"
+  | "Beta"
+  | "Internal"
+  | "Case Study"
+  | "Active Development";
+
 export interface Project {
   id: string;
   type: ProjectType;
@@ -34,4 +41,8 @@ export interface Project {
   screenshots: Screenshot[];
   githubUrl?: string;
   isInternal?: boolean;
+  role?: string;
+  status?: ProjectStatus;
+  outcome?: string;
+  relatedBlogs?: string[];
 }

@@ -11,6 +11,7 @@ import VideoSection from "./detail/VideoSection";
 import ScreenshotsSection from "./detail/ScreenshotsSection";
 import FeaturesSection from "./detail/FeaturesSection";
 import OtherProjects from "./detail/OtherProjects";
+import RelatedWriteups from "./detail/RelatedWriteups";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -161,6 +162,49 @@ export default function ProjectDetail() {
               </>
             )}
 
+          {/* Outcome callout */}
+          {project.outcome && (
+            <div
+              style={{
+                padding: isSmall ? 18 : 22,
+                background: `linear-gradient(135deg, ${accentColor}10 0%, var(--surface) 100%)`,
+                border: `1px solid ${accentColor}30`,
+                borderRadius: 14,
+                marginBottom: 36,
+                display: "flex",
+                gap: 14,
+                alignItems: "flex-start",
+              }}
+            >
+              <div
+                aria-hidden="true"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: accentColor,
+                  fontWeight: 700,
+                  paddingTop: 4,
+                  flexShrink: 0,
+                }}
+              >
+                Outcome →
+              </div>
+              <p
+                style={{
+                  color: "var(--text)",
+                  fontSize: isSmall ? 13.5 : 15,
+                  lineHeight: 1.7,
+                  margin: 0,
+                  fontWeight: 500,
+                }}
+              >
+                {project.outcome}
+              </p>
+            </div>
+          )}
+
           {/* About + Highlights */}
           <div
             style={{
@@ -253,6 +297,14 @@ export default function ProjectDetail() {
             <>
               <div className="divider" style={{ margin: "52px 0" }} />
               <FeaturesSection project={project} accentColor={accentColor} />
+            </>
+          )}
+
+          {/* Related blog writeups */}
+          {project.relatedBlogs && project.relatedBlogs.length > 0 && (
+            <>
+              <div className="divider" style={{ margin: "52px 0" }} />
+              <RelatedWriteups project={project} accentColor={accentColor} />
             </>
           )}
 

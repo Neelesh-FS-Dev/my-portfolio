@@ -6,7 +6,11 @@ import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
+import ProofStats from "./components/ProofStats";
+import CaseStudies from "./components/CaseStudies";
 import FeaturedProjects from "./components/FeaturedProjects";
+import Services from "./components/Services";
+import Testimonials from "./components/Testimonials";
 import GetInTouch from "./components/GetInTouch";
 
 const GitHubGraph = lazy(
@@ -77,6 +81,8 @@ export default function Home() {
     <>
       <SEO path="/" schema={getHomepageSchema()} />
       <Hero isMobile={isMobile} isSmall={isSmall} />
+      <ProofStats isMobile={isMobile} isSmall={isSmall} />
+      <CaseStudies isMobile={isMobile} isSmall={isSmall} />
       <About isMobile={isMobile} isSmall={isSmall} />
       <Skills isMobile={isMobile} isSmall={isSmall} />
       <Suspense
@@ -114,6 +120,8 @@ export default function Home() {
         <GitHubGraph />
       </Suspense>
       <FeaturedProjects isMobile={isMobile} isSmall={isSmall} />
+      <Services isMobile={isMobile} isSmall={isSmall} />
+      <Testimonials isMobile={isMobile} isSmall={isSmall} />
       <GetInTouch isSmall={isSmall} />
     </>
   );

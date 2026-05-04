@@ -112,7 +112,6 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
 
-  const accentColor = "var(--accent)";
   const isWeb = useMemo(() => project.type === "web", [project.type]);
   const showFeatured = useMemo(
     () => featured && !isMobile && !isTablet,
@@ -222,6 +221,68 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             }}
           >
             {isWeb ? <FiMonitor size={11} /> : <FiSmartphone size={11} />}
+            {isWeb ? "Web" : "iOS · Android"}
+          </span>
+          {project.status && (
+            <span
+              style={{
+                padding: "3px 10px",
+                borderRadius: 100,
+                fontFamily: "var(--font-mono)",
+                fontSize: 10,
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                color:
+                  project.status === "Live"
+                    ? "#22c55e"
+                    : project.status === "Beta"
+                      ? "#f59e0b"
+                      : "var(--text2)",
+                border: `1px solid ${
+                  project.status === "Live"
+                    ? "rgba(34,197,94,0.3)"
+                    : project.status === "Beta"
+                      ? "rgba(245,158,11,0.3)"
+                      : "var(--border)"
+                }`,
+                background:
+                  project.status === "Live"
+                    ? "rgba(34,197,94,0.08)"
+                    : project.status === "Beta"
+                      ? "rgba(245,158,11,0.08)"
+                      : "transparent",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 5,
+              }}
+            >
+              {project.status === "Live" && (
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    boxShadow: "0 0 0 2px rgba(34,197,94,0.18)",
+                  }}
+                />
+              )}
+              {project.status}
+            </span>
+          )}
+          <span
+            style={{
+              padding: "3px 10px",
+              borderRadius: 100,
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              color: "var(--text2)",
+              border: "1px solid var(--border)",
+              background: "transparent",
+            }}
+          >
             {project.category}
           </span>
           {project.rating && (
@@ -244,6 +305,20 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             </span>
           )}
         </div>
+
+        {project.role && (
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10.5,
+              color: "var(--text3)",
+              letterSpacing: "0.04em",
+              marginTop: -4,
+            }}
+          >
+            <span style={{ color: "var(--accent)" }}>role:</span> {project.role}
+          </div>
+        )}
 
         <div>
           <h3

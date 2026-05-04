@@ -42,7 +42,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: isMobile ? 36 : 52 }}>
           <div className="section-label" style={{ justifyContent: "center" }}>
-            <span className="section-num">02 /</span> Skills & Expertise
+            <span className="section-num">04 /</span> Skills & Expertise
           </div>
           <h2 className="section-title" style={{ marginBottom: 20 }}>
             What I Build With

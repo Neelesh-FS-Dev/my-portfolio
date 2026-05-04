@@ -89,21 +89,104 @@ export default function ProjectHero({
           }}
         >
           <div style={{ flex: 1, minWidth: 0 }}>
-            <span
+            <div
               style={{
-                padding: "4px 12px",
-                borderRadius: 100,
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "var(--text2)",
-                border: "1px solid var(--border)",
-                background: "transparent",
-                display: "inline-block",
+                display: "flex",
+                gap: 8,
+                flexWrap: "wrap",
                 marginBottom: 14,
+                alignItems: "center",
               }}
             >
-              {project.category}
-            </span>
+              <span
+                style={{
+                  padding: "4px 12px",
+                  borderRadius: 100,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--text2)",
+                  border: "1px solid var(--border)",
+                  background: "transparent",
+                }}
+              >
+                {project.category}
+              </span>
+              <span
+                style={{
+                  padding: "4px 12px",
+                  borderRadius: 100,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--text2)",
+                  border: "1px solid var(--border)",
+                  background: "transparent",
+                }}
+              >
+                {project.type === "web" ? "Web" : "iOS · Android"}
+              </span>
+              {project.status && (
+                <span
+                  style={{
+                    padding: "4px 12px",
+                    borderRadius: 100,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    color:
+                      project.status === "Live"
+                        ? "#22c55e"
+                        : project.status === "Beta"
+                          ? "#f59e0b"
+                          : "var(--text2)",
+                    border: `1px solid ${
+                      project.status === "Live"
+                        ? "rgba(34,197,94,0.3)"
+                        : project.status === "Beta"
+                          ? "rgba(245,158,11,0.3)"
+                          : "var(--border)"
+                    }`,
+                    background:
+                      project.status === "Live"
+                        ? "rgba(34,197,94,0.08)"
+                        : project.status === "Beta"
+                          ? "rgba(245,158,11,0.08)"
+                          : "transparent",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  {project.status === "Live" && (
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        background: "#22c55e",
+                        boxShadow: "0 0 0 2px rgba(34,197,94,0.18)",
+                      }}
+                    />
+                  )}
+                  {project.status}
+                </span>
+              )}
+              {project.role && (
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    color: "var(--text3)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  <span style={{ color: accentColor }}>role:</span>{" "}
+                  {project.role}
+                </span>
+              )}
+            </div>
 
             <h1
               style={{

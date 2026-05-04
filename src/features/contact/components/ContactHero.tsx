@@ -1,5 +1,7 @@
 import { useReveal } from "../../../shared/hooks/useReveal";
 import { generateParticles } from "../../../shared/data/particles";
+import personal from "../../../shared/data/personal";
+import { FiMail, FiPhone, FiLinkedin } from "react-icons/fi";
 
 export interface ContactHeroProps {
   isMobile: boolean;
@@ -67,7 +69,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
             transition: "opacity 0.5s ease 0.05s, transform 0.5s ease 0.05s",
           }}
         >
-          Get In Touch
+          Hire Me
         </div>
         <h1
           className="section-title"
@@ -81,7 +83,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
               "opacity 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s, transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s",
           }}
         >
-          Let's Build
+          Discuss a
           <br />
           <span
             style={{
@@ -92,23 +94,74 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
                 : "none",
             }}
           >
-            Together
+            Project With Me
           </span>
         </h1>
         <p
           style={{
             color: "var(--text2)",
             fontSize: isSmall ? 14 : 17,
-            maxWidth: 460,
+            maxWidth: 520,
             lineHeight: 1.75,
+            marginBottom: 12,
             opacity: headerVisible ? 1 : 0,
             transform: headerVisible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
           }}
         >
-          I'm open to React Native roles, freelance projects, and interesting
-          collaborations. Let's talk.
+          Open to React Native roles, freelance builds, RN upgrades, and
+          collaborations. Send a message below or reach out directly — I
+          typically reply within 24 hours.
         </p>
+
+        {/* Quick-action CTAs */}
+        <div
+          style={{
+            display: "flex",
+            gap: 10,
+            flexWrap: "wrap",
+            marginTop: 22,
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 0.55s ease 0.32s, transform 0.55s ease 0.32s",
+          }}
+        >
+          <a
+            href={`mailto:${personal.email}`}
+            className="btn btn-primary"
+            style={{ fontSize: 13, padding: "10px 22px" }}
+          >
+            <FiMail
+              size={15}
+              style={{ marginRight: 6, verticalAlign: "middle" }}
+            />
+            Email Me Directly
+          </a>
+          <a
+            href={personal.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+            style={{ fontSize: 13, padding: "10px 22px" }}
+          >
+            <FiLinkedin
+              size={15}
+              style={{ marginRight: 6, verticalAlign: "middle" }}
+            />
+            Book on LinkedIn
+          </a>
+          <a
+            href={`tel:${personal.phone}`}
+            className="btn btn-outline"
+            style={{ fontSize: 13, padding: "10px 22px" }}
+          >
+            <FiPhone
+              size={15}
+              style={{ marginRight: 6, verticalAlign: "middle" }}
+            />
+            Call
+          </a>
+        </div>
       </div>
     </section>
   );
