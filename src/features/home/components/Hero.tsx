@@ -168,12 +168,14 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
               marginBottom: isSmall ? 28 : 40,
             }}
           >
-            React Native & React Developer with {getExperience("2023-01-01")} of
-            experience (including a 6-month internship) building
-            high-performance, scalable mobile and web applications. Experienced
-            in crafting pixel-perfect UIs, real-time features, and
-            production-ready architectures — from App Store & Play Store apps to
-            fast, SEO-optimized web platforms.
+            Software Engineer with {getExperience("2023-01-01")} specializing
+            in React Native and React, building consumer-facing mobile and web
+            applications used in production. Skilled in architecting scalable
+            component systems, optimizing rendering performance, integrating
+            real-time features (WebSockets, push, live data), and shipping
+            cross-platform apps end-to-end — from design handoff to App Store
+            and Play Store release. Strong focus on Core Web Vitals,
+            accessibility, and SEO for web platforms.
           </p>
           <div
             style={{

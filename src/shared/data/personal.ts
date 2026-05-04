@@ -5,7 +5,7 @@ const personal: Personal = {
   title: "React Native & React Developer",
   subtitle: "Mobile & Web Application Developer",
   headline:
-    "React Native Developer | 3+ Years | Cross-Platform Mobile & Web Engineer | TypeScript • Redux • Firebase • REST APIs",
+    "Software Engineer | React Native & React | 3+ Years Shipping Production Mobile & Web Apps | TypeScript • Performance • Real-Time Systems",
 
   email: "neeleshy263@gmail.com",
   phone: "+91 9166117663",
@@ -28,12 +28,12 @@ const personal: Personal = {
   availability: "Open to new roles & freelance",
 
   summary:
-    "React Native & React Developer with 3+ years of hands-on experience (2.5+ years full-time + 6-month internship) building high-performance, scalable mobile and web applications. Skilled in crafting pixel-perfect UIs, real-time systems, and scalable architectures — from App Store & Play Store mobile apps to fast, SEO-optimized web platforms.",
+    "Software Engineer with 3+ years specializing in React Native and React, building consumer-facing mobile and web applications used in production. Skilled in architecting scalable component systems, optimizing rendering performance, integrating real-time features (WebSockets, push, live data), and shipping cross-platform apps end-to-end — from design handoff to App Store and Play Store release. Strong focus on Core Web Vitals, accessibility, and SEO for web platforms.",
 
   about: [
-    "Software Developer & React Native Expert specialising in transforming business ideas into scalable, user-friendly products. Led a team of 5–6 developers to deliver 10+ production apps with CI/CD, testing, and regular updates.",
-    "Published 10+ apps on App Store & Play Store integrating real-time features, push notifications, and secure authentication. Improved app performance by 40% through code optimisation and best practices.",
-    "Beyond coding, I thrive on mentorship — trained 100+ professionals in React Native and front-end technologies, bridging skill gaps across teams.",
+    "Software Engineer specialising in React Native and React, with end-to-end ownership of consumer-facing mobile and web products. Led cross-functional teams of 5–6 engineers shipping 10+ production releases with CI/CD, automated testing, and structured release pipelines.",
+    "Shipped 10+ apps live on the App Store and Google Play, integrating real-time data, push notifications, secure authentication, and offline-first patterns. Drove a 40% improvement in app performance through profiling, render optimisation, and architectural cleanup.",
+    "Beyond shipping product, I invest in engineering culture — mentored 100+ developers across React Native and modern front-end stacks, raising team velocity and bridging skill gaps across organisations.",
   ],
 };
 

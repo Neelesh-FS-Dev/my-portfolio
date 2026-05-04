@@ -218,9 +218,10 @@ export default function About({ isMobile, isSmall }: AboutProps) {
             }}
           >
             I build across the full mobile and web spectrum. On mobile I
-            specialise in React Native — shipping production apps to the App
-            Store and Play Store with real-time features, AR, and smooth 60fps
-            UIs.
+            specialise in React Native and TypeScript — shipping production
+            apps to the App Store and Google Play with real-time data layers,
+            native module integrations, AR experiences, and smooth 60fps UIs
+            powered by Reanimated and the new architecture.
           </p>
           <p
             style={{
@@ -230,11 +231,11 @@ export default function About({ isMobile, isSmall }: AboutProps) {
               fontSize: isSmall ? 14 : 15,
             }}
           >
-            On the web I work with React.js, JavaScript, Vite, and Tailwind CSS
-            — building fast, SEO-ready platforms with clean component
-            architecture. Whether it's a marketing site, admin dashboard, or
-            e-commerce storefront, I care about performance, accessibility, and
-            great DX.
+            On the web I architect fast, SEO-ready React platforms with Vite,
+            Tailwind, and a strong component-design discipline — optimising for
+            Core Web Vitals, accessibility (WCAG), and developer experience.
+            Whether it's a marketing site, admin dashboard, or e-commerce
+            storefront, I ship code that scales with the team.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a
