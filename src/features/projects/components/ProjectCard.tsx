@@ -1,6 +1,7 @@
-import { memo, useCallback, useMemo } from "react";
-import type { FocusEvent, KeyboardEvent, MouseEvent } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile, useIsTablet } from "../../../shared/hooks/useMediaQuery";
 import PhoneMockup from "../../../shared/components/effects/PhoneMockup";
 import { FiSmartphone, FiMonitor, FiGithub } from "react-icons/fi";
@@ -22,7 +23,8 @@ function BrowserMockupBase({ color }: BrowserMockupProps) {
         flexShrink: 0,
         border: "1px solid rgba(255,255,255,0.1)",
         background: "var(--surface2)",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+        boxShadow:
+          "0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(0,229,255,0.08)",
       }}
     >
       <div
@@ -105,38 +107,19 @@ const BrowserMockup = memo(BrowserMockupBase);
 interface ProjectCardProps {
   project: Project;
   featured?: boolean;
+  index?: number;
 }
 
-function ProjectCard({ project, featured = false }: ProjectCardProps) {
+function ProjectCard({ project, featured = false, index = 0 }: ProjectCardProps) {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const [hovered, setHovered] = useState(false);
 
   const isWeb = useMemo(() => project.type === "web", [project.type]);
   const showFeatured = useMemo(
     () => featured && !isMobile && !isTablet,
     [featured, isMobile, isTablet],
-  );
-
-  const handleMouseEnter = useCallback(
-    (e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
-      const t = e.currentTarget as HTMLElement;
-      t.style.borderColor = "rgba(59,130,246,0.35)";
-      t.style.transform = "translateY(-3px)";
-      t.style.boxShadow =
-        "0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(59,130,246,0.1)";
-    },
-    [],
-  );
-
-  const handleMouseLeave = useCallback(
-    (e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
-      const t = e.currentTarget as HTMLElement;
-      t.style.borderColor = "var(--border)";
-      t.style.transform = "translateY(0)";
-      t.style.boxShadow = "none";
-    },
-    [],
   );
 
   const handleClick = useCallback(
@@ -154,40 +137,39 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
     [navigate, project.id],
   );
 
-  const cardStyle = useMemo(
-    () => ({
-      background: "var(--surface)",
-      border: "1px solid var(--border)",
-      borderRadius: 14,
-      overflow: "hidden",
-      cursor: "pointer",
-      transition: "all 0.25s ease",
-      position: "relative" as const,
-      display: showFeatured ? "grid" : "flex",
-      gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
-      flexDirection: showFeatured ? undefined : ("column" as const),
-      height: "100%",
-    }),
-    [showFeatured],
-  );
-
   const stopPropagation = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
   }, []);
 
   return (
-    <article
-      className="interactive-card"
+    <motion.article
+      className="interactive-card glass glass-hover"
       role="link"
       tabIndex={0}
       aria-label={`View project: ${project.title}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      style={cardStyle}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onBlur={handleMouseLeave}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      initial={{ opacity: 0, y: 80, scale: 0.92 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: 0.8,
+        delay: Math.min(index, 6) * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      style={{
+        overflow: "hidden",
+        cursor: "pointer",
+        position: "relative",
+        display: showFeatured ? "grid" : "flex",
+        gridTemplateColumns: showFeatured ? "1fr 1fr" : undefined,
+        flexDirection: showFeatured ? undefined : "column",
+        height: "100%",
+      }}
     >
       <div
         style={{
@@ -196,6 +178,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
           flexDirection: "column",
           gap: 13,
           flex: 1,
+          position: "relative",
+          zIndex: 1,
         }}
       >
         <div
@@ -213,8 +197,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
               fontFamily: "var(--font-mono)",
               fontSize: 10,
               color: "var(--text2)",
-              border: "1px solid var(--border)",
-              background: "transparent",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.03)",
               display: "inline-flex",
               alignItems: "center",
               gap: 5,
@@ -279,7 +263,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
               fontFamily: "var(--font-mono)",
               fontSize: 10,
               color: "var(--text2)",
-              border: "1px solid var(--border)",
+              border: "1px solid rgba(255,255,255,0.1)",
               background: "transparent",
             }}
           >
@@ -293,7 +277,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
                 color: "var(--text2)",
-                border: "1px solid var(--border)",
+                border: "1px solid rgba(255,255,255,0.1)",
                 background: "transparent",
               }}
             >
@@ -369,8 +353,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                 fontFamily: "var(--font-mono)",
                 fontSize: 10,
                 color: "var(--text2)",
-                border: "1px solid var(--border)",
-                background: "var(--bg2)",
+                border: "1px solid rgba(0,229,255,0.15)",
+                background: "rgba(0,229,255,0.04)",
               }}
             >
               {tech}
@@ -548,6 +532,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             fontFamily: "var(--font-mono)",
             fontSize: 12,
             marginTop: "auto",
+            textShadow: "0 0 12px rgba(0,229,255,0.4)",
           }}
         >
           View Case Study <span>→</span>
@@ -561,18 +546,44 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
             alignItems: "center",
             justifyContent: "center",
             padding: 40,
-            background: "var(--bg2)",
-            borderLeft: "1px solid var(--border)",
+            background:
+              "linear-gradient(135deg, rgba(0,229,255,0.04), rgba(124,77,255,0.04))",
+            borderLeft: "1px solid rgba(255,255,255,0.06)",
+            position: "relative",
           }}
         >
           {isWeb ? (
-            <BrowserMockup color="#3b82f6" />
+            <BrowserMockup color="#00e5ff" />
           ) : (
             <PhoneMockup color={project.color} />
           )}
         </div>
       )}
-    </article>
+
+      {/* Hover description overlay reveal */}
+      <AnimatePresence>
+        {hovered && !isMobile && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              borderRadius: 16,
+              background:
+                "radial-gradient(circle at 50% 0%, rgba(0,229,255,0.08), transparent 60%)",
+              boxShadow:
+                "0 0 0 1px rgba(0,229,255,0.25), inset 0 0 60px rgba(0,229,255,0.05)",
+              zIndex: 0,
+            }}
+            aria-hidden
+          />
+        )}
+      </AnimatePresence>
+    </motion.article>
   );
 }
 

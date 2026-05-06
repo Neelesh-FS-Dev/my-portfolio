@@ -92,7 +92,7 @@ export default function ProjectsGrid({
           </div>
         ) : (
           <AnimatedGrid filterKey={filterKey} isMobile={isMobile}>
-            {(visible) =>
+            {() =>
               projects.map((project, i) => {
                 const isFeatured =
                   i === 0 &&
@@ -102,19 +102,16 @@ export default function ProjectsGrid({
                   domainTab !== "web";
                 return (
                   <div
-                    key={project.id}
+                    key={`${filterKey}-${project.id}`}
                     style={{
                       gridColumn: isFeatured ? "1 / -1" : "auto",
-                      opacity: visible ? 1 : 0,
-                      transform: visible
-                        ? "translateY(0) scale(1)"
-                        : "translateY(22px) scale(0.97)",
-                      transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
-                                 transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s`,
-                      willChange: "transform, opacity",
                     }}
                   >
-                    <ProjectCard project={project} featured={isFeatured} />
+                    <ProjectCard
+                      project={project}
+                      featured={isFeatured}
+                      index={i}
+                    />
                   </div>
                 );
               })

@@ -102,7 +102,7 @@ export default function FeaturedProjects({
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {tab === "mobile" ? (
             <>
-              <ProjectCard project={mobileProjects[0]} featured />
+              <ProjectCard project={mobileProjects[0]} featured index={0} />
               <div
                 style={{
                   display: "grid",
@@ -110,8 +110,8 @@ export default function FeaturedProjects({
                   gap: 16,
                 }}
               >
-                <ProjectCard project={mobileProjects[1]} />
-                <ProjectCard project={mobileProjects[2]} />
+                <ProjectCard project={mobileProjects[1]} index={1} />
+                <ProjectCard project={mobileProjects[2]} index={2} />
               </div>
             </>
           ) : (
@@ -122,8 +122,8 @@ export default function FeaturedProjects({
                 gap: 16,
               }}
             >
-              {webProjects.map((p) => (
-                <ProjectCard key={p.id} project={p} />
+              {webProjects.map((p, i) => (
+                <ProjectCard key={p.id} project={p} index={i} />
               ))}
             </div>
           )}

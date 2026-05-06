@@ -5,7 +5,7 @@ const SITE_URL = "https://neeleshyadav.vercel.app";
 const DEFAULT_TITLE =
   "Neelesh Yadav — React Native & React Developer | Pune, India";
 const DEFAULT_DESCRIPTION =
-  "React Native and React engineer with 3+ years building production mobile and web apps at scale. Shipped 10+ App Store and Play Store releases for 20K+ users. TypeScript, Redux, Firebase, REST APIs.";
+  "Software Engineer with 3+ years shipping production React Native and React apps end-to-end — 10+ App Store & Play Store releases, 20K+ users. TypeScript, Redux, Firebase, real-time systems, performance, and motion-rich interactive UI.";
 const TWITTER_HANDLE = "@neeleshyadav25";
 
 function ogImageUrl(title: string, description: string): string {
