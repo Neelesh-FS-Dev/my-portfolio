@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { skillCategories, techStack } from "../data/skills";
 import {
   skillIconMap,
@@ -48,15 +49,16 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
             What I Build With
           </h2>
 
-          {/* Tab toggle */}
           <div
             style={{
               display: "inline-flex",
               gap: 4,
               padding: "6px",
               borderRadius: 100,
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
               flexWrap: "wrap",
               justifyContent: "center",
             }}
@@ -72,12 +74,18 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                   fontFamily: "var(--font-mono)",
                   fontSize: isSmall ? 11 : 12,
                   cursor: "pointer",
-                  transition: "all .2s",
+                  transition: "all .25s",
                   border: "none",
                   background:
-                    activeTab === tab.id ? "var(--accent)" : "transparent",
-                  color: activeTab === tab.id ? "var(--bg)" : "var(--text2)",
+                    activeTab === tab.id
+                      ? "linear-gradient(135deg, var(--accent), var(--accent-3))"
+                      : "transparent",
+                  color: activeTab === tab.id ? "#04070a" : "var(--text2)",
                   fontWeight: activeTab === tab.id ? 700 : 400,
+                  boxShadow:
+                    activeTab === tab.id
+                      ? "0 0 22px rgba(0,229,255,0.35)"
+                      : "none",
                 }}
               >
                 {tab.label}
@@ -86,7 +94,6 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
           </div>
         </div>
 
-        {/* Core stack preview */}
         <div
           style={{
             display: "flex",
@@ -127,7 +134,15 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
           )}
         </div>
 
-        <div
+        {/* Animated skill badges with progress fill */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.05 } },
+          }}
           style={{
             display: "grid",
             gridTemplateColumns: isSmall
@@ -142,47 +157,42 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
           {highlightedStack.map((skill) => {
             const icon = skillIconMap[skill.icon] ?? null;
             const href = skillIconUrls[skill.icon];
+            const accent = skillIconColors[skill.icon] ?? "var(--accent)";
             return (
-              <a
+              <motion.a
                 key={skill.name}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${skill.name} — open official site`}
+                variants={{
+                  hidden: { opacity: 0, y: 24, scale: 0.92 },
+                  visible: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4 }}
+                className="glass glass-hover"
                 style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 12,
                   padding: isSmall ? "16px 14px" : "20px 18px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 14,
-                  transition:
-                    "border-color 0.2s ease, transform 0.2s ease, background 0.2s ease",
+                  gap: 12,
                   cursor: href ? "pointer" : "default",
                   position: "relative",
-                  minHeight: isSmall ? 110 : 130,
+                  minHeight: isSmall ? 124 : 144,
                   textDecoration: "none",
                   color: "inherit",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(59,130,246,0.35)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.background = "var(--surface2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.background = "var(--surface)";
+                  overflow: "hidden",
                 }}
               >
                 <div
                   style={{
                     fontSize: isSmall ? 24 : 28,
-                    color: skillIconColors[skill.icon] ?? "var(--text)",
+                    color: accent,
                     display: "flex",
                     alignItems: "center",
                     height: isSmall ? 28 : 32,
+                    filter: `drop-shadow(0 0 12px ${accent}55)`,
                   }}
                 >
                   {icon}
@@ -190,7 +200,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                 <span
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     fontSize: isSmall ? 13 : 14,
                     color: "var(--text)",
                     lineHeight: 1.2,
@@ -199,10 +209,52 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                 >
                   {skill.name}
                 </span>
-              </a>
+
+                {/* Animated progress bar */}
+                <div
+                  style={{
+                    position: "relative",
+                    height: 3,
+                    width: "100%",
+                    borderRadius: 100,
+                    background: "rgba(255,255,255,0.08)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.level}%` }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{
+                      duration: 1.1,
+                      delay: 0.2,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    style={{
+                      height: "100%",
+                      background: `linear-gradient(90deg, var(--accent), var(--accent-2))`,
+                      boxShadow: `0 0 10px var(--accent-glow)`,
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 9,
+                    color: "var(--text3)",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span>proficiency</span>
+                  <span style={{ color: accent }}>{skill.level}%</span>
+                </div>
+              </motion.a>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Skill categories — auto-scrolling marquee */}
         <div className="marquee" aria-label="Skill categories">
@@ -213,22 +265,11 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
             {[...filteredSkills, ...filteredSkills].map((cat, i) => (
               <div
                 key={`${cat.category}-${i}`}
+                className="glass glass-hover"
                 style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 14,
                   padding: isSmall ? "16px" : "20px",
-                  transition: "border-color .25s, transform .25s",
                   flexShrink: 0,
                   width: isSmall ? 260 : isMobile ? 300 : 320,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(59,130,246,0.35)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
                 <div
@@ -245,6 +286,7 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                       display: "flex",
                       alignItems: "center",
                       color: skillIconColors[cat.icon] ?? "var(--accent)",
+                      filter: `drop-shadow(0 0 10px ${skillIconColors[cat.icon] ?? "rgba(0,229,255,0.5)"})`,
                     }}
                   >
                     {skillIconMap[cat.icon]}
@@ -257,8 +299,8 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                         cat.domain === "mobile"
                           ? "var(--accent)"
                           : cat.domain === "web"
-                            ? "var(--accent2)"
-                            : "var(--green)",
+                            ? "var(--accent-2)"
+                            : "var(--accent-3)",
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
                     }}
@@ -276,8 +318,8 @@ export default function Skills({ isMobile, isSmall }: SkillsProps) {
                         fontFamily: "var(--font-mono)",
                         fontSize: 11,
                         color: "var(--text2)",
-                        border: "1px solid var(--border)",
-                        background: "rgba(255,255,255,0.02)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(255,255,255,0.03)",
                       }}
                     >
                       {item}

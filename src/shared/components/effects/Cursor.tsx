@@ -1,87 +1,89 @@
 import { useEffect, useRef, memo } from "react";
+import { gsap } from "gsap";
+
+const INTERACTIVE_SELECTOR =
+  'a, button, [role="button"], input, textarea, select, [data-magnetic]';
 
 function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const reduceMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
-    if (!mediaQuery.matches || reduceMotionQuery.matches) return;
+    const fineHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!fineHover.matches || reduceMotion.matches) return;
 
     const cursor = cursorRef.current;
     const follower = followerRef.current;
     if (!cursor || !follower) return;
 
-    let mouseX = 0,
-      mouseY = 0;
-    let followerX = 0,
-      followerY = 0;
-    let rafId = 0;
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.18, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.18, ease: "power3" });
+    const fxTo = gsap.quickTo(follower, "x", {
+      duration: 0.55,
+      ease: "power3",
+    });
+    const fyTo = gsap.quickTo(follower, "y", {
+      duration: 0.55,
+      ease: "power3",
+    });
 
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX - 6 + "px";
-      cursor.style.top = mouseY - 6 + "px";
+    const onMove = (e: MouseEvent) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+      fxTo(e.clientX);
+      fyTo(e.clientY);
     };
 
-    const animate = () => {
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
-      follower.style.left = followerX - 18 + "px";
-      follower.style.top = followerY - 18 + "px";
-      rafId = requestAnimationFrame(animate);
+    // Event delegation: a single pair of listeners on the document.
+    // Avoids MutationObserver scans and per-element subscriptions.
+    const onOver = (e: MouseEvent) => {
+      const target = e.target as Element | null;
+      if (target && target.closest && target.closest(INTERACTIVE_SELECTOR)) {
+        cursor.classList.add("is-hover");
+        follower.classList.add("is-hover");
+      }
+    };
+    const onOut = (e: MouseEvent) => {
+      const from = e.target as Element | null;
+      const to = e.relatedTarget as Element | null;
+      if (
+        from &&
+        from.closest &&
+        from.closest(INTERACTIVE_SELECTOR) &&
+        !(to && to.closest && to.closest(INTERACTIVE_SELECTOR))
+      ) {
+        cursor.classList.remove("is-hover");
+        follower.classList.remove("is-hover");
+      }
     };
 
-    const onMouseEnterLink = () => {
-      cursor.style.transform = "scale(2)";
-      follower.style.width = "60px";
-      follower.style.height = "60px";
+    const onLeaveDoc = () => {
+      gsap.to([cursor, follower], { autoAlpha: 0, duration: 0.2 });
+    };
+    const onEnterDoc = () => {
+      gsap.to([cursor, follower], { autoAlpha: 1, duration: 0.2 });
     };
 
-    const onMouseLeaveLink = () => {
-      cursor.style.transform = "scale(1)";
-      follower.style.width = "36px";
-      follower.style.height = "36px";
-    };
-
-    const interactiveSelector =
-      'a, button, [role="button"], input, textarea, select';
-    document.addEventListener("mousemove", onMouseMove);
-    animate();
-
-    const attachedElements = new WeakSet<Element>();
-    const attachInteractiveListeners = () => {
-      document.querySelectorAll(interactiveSelector).forEach((el) => {
-        if (attachedElements.has(el)) return;
-        el.addEventListener("mouseenter", onMouseEnterLink);
-        el.addEventListener("mouseleave", onMouseLeaveLink);
-        attachedElements.add(el);
-      });
-    };
-
-    attachInteractiveListeners();
-    const observer = new MutationObserver(attachInteractiveListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseout", onOut);
+    document.addEventListener("mouseleave", onLeaveDoc);
+    document.addEventListener("mouseenter", onEnterDoc);
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.querySelectorAll(interactiveSelector).forEach((el) => {
-        el.removeEventListener("mouseenter", onMouseEnterLink);
-        el.removeEventListener("mouseleave", onMouseLeaveLink);
-      });
-      observer.disconnect();
-      cancelAnimationFrame(rafId);
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
+      document.removeEventListener("mouseleave", onLeaveDoc);
+      document.removeEventListener("mouseenter", onEnterDoc);
     };
   }, []);
 
   return (
     <>
-      <div ref={cursorRef} className="cursor" />
-      <div ref={followerRef} className="cursor-follower" />
+      <div ref={cursorRef} className="cursor" aria-hidden="true" />
+      <div ref={followerRef} className="cursor-follower" aria-hidden="true" />
     </>
   );
 }

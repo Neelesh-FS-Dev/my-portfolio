@@ -32,7 +32,7 @@ export const repoRoot = join(__dirname, "..");
 const DEFAULT_TITLE =
   "Neelesh Yadav - React Native & React Developer | Pune, India";
 const DEFAULT_DESCRIPTION =
-  "React Native & React Developer with 3+ years building high-performance cross-platform mobile and web apps. Published 10+ apps on App Store & Play Store. TypeScript, Redux, Firebase, REST APIs. Based in Pune, India.";
+  "Software Engineer with 3+ years shipping production React Native and React apps end-to-end. 10+ App Store & Play Store releases, 20K+ users. TypeScript, Redux, Firebase, real-time systems, performance, and motion-rich interactive UI. Based in Pune, India.";
 
 export function absoluteUrl(path) {
   if (/^https?:\/\//i.test(path)) return path;
@@ -105,13 +105,26 @@ function homepageSchema() {
       "Redux",
       "Firebase",
       "REST APIs",
+      "WebSockets",
       "Mobile Development",
       "Web Development",
       "JavaScript",
       "Node.js",
       "Tailwind CSS",
+      "Vite",
       "App Store",
       "Google Play Store",
+      "Augmented Reality",
+      "Computer Vision",
+      "MediaPipe FaceMesh",
+      "Shopify Storefront API",
+      "Framer Motion",
+      "Three.js",
+      "GSAP",
+      "Performance Optimization",
+      "Core Web Vitals",
+      "Accessibility",
+      "SEO",
     ],
     sameAs: [personal.github, personal.linkedin, personal.instagram].filter(
       Boolean,
@@ -230,9 +243,9 @@ export function getSeoRoutes() {
     },
     {
       path: "/projects",
-      title: "Projects - Neelesh Yadav | Mobile & Web Apps Portfolio",
+      title: "Projects - Neelesh Yadav | React Native & React Case Studies",
       description:
-        "Explore 10+ production mobile and web apps built by Neelesh Yadav - React Native, TypeScript, Redux, Firebase. Published on App Store & Play Store.",
+        "Case studies of 10+ production React Native and React apps shipped to App Store and Play Store — real-time features, AR try-on, Shopify commerce, computer vision, and performance-optimized cross-platform UI.",
       priority: "0.9",
       changefreq: "monthly",
     },
@@ -240,23 +253,23 @@ export function getSeoRoutes() {
       path: "/experience",
       title: "Experience - Neelesh Yadav | 3+ Years React Native & React",
       description:
-        "3+ years of professional experience as a React Native & React Developer. Work history, education, and certifications - Neelesh Yadav, Pune, India.",
+        "3+ years shipping consumer-facing React Native and React products end-to-end — work history, education, and certifications. Led teams, mentored 100+ developers, drove a 40% performance lift.",
       priority: "0.8",
       changefreq: "monthly",
     },
     {
       path: "/blogs",
-      title: "Blog - Neelesh Yadav | React Native & Web Development Insights",
+      title: "Blog - Neelesh Yadav | React Native, React & Web Engineering",
       description:
-        "Technical blog posts on React Native, TypeScript, performance optimization, WebSocket, app deployment, and mobile development best practices.",
+        "Engineering write-ups on React Native, TypeScript, performance, WebSockets, motion design, App Store and Play Store releases, and cross-platform architecture patterns.",
       priority: "0.8",
       changefreq: "weekly",
     },
     {
       path: "/contact",
-      title: "Contact - Neelesh Yadav | Hire a React Native Developer",
+      title: "Contact - Neelesh Yadav | Hire a React Native & React Engineer",
       description:
-        "Get in touch with Neelesh Yadav for freelance projects, full-time roles, or collaboration. React Native & React Developer based in Pune, India.",
+        "Get in touch with Neelesh Yadav for full-time roles, contracts, or collaboration on React Native and React product work. Based in Pune, India — open to remote.",
       priority: "0.7",
       changefreq: "yearly",
     },

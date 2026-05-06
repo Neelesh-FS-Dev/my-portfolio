@@ -1,8 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, memo, lazy, Suspense } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../shared/components/layout/Navbar";
 import Footer from "../shared/components/layout/Footer";
 import Cursor from "../shared/components/effects/Cursor";
+import SmoothScroll from "../shared/components/effects/SmoothScroll";
+import NoiseOverlay from "../shared/components/effects/NoiseOverlay";
 import {
   HomeSkeleton,
   ProjectsSkeleton,
@@ -44,14 +47,25 @@ function lazyRoute(
   );
 }
 
-export default function App() {
+const pageVariants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
   return (
-    <>
-      <Cursor />
-      <MemoScrollToTop />
-      <Navbar />
-      <main>
-        <Routes>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Routes location={location}>
           <Route path="/" element={lazyRoute(Home, HomeSkeleton)} />
           <Route
             path="/projects"
@@ -76,8 +90,22 @@ export default function App() {
           />
           <Route path="*" element={lazyRoute(NotFound, GenericSkeleton)} />
         </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  return (
+    <SmoothScroll>
+      <Cursor />
+      <NoiseOverlay />
+      <MemoScrollToTop />
+      <Navbar />
+      <main>
+        <AnimatedRoutes />
       </main>
       <Footer />
-    </>
+    </SmoothScroll>
   );
 }
