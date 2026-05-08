@@ -182,6 +182,7 @@ function Navbar() {
               onClick={toggleMenu}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               style={{
                 width: 40,
                 height: 40,
@@ -244,7 +245,11 @@ function Navbar() {
       </nav>
 
       <div
+        id="mobile-menu"
         className="nav-mobile-overlay"
+        role="dialog"
+        aria-label="Mobile navigation"
+        aria-hidden={!menuOpen}
         style={{
           position: "fixed",
           top: 64,

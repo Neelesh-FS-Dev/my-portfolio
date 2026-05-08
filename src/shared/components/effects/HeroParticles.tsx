@@ -1,4 +1,11 @@
-import { useMemo, useRef, memo, type MutableRefObject } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  memo,
+  type MutableRefObject,
+} from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -136,12 +143,19 @@ interface HeroParticlesProps {
   className?: string;
 }
 
-function HeroParticlesInner({ count = 1400 }: { count: number }) {
+function HeroParticlesInner({
+  count = 1400,
+  active,
+}: {
+  count: number;
+  active: boolean;
+}) {
   const mouse = useRef({ x: 0, y: 0 });
 
   return (
     <Canvas
       dpr={[1, 1.6]}
+      frameloop={active ? "always" : "never"}
       gl={{
         antialias: false,
         alpha: true,
@@ -162,6 +176,37 @@ function HeroParticlesInner({ count = 1400 }: { count: number }) {
 }
 
 function HeroParticles({ count, className }: HeroParticlesProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    const node = wrapperRef.current;
+    if (!node) return;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    if (reduceMotion.matches) {
+      setActive(false);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    io.observe(node);
+
+    const onVisibility = () =>
+      setActive(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+
   const isMobile =
     typeof window !== "undefined" && window.innerWidth < 768;
 
@@ -172,6 +217,7 @@ function HeroParticles({ count, className }: HeroParticlesProps) {
 
   return (
     <div
+      ref={wrapperRef}
       className={className}
       aria-hidden="true"
       style={{
@@ -182,7 +228,7 @@ function HeroParticles({ count, className }: HeroParticlesProps) {
         opacity: 0.7,
       }}
     >
-      <HeroParticlesInner count={finalCount} />
+      <HeroParticlesInner count={finalCount} active={active} />
     </div>
   );
 }

@@ -13,6 +13,12 @@ function Counter({ value, suffix = "" }: CounterProps) {
     if (!visible) return;
     const num = parseFloat(String(value));
     if (isNaN(num)) return;
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setDisplay(num);
+      return;
+    }
     let start: number | null = null;
     let frame = 0;
     const duration = 900;

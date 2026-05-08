@@ -8,18 +8,33 @@ import {
   type ReactNode,
 } from "react";
 import { Link } from "react-router-dom";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import personal from "../../../shared/data/personal";
 import PhoneMockup from "../../../shared/components/effects/PhoneMockup";
-import HeroParticles from "../../../shared/components/effects/HeroParticles";
 import MagneticButton from "../../../shared/components/effects/MagneticButton";
-import { SiReact, SiTailwindcss } from "react-icons/si";
+import {
+  SiAndroidstudio,
+  SiFirebase,
+  SiReact,
+  SiTailwindcss,
+  SiXcode,
+} from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { FiDownload } from "react-icons/fi";
 import { getExperience } from "../../../shared/utils/getExperience";
 
 const Phone3D = lazy(
   () => import("../../../shared/components/effects/Phone3D"),
+);
+
+const HeroParticles = lazy(
+  () => import("../../../shared/components/effects/HeroParticles"),
 );
 
 interface VisualFallbackProps {
@@ -36,7 +51,8 @@ function VisualFallback({ children, style }: VisualFallbackProps) {
 }
 
 const SUBTITLES = [
-  "React Native · React · TypeScript",
+  "React Native · React",
+  "Xcode · Android Studio · Firebase",
   "Mobile + Web · Production at scale",
   "Real-time systems · Scalable UI",
 ];
@@ -123,6 +139,7 @@ export interface HeroProps {
 }
 
 export default function Hero({ isMobile, isSmall }: HeroProps) {
+  const reduceMotion = useReducedMotion();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 70, damping: 18, mass: 0.6 });
@@ -133,6 +150,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
   const tY2 = useTransform(sy, (v) => `${v * 6}px`);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const fineHover = window.matchMedia(
       "(hover: hover) and (pointer: fine)",
     ).matches;
@@ -143,7 +161,7 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, [mx, my]);
+  }, [mx, my, reduceMotion]);
 
   return (
     <section
@@ -161,7 +179,9 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
       className="grid-bg"
     >
       <div className="hero-spotlight" aria-hidden />
-      <HeroParticles count={650} />
+      <Suspense fallback={null}>
+        <HeroParticles count={650} />
+      </Suspense>
 
       <div
         className="container"
@@ -273,7 +293,9 @@ export default function Hero({ isMobile, isSmall }: HeroProps) {
             {[
               { icon: <TbBrandReactNative size={12} />, label: "React Native" },
               { icon: <SiReact size={12} />, label: "React.js" },
-              { icon: <SiTailwindcss size={12} />, label: "Tailwind CSS" },
+              { icon: <SiFirebase size={12} />, label: "Firebase" },
+              { icon: <SiXcode size={12} />, label: "Xcode" },
+              { icon: <SiAndroidstudio size={12} />, label: "Android Studio" },
             ].map((t) => (
               <span
                 key={t.label}

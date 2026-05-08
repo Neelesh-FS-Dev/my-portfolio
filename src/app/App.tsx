@@ -98,11 +98,14 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <SmoothScroll>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Cursor />
       <NoiseOverlay />
       <MemoScrollToTop />
       <Navbar />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <AnimatedRoutes />
       </main>
       <Footer />
