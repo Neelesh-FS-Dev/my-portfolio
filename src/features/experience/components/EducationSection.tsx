@@ -1,7 +1,15 @@
+import { motion } from "framer-motion";
 import { FiBookOpen, FiAward } from "react-icons/fi";
 import type { Degree } from "../types";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import ShimmerLine from "./ShimmerLine";
+import {
+  Reveal,
+  RevealStagger,
+  scaleIn,
+  popIn,
+  slideRight,
+  hoverLift,
+} from "../../../shared/components/motion";
 
 export interface EducationSectionProps {
   edu: Degree;
@@ -14,47 +22,28 @@ export default function EducationSection({
   isMobile,
   isSmall,
 }: EducationSectionProps) {
-  const [eduRef, eduVisible] = useReveal<HTMLDivElement>(0.1);
-
   return (
     <>
-      <div
-        className="section-label"
-        style={{
-          opacity: eduVisible ? 1 : 0,
-          transform: eduVisible ? "translateY(0)" : "translateY(10px)",
-          transition: "opacity 0.5s ease, transform 0.5s ease",
-        }}
-      >
-        Education
-      </div>
-      <h2
-        className="section-title"
-        style={{
-          marginBottom: 32,
-          opacity: eduVisible ? 1 : 0,
-          transform: eduVisible ? "translateY(0)" : "translateY(16px)",
-          transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
-        }}
-      >
-        Academic Background
-      </h2>
+      <Reveal preset="fadeUp">
+        <div className="section-label">Education</div>
+        <h2 className="section-title" style={{ marginBottom: 32 }}>
+          Academic Background
+        </h2>
+      </Reveal>
 
       <ShimmerLine />
 
-      <div
-        ref={eduRef}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={scaleIn}
+        transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         style={{
           background: "var(--surface)",
           border: "1px solid var(--border)",
           borderRadius: 20,
           overflow: "hidden",
-          opacity: eduVisible ? 1 : 0,
-          transform: eduVisible
-            ? "translateY(0) scale(1)"
-            : "translateY(28px) scale(0.98)",
-          transition:
-            "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
         }}
       >
         <div
@@ -76,7 +65,9 @@ export default function EducationSection({
               marginBottom: 20,
             }}
           >
-            <div
+            <motion.div
+              whileHover={{ scale: 1.06, rotate: -4 }}
+              transition={hoverLift}
               style={{
                 width: 56,
                 height: 56,
@@ -93,7 +84,7 @@ export default function EducationSection({
               }}
             >
               <edu.icon size={24} color="white" />
-            </div>
+            </motion.div>
             <div style={{ flex: 1, minWidth: 200 }}>
               <h3
                 style={{
@@ -148,7 +139,10 @@ export default function EducationSection({
           </div>
 
           {edu.institutionBadges && (
-            <div
+            <RevealStagger
+              stagger={0.06}
+              delayChildren={0.3}
+              amount={0.1}
               style={{
                 display: "flex",
                 flexWrap: "wrap",
@@ -156,9 +150,12 @@ export default function EducationSection({
                 marginBottom: 18,
               }}
             >
-              {edu.institutionBadges.map((badge, bi) => (
-                <span
+              {edu.institutionBadges.map((badge) => (
+                <motion.span
                   key={badge}
+                  variants={popIn}
+                  whileHover={{ scale: 1.06, y: -2 }}
+                  transition={hoverLift}
                   style={{
                     padding: "4px 10px",
                     borderRadius: 100,
@@ -167,36 +164,33 @@ export default function EducationSection({
                     color: "var(--accent)",
                     border: "1px solid rgba(59,130,246,0.25)",
                     background: "rgba(59,130,246,0.07)",
-                    opacity: eduVisible ? 1 : 0,
-                    transform: eduVisible ? "scale(1)" : "scale(0.8)",
-                    transition: `opacity 0.4s ease ${0.3 + bi * 0.06}s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${0.3 + bi * 0.06}s`,
+                    cursor: "default",
+                    willChange: "transform",
                   }}
                 >
                   {badge}
-                </span>
+                </motion.span>
               ))}
-            </div>
+            </RevealStagger>
           )}
 
           {edu.institutionAbout && (
-            <p
-              style={{
-                color: "var(--text2)",
-                fontSize: isSmall ? 13 : 14,
-                lineHeight: 1.75,
-                marginBottom: 20,
-                padding: "14px 16px",
-                background: "var(--bg2)",
-                borderRadius: 12,
-                borderLeft: "3px solid var(--accent)",
-                opacity: eduVisible ? 1 : 0,
-                transform: eduVisible ? "translateX(0)" : "translateX(-12px)",
-                transition:
-                  "opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s",
-              }}
-            >
-              {edu.institutionAbout}
-            </p>
+            <Reveal preset="slideRight" delay={0.35}>
+              <p
+                style={{
+                  color: "var(--text2)",
+                  fontSize: isSmall ? 13 : 14,
+                  lineHeight: 1.75,
+                  marginBottom: 20,
+                  padding: "14px 16px",
+                  background: "var(--bg2)",
+                  borderRadius: 12,
+                  borderLeft: "3px solid var(--accent)",
+                }}
+              >
+                {edu.institutionAbout}
+              </p>
+            </Reveal>
           )}
 
           <div
@@ -207,132 +201,134 @@ export default function EducationSection({
             }}
           >
             {edu.coursework && (
-              <div
-                style={{
-                  background: "var(--bg2)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 14,
-                  padding: "16px 18px",
-                  opacity: eduVisible ? 1 : 0,
-                  transform: eduVisible ? "translateY(0)" : "translateY(14px)",
-                  transition:
-                    "opacity 0.55s ease 0.4s, transform 0.55s ease 0.4s",
-                }}
-              >
+              <Reveal preset="fadeUp" delay={0.4}>
                 <div
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    color: "var(--accent2)",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    marginBottom: 12,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 5,
+                    background: "var(--bg2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 14,
+                    padding: "16px 18px",
                   }}
                 >
-                  <FiBookOpen size={11} /> Key Coursework
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      color: "var(--accent2)",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      marginBottom: 12,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                  >
+                    <FiBookOpen size={11} /> Key Coursework
+                  </div>
+                  <RevealStagger
+                    stagger={0.04}
+                    delayChildren={0.05}
+                    amount={0.1}
+                    style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
+                  >
+                    {edu.coursework.map((c) => (
+                      <motion.span
+                        key={c}
+                        className="tech-pill"
+                        variants={popIn}
+                        whileHover={{ scale: 1.06, y: -2 }}
+                        transition={hoverLift}
+                        style={{
+                          padding: "3px 9px",
+                          borderRadius: 100,
+                          fontFamily: "var(--font-mono)",
+                          fontSize: 11,
+                          color: "var(--text2)",
+                          border: "1px solid var(--border)",
+                          cursor: "default",
+                          willChange: "transform",
+                        }}
+                      >
+                        {c}
+                      </motion.span>
+                    ))}
+                  </RevealStagger>
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {edu.coursework.map((c, ci) => (
-                    <span
-                      key={c}
-                      className="tech-pill"
-                      style={{
-                        padding: "3px 9px",
-                        borderRadius: 100,
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 11,
-                        color: "var(--text2)",
-                        border: "1px solid var(--border)",
-                        opacity: eduVisible ? 1 : 0,
-                        transform: eduVisible ? "scale(1)" : "scale(0.85)",
-                        transition: `opacity 0.35s ease ${0.45 + ci * 0.04}s, transform 0.35s ease ${0.45 + ci * 0.04}s, background 0.2s`,
-                      }}
-                    >
-                      {c}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </Reveal>
             )}
             {edu.activities && (
-              <div
-                style={{
-                  background: "var(--bg2)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 14,
-                  padding: "16px 18px",
-                  opacity: eduVisible ? 1 : 0,
-                  transform: eduVisible ? "translateY(0)" : "translateY(14px)",
-                  transition:
-                    "opacity 0.55s ease 0.5s, transform 0.55s ease 0.5s",
-                }}
-              >
+              <Reveal preset="fadeUp" delay={0.5}>
                 <div
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    color: "var(--green)",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    marginBottom: 12,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 5,
+                    background: "var(--bg2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 14,
+                    padding: "16px 18px",
                   }}
                 >
-                  <FiAward size={11} /> Activities
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                  }}
-                >
-                  {edu.activities.map((a, ai) => (
-                    <div
-                      key={ai}
-                      style={{
-                        display: "flex",
-                        gap: 8,
-                        alignItems: "flex-start",
-                        opacity: eduVisible ? 1 : 0,
-                        transform: eduVisible
-                          ? "translateX(0)"
-                          : "translateX(-10px)",
-                        transition: `opacity 0.4s ease ${0.55 + ai * 0.07}s, transform 0.4s ease ${0.55 + ai * 0.07}s`,
-                      }}
-                    >
-                      <span
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      color: "var(--green)",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      marginBottom: 12,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                  >
+                    <FiAward size={11} /> Activities
+                  </div>
+                  <RevealStagger
+                    stagger={0.07}
+                    delayChildren={0.05}
+                    amount={0.1}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                    }}
+                  >
+                    {edu.activities.map((a, ai) => (
+                      <motion.div
+                        key={ai}
+                        variants={slideRight}
                         style={{
-                          color: "var(--green)",
-                          fontSize: 9,
-                          marginTop: 5,
-                          flexShrink: 0,
+                          display: "flex",
+                          gap: 8,
+                          alignItems: "flex-start",
                         }}
                       >
-                        ▸
-                      </span>
-                      <span
-                        style={{
-                          color: "var(--text2)",
-                          fontSize: isSmall ? 12 : 13,
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {a}
-                      </span>
-                    </div>
-                  ))}
+                        <span
+                          style={{
+                            color: "var(--green)",
+                            fontSize: 9,
+                            marginTop: 5,
+                            flexShrink: 0,
+                          }}
+                        >
+                          ▸
+                        </span>
+                        <span
+                          style={{
+                            color: "var(--text2)",
+                            fontSize: isSmall ? 12 : 13,
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {a}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </RevealStagger>
                 </div>
-              </div>
+              </Reveal>
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

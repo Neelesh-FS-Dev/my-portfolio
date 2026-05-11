@@ -1,6 +1,12 @@
+import { motion } from "framer-motion";
 import { certifications } from "../data/education";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import { certIconMap } from "../utils/certIcons";
+import {
+  Reveal,
+  RevealStagger,
+  scaleIn,
+  hoverLift,
+} from "../../../shared/components/motion";
 
 export interface CertificationsSectionProps {
   isMobile: boolean;
@@ -11,21 +17,15 @@ export default function CertificationsSection({
   isMobile,
   isSmall,
 }: CertificationsSectionProps) {
-  const [certRef, certVisible] = useReveal<HTMLDivElement>(0.1);
-
   return (
     <div style={{ marginTop: 44 }}>
-      <div
-        className="section-label"
-        style={{
-          opacity: certVisible ? 1 : 0,
-          transition: "opacity 0.5s ease",
-        }}
-      >
-        Certifications
-      </div>
-      <div
-        ref={certRef}
+      <Reveal preset="fadeIn">
+        <div className="section-label">Certifications</div>
+      </Reveal>
+      <RevealStagger
+        stagger={0.1}
+        delayChildren={0.05}
+        amount={0.12}
         style={{
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
@@ -33,10 +33,17 @@ export default function CertificationsSection({
           marginTop: 18,
         }}
       >
-        {certifications.map((cert, i) => (
-          <div
+        {certifications.map((cert) => (
+          <motion.div
             key={cert.name}
             className="cert-card"
+            variants={scaleIn}
+            whileHover={{
+              y: -4,
+              borderColor: cert.color + "55",
+              boxShadow: `0 14px 32px ${cert.color}22`,
+            }}
+            transition={hoverLift}
             style={{
               background: "var(--surface)",
               border: "1px solid var(--border)",
@@ -45,15 +52,14 @@ export default function CertificationsSection({
               display: "flex",
               gap: 14,
               alignItems: "center",
-              opacity: certVisible ? 1 : 0,
-              transform: certVisible
-                ? "translateY(0) scale(1)"
-                : "translateY(16px) scale(0.96)",
-              transition: `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.1}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.1}s`,
               cursor: "default",
+              willChange: "transform",
             }}
           >
-            <div
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: -6 }}
+              transition={hoverLift}
+              className="cert-icon"
               style={{
                 width: 40,
                 height: 40,
@@ -65,13 +71,10 @@ export default function CertificationsSection({
                 justifyContent: "center",
                 fontSize: 18,
                 flexShrink: 0,
-                transition:
-                  "transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease",
               }}
-              className="cert-icon"
             >
               {certIconMap[cert.icon] ?? cert.icon}
-            </div>
+            </motion.div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div
                 style={{
@@ -105,9 +108,9 @@ export default function CertificationsSection({
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </RevealStagger>
     </div>
   );
 }

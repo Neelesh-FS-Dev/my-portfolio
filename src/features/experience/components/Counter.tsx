@@ -1,5 +1,5 @@
-import { memo, useEffect, useState } from "react";
-import { useReveal } from "../../../shared/hooks/useReveal";
+import { memo, useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 
 export interface CounterProps {
   value: string | number;
@@ -8,7 +8,9 @@ export interface CounterProps {
 
 function Counter({ value, suffix = "" }: CounterProps) {
   const [display, setDisplay] = useState(0);
-  const [ref, visible] = useReveal<HTMLSpanElement>(0.5);
+  const ref = useRef<HTMLSpanElement>(null);
+  const visible = useInView(ref, { once: true, amount: 0.5 });
+
   useEffect(() => {
     if (!visible) return;
     const num = parseFloat(String(value));
@@ -26,6 +28,7 @@ function Counter({ value, suffix = "" }: CounterProps) {
     frame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frame);
   }, [visible, value]);
+
   return (
     <span ref={ref}>
       {display}

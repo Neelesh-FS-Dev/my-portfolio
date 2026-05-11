@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import blogs from "./data/blogs";
 import { useIsSmall, useIsTablet } from "../../shared/hooks/useMediaQuery";
-import { useReveal } from "../../shared/hooks/useReveal";
 import SEO from "../../shared/components/ui/SEO";
 import BlogsHero from "./components/BlogsHero";
 import BlogTabsBar, { type BlogDomainFilter } from "./components/BlogTabsBar";
@@ -12,8 +11,6 @@ export default function Blogs() {
   const [domainFilter, setDomainFilter] = useState<BlogDomainFilter>("all");
   const isSmall = useIsSmall();
   const isTablet = useIsTablet();
-
-  const [gridRef, gridVisible] = useReveal<HTMLDivElement>(0.05);
 
   const filtered = useMemo(
     () =>
@@ -63,13 +60,14 @@ export default function Blogs() {
 
       {/* ─── BLOG GRID ─── */}
       <section className="section">
-        <div className="container" ref={gridRef}>
+        <div className="container">
           {filtered.length > 0 && (
-            <div style={{ marginBottom: 16 }}>
-              <BlogCard post={filtered[0]} featured visible={gridVisible} />
+            <div style={{ marginBottom: 16 }} key={`featured-${domainFilter}`}>
+              <BlogCard post={filtered[0]} featured />
             </div>
           )}
           <div
+            key={`grid-${domainFilter}`}
             style={{
               display: "grid",
               gridTemplateColumns: isSmall
@@ -81,12 +79,7 @@ export default function Blogs() {
             }}
           >
             {filtered.slice(1).map((post, i) => (
-              <BlogCard
-                key={post.id}
-                post={post}
-                idx={i}
-                visible={gridVisible}
-              />
+              <BlogCard key={post.id} post={post} idx={i} />
             ))}
           </div>
         </div>

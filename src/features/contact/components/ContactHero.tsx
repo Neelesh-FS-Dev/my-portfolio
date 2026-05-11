@@ -1,7 +1,15 @@
-import { useReveal } from "../../../shared/hooks/useReveal";
+import { motion } from "framer-motion";
 import { generateParticles } from "../../../shared/data/particles";
 import personal from "../../../shared/data/personal";
-import { FiMail, FiPhone, FiLinkedin } from "react-icons/fi";
+import { FiCalendar, FiMail, FiPhone, FiLinkedin } from "react-icons/fi";
+import {
+  RevealStagger,
+  fadeUp,
+  scaleIn,
+  hoverLift,
+  hoverLiftTarget,
+  tapTarget,
+} from "../../../shared/components/motion";
 
 export interface ContactHeroProps {
   isMobile: boolean;
@@ -9,14 +17,18 @@ export interface ContactHeroProps {
 }
 
 export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
-  const [headerRef, headerVisible] = useReveal<HTMLElement>(0.05);
-
   /* Floating particles */
   const particles = generateParticles(12);
 
+  // Cal.com booking link. Set VITE_CAL_USERNAME=your-handle (or a full URL via
+  // VITE_CAL_URL) in your env to enable the "Book a call" CTA.
+  const calUsername = import.meta.env.VITE_CAL_USERNAME as string | undefined;
+  const calUrl =
+    (import.meta.env.VITE_CAL_URL as string | undefined) ||
+    (calUsername ? `https://cal.com/${calUsername}/15min` : null);
+
   return (
     <section
-      ref={headerRef}
       style={{
         padding: isMobile ? "40px 0 52px" : "60px 0 80px",
         background: "var(--bg2)",
@@ -60,28 +72,18 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
         />
       ))}
 
-      <div className="container">
-        <div
-          className="section-label"
-          style={{
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 0.5s ease 0.05s, transform 0.5s ease 0.05s",
-          }}
-        >
+      <RevealStagger
+        className="container"
+        stagger={0.1}
+        delayChildren={0.05}
+      >
+        <motion.div className="section-label" variants={fadeUp}>
           Hire Me
-        </div>
-        <h1
+        </motion.div>
+        <motion.h1
           className="section-title"
-          style={{
-            marginBottom: 14,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible
-              ? "translateY(0) skewY(0deg)"
-              : "translateY(20px) skewY(1deg)",
-            transition:
-              "opacity 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s, transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s",
-          }}
+          variants={fadeUp}
+          style={{ marginBottom: 14 }}
         >
           Discuss a
           <br />
@@ -89,80 +91,101 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
             style={{
               color: "var(--accent)",
               display: "inline-block",
-              animation: headerVisible
-                ? "text-shimmer 4s ease-in-out infinite"
-                : "none",
+              animation: "text-shimmer 4s ease-in-out infinite",
             }}
           >
             Project With Me
           </span>
-        </h1>
-        <p
+        </motion.h1>
+        <motion.p
+          variants={scaleIn}
           style={{
             color: "var(--text2)",
             fontSize: isSmall ? 14 : 17,
             maxWidth: 520,
             lineHeight: 1.75,
             marginBottom: 12,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
           }}
         >
           Open to React Native roles, freelance builds, RN upgrades, and
           collaborations. Send a message below or reach out directly — I
           typically reply within 24 hours.
-        </p>
+        </motion.p>
 
         {/* Quick-action CTAs */}
-        <div
+        <motion.div
+          variants={fadeUp}
           style={{
             display: "flex",
             gap: 10,
             flexWrap: "wrap",
             marginTop: 22,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.55s ease 0.32s, transform 0.55s ease 0.32s",
           }}
         >
-          <a
+          {calUrl && (
+            <motion.a
+              href={calUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ fontSize: 13, padding: "10px 22px" }}
+              whileHover={hoverLiftTarget}
+              whileTap={tapTarget}
+              transition={hoverLift}
+            >
+              <FiCalendar
+                size={15}
+                style={{ marginRight: 6, verticalAlign: "middle" }}
+              />
+              Book a 15-min Call
+            </motion.a>
+          )}
+          <motion.a
             href={`mailto:${personal.email}`}
-            className="btn btn-primary"
+            className={calUrl ? "btn btn-outline" : "btn btn-primary"}
             style={{ fontSize: 13, padding: "10px 22px" }}
+            whileHover={hoverLiftTarget}
+            whileTap={tapTarget}
+            transition={hoverLift}
           >
             <FiMail
               size={15}
               style={{ marginRight: 6, verticalAlign: "middle" }}
             />
             Email Me Directly
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href={personal.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline"
             style={{ fontSize: 13, padding: "10px 22px" }}
+            whileHover={hoverLiftTarget}
+            whileTap={tapTarget}
+            transition={hoverLift}
           >
             <FiLinkedin
               size={15}
               style={{ marginRight: 6, verticalAlign: "middle" }}
             />
             Book on LinkedIn
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href={`tel:${personal.phone}`}
             className="btn btn-outline"
             style={{ fontSize: 13, padding: "10px 22px" }}
+            whileHover={hoverLiftTarget}
+            whileTap={tapTarget}
+            transition={hoverLift}
           >
             <FiPhone
               size={15}
               style={{ marginRight: 6, verticalAlign: "middle" }}
             />
             Call
-          </a>
-        </div>
-      </div>
+          </motion.a>
+        </motion.div>
+      </RevealStagger>
     </section>
   );
 }

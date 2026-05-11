@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import caseStudies from "../../../shared/data/caseStudies";
+import {
+  Reveal,
+  RevealStagger,
+  scaleIn,
+  hoverLift,
+  hoverLiftTarget,
+} from "../../../shared/components/motion";
 
 export interface CaseStudiesProps {
   isMobile: boolean;
@@ -13,7 +21,8 @@ export default function CaseStudies({ isMobile, isSmall }: CaseStudiesProps) {
       style={{ borderTop: "1px solid var(--border)" }}
     >
       <div className="container">
-        <div
+        <Reveal
+          preset="fadeUp"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -30,16 +39,24 @@ export default function CaseStudies({ isMobile, isSmall }: CaseStudiesProps) {
             </div>
             <h2 className="section-title">Case Studies</h2>
           </div>
-          <Link
-            to="/projects"
-            className="btn btn-outline"
-            style={{ fontSize: 13, padding: "10px 22px" }}
+          <motion.div
+            whileHover={hoverLiftTarget}
+            whileTap={{ scale: 0.97 }}
+            transition={hoverLift}
           >
-            All Projects →
-          </Link>
-        </div>
+            <Link
+              to="/projects"
+              className="btn btn-outline"
+              style={{ fontSize: 13, padding: "10px 22px" }}
+            >
+              All Projects →
+            </Link>
+          </motion.div>
+        </Reveal>
 
-        <div
+        <RevealStagger
+          stagger={0.12}
+          delayChildren={0.05}
           style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
@@ -47,8 +64,16 @@ export default function CaseStudies({ isMobile, isSmall }: CaseStudiesProps) {
           }}
         >
           {caseStudies.map((cs) => (
-            <article
+            <motion.article
               key={cs.projectId}
+              variants={scaleIn}
+              whileHover={{
+                y: -6,
+                borderColor: "rgba(59,130,246,0.3)",
+                boxShadow:
+                  "0 22px 48px rgba(0,0,0,0.32), 0 0 32px rgba(59,130,246,0.06)",
+              }}
+              transition={hoverLift}
               style={{
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
@@ -59,6 +84,7 @@ export default function CaseStudies({ isMobile, isSmall }: CaseStudiesProps) {
                 gap: 18,
                 position: "relative",
                 overflow: "hidden",
+                willChange: "transform",
               }}
             >
               {/* accent bar */}
@@ -215,24 +241,29 @@ export default function CaseStudies({ isMobile, isSmall }: CaseStudiesProps) {
                 ))}
               </div>
 
-              <Link
-                to={`/projects/${cs.projectId}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  color: cs.accent,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 12.5,
-                  textDecoration: "none",
-                  marginTop: "auto",
-                }}
+              <motion.div
+                whileHover={{ x: 6 }}
+                transition={hoverLift}
+                style={{ marginTop: "auto" }}
               >
-                Read the full case study <span>→</span>
-              </Link>
-            </article>
+                <Link
+                  to={`/projects/${cs.projectId}`}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    color: cs.accent,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 12.5,
+                    textDecoration: "none",
+                  }}
+                >
+                  Read the full case study <span>→</span>
+                </Link>
+              </motion.div>
+            </motion.article>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );

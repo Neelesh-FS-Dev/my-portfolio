@@ -1,4 +1,11 @@
+import { motion } from "framer-motion";
 import proofStats from "../../../shared/data/proofStats";
+import {
+  Reveal,
+  RevealStagger,
+  scaleIn,
+  hoverLift,
+} from "../../../shared/components/motion";
 
 export interface ProofStatsProps {
   isMobile: boolean;
@@ -17,17 +24,21 @@ export default function ProofStats({ isMobile, isSmall }: ProofStatsProps) {
       }}
     >
       <div className="container">
-        <div className="section-label">
-          <span className="section-num">01 /</span> Measurable Proof
-        </div>
-        <h2
-          className="section-title"
-          style={{ marginBottom: isMobile ? 28 : 40 }}
-        >
-          Numbers That Back the Work
-        </h2>
+        <Reveal preset="fadeUp">
+          <div className="section-label">
+            <span className="section-num">01 /</span> Measurable Proof
+          </div>
+          <h2
+            className="section-title"
+            style={{ marginBottom: isMobile ? 28 : 40 }}
+          >
+            Numbers That Back the Work
+          </h2>
+        </Reveal>
 
-        <div
+        <RevealStagger
+          stagger={0.06}
+          delayChildren={0.05}
           style={{
             display: "grid",
             gridTemplateColumns: isMobile
@@ -39,8 +50,15 @@ export default function ProofStats({ isMobile, isSmall }: ProofStatsProps) {
           }}
         >
           {proofStats.map((stat) => (
-            <div
+            <motion.div
               key={stat.label}
+              variants={scaleIn}
+              whileHover={{
+                y: -4,
+                borderColor: "rgba(59,130,246,0.35)",
+                boxShadow: "0 12px 32px rgba(59,130,246,0.1)",
+              }}
+              transition={hoverLift}
               style={{
                 padding: isSmall ? "18px 16px" : "22px 18px",
                 background: "var(--surface)",
@@ -49,6 +67,7 @@ export default function ProofStats({ isMobile, isSmall }: ProofStatsProps) {
                 display: "flex",
                 flexDirection: "column",
                 gap: 6,
+                willChange: "transform",
               }}
             >
               <div
@@ -87,9 +106,9 @@ export default function ProofStats({ isMobile, isSmall }: ProofStatsProps) {
                   {stat.sublabel}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );

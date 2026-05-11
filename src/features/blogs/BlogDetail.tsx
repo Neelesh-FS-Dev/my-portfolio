@@ -11,6 +11,8 @@ import BlogHero from "./detail/BlogHero";
 import BlogContent from "./detail/BlogContent";
 import BlogAuthor from "./detail/BlogAuthor";
 import MoreArticles from "./detail/MoreArticles";
+import ReadingProgress from "./detail/ReadingProgress";
+import ShareBar from "./detail/ShareBar";
 
 export default function BlogDetail() {
   const { id } = useParams();
@@ -108,12 +110,18 @@ export default function BlogDetail() {
         schema={[blogSchema, breadcrumbSchema]}
       />
 
+      <ReadingProgress />
+
       <BlogHero post={post} />
 
       {/* Article body */}
       <article style={{ padding: isMobile ? "52px 0 80px" : "80px 0 120px" }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <BlogContent post={post} />
+          <ShareBar
+            url={`${SITE_URL}/blogs/${post.slug || post.id}`}
+            title={post.title}
+          />
           <BlogAuthor />
         </div>
       </article>

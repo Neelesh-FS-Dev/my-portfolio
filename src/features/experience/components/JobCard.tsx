@@ -1,10 +1,17 @@
 import { memo } from "react";
+import { motion } from "framer-motion";
 import { FiSmartphone, FiGlobe, FiExternalLink } from "react-icons/fi";
 import type { ExperienceEntry, RoleType } from "../types";
 import { roleColors } from "../data/colorMapping";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import { useMagnetic } from "../../../shared/hooks/useMagnetic";
 import { getExperience } from "../../../shared/utils/getExperience";
+import {
+  RevealStagger,
+  fadeUp,
+  popIn,
+  slideRight,
+  hoverLift,
+} from "../../../shared/components/motion";
 
 export interface JobCardProps {
   job: ExperienceEntry;
@@ -14,25 +21,25 @@ export interface JobCardProps {
 }
 
 function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
-  const [ref, visible] = useReveal<HTMLDivElement>(0.08);
   const magnetic = useMagnetic<HTMLDivElement>(14, 10);
   const lineColor = roleColors[job.type as RoleType];
   const allTech = [...(job.mobileTech || []), ...(job.webTech || [])];
 
   return (
-    <div
-      ref={ref}
+    <motion.div
+      initial={{ opacity: 0, x: -32, y: 8 }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{
+        duration: 0.65,
+        delay: idx * 0.1,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{
         position: "relative",
         marginBottom: 56,
         paddingBottom: 56,
         borderBottom: "1px solid var(--border)",
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? "translateX(0) translateY(0)"
-          : "translateX(-32px) translateY(8px)",
-        transition: `opacity 0.65s cubic-bezier(0.16,1,0.3,1) ${idx * 0.1}s,
-                     transform 0.65s cubic-bezier(0.16,1,0.3,1) ${idx * 0.1}s`,
       }}
     >
       {/* Timeline dot */}
@@ -140,10 +147,12 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
             {job.role}
           </h2>
           {job.companyUrl ? (
-            <a
+            <motion.a
               href={job.companyUrl}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ x: 3 }}
+              transition={hoverLift}
               style={{
                 fontSize: 15,
                 color: lineColor,
@@ -152,14 +161,11 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 5,
-                transition: "gap 0.2s ease",
+                gap: 6,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.gap = "8px")}
-              onMouseLeave={(e) => (e.currentTarget.style.gap = "5px")}
             >
               {job.company} <FiExternalLink size={13} />
-            </a>
+            </motion.a>
           ) : (
             <p
               style={{
@@ -185,8 +191,13 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
         </div>
 
         {/* Duration card with tilt */}
-        <div
+        <motion.div
           {...magnetic}
+          whileHover={{
+            boxShadow: `0 8px 32px ${lineColor}18`,
+            borderColor: `${lineColor}40`,
+          }}
+          transition={hoverLift}
           style={{
             background: "var(--surface)",
             border: `1px solid ${lineColor}20`,
@@ -196,16 +207,7 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
             position: "relative",
             overflow: "hidden",
             cursor: "default",
-            transition: "box-shadow 0.3s ease, border-color 0.3s ease",
             willChange: "transform",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = `0 8px 32px ${lineColor}18`;
-            e.currentTarget.style.borderColor = `${lineColor}40`;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "none";
-            e.currentTarget.style.borderColor = `${lineColor}20`;
           }}
         >
           <div
@@ -240,12 +242,15 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
           >
             {job.startDate ? getExperience(job.startDate) : job.duration}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Tech stack */}
       {job.type === "current" && job.mobileTech?.length > 0 && (
-        <div
+        <RevealStagger
+          stagger={0.1}
+          delayChildren={idx * 0.1 + 0.2}
+          amount={0.1}
           style={{
             display: "grid",
             gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
@@ -266,17 +271,15 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
               color: "var(--accent)",
               items: job.webTech,
             },
-          ].map((d, di) => (
-            <div
+          ].map((d) => (
+            <motion.div
               key={d.label}
+              variants={fadeUp}
               style={{
                 background: "var(--surface)",
                 border: `1px solid ${d.color}20`,
                 borderRadius: 14,
                 padding: "14px 16px",
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(12px)",
-                transition: `opacity 0.5s ease ${idx * 0.1 + 0.2 + di * 0.1}s, transform 0.5s ease ${idx * 0.1 + 0.2 + di * 0.1}s`,
               }}
             >
               <div
@@ -294,11 +297,19 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
               >
                 {d.icon} {d.label} Stack
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {d.items.map((item, ti) => (
-                  <span
+              <RevealStagger
+                stagger={0.04}
+                delayChildren={0.05}
+                amount={0.1}
+                style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
+              >
+                {d.items.map((item) => (
+                  <motion.span
                     key={item}
                     className="tech-pill"
+                    variants={popIn}
+                    whileHover={{ scale: 1.08, y: -2 }}
+                    transition={hoverLift}
                     style={{
                       padding: "3px 9px",
                       borderRadius: 100,
@@ -306,22 +317,24 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
                       fontSize: 11,
                       color: "var(--text2)",
                       border: "1px solid var(--border)",
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "scale(1)" : "scale(0.85)",
-                      transition: `opacity 0.35s ease ${idx * 0.1 + 0.3 + ti * 0.04}s, transform 0.35s ease ${idx * 0.1 + 0.3 + ti * 0.04}s, background 0.2s, border-color 0.2s`,
+                      cursor: "default",
+                      willChange: "transform",
                     }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
-            </div>
+              </RevealStagger>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       )}
 
       {job.type !== "current" && allTech.length > 0 && (
-        <div
+        <RevealStagger
+          stagger={0.04}
+          delayChildren={idx * 0.1 + 0.15}
+          amount={0.1}
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -329,10 +342,13 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
             marginBottom: 16,
           }}
         >
-          {allTech.map((t, ti) => (
-            <span
+          {allTech.map((t) => (
+            <motion.span
               key={t}
               className="tech-pill"
+              variants={popIn}
+              whileHover={{ scale: 1.08, y: -2 }}
+              transition={hoverLift}
               style={{
                 padding: "3px 10px",
                 borderRadius: 100,
@@ -341,29 +357,31 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
                 color: "var(--text2)",
                 border: "1px solid var(--border)",
                 background: "var(--surface)",
-                opacity: visible ? 1 : 0,
-                transform: visible ? "scale(1)" : "scale(0.85)",
-                transition: `opacity 0.35s ease ${idx * 0.1 + 0.15 + ti * 0.04}s, transform 0.35s ease ${idx * 0.1 + 0.15 + ti * 0.04}s, background 0.2s, border-color 0.2s`,
+                cursor: "default",
+                willChange: "transform",
               }}
             >
               {t}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </RevealStagger>
       )}
 
       {/* Highlights */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <RevealStagger
+        stagger={0.07}
+        delayChildren={idx * 0.1 + 0.25}
+        amount={0.1}
+        style={{ display: "flex", flexDirection: "column", gap: 10 }}
+      >
         {job.highlights.map((h, hi) => (
-          <div
+          <motion.div
             key={hi}
+            variants={slideRight}
             style={{
               display: "flex",
               gap: 10,
               alignItems: "flex-start",
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateX(0)" : "translateX(-16px)",
-              transition: `opacity 0.45s ease ${idx * 0.1 + 0.25 + hi * 0.07}s, transform 0.45s ease ${idx * 0.1 + 0.25 + hi * 0.07}s`,
             }}
           >
             <span
@@ -385,10 +403,10 @@ function JobCard({ job, idx, isMobile, isSmall }: JobCardProps) {
             >
               {h}
             </span>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </RevealStagger>
+    </motion.div>
   );
 }
 

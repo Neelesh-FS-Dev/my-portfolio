@@ -4,6 +4,7 @@ import type { Project } from "./types";
 import projects from "./data/projects";
 import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
 import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
+import caseStudies from "../../shared/data/caseStudies";
 
 import ImageViewer from "./detail/ImageViewer";
 import ProjectHero from "./detail/ProjectHero";
@@ -12,6 +13,7 @@ import ScreenshotsSection from "./detail/ScreenshotsSection";
 import FeaturesSection from "./detail/FeaturesSection";
 import OtherProjects from "./detail/OtherProjects";
 import RelatedWriteups from "./detail/RelatedWriteups";
+import CaseStudyBlock from "./detail/CaseStudyBlock";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -70,6 +72,7 @@ export default function ProjectDetail() {
     );
 
   const accentColor = "#3b82f6";
+  const caseStudy = caseStudies.find((cs) => cs.projectId === project.id);
 
   // Enhanced Project Schema
   const projectSchema = {
@@ -161,6 +164,11 @@ export default function ProjectDetail() {
                 <div className="divider" style={{ marginBottom: 52 }} />
               </>
             )}
+
+          {/* Case Study (Problem → Built → Hard parts → Result) */}
+          {caseStudy && (
+            <CaseStudyBlock caseStudy={caseStudy} isSmall={isSmall} />
+          )}
 
           {/* Outcome callout */}
           {project.outcome && (

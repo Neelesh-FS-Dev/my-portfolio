@@ -1,5 +1,7 @@
 import { memo } from "react";
 import type { ReactElement } from "react";
+import { motion } from "framer-motion";
+import { slideRight, hoverLift } from "../../../shared/components/motion";
 
 export interface ContactItem {
   icon: ReactElement;
@@ -10,15 +12,19 @@ export interface ContactItem {
 
 export interface ContactRowProps {
   item: ContactItem;
-  idx: number;
-  visible: boolean;
   isSmall: boolean;
 }
 
-function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
+function ContactRow({ item, isSmall }: ContactRowProps) {
   return (
-    <div
-      className="contact-row"
+    <motion.div
+      variants={slideRight}
+      whileHover={{
+        borderColor: "rgba(59,130,246,0.3)",
+        boxShadow: "0 4px 20px rgba(59,130,246,0.08)",
+        x: 4,
+      }}
+      transition={hoverLift}
       style={{
         display: "flex",
         gap: 14,
@@ -27,25 +33,13 @@ function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
         borderRadius: 14,
         background: "var(--surface)",
         border: "1px solid var(--border)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateX(0)" : "translateX(-24px)",
-        transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + idx * 0.07}s,
-                     transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + idx * 0.07}s,
-                     border-color 0.2s, box-shadow 0.2s`,
         cursor: item.href ? "pointer" : "default",
-        willChange: "transform, opacity",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(59,130,246,0.3)";
-        e.currentTarget.style.boxShadow = "0 4px 20px rgba(59,130,246,0.08)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.boxShadow = "none";
+        willChange: "transform",
       }}
     >
-      <div
-        className="contact-icon"
+      <motion.div
+        whileHover={{ scale: 1.1, rotate: -6 }}
+        transition={hoverLift}
         style={{
           width: 40,
           height: 40,
@@ -57,12 +51,10 @@ function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
           alignItems: "center",
           justifyContent: "center",
           fontSize: 17,
-          transition:
-            "transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.2s",
         }}
       >
         {item.icon}
-      </div>
+      </motion.div>
       <div style={{ minWidth: 0 }}>
         <div
           style={{
@@ -105,7 +97,7 @@ function ContactRow({ item, idx, visible, isSmall }: ContactRowProps) {
           </span>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

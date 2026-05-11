@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   TbBrandReactNative,
   TbRefresh,
@@ -9,6 +10,13 @@ import {
 } from "react-icons/tb";
 import services from "../../../shared/data/services";
 import type { Service } from "../../../shared/data/services";
+import {
+  Reveal,
+  RevealStagger,
+  fadeUp,
+  hoverLift,
+  hoverLiftTarget,
+} from "../../../shared/components/motion";
 
 export interface ServicesProps {
   isMobile: boolean;
@@ -44,7 +52,8 @@ export default function Services({ isMobile, isSmall }: ServicesProps) {
       }}
     >
       <div className="container">
-        <div
+        <Reveal
+          preset="fadeUp"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -60,16 +69,24 @@ export default function Services({ isMobile, isSmall }: ServicesProps) {
             </div>
             <h2 className="section-title">What I Can Help With</h2>
           </div>
-          <Link
-            to="/contact"
-            className="btn btn-primary"
-            style={{ fontSize: 13, padding: "10px 22px" }}
+          <motion.div
+            whileHover={hoverLiftTarget}
+            whileTap={{ scale: 0.97 }}
+            transition={hoverLift}
           >
-            Discuss a Project →
-          </Link>
-        </div>
+            <Link
+              to="/contact"
+              className="btn btn-primary"
+              style={{ fontSize: 13, padding: "10px 22px" }}
+            >
+              Discuss a Project →
+            </Link>
+          </motion.div>
+        </Reveal>
 
-        <div
+        <RevealStagger
+          stagger={0.08}
+          delayChildren={0.05}
           style={{
             display: "grid",
             gridTemplateColumns: isMobile
@@ -87,7 +104,7 @@ export default function Services({ isMobile, isSmall }: ServicesProps) {
               isSmall={isSmall}
             />
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );
@@ -100,7 +117,14 @@ interface ServiceCardProps {
 
 function ServiceCard({ service, isSmall }: ServiceCardProps) {
   return (
-    <div
+    <motion.div
+      variants={fadeUp}
+      whileHover={{
+        y: -6,
+        borderColor: "rgba(59,130,246,0.35)",
+        boxShadow: "0 18px 44px rgba(0,0,0,0.32), 0 0 24px rgba(59,130,246,0.08)",
+      }}
+      transition={hoverLift}
       style={{
         padding: isSmall ? 22 : 26,
         background: "var(--surface)",
@@ -110,9 +134,12 @@ function ServiceCard({ service, isSmall }: ServiceCardProps) {
         flexDirection: "column",
         gap: 14,
         height: "100%",
+        willChange: "transform",
       }}
     >
-      <div
+      <motion.div
+        whileHover={{ scale: 1.08, rotate: -4 }}
+        transition={hoverLift}
         style={{
           width: 40,
           height: 40,
@@ -126,7 +153,7 @@ function ServiceCard({ service, isSmall }: ServiceCardProps) {
         }}
       >
         <ServiceIcon iconKey={service.icon} />
-      </div>
+      </motion.div>
       <div>
         <h3
           style={{
@@ -179,6 +206,6 @@ function ServiceCard({ service, isSmall }: ServiceCardProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 }

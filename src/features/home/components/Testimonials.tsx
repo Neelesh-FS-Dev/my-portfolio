@@ -1,340 +1,280 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { FiUser, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { memo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import testimonials from "../../../shared/data/testimonials";
+import type { Testimonial } from "../../../shared/data/testimonials";
+import { Reveal } from "../../../shared/components/motion";
 
-const AUTO_ADVANCE_MS = 7000;
+/**
+ * Adapted from 21st.dev "testimonials-columns-1" — three vertical marquees
+ * that scroll at different speeds. Original was Tailwind + motion/react +
+ * randomuser.me photos; this version uses inline scoped CSS, framer-motion,
+ * project tokens, and initials avatars (no stock images).
+ */
 
 export interface TestimonialsProps {
   isMobile: boolean;
   isSmall: boolean;
 }
 
-export default function Testimonials({
-  isMobile,
-  isSmall,
-}: TestimonialsProps) {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const touchStartX = useRef<number | null>(null);
+function getInitials(name: string) {
+  const parts = name.trim().split(/\s+/);
+  const initials = parts.slice(0, 2).map((p) => p[0] ?? "");
+  return initials.join("").toUpperCase();
+}
 
-  const total = testimonials.length;
-
-  const goTo = useCallback(
-    (next: number) => {
-      setIndex(((next % total) + total) % total);
-    },
-    [total],
-  );
-
-  const next = useCallback(() => goTo(index + 1), [goTo, index]);
-  const prev = useCallback(() => goTo(index - 1), [goTo, index]);
-
-  // Auto-advance
-  useEffect(() => {
-    if (paused || total <= 1) return;
-    const id = window.setTimeout(() => goTo(index + 1), AUTO_ADVANCE_MS);
-    return () => window.clearTimeout(id);
-  }, [index, paused, total, goTo]);
-
-  // Keyboard nav
-  const handleKey = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        prev();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        next();
-      }
-    },
-    [next, prev],
-  );
-
-  // Touch swipe
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (touchStartX.current === null) return;
-      const delta = e.changedTouches[0].clientX - touchStartX.current;
-      touchStartX.current = null;
-      if (Math.abs(delta) < 40) return;
-      if (delta < 0) next();
-      else prev();
-    },
-    [next, prev],
-  );
-
+function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <section
-      className="section"
-      style={{ borderTop: "1px solid var(--border)" }}
-    >
-      <div className="container">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            marginBottom: isMobile ? 28 : 40,
-            flexWrap: "wrap",
-            gap: 14,
-          }}
-        >
-          <div>
-            <div className="section-label">
-              <span className="section-num">07 /</span> Working With Me
-            </div>
-            <h2 className="section-title">What People Say</h2>
-          </div>
-          <div
-            style={{ display: "flex", gap: 8, alignItems: "center" }}
-            aria-label="Testimonial navigation"
-          >
-            <CarouselButton
-              direction="prev"
-              onClick={prev}
-              ariaLabel="Previous testimonial"
-            />
-            <span
-              aria-live="polite"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "var(--text3)",
-                minWidth: 38,
-                textAlign: "center",
-                letterSpacing: "0.04em",
-              }}
-            >
-              {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </span>
-            <CarouselButton
-              direction="next"
-              onClick={next}
-              ariaLabel="Next testimonial"
-            />
-          </div>
+    <article className="tcol-card">
+      <p className="tcol-quote">{t.quote}</p>
+      <div className="tcol-author">
+        <div className="tcol-avatar" aria-hidden>
+          {getInitials(t.author)}
         </div>
+        <div style={{ minWidth: 0 }}>
+          <div className="tcol-name">{t.author}</div>
+          <div className="tcol-role">{t.role}</div>
+          {t.context && <div className="tcol-context">{t.context}</div>}
+        </div>
+      </div>
+    </article>
+  );
+}
 
-        {/* Viewport */}
-        <div
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Client testimonials"
-          tabIndex={0}
-          onKeyDown={handleKey}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setPaused(true)}
-          onBlur={() => setPaused(false)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            borderRadius: 14,
-            outline: "none",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              transform: `translateX(-${index * 100}%)`,
-              transition: "transform 0.55s cubic-bezier(0.16,1,0.3,1)",
-              willChange: "transform",
-            }}
-          >
-            {testimonials.map((t, i) => (
-              <figure
-                key={t.author + t.context}
-                aria-hidden={i !== index}
-                style={{
-                  margin: 0,
-                  padding: isSmall ? 24 : 36,
-                  flex: "0 0 100%",
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 14,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 18,
-                  minHeight: isSmall ? 280 : 240,
-                }}
-              >
-                <div
-                  aria-hidden="true"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 800,
-                    fontSize: 56,
-                    lineHeight: 0.5,
-                    color: "var(--accent)",
-                    opacity: 0.35,
-                  }}
-                >
-                  “
-                </div>
-                <blockquote
-                  style={{
-                    margin: 0,
-                    color: "var(--text)",
-                    fontSize: isSmall ? 14.5 : 17,
-                    lineHeight: 1.7,
-                    maxWidth: 760,
-                  }}
-                >
-                  {t.quote}
-                </blockquote>
-                <figcaption
-                  style={{
-                    marginTop: "auto",
-                    display: "flex",
-                    gap: 14,
-                    alignItems: "center",
-                    paddingTop: 16,
-                    borderTop: "1px solid var(--border)",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50%",
-                      background: "rgba(59,130,246,0.1)",
-                      border: "1px solid rgba(59,130,246,0.25)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "var(--accent)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <FiUser size={18} />
-                  </div>
-                  <div style={{ minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 700,
-                        fontSize: isSmall ? 14 : 15,
-                        color: "var(--text)",
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {t.author}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 11,
-                        color: "var(--text3)",
-                        letterSpacing: "0.04em",
-                        marginTop: 2,
-                      }}
-                    >
-                      {t.role}
-                    </div>
-                    {t.context && (
-                      <div
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: 10.5,
-                          color: "var(--text3)",
-                          opacity: 0.75,
-                          marginTop: 3,
-                        }}
-                      >
-                        {t.context}
-                      </div>
-                    )}
-                  </div>
-                </figcaption>
-              </figure>
+interface ColumnProps {
+  items: Testimonial[];
+  duration: number;
+  className?: string;
+}
+
+// Hoisted so framer-motion sees a stable reference each render and doesn't
+// reschedule the loop. Same for the transition factory.
+const MARQUEE_ANIMATE = { y: "-50%" } as const;
+const buildMarqueeTransition = (duration: number) =>
+  ({
+    duration,
+    repeat: Infinity,
+    ease: "linear",
+    repeatType: "loop",
+  }) as const;
+
+function TestimonialsColumn({ items, duration, className = "" }: ColumnProps) {
+  const reduce = useReducedMotion();
+  return (
+    <div className={`tcol ${className}`.trim()}>
+      <motion.div
+        className="tcol-track"
+        animate={reduce ? undefined : MARQUEE_ANIMATE}
+        transition={reduce ? undefined : buildMarqueeTransition(duration)}
+      >
+        {[0, 1].map((dup) => (
+          <div className="tcol-batch" key={dup} aria-hidden={dup === 1}>
+            {items.map((t, i) => (
+              <TestimonialCard key={`${t.author}-${i}`} t={t} />
             ))}
           </div>
-        </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
-        {/* Dots */}
-        <div
-          role="tablist"
-          aria-label="Select testimonial"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 8,
-            marginTop: 20,
-          }}
-        >
-          {testimonials.map((t, i) => {
-            const active = i === index;
-            return (
-              <button
-                key={t.author + t.context}
-                role="tab"
-                aria-selected={active}
-                aria-label={`Go to testimonial ${i + 1}: ${t.author}`}
-                onClick={() => goTo(i)}
-                style={{
-                  width: active ? 28 : 8,
-                  height: 8,
-                  borderRadius: 8,
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  background: active ? "var(--accent)" : "var(--border)",
-                  transition: "width 0.3s ease, background 0.3s ease",
-                }}
-              />
-            );
-          })}
-        </div>
+// Distribute the 4 real testimonials across 3 columns so each column
+// has at least 2 cards and the columns don't show the same item at the
+// same vertical offset.
+const col1 = [testimonials[0], testimonials[1]];
+const col2 = [testimonials[2], testimonials[3]];
+const col3 = [testimonials[1], testimonials[3], testimonials[0]];
+
+const STYLES = `
+  .testimonials-section {
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tcol-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+  .tcol-header .section-label {
+    justify-content: center;
+  }
+  .tcol-header .section-title {
+    margin-top: 4px;
+  }
+  .tcol-sub {
+    color: var(--text2);
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin: 14px 0 0;
+  }
+
+  .tcol-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-height: 720px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+
+  .tcol {
+    width: 100%;
+    max-width: 360px;
+    flex-shrink: 0;
+  }
+  .tcol-md, .tcol-lg { display: none; }
+  @media (min-width: 768px) { .tcol-md { display: block; } }
+  @media (min-width: 1024px) { .tcol-lg { display: block; } }
+
+  .tcol-track {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    will-change: transform;
+  }
+  .tcol-batch {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tcol-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow:
+      0 14px 36px rgba(0, 0, 0, 0.32),
+      0 0 24px rgba(59, 130, 246, 0.05);
+    transition:
+      border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .tcol-card:hover {
+    border-color: rgba(59, 130, 246, 0.32);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.4),
+      0 0 36px rgba(59, 130, 246, 0.12);
+  }
+
+  .tcol-quote {
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0 0 22px;
+  }
+
+  .tcol-author {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .tcol-avatar {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.06) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  }
+  .tcol-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .tcol-role {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text3);
+    letter-spacing: 0.04em;
+    margin-top: 3px;
+  }
+  .tcol-context {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text3);
+    opacity: 0.72;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    .tcol-card { padding: 22px; }
+    .tcol-quote { font-size: 13.5px; }
+  }
+`;
+
+function TestimonialsBase({ isMobile, isSmall }: TestimonialsProps) {
+  return (
+    <section className="section testimonials-section">
+      <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+      <div className="container">
+        <Reveal preset="fadeUp" className="tcol-header">
+          <div className="section-label">
+            <span className="section-num">07 /</span> Working With Me
+          </div>
+          <h2
+            className="section-title"
+            style={{
+              fontSize: isSmall
+                ? "clamp(28px, 7vw, 36px)"
+                : "clamp(32px, 5vw, 56px)",
+              marginBottom: 0,
+            }}
+          >
+            What People Say
+          </h2>
+          <p className="tcol-sub">
+            Direct words from founders, scrum masters, and clients I've
+            shipped production work with.
+          </p>
+        </Reveal>
+
+        <Reveal preset="fadeIn" delay={0.1}>
+          <div
+            className="tcol-row"
+            style={{
+              maxHeight: isMobile ? 560 : 720,
+              gap: isSmall ? 16 : 20,
+            }}
+          >
+            <TestimonialsColumn items={col1} duration={32} />
+            <TestimonialsColumn
+              items={col2}
+              duration={38}
+              className="tcol-md"
+            />
+            <TestimonialsColumn
+              items={col3}
+              duration={35}
+              className="tcol-lg"
+            />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
-interface CarouselButtonProps {
-  direction: "prev" | "next";
-  onClick: () => void;
-  ariaLabel: string;
-}
-
-function CarouselButton({ direction, onClick, ariaLabel }: CarouselButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={ariaLabel}
-      style={{
-        width: 36,
-        height: 36,
-        borderRadius: "50%",
-        border: "1px solid var(--border)",
-        background: "var(--surface)",
-        color: "var(--text2)",
-        cursor: "pointer",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        transition: "border-color .2s, color .2s, background .2s",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(59,130,246,0.4)";
-        e.currentTarget.style.color = "var(--accent)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.color = "var(--text2)";
-      }}
-    >
-      {direction === "prev" ? (
-        <FiChevronLeft size={18} />
-      ) : (
-        <FiChevronRight size={18} />
-      )}
-    </button>
-  );
-}
+export default memo(TestimonialsBase);
