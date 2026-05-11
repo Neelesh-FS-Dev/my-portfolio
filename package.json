@@ -17,6 +17,7 @@
     "lighthouse": "tsx scripts/lighthouse.mjs"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "^0.0.76",
     "@react-three/drei": "^9",
     "@react-three/fiber": "^8",
     "framer-motion": "^12.38.0",

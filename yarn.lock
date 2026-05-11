@@ -572,6 +572,18 @@
   dependencies:
     promise-worker-transferable "^1.0.4"
 
+"@paper-design/shaders-react@^0.0.76":
+  version "0.0.76"
+  resolved "https://registry.yarnpkg.com/@paper-design/shaders-react/-/shaders-react-0.0.76.tgz#c574c2e75b8e7b40a1c50d2e919cd10f16be469a"
+  integrity sha512-uPJWrYRf6cJdO2H+fuXlahaqz0QjYglNAyUTaRfIInpzCa/d6guxBIK003soAZQFuQ035yg9FhtfFzKNWm+a5A==
+  dependencies:
+    "@paper-design/shaders" "0.0.76"
+
+"@paper-design/shaders@0.0.76":
+  version "0.0.76"
+  resolved "https://registry.yarnpkg.com/@paper-design/shaders/-/shaders-0.0.76.tgz#85788f66ac94067af284d3ba4ccb33f8df6b531c"
+  integrity sha512-AcNDY4J66YQHUfQYFInkCP7M9VOje0od7wLpOR7LtCmc532opJy6ll+h1W9zBovz8tt9U7OADUmJ/qKEXyOX/A==
+
 "@react-spring/animated@~9.7.5":
   version "9.7.5"
   resolved "https://registry.yarnpkg.com/@react-spring/animated/-/animated-9.7.5.tgz#eb0373aaf99b879736b380c2829312dae3b05f28"

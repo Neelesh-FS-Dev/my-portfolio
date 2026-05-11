@@ -1,16 +1,41 @@
+import { Briefcase, Zap, GraduationCap, Award } from "lucide-react";
 import experience from "./data/experience";
 import { degrees } from "./data/education";
 import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
 import SEO from "../../shared/components/ui/SEO";
 import ExperienceHero from "./components/ExperienceHero";
-import JobCard from "./components/JobCard";
 import EducationSection from "./components/EducationSection";
 import CertificationsSection from "./components/CertificationsSection";
+import Timeline, { type TimelineEntry } from "../../shared/components/ui/Timeline";
+
+function pickIcon(role: string, type: string) {
+  if (type === "current") return Zap;
+  if (role.toLowerCase().includes("president")) return Award;
+  if (role.toLowerCase().includes("intern")) return GraduationCap;
+  return Briefcase;
+}
 
 export default function Experience() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
   const edu = degrees[0];
+
+  const timelineEntries: TimelineEntry[] = experience.map((job) => {
+    const tech = [...job.mobileTech, ...job.webTech];
+    const [first, ...rest] = job.highlights;
+    const items = [...rest];
+    if (tech.length > 0) items.push(`Stack — ${tech.join(" · ")}`);
+    return {
+      icon: pickIcon(job.role, job.type),
+      title: `${job.role} — ${job.company}`,
+      subtitle: `${job.period} · ${job.location}`,
+      description: first ?? `${job.role} at ${job.company}.`,
+      items,
+      button: job.companyUrl
+        ? { url: job.companyUrl, text: "Visit Company" }
+        : undefined,
+    };
+  });
 
   return (
     <div>
@@ -24,51 +49,8 @@ export default function Experience() {
 
       {/* ─── TIMELINE ─── */}
       <section className="section">
-        <div className="container" style={{ maxWidth: 880 }}>
-          <div
-            style={{ position: "relative", paddingLeft: isMobile ? 28 : 44 }}
-          >
-            {/* Glowing vertical line */}
-            <div
-              style={{
-                position: "absolute",
-                left: isMobile ? 13 : 7,
-                top: 0,
-                bottom: 0,
-                width: 2,
-                background:
-                  "linear-gradient(180deg, var(--accent) 0%, var(--accent2) 40%, #ec4899 75%, transparent 100%)",
-                borderRadius: 2,
-                boxShadow: "0 0 12px rgba(59,130,246,0.3)",
-                animation: "line-pulse 3s ease-in-out infinite",
-              }}
-            />
-            {/* Traveling glow dot */}
-            <div
-              style={{
-                position: "absolute",
-                left: isMobile ? 10 : 4,
-                top: 0,
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: "var(--accent)",
-                boxShadow: "0 0 18px var(--accent)",
-                animation: "travel-dot 5s ease-in-out infinite",
-                zIndex: 2,
-              }}
-            />
-
-            {experience.map((job, idx) => (
-              <JobCard
-                key={idx}
-                job={job}
-                idx={idx}
-                isMobile={isMobile}
-                isSmall={isSmall}
-              />
-            ))}
-          </div>
+        <div className="container" style={{ maxWidth: 980 }}>
+          <Timeline entries={timelineEntries} />
         </div>
       </section>
 

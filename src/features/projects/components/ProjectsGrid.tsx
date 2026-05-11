@@ -1,8 +1,10 @@
+import { useState } from "react";
 import type { Project } from "../types";
 import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 import ProjectCard from "./ProjectCard";
 import { FiSearch } from "react-icons/fi";
 import { Reveal } from "../../../shared/components/motion";
+import SpotlightCard from "../../../shared/components/ui/SpotlightCard";
 
 export interface ProjectsGridProps {
   projects: Project[];
@@ -18,6 +20,7 @@ export default function ProjectsGrid({
   category,
 }: ProjectsGridProps) {
   const isMobile = useIsMobile();
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section className="section">
@@ -55,18 +58,30 @@ export default function ProjectsGrid({
                 !isMobile &&
                 category === "All" &&
                 domainTab !== "web";
+              const dimmed =
+                hoveredId !== null && hoveredId !== project.id;
               return (
                 <div
                   key={`${filterKey}-${project.id}`}
                   style={{
                     gridColumn: isFeatured ? "1 / -1" : "auto",
+                    height: "100%",
+                    display: "flex",
                   }}
                 >
-                  <ProjectCard
-                    project={project}
-                    featured={isFeatured}
-                    index={i}
-                  />
+                  <SpotlightCard
+                    accentColor={project.accent ?? "#3b82f6"}
+                    dimmed={dimmed}
+                    onHoverStart={() => setHoveredId(project.id)}
+                    onHoverEnd={() => setHoveredId(null)}
+                    style={{ width: "100%" }}
+                  >
+                    <ProjectCard
+                      project={project}
+                      featured={isFeatured}
+                      index={i}
+                    />
+                  </SpotlightCard>
                 </div>
               );
             })}

@@ -10,6 +10,7 @@ import {
   hoverLiftTarget,
   tapTarget,
 } from "../../../shared/components/motion";
+import GLSLHills from "../../../shared/components/effects/GLSLHills";
 
 export interface ContactHeroProps {
   isMobile: boolean;
@@ -38,6 +39,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
       }}
       className="grid-bg"
     >
+      <GLSLHills />
       {/* Breathing radial glow */}
       <div
         style={{
@@ -76,6 +78,7 @@ export default function ContactHero({ isMobile, isSmall }: ContactHeroProps) {
         className="container"
         stagger={0.1}
         delayChildren={0.05}
+        style={{ position: "relative", zIndex: 1 }}
       >
         <motion.div className="section-label" variants={fadeUp}>
           Hire Me

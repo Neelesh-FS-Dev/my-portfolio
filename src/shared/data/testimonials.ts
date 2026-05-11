@@ -34,6 +34,41 @@ const testimonials: Testimonial[] = [
     role: "Founder & CEO, The Special Character Pvt Ltd",
     context: "Next.js SaaS build + React Native training programme",
   },
+  {
+    quote:
+      "Reviewing Neelesh's PRs was the part of the week I actually looked forward to. The diffs were small, the commits told a story, and the tricky parts always had a comment explaining the why. Half the patterns I use in my own React Native code now came from picking those reviews apart.",
+    author: "Bhargav Sorathiyaa",
+    role: "React Native Developer",
+    context: "Cross-team mobile reviews & shared component library",
+  },
+  {
+    quote:
+      "I joined as a junior front-end dev and Neelesh was the person I learned the most from in my first year. He never made me feel small for asking, but he also never just gave the answer — he'd walk through how he'd debug it, then let me try. By the end of two quarters I was shipping features on my own without needing the safety net.",
+    author: "Shagun Garg",
+    role: "Frontend Engineer",
+    context: "Mentorship & onboarding through React.js feature work",
+  },
+  {
+    quote:
+      "We had a Reanimated v3 issue that nobody on the team could nail down — scroll jank on Android only, only on certain screens. Neelesh sat with it for half a day, found a stale shared value on a worklet, and wrote up a one-page note so the rest of us wouldn't hit it again. That note is still pinned in our Slack.",
+    author: "Harsh Patel",
+    role: "Mobile Engineer",
+    context: "React Native performance debugging",
+  },
+  {
+    quote:
+      "Most engineers I hand designs to come back with 'good enough'. Neelesh would come back with the spec implemented, the edge cases I forgot about already handled, and a Loom walking through the trade-offs. The hand-off felt like collaboration, not a wall between Figma and the build.",
+    author: "Mann Mehta",
+    role: "Product Designer",
+    context: "Design-to-code collaboration on consumer mobile",
+  },
+  {
+    quote:
+      "On the API side, Neelesh was the front-end engineer I trusted most to push back on bad contracts before they shipped. He'd read the schema, sketch the client cache, and surface the gotchas in the same review. Made my job a lot easier — and the apps were faster for it.",
+    author: "Nirav Bhanderi",
+    role: "Backend Engineer",
+    context: "Cross-stack API & client integration",
+  },
 ];
 
 export default testimonials;

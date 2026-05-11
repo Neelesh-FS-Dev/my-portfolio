@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FiArrowRight, FiChevronsDown, FiDownload, FiZap, FiAward } from "react-icons/fi";
 import personal from "../../../shared/data/personal";
 import { getExperience } from "../../../shared/utils/getExperience";
+import BackgroundMeshGradient from "../../../shared/components/effects/BackgroundMeshGradient";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,32 @@ const INJECTED_STYLES = `
   }
 
   .gsap-reveal { visibility: hidden; }
+
+  .ch-section-label {
+    position: absolute;
+    top: 88px;
+    left: 24px;
+    z-index: 60;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text3);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ch-section-label::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--text3);
+    opacity: 0.6;
+  }
+  @media (min-width: 768px) {
+    .ch-section-label { top: 96px; left: 48px; font-size: 12px; }
+  }
 
   /* Environment Overlays */
   .ch-film-grain {
@@ -120,47 +147,45 @@ const INJECTED_STYLES = `
       inset 0 -1px 1px rgba(0,0,0,0.5);
   }
 
-  /* Tactile buttons — adapted to use accent blue for the primary action */
+  /* CTA buttons — aligned to project theme (.btn-primary / .btn-outline) */
   .ch-btn-light, .ch-btn-dark {
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 16px 28px;
-    border-radius: 20px;
+    padding: 14px 26px;
+    border-radius: 100px;
     cursor: pointer;
-    border: none;
     font-family: var(--font-display);
   }
   .ch-btn-light {
-    background: linear-gradient(180deg, var(--accent) 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 50%, var(--accent-2) 100%);
     color: #04070a;
-    box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 2px 4px rgba(0,0,0,0.2), 0 12px 24px -4px rgba(59,130,246,0.35), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.15);
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 1px rgba(59,130,246,0.2);
   }
   .ch-btn-light:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 0 1px rgba(59,130,246,0.4), 0 6px 12px -2px rgba(0,0,0,0.25), 0 22px 36px -6px rgba(59,130,246,0.5), inset 0 1px 1px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(59,130,246,0.35), 0 0 80px rgba(59,130,246,0.2);
   }
-  .ch-btn-light:active {
-    transform: translateY(1px);
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-  }
+  .ch-btn-light:active { transform: translateY(0); }
+
   .ch-btn-dark {
-    background: linear-gradient(180deg, #27272A 0%, #18181B 100%);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.6), 0 12px 24px -4px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -3px 6px rgba(0,0,0,0.8);
+    background: rgba(59,130,246,0.03);
+    color: var(--text);
+    border: 1px solid rgba(59,130,246,0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .ch-btn-dark:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(180deg, #3F3F46 0%, #27272A 100%);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 6px 12px -2px rgba(0,0,0,0.7), 0 20px 32px -6px rgba(0,0,0,1), inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.8);
+    border-color: rgba(59,130,246,0.55);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(59,130,246,0.2);
   }
-  .ch-btn-dark:active {
-    transform: translateY(1px);
-    background: #18181B;
-  }
+  .ch-btn-dark:active { transform: translateY(0); }
 
   .ch-progress-ring {
     transform: rotate(-90deg);
@@ -207,7 +232,11 @@ const INJECTED_STYLES = `
     line-height: 0.86;
     text-transform: uppercase;
     margin: 0;
-    font-size: clamp(56px, 9vw, 128px);
+    font-size: clamp(48px, 6.2vw, 92px);
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: none;
   }
 
   .ch-card-heading {
@@ -377,7 +406,7 @@ export default function CinematicHero({
   ctaDescription = `${personal.availability}. Reply within 24 hours — ${getExperience(
     "2023-01-01",
   )} of mobile + web experience, end-to-end ownership from design handoff to store release.`,
-  scrollLength = 3500,
+  scrollLength = 2200,
   showSkipIntro = true,
   skipIntroLabel = "Skip intro",
   className = "",
@@ -712,8 +741,10 @@ export default function CinematicHero({
       style={wrapperStyle}
     >
       <style dangerouslySetInnerHTML={{ __html: INJECTED_STYLES }} />
+      <BackgroundMeshGradient />
       <div className="ch-film-grain" aria-hidden="true" />
       <div className="ch-grid-bg" aria-hidden="true" />
+      <div className="ch-section-label" aria-hidden="true">00 / Intro</div>
 
       {showSkipIntro && (
         <button
@@ -822,7 +853,7 @@ export default function CinematicHero({
                     marginBottom: -2,
                   }}
                 >
-                  PDF · 2 pages
+                  PDF · 3 pages
                 </div>
                 <div
                   style={{
@@ -864,7 +895,7 @@ export default function CinematicHero({
             justifyContent: "center",
             pointerEvents: "auto",
             width: "92vw",
-            height: "92vh",
+            height: "78vh",
             borderRadius: 32,
           }}
         >

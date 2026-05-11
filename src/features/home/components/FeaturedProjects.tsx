@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import projects from "../../projects/data/projects";
 import ProjectCard from "../../projects/components/ProjectCard";
+import SpotlightCard from "../../../shared/components/ui/SpotlightCard";
 
 export interface FeaturedProjectsProps {
   isMobile: boolean;
@@ -15,9 +16,25 @@ export default function FeaturedProjects({
   isSmall,
 }: FeaturedProjectsProps) {
   const [tab, setTab] = useState<ProjectsTab>("mobile");
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const mobileProjects = projects.filter((p) => p.type === "mobile");
   const webProjects = projects.filter((p) => p.type === "web");
+
+  const wrap = (
+    p: (typeof projects)[number],
+    children: React.ReactNode,
+  ) => (
+    <SpotlightCard
+      accentColor={p.accent ?? "#3b82f6"}
+      dimmed={hoveredId !== null && hoveredId !== p.id}
+      onHoverStart={() => setHoveredId(p.id)}
+      onHoverEnd={() => setHoveredId(null)}
+      style={{ width: "100%" }}
+    >
+      {children}
+    </SpotlightCard>
+  );
 
   return (
     <section
@@ -102,7 +119,10 @@ export default function FeaturedProjects({
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {tab === "mobile" ? (
             <>
-              <ProjectCard project={mobileProjects[0]} featured index={0} />
+              {wrap(
+                mobileProjects[0],
+                <ProjectCard project={mobileProjects[0]} featured index={0} />,
+              )}
               <div
                 style={{
                   display: "grid",
@@ -110,8 +130,18 @@ export default function FeaturedProjects({
                   gap: 16,
                 }}
               >
-                <ProjectCard project={mobileProjects[1]} index={1} />
-                <ProjectCard project={mobileProjects[2]} index={2} />
+                <div style={{ height: "100%", display: "flex" }}>
+                  {wrap(
+                    mobileProjects[1],
+                    <ProjectCard project={mobileProjects[1]} index={1} />,
+                  )}
+                </div>
+                <div style={{ height: "100%", display: "flex" }}>
+                  {wrap(
+                    mobileProjects[2],
+                    <ProjectCard project={mobileProjects[2]} index={2} />,
+                  )}
+                </div>
               </div>
             </>
           ) : (
@@ -123,7 +153,12 @@ export default function FeaturedProjects({
               }}
             >
               {webProjects.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={i} />
+                <div
+                  key={p.id}
+                  style={{ height: "100%", display: "flex" }}
+                >
+                  {wrap(p, <ProjectCard project={p} index={i} />)}
+                </div>
               ))}
             </div>
           )}

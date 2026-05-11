@@ -10,6 +10,7 @@ import {
   popIn,
   hoverLift,
 } from "../../../shared/components/motion";
+import GLSLHills from "../../../shared/components/effects/GLSLHills";
 
 export interface ExperienceHeroProps {
   isMobile: boolean;
@@ -27,28 +28,28 @@ export default function ExperienceHero({
     {
       icon: <TbBrandReactNative size={12} />,
       label: "React Native",
-      color: "var(--accent)",
+      color: "#ffffff",
       bg: "rgba(59,130,246,0.07)",
       border: "rgba(59,130,246,0.25)",
     },
     {
       icon: <SiReact size={12} />,
       label: "React.js / JS",
-      color: "var(--accent)",
+      color: "#ffffff",
       bg: "rgba(59,130,246,0.07)",
       border: "rgba(59,130,246,0.25)",
     },
     {
       icon: <SiTailwindcss size={12} />,
       label: "Tailwind CSS / Vite",
-      color: "var(--green)",
+      color: "#ffffff",
       bg: "rgba(59,130,246,0.07)",
       border: "rgba(59,130,246,0.25)",
     },
     {
       icon: <SiTypescript size={12} />,
       label: "TypeScript / Redux",
-      color: "var(--accent3)",
+      color: "#ffffff",
       bg: "rgba(59,130,246,0.07)",
       border: "rgba(59,130,246,0.25)",
     },
@@ -65,6 +66,7 @@ export default function ExperienceHero({
       }}
       className="grid-bg"
     >
+      <GLSLHills />
       {/* Radial glow */}
       <div
         style={{
@@ -103,6 +105,7 @@ export default function ExperienceHero({
         className="container"
         stagger={0.1}
         delayChildren={0.05}
+        style={{ position: "relative", zIndex: 1 }}
       >
         <motion.div className="section-label" variants={fadeUp}>
           Career

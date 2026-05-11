@@ -6,6 +6,7 @@ import {
   fadeUp,
   scaleIn,
 } from "../../../shared/components/motion";
+import GLSLHills from "../../../shared/components/effects/GLSLHills";
 
 export default function ProjectsHero() {
   const isMobile = useIsMobile();
@@ -25,6 +26,7 @@ export default function ProjectsHero() {
       }}
       className="grid-bg"
     >
+      <GLSLHills />
       {/* Breathing glow */}
       <div
         style={{
@@ -63,6 +65,7 @@ export default function ProjectsHero() {
         className="container"
         stagger={0.12}
         delayChildren={0.05}
+        style={{ position: "relative", zIndex: 1 }}
       >
         <motion.div className="section-label" variants={fadeUp}>
           Portfolio
