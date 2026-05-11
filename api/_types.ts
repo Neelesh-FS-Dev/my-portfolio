@@ -16,6 +16,8 @@ export interface ContactFormBody {
   email?: string;
   subject?: string;
   message?: string;
+  // Honeypot — real users leave this empty. Bots fill every field.
+  _honey?: string;
 }
 
 export interface GitHubContributionDay {

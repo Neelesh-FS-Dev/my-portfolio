@@ -1,5 +1,9 @@
 import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -20,15 +24,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       touchMultiplier: 1.2,
     });
 
-    let rafId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
+    // Keep ScrollTrigger in sync with Lenis-driven scroll position so that
+    // pinned scroll timelines (e.g. CinematicHero) don't drift or jitter.
+    const onLenisScroll = () => ScrollTrigger.update();
+    lenis.on("scroll", onLenisScroll);
+
+    const tickerCallback = (time: number) => {
+      lenis.raf(time * 1000);
     };
-    rafId = requestAnimationFrame(raf);
+    gsap.ticker.add(tickerCallback);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      lenis.off("scroll", onLenisScroll);
+      gsap.ticker.remove(tickerCallback);
       lenis.destroy();
     };
   }, []);

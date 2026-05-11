@@ -1,19 +1,16 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import blogs from "./data/blogs";
-import { useIsSmall, useIsTablet } from "../../shared/hooks/useMediaQuery";
-import { useReveal } from "../../shared/hooks/useReveal";
 import SEO from "../../shared/components/ui/SEO";
 import BlogsHero from "./components/BlogsHero";
 import BlogTabsBar, { type BlogDomainFilter } from "./components/BlogTabsBar";
 import BlogCard from "./components/BlogCard";
 import BlogsCTA from "./components/BlogsCTA";
+import BentoGrid, { BentoCard } from "../../shared/components/ui/BentoGrid";
 
 export default function Blogs() {
   const [domainFilter, setDomainFilter] = useState<BlogDomainFilter>("all");
-  const isSmall = useIsSmall();
-  const isTablet = useIsTablet();
-
-  const [gridRef, gridVisible] = useReveal<HTMLDivElement>(0.05);
+  const navigate = useNavigate();
 
   const filtered = useMemo(
     () =>
@@ -63,32 +60,32 @@ export default function Blogs() {
 
       {/* ─── BLOG GRID ─── */}
       <section className="section">
-        <div className="container" ref={gridRef}>
+        <div className="container">
           {filtered.length > 0 && (
-            <div style={{ marginBottom: 16 }}>
-              <BlogCard post={filtered[0]} featured visible={gridVisible} />
+            <div style={{ marginBottom: 16 }} key={`featured-${domainFilter}`}>
+              <BlogCard post={filtered[0]} featured />
             </div>
           )}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: isSmall
-                ? "1fr"
-                : isTablet
-                  ? "1fr 1fr"
-                  : "repeat(3,1fr)",
-              gap: 14,
-            }}
-          >
-            {filtered.slice(1).map((post, i) => (
-              <BlogCard
-                key={post.id}
-                post={post}
-                idx={i}
-                visible={gridVisible}
-              />
-            ))}
-          </div>
+          <BentoGrid key={`grid-${domainFilter}`} rowHeight="20rem">
+            {filtered.slice(1).map((post, i) => {
+              // Vary col-spans for visual interest in the bento layout.
+              // Pattern: 2,1 | 1,2 | 1,1,1 → repeats.
+              const spanPattern: (1 | 2)[] = [2, 1, 1, 2, 1, 1, 1];
+              const colSpan = spanPattern[i % spanPattern.length];
+              return (
+                <BentoCard
+                  key={post.id}
+                  name={post.title}
+                  description={post.excerpt}
+                  Icon={post.icon}
+                  href={`/blogs/${post.slug}`}
+                  cta={`${post.readTime} read`}
+                  colSpan={colSpan}
+                  onClick={() => navigate(`/blogs/${post.slug}`)}
+                />
+              );
+            })}
+          </BentoGrid>
         </div>
       </section>
 

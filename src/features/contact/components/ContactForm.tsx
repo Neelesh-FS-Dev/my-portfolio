@@ -1,8 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
+import { motion } from "framer-motion";
 import { FiCheckCircle, FiSend } from "react-icons/fi";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import AnimatedField from "./AnimatedField";
+import {
+  RevealStagger,
+  fadeUp,
+  scaleIn,
+  hoverLift,
+  hoverLiftTarget,
+  tapTarget,
+} from "../../../shared/components/motion";
 
 export interface ContactFormProps {
   isMobile: boolean;
@@ -14,6 +22,7 @@ interface FormState {
   email: string;
   subject: string;
   message: string;
+  _honey: string;
 }
 
 export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
@@ -22,12 +31,12 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
     email: "",
     subject: "",
     message: "",
+    _honey: "",
   });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const [formRef, formVisible] = useReveal<HTMLDivElement>(0.08);
   const abortRef = useRef<AbortController | null>(null);
   const mountedRef = useRef(true);
 
@@ -60,7 +69,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
       if (!mountedRef.current) return;
       if (res.ok) {
         setSent(true);
-        setForm({ name: "", email: "", subject: "", message: "" });
+        setForm({ name: "", email: "", subject: "", message: "", _honey: "" });
       } else {
         alert(data.message || "Something went wrong.");
       }
@@ -72,45 +81,51 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
     }
   };
 
-  const inputBase: CSSProperties = {
-    width: "100%",
-    padding: isSmall ? "12px 14px" : "14px 18px",
-    background: "var(--surface)",
-    border: "1px solid var(--border)",
-    borderRadius: 12,
-    color: "var(--text)",
-    fontFamily: "var(--font-body)",
-    fontSize: isSmall ? 14 : 15,
-    outline: "none",
-    transition: "border-color .25s, box-shadow .25s",
-    boxSizing: "border-box",
-  };
+  // Memoised so changing `focusedField` (which triggers per-input re-renders)
+  // doesn't allocate fresh style objects every keystroke.
+  const inputBase = useMemo<CSSProperties>(
+    () => ({
+      width: "100%",
+      padding: isSmall ? "12px 14px" : "14px 18px",
+      background: "var(--surface)",
+      border: "1px solid var(--border)",
+      borderRadius: 12,
+      color: "var(--text)",
+      fontFamily: "var(--font-body)",
+      fontSize: isSmall ? 14 : 15,
+      outline: "none",
+      transition: "border-color .25s, box-shadow .25s",
+      boxSizing: "border-box",
+    }),
+    [isSmall],
+  );
 
-  const labelStyle: CSSProperties = {
-    fontFamily: "var(--font-mono)",
-    fontSize: 11,
-    color: "var(--text3)",
-    display: "block",
-    marginBottom: 8,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
-    transition: "color 0.2s",
-  };
+  const labelStyle = useMemo<CSSProperties>(
+    () => ({
+      fontFamily: "var(--font-mono)",
+      fontSize: 11,
+      color: "var(--text3)",
+      display: "block",
+      marginBottom: 8,
+      letterSpacing: "0.08em",
+      textTransform: "uppercase",
+      transition: "color 0.2s",
+    }),
+    [],
+  );
 
   return (
-    <div
-      ref={formRef}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={scaleIn}
+      transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       style={{
         background: "var(--surface)",
         border: "1px solid var(--border)",
         borderRadius: 22,
         padding: isSmall ? "24px 20px" : isMobile ? "32px" : "40px",
-        opacity: formVisible ? 1 : 0,
-        transform: formVisible
-          ? "translateY(0) scale(1)"
-          : "translateY(28px) scale(0.98)",
-        transition:
-          "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s",
         position: "relative",
         overflow: "hidden",
       }}
@@ -132,14 +147,21 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
 
       {sent ? (
         /* ── Success state ── */
-        <div
-          style={{
-            textAlign: "center",
-            padding: "48px 0",
-            animation: "success-pop 0.5s cubic-bezier(0.34,1.56,0.64,1)",
-          }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+          style={{ textAlign: "center", padding: "48px 0" }}
         >
-          <div
+          <motion.div
+            initial={{ scale: 0, rotate: -90 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 18,
+              delay: 0.1,
+            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -154,7 +176,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
             }}
           >
             <FiCheckCircle size={36} style={{ color: "var(--green)" }} />
-          </div>
+          </motion.div>
           <h3
             style={{
               fontFamily: "var(--font-display)",
@@ -175,33 +197,58 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
           >
             Thanks for reaching out. I'll get back to you within 24 hours.
           </p>
-          <button
+          <motion.button
             onClick={() => setSent(false)}
             className="btn btn-outline"
+            whileHover={hoverLiftTarget}
+            whileTap={tapTarget}
+            transition={hoverLift}
             style={{ fontSize: 13, cursor: "pointer" }}
           >
             Send Another
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       ) : (
-        <>
-          <h2
+        <RevealStagger stagger={0.07} delayChildren={0.2} amount={0.05}>
+          <motion.h2
+            variants={fadeUp}
             style={{
               fontFamily: "var(--font-display)",
               fontSize: isSmall ? 18 : 21,
               fontWeight: 700,
               marginBottom: 24,
-              opacity: formVisible ? 1 : 0,
-              transform: formVisible ? "translateY(0)" : "translateY(10px)",
-              transition: "opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s",
             }}
           >
             Send a Message
-          </h2>
-          <form
+          </motion.h2>
+          <motion.form
+            variants={fadeUp}
             onSubmit={handleSubmit}
             style={{ display: "flex", flexDirection: "column", gap: 16 }}
           >
+            {/* Honeypot — hidden from users, irresistible to bots */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                width: 1,
+                height: 1,
+                overflow: "hidden",
+                opacity: 0,
+              }}
+            >
+              <label htmlFor="contact_honey">Leave this empty</label>
+              <input
+                id="contact_honey"
+                type="text"
+                name="_honey"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form._honey}
+                onChange={handleChange}
+              />
+            </div>
             <div
               style={{
                 display: "grid",
@@ -209,7 +256,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 gap: 14,
               }}
             >
-              <AnimatedField idx={0} visible={formVisible}>
+              <AnimatedField>
                 <label
                   htmlFor="contact-name"
                   style={{
@@ -244,7 +291,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   onBlur={() => setFocusedField(null)}
                 />
               </AnimatedField>
-              <AnimatedField idx={1} visible={formVisible}>
+              <AnimatedField>
                 <label
                   htmlFor="contact-email"
                   style={{
@@ -281,7 +328,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 />
               </AnimatedField>
             </div>
-            <AnimatedField idx={2} visible={formVisible}>
+            <AnimatedField>
               <label
                 htmlFor="contact-subject"
                 style={{
@@ -315,7 +362,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 onBlur={() => setFocusedField(null)}
               />
             </AnimatedField>
-            <AnimatedField idx={3} visible={formVisible}>
+            <AnimatedField>
               <label
                 htmlFor="contact-message"
                 style={{
@@ -355,18 +402,14 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
             </AnimatedField>
 
             {/* Submit button */}
-            <div
-              style={{
-                opacity: formVisible ? 1 : 0,
-                transform: formVisible ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s",
-                marginTop: 4,
-              }}
-            >
-              <button
+            <motion.div variants={fadeUp} style={{ marginTop: 4 }}>
+              <motion.button
                 type="submit"
                 disabled={loading}
                 className="btn btn-primary submit-btn"
+                whileHover={loading ? undefined : { y: -2, scale: 1.01 }}
+                whileTap={loading ? undefined : tapTarget}
+                transition={hoverLift}
                 style={{
                   justifyContent: "center",
                   fontSize: 15,
@@ -375,7 +418,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   position: "relative",
                   overflow: "hidden",
                   opacity: loading ? 0.75 : 1,
-                  transition: "opacity 0.2s, transform 0.2s",
+                  willChange: "transform",
                 }}
               >
                 {loading ? (
@@ -401,11 +444,11 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 )}
                 {/* Shimmer sweep */}
                 <span className="btn-shimmer" />
-              </button>
-            </div>
-          </form>
-        </>
+              </motion.button>
+            </motion.div>
+          </motion.form>
+        </RevealStagger>
       )}
-    </div>
+    </motion.div>
   );
 }

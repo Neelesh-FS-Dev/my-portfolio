@@ -3,7 +3,7 @@ import personal from "../../shared/data/personal";
 import { degrees } from "../experience/data/education";
 import { useIsMobile, useIsSmall } from "../../shared/hooks/useMediaQuery";
 import SEO, { SITE_URL } from "../../shared/components/ui/SEO";
-import Hero from "./components/Hero";
+import CinematicHero from "./components/CinematicHero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import ProofStats from "./components/ProofStats";
@@ -80,7 +80,19 @@ export default function Home() {
   return (
     <>
       <SEO path="/" schema={getHomepageSchema()} />
-      <Hero isMobile={isMobile} isSmall={isSmall} />
+      <CinematicHero
+        brandName="NEELESH YADAV"
+        tagline1="Built for mobile,"
+        tagline2="engineered to ship."
+        cardHeading="Production code, real users."
+        metricValue={20}
+        metricSuffix="K+"
+        metricLabel="Users Served"
+        ctaHeading="Let's build something that ships."
+        scrollLength={3500}
+        showSkipIntro
+        skipIntroLabel="Skip intro"
+      />
       <ProofStats isMobile={isMobile} isSmall={isSmall} />
       <CaseStudies isMobile={isMobile} isSmall={isSmall} />
       <About isMobile={isMobile} isSmall={isSmall} />

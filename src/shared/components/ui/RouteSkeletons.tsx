@@ -33,119 +33,19 @@ function PageMain({ children }: { children: React.ReactNode }) {
 
 /* --------------------------------- Home --------------------------------- */
 
+// Blank full-viewport placeholder — the CinematicHero owns the whole intro,
+// so a structural skeleton would flash a layout that doesn't match.
 function HomeSkeletonBase() {
-  const isMobile = useIsMobile();
-  const isSmall = useIsSmall();
-
   return (
     <PageMain>
-      <section
+      <div
+        aria-hidden
         style={{
-          minHeight: "100vh",
-          paddingTop: isMobile ? 80 : 96,
-          paddingBottom: 40,
-          display: "flex",
-          alignItems: "center",
+          width: "100%",
+          height: "100vh",
+          background: "var(--bg)",
         }}
-      >
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
-            gap: isMobile ? 0 : 48,
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <div>
-            <Bar w={170} h={30} r={100} mb={isSmall ? 20 : 28} />
-            <Bar
-              w={isSmall ? "90%" : "75%"}
-              h={isSmall ? 40 : isMobile ? 52 : 88}
-              mb={12}
-            />
-            <Bar
-              w={isSmall ? "65%" : "50%"}
-              h={isSmall ? 40 : isMobile ? 52 : 88}
-              mb={isSmall ? 22 : 28}
-            />
-            <div
-              style={{
-                display: "flex",
-                gap: 8,
-                marginBottom: 22,
-                flexWrap: "wrap",
-              }}
-            >
-              {[110, 90, 130].map((w) => (
-                <Bar key={w} w={w} h={28} r={100} />
-              ))}
-            </div>
-            {[100, 96, 88].map((w, i) => (
-              <Bar key={i} w={`${w}%`} maxW={540} h={14} mb={10} />
-            ))}
-            <div
-              style={{
-                display: "flex",
-                gap: 10,
-                marginTop: isSmall ? 24 : 32,
-                marginBottom: isSmall ? 32 : 48,
-                flexWrap: "wrap",
-              }}
-            >
-              <Bar w={160} h={46} r={100} />
-              <Bar w={180} h={46} r={100} />
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: isSmall ? "1fr 1fr" : "repeat(4,auto)",
-                gap: isSmall ? "14px 20px" : "0 32px",
-              }}
-            >
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i}>
-                  <Bar w={56} h={26} mb={6} />
-                  <Bar w={70} h={10} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {!isMobile && (
-            <div
-              style={{
-                display: "flex",
-                gap: 0,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                className="skeleton"
-                style={{
-                  width: 220,
-                  height: 440,
-                  borderRadius: 36,
-                  opacity: 0.55,
-                  transform: "translateX(-20px) rotate(-8deg)",
-                }}
-              />
-              <div
-                className="skeleton"
-                style={{
-                  width: 220,
-                  height: 440,
-                  borderRadius: 36,
-                  marginLeft: -40,
-                  transform: "translateY(-10px)",
-                }}
-              />
-            </div>
-          )}
-        </div>
-      </section>
+      />
     </PageMain>
   );
 }

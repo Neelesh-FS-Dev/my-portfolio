@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiMail } from "react-icons/fi";
 import navLinks from "../../data/navLinks";
+import {
+  hoverLift,
+  hoverLiftTarget,
+  tapTarget,
+} from "../motion";
 
 function Navbar() {
   const [navVisible, setNavVisible] = useState(true);
@@ -51,26 +57,28 @@ function Navbar() {
 
   return (
     <>
-      <nav
+      <motion.nav
+        initial={false}
+        animate={{
+          y: navVisible || menuOpen ? 0 : -100,
+          backgroundColor: menuOpen
+            ? "rgba(9,12,16,0.98)"
+            : scrolled
+              ? "rgba(9,12,16,0.96)"
+              : "rgba(9,12,16,0.9)",
+        }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "sticky",
           top: 0,
           zIndex: 900,
           height: 64,
-          background: menuOpen
-            ? "rgba(9,12,16,0.98)"
-            : scrolled
-              ? "rgba(9,12,16,0.96)"
-              : "rgba(9,12,16,0.9)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           borderBottom: scrolled
             ? "1px solid rgba(255,255,255,0.08)"
             : "1px solid rgba(255,255,255,0.05)",
-          transform:
-            navVisible || menuOpen ? "translateY(0)" : "translateY(-100%)",
-          transition:
-            "transform .28s ease, background .25s ease, border-color .25s ease",
+          transition: "border-color .25s ease",
         }}
       >
         <div
@@ -95,7 +103,10 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            <div
+            <motion.div
+              whileHover={{ scale: 1.08, rotate: -4 }}
+              whileTap={tapTarget}
+              transition={hoverLift}
               style={{
                 width: 32,
                 height: 32,
@@ -113,7 +124,7 @@ function Navbar() {
               }}
             >
               NY
-            </div>
+            </motion.div>
             <span
               style={{
                 fontFamily: "var(--font-display)",
@@ -132,28 +143,37 @@ function Navbar() {
             style={{ display: "flex", gap: 2, alignItems: "center" }}
           >
             {navLinks.map((link) => (
-              <NavLink
+              <motion.div
                 key={link.to}
-                to={link.to}
-                end={link.to === "/"}
-                style={({ isActive }) => ({
-                  padding: "7px 14px",
-                  borderRadius: 100,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: isActive ? "var(--accent)" : "var(--text2)",
-                  background: isActive ? "rgba(59,130,246,0.1)" : "transparent",
-                  border: isActive
-                    ? "1px solid rgba(59,130,246,0.22)"
-                    : "1px solid transparent",
-                  transition: "all .2s",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                })}
+                whileHover={{ y: -2 }}
+                whileTap={tapTarget}
+                transition={hoverLift}
               >
-                {link.label}
-              </NavLink>
+                <NavLink
+                  to={link.to}
+                  end={link.to === "/"}
+                  style={({ isActive }) => ({
+                    padding: "7px 14px",
+                    borderRadius: 100,
+                    fontFamily: "var(--font-body)",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: isActive ? "var(--accent)" : "var(--text2)",
+                    background: isActive
+                      ? "rgba(59,130,246,0.1)"
+                      : "transparent",
+                    border: isActive
+                      ? "1px solid rgba(59,130,246,0.22)"
+                      : "1px solid transparent",
+                    transition: "color .2s, background .2s, border-color .2s",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    display: "inline-block",
+                  })}
+                >
+                  {link.label}
+                </NavLink>
+              </motion.div>
             ))}
           </div>
 
@@ -165,24 +185,41 @@ function Navbar() {
               flexShrink: 0,
             }}
           >
-            <NavLink
-              to="/contact"
-              className="nav-hire-btn btn btn-primary"
-              style={{
-                padding: "9px 20px",
-                fontSize: 13,
-                textDecoration: "none",
-              }}
+            <motion.div
+              className="nav-hire-btn-wrap"
+              whileHover={hoverLiftTarget}
+              whileTap={tapTarget}
+              transition={hoverLift}
             >
-              Hire Me
-            </NavLink>
+              <NavLink
+                to="/contact"
+                className="nav-hire-btn btn btn-primary"
+                style={{
+                  padding: "9px 20px",
+                  fontSize: 13,
+                  textDecoration: "none",
+                }}
+              >
+                Hire Me
+              </NavLink>
+            </motion.div>
 
-            <button
+            <motion.button
               className="nav-hamburger"
               onClick={toggleMenu}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
+              whileTap={tapTarget}
+              animate={{
+                background: menuOpen
+                  ? "rgba(59,130,246,0.08)"
+                  : "rgba(0,0,0,0)",
+                borderColor: menuOpen
+                  ? "rgba(59,130,246,0.25)"
+                  : "rgba(255,255,255,0.1)",
+              }}
+              transition={{ duration: 0.25 }}
               style={{
                 width: 40,
                 height: 40,
@@ -192,197 +229,224 @@ function Navbar() {
                 justifyContent: "center",
                 gap: 5,
                 cursor: "pointer",
-                background: menuOpen ? "rgba(59,130,246,0.08)" : "transparent",
                 border: "1px solid",
-                borderColor: menuOpen
-                  ? "rgba(59,130,246,0.25)"
-                  : "rgba(255,255,255,0.1)",
                 borderRadius: 10,
-                transition: "all .25s",
                 flexShrink: 0,
               }}
             >
-              <span
+              <motion.span
+                animate={
+                  menuOpen
+                    ? { rotate: 45, y: 6.5, backgroundColor: "var(--accent)" }
+                    : { rotate: 0, y: 0, backgroundColor: "var(--text)" }
+                }
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  display: "block",
+                  width: 18,
+                  height: 1.5,
+                  borderRadius: 2,
+                }}
+              />
+              <motion.span
+                animate={{ opacity: menuOpen ? 0 : 1 }}
+                transition={{ duration: 0.2 }}
                 style={{
                   display: "block",
                   width: 18,
                   height: 1.5,
                   borderRadius: 2,
                   background: menuOpen ? "var(--accent)" : "var(--text)",
-                  transition: "transform .3s ease, opacity .3s ease",
-                  transform: menuOpen
-                    ? "rotate(45deg) translate(4.5px, 4.5px)"
-                    : "none",
                 }}
               />
-              <span
+              <motion.span
+                animate={
+                  menuOpen
+                    ? { rotate: -45, y: -6.5, backgroundColor: "var(--accent)" }
+                    : { rotate: 0, y: 0, backgroundColor: "var(--text)" }
+                }
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   display: "block",
                   width: 18,
                   height: 1.5,
                   borderRadius: 2,
-                  background: menuOpen ? "var(--accent)" : "var(--text)",
-                  transition: "opacity .2s ease",
-                  opacity: menuOpen ? 0 : 1,
                 }}
               />
-              <span
-                style={{
-                  display: "block",
-                  width: 18,
-                  height: 1.5,
-                  borderRadius: 2,
-                  background: menuOpen ? "var(--accent)" : "var(--text)",
-                  transition: "transform .3s ease",
-                  transform: menuOpen
-                    ? "rotate(-45deg) translate(4.5px, -4.5px)"
-                    : "none",
-                }}
-              />
-            </button>
+            </motion.button>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      <div
-        id="mobile-menu"
-        className="nav-mobile-overlay"
-        role="dialog"
-        aria-label="Mobile navigation"
-        aria-hidden={!menuOpen}
-        style={{
-          position: "fixed",
-          top: 64,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 850,
-          background: "rgba(9,12,16,0.98)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          display: "flex",
-          flexDirection: "column",
-          padding: "32px 24px 40px",
-          overflowY: "auto",
-          opacity: menuOpen ? 1 : 0,
-          transform: menuOpen ? "translateY(0)" : "translateY(-12px)",
-          pointerEvents: menuOpen ? "all" : "none",
-          transition: "opacity .25s ease, transform .25s ease",
-        }}
-      >
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: 4, flex: 1 }}
-        >
-          {navLinks.map((link, i) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === "/"}
-              style={({ isActive }) => ({
-                padding: "15px 18px",
-                borderRadius: 14,
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "clamp(18px, 5vw, 24px)",
-                color: isActive ? "var(--accent)" : "var(--text)",
-                background: isActive ? "rgba(59,130,246,0.06)" : "transparent",
-                borderLeft: isActive
-                  ? "3px solid var(--accent)"
-                  : "3px solid transparent",
-                display: "block",
-                textDecoration: "none",
-                transition: "all .2s",
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateX(0)" : "translateX(-10px)",
-                transitionDelay: `${i * 40}ms`,
-              })}
-            >
-              <span
-                style={{
-                  color: "var(--text3)",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  marginRight: 10,
-                }}
-              >
-                0{i + 1}
-              </span>
-              {link.label}
-            </NavLink>
-          ))}
-        </div>
-
-        <div
-          style={{
-            marginTop: 32,
-            paddingTop: 24,
-            borderTop: "1px solid var(--border)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-          }}
-        >
-          <NavLink
-            to="/contact"
-            className="btn btn-primary"
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-menu"
+            className="nav-mobile-overlay"
+            role="dialog"
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              justifyContent: "center",
-              fontSize: 15,
+              position: "fixed",
+              top: 64,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 850,
+              background: "rgba(9,12,16,0.98)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
               display: "flex",
-              textDecoration: "none",
+              flexDirection: "column",
+              padding: "32px 24px 40px",
+              overflowY: "auto",
             }}
           >
-            <FiMail size={15} style={{ marginRight: 6 }} /> Hire Me
-          </NavLink>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: 0.05, delayChildren: 0.05 },
+                },
+              }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                flex: 1,
+              }}
+            >
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.to}
+                  variants={{
+                    hidden: { opacity: 0, x: -16 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <NavLink
+                    to={link.to}
+                    end={link.to === "/"}
+                    style={({ isActive }) => ({
+                      padding: "15px 18px",
+                      borderRadius: 14,
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "clamp(18px, 5vw, 24px)",
+                      color: isActive ? "var(--accent)" : "var(--text)",
+                      background: isActive
+                        ? "rgba(59,130,246,0.06)"
+                        : "transparent",
+                      borderLeft: isActive
+                        ? "3px solid var(--accent)"
+                        : "3px solid transparent",
+                      display: "block",
+                      textDecoration: "none",
+                      transition: "color .2s, background .2s",
+                    })}
+                  >
+                    <span
+                      style={{
+                        color: "var(--text3)",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        marginRight: 10,
+                      }}
+                    >
+                      0{i + 1}
+                    </span>
+                    {link.label}
+                  </NavLink>
+                </motion.div>
+              ))}
+            </motion.div>
 
-          <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
-            <a
-              href="https://github.com/Neelesh-FS-Dev"
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.05 * navLinks.length + 0.1,
+                duration: 0.4,
+              }}
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                color: "var(--text3)",
-                transition: "color .2s",
+                marginTop: 32,
+                paddingTop: 24,
+                borderTop: "1px solid var(--border)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
               }}
             >
-              <FiGithub
-                size={14}
-                style={{ marginRight: 4, verticalAlign: "middle" }}
-              />
-              GitHub
-            </a>
-            <a
-              href="mailto:neeleshy263@gmail.com"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                color: "var(--text3)",
-                transition: "color .2s",
-              }}
-            >
-              <FiMail
-                size={14}
-                style={{ marginRight: 4, verticalAlign: "middle" }}
-              />
-              Email
-            </a>
-          </div>
-        </div>
-      </div>
+              <motion.div whileHover={hoverLiftTarget} whileTap={tapTarget} transition={hoverLift}>
+                <NavLink
+                  to="/contact"
+                  className="btn btn-primary"
+                  style={{
+                    justifyContent: "center",
+                    fontSize: 15,
+                    display: "flex",
+                    textDecoration: "none",
+                  }}
+                >
+                  <FiMail size={15} style={{ marginRight: 6 }} /> Hire Me
+                </NavLink>
+              </motion.div>
+
+              <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+                <a
+                  href="https://github.com/Neelesh-FS-Dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 12,
+                    color: "var(--text3)",
+                    transition: "color .2s",
+                  }}
+                >
+                  <FiGithub
+                    size={14}
+                    style={{ marginRight: 4, verticalAlign: "middle" }}
+                  />
+                  GitHub
+                </a>
+                <a
+                  href="mailto:neeleshy263@gmail.com"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 12,
+                    color: "var(--text3)",
+                    transition: "color .2s",
+                  }}
+                >
+                  <FiMail
+                    size={14}
+                    style={{ marginRight: 4, verticalAlign: "middle" }}
+                  />
+                  Email
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (min-width: 901px) {
           .nav-desktop { display: flex !important; }
-          .nav-hire-btn { display: inline-flex !important; }
+          .nav-hire-btn-wrap { display: inline-flex !important; }
           .nav-hamburger { display: none !important; }
-          .nav-mobile-overlay { display: none !important; }
         }
 
         @media (max-width: 900px) {
           .nav-desktop { display: none !important; }
-          .nav-hire-btn { display: none !important; }
+          .nav-hire-btn-wrap { display: none !important; }
           .nav-hamburger { display: flex !important; }
         }
 

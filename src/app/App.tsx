@@ -6,6 +6,8 @@ import Footer from "../shared/components/layout/Footer";
 import Cursor from "../shared/components/effects/Cursor";
 import SmoothScroll from "../shared/components/effects/SmoothScroll";
 import NoiseOverlay from "../shared/components/effects/NoiseOverlay";
+import Plausible from "../shared/components/analytics/Plausible";
+import ErrorBoundary from "../shared/components/system/ErrorBoundary";
 import {
   HomeSkeleton,
   ProjectsSkeleton,
@@ -24,6 +26,7 @@ const Experience = lazy(() => import("../features/experience/Experience"));
 const Blogs = lazy(() => import("../features/blogs/Blogs"));
 const BlogDetail = lazy(() => import("../features/blogs/BlogDetail"));
 const Contact = lazy(() => import("../features/contact/Contact"));
+const Resume = lazy(() => import("../pages/Resume"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 function ScrollToTop() {
@@ -88,6 +91,7 @@ function AnimatedRoutes() {
             path="/contact"
             element={lazyRoute(Contact, ContactSkeleton)}
           />
+          <Route path="/resume" element={lazyRoute(Resume, GenericSkeleton)} />
           <Route path="*" element={lazyRoute(NotFound, GenericSkeleton)} />
         </Routes>
       </motion.div>
@@ -97,18 +101,21 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <SmoothScroll>
-      <a href="#main-content" className="skip-link">
-        Skip to content
-      </a>
-      <Cursor />
-      <NoiseOverlay />
-      <MemoScrollToTop />
-      <Navbar />
-      <main id="main-content" tabIndex={-1}>
-        <AnimatedRoutes />
-      </main>
-      <Footer />
-    </SmoothScroll>
+    <ErrorBoundary>
+      <SmoothScroll>
+        <Plausible />
+        <Cursor />
+        <NoiseOverlay />
+        <MemoScrollToTop />
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main-content" tabIndex={-1}>
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+      </SmoothScroll>
+    </ErrorBoundary>
   );
 }

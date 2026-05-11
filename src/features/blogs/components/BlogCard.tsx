@@ -1,32 +1,41 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import type { Blog } from "../types";
 import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
+import { hoverLift } from "../../../shared/components/motion";
 
 export interface BlogCardProps {
   post: Blog;
   featured?: boolean;
   idx?: number;
-  visible?: boolean;
 }
 
-function BlogCard({
-  post,
-  featured = false,
-  idx = 0,
-  visible = true,
-}: BlogCardProps) {
+function BlogCard({ post, featured = false, idx = 0 }: BlogCardProps) {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
-  const [hovered, setHovered] = useState(false);
 
   return (
-    <article
+    <motion.article
       onClick={() => navigate("/blogs/" + (post.slug || post.id))}
+      initial={{ opacity: 0, y: featured ? 28 : 20, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      whileHover={{
+        y: -3,
+        borderColor: "rgba(59,130,246,0.35)",
+        boxShadow:
+          "0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(59,130,246,0.1)",
+      }}
+      transition={{
+        duration: 0.6,
+        delay: featured ? 0.05 : 0.08 + idx * 0.09,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{
         background: "var(--surface)",
-        border: `1px solid ${hovered ? "rgba(59,130,246,0.35)" : "var(--border)"}`,
+        border: "1px solid var(--border)",
         borderRadius: 14,
         overflow: "hidden",
         cursor: "pointer",
@@ -34,23 +43,8 @@ function BlogCard({
         display: featured && !isMobile ? "grid" : "flex",
         gridTemplateColumns: featured && !isMobile ? "1fr 1fr" : undefined,
         flexDirection: "column",
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? `translateY(${hovered ? -3 : 0}px) scale(1)`
-          : `translateY(${featured ? 28 : 20}px) scale(0.97)`,
-        transition: `
-          opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${featured ? 0.05 : 0.08 + idx * 0.09}s,
-          transform 0.4s cubic-bezier(0.16,1,0.3,1),
-          border-color 0.25s ease,
-          box-shadow 0.25s ease
-        `,
-        boxShadow: hovered
-          ? "0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(59,130,246,0.1)"
-          : "none",
-        willChange: "transform, opacity",
+        willChange: "transform",
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {/* Visual panel — desktop featured only */}
       {featured && !isMobile && (
@@ -66,7 +60,9 @@ function BlogCard({
             overflow: "hidden",
           }}
         >
-          <div
+          <motion.div
+            whileHover={{ scale: 1.06, rotate: -3 }}
+            transition={hoverLift}
             style={{
               width: 120,
               height: 120,
@@ -76,12 +72,10 @@ function BlogCard({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              transform: hovered ? "scale(1.04)" : "scale(1)",
-              transition: "transform 0.35s cubic-bezier(0.34,1.56,0.64,1)",
             }}
           >
             <post.icon size={44} color="var(--text2)" />
-          </div>
+          </motion.div>
         </div>
       )}
 
@@ -143,7 +137,6 @@ function BlogCard({
             fontSize: featured && !isMobile ? 22 : isSmall ? 15 : 17,
             letterSpacing: "-0.02em",
             lineHeight: 1.25,
-            transition: "color 0.2s",
             color: "var(--text)",
           }}
         >
@@ -173,7 +166,6 @@ function BlogCard({
                 color: "var(--text2)",
                 border: "1px solid var(--border)",
                 background: "var(--bg2)",
-                transition: "border-color 0.2s, background 0.2s",
               }}
             >
               {tag}
@@ -181,7 +173,9 @@ function BlogCard({
           ))}
         </div>
 
-        <div
+        <motion.div
+          whileHover={{ x: 4 }}
+          transition={hoverLift}
           style={{
             color: "var(--accent)",
             fontFamily: "var(--font-mono)",
@@ -189,14 +183,12 @@ function BlogCard({
             display: "flex",
             alignItems: "center",
             gap: 5,
-            transform: hovered ? "translateX(4px)" : "translateX(0)",
-            transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
           }}
         >
           Read Article →
-        </div>
+        </motion.div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

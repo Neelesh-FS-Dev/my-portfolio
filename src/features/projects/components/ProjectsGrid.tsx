@@ -1,58 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { useState } from "react";
 import type { Project } from "../types";
 import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import ProjectCard from "./ProjectCard";
 import { FiSearch } from "react-icons/fi";
-
-/* ── Staggered grid wrapper that re-triggers on filter change ── */
-interface AnimatedGridProps {
-  children: (visible: boolean) => ReactNode;
-  filterKey: string;
-  isMobile: boolean;
-}
-
-function AnimatedGrid({ children, filterKey, isMobile }: AnimatedGridProps) {
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  /* Re-animate on filter change */
-  useEffect(() => {
-    setVisible(false);
-    const t = setTimeout(() => setVisible(true), 40);
-    return () => clearTimeout(t);
-  }, [filterKey]);
-
-  /* Also trigger on scroll-in */
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.04 },
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-        gap: 16,
-      }}
-    >
-      {children(visible)}
-    </div>
-  );
-}
+import { Reveal } from "../../../shared/components/motion";
+import SpotlightCard from "../../../shared/components/ui/SpotlightCard";
 
 export interface ProjectsGridProps {
   projects: Project[];
@@ -68,55 +20,72 @@ export default function ProjectsGrid({
   category,
 }: ProjectsGridProps) {
   const isMobile = useIsMobile();
-  const [emptyRef, emptyVisible] = useReveal<HTMLDivElement>(0.1);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section className="section">
       <div className="container">
         {projects.length === 0 ? (
+          <Reveal preset="fadeUp" amount={0.2}>
+            <div
+              style={{
+                textAlign: "center",
+                padding: "60px 0",
+                color: "var(--text3)",
+              }}
+            >
+              <FiSearch size={40} style={{ marginBottom: 16, opacity: 0.4 }} />
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}>
+                No projects in this category yet
+              </p>
+            </div>
+          </Reveal>
+        ) : (
+          // `key` forces remount on filter change so each ProjectCard's
+          // whileInView animation re-fires with its own staggered delay.
           <div
-            ref={emptyRef}
+            key={filterKey}
             style={{
-              textAlign: "center",
-              padding: "60px 0",
-              color: "var(--text3)",
-              opacity: emptyVisible ? 1 : 0,
-              transform: emptyVisible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.5s ease, transform 0.5s ease",
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gap: 16,
             }}
           >
-            <FiSearch size={40} style={{ marginBottom: 16, opacity: 0.4 }} />
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}>
-              No projects in this category yet
-            </p>
-          </div>
-        ) : (
-          <AnimatedGrid filterKey={filterKey} isMobile={isMobile}>
-            {() =>
-              projects.map((project, i) => {
-                const isFeatured =
-                  i === 0 &&
-                  projects.length > 1 &&
-                  !isMobile &&
-                  category === "All" &&
-                  domainTab !== "web";
-                return (
-                  <div
-                    key={`${filterKey}-${project.id}`}
-                    style={{
-                      gridColumn: isFeatured ? "1 / -1" : "auto",
-                    }}
+            {projects.map((project, i) => {
+              const isFeatured =
+                i === 0 &&
+                projects.length > 1 &&
+                !isMobile &&
+                category === "All" &&
+                domainTab !== "web";
+              const dimmed =
+                hoveredId !== null && hoveredId !== project.id;
+              return (
+                <div
+                  key={`${filterKey}-${project.id}`}
+                  style={{
+                    gridColumn: isFeatured ? "1 / -1" : "auto",
+                    height: "100%",
+                    display: "flex",
+                  }}
+                >
+                  <SpotlightCard
+                    accentColor={project.accent ?? "#3b82f6"}
+                    dimmed={dimmed}
+                    onHoverStart={() => setHoveredId(project.id)}
+                    onHoverEnd={() => setHoveredId(null)}
+                    style={{ width: "100%" }}
                   >
                     <ProjectCard
                       project={project}
                       featured={isFeatured}
                       index={i}
                     />
-                  </div>
-                );
-              })
-            }
-          </AnimatedGrid>
+                  </SpotlightCard>
+                </div>
+              );
+            })}
+          </div>
         )}
       </div>
     </section>

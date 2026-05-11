@@ -831,6 +831,425 @@ const blogs: BlogBase[] = [
       },
     ],
   },
+  {
+    id: 11,
+    slug: "push-notifications-react-native-fcm-apns",
+    title:
+      "Push Notifications in React Native — FCM + APNs Done Right",
+    excerpt:
+      "End-to-end push notification setup for React Native using Firebase Cloud Messaging on Android and APNs via FCM on iOS — covering token rotation, background handlers, deep links, notification channels, and the silent failures nobody documents.",
+    date: "Apr 2026",
+    readTime: "8 min read",
+    tags: ["React Native", "Push Notifications", "Firebase", "FCM", "APNs"],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Push is one of those features that looks simple in the demo and brutal in production. On Soul33 — a community-driven wellness app — push was load-bearing: sponsor messages, group chat replies, meditation reminders, and re-engagement. We shipped it via Firebase Cloud Messaging on both platforms, but every \"happy path\" tutorial skipped the parts that broke: token rotation after reinstall, iOS not registering APNs at all in TestFlight builds, and notifications swallowed silently by Doze mode on Android. This post is the version I wish I had.",
+      },
+      {
+        type: "heading",
+        text: "Architecture — FCM for both platforms",
+      },
+      {
+        type: "text",
+        text: "Don't talk to APNs directly from your backend. Use Firebase as the single delivery surface — FCM forwards to APNs on iOS and delivers directly on Android. Your backend stores one device token per user per device, talks to one API, and a single sender key handles both platforms. The cost: you accept a few hundred milliseconds of FCM-side latency on iOS for the simplicity. For 99% of apps that's the right trade.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Native setup the tutorials skip",
+      },
+      {
+        type: "text",
+        text: "On iOS, enable Push Notifications and Background Modes → Remote notifications in Xcode capabilities. Then the part that bites: APNs auth keys (.p8) not certificates. Generate a single .p8 in the Apple Developer portal under Keys, upload it to Firebase Cloud Messaging → Apple app config with your Team ID and Key ID. Certificates expire yearly and break push in production overnight; .p8 keys don't. On Android, drop google-services.json under android/app/ and ensure your applicationId in build.gradle matches the Firebase Android app's package name exactly — a mismatch results in tokens that look valid but never receive messages.",
+      },
+      {
+        type: "code",
+        label: "iOS — AppDelegate.mm registration",
+        text: "#import <Firebase.h>\n#import <UserNotifications/UserNotifications.h>\n\n- (BOOL)application:(UIApplication *)application\n didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {\n  [FIRApp configure];\n\n  // Register for remote notifications — this is what triggers APNs token generation\n  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];\n  center.delegate = self;\n  UNAuthorizationOptions options = UNAuthorizationOptionAlert\n                                   | UNAuthorizationOptionSound\n                                   | UNAuthorizationOptionBadge;\n  [center requestAuthorizationWithOptions:options\n    completionHandler:^(BOOL granted, NSError * _Nullable error) {\n      if (granted) {\n        dispatch_async(dispatch_get_main_queue(), ^{\n          [application registerForRemoteNotifications];\n        });\n      }\n    }];\n\n  return [super application:application didFinishLaunchingWithOptions:launchOptions];\n}",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Token retrieval and rotation",
+      },
+      {
+        type: "text",
+        text: "FCM tokens are not static. They rotate when the user reinstalls the app, clears app data, restores from a backup on a new device, or — on iOS — when the user toggles notifications off and back on. Your backend must accept a token-update endpoint and the client must call it every time getToken() returns a value different from what's stored locally. Skipping this is why \"my old phone still gets pushes after I reinstall on a new one\" — both devices think they own the same user, only one is current.",
+      },
+      {
+        type: "code",
+        label: "Token bootstrap + rotation listener",
+        text: "import messaging from '@react-native-firebase/messaging';\nimport AsyncStorage from '@react-native-async-storage/async-storage';\nimport { api } from '../api/client';\n\nexport async function bootstrapPush(userId: string) {\n  const authStatus = await messaging().requestPermission();\n  const enabled =\n    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||\n    authStatus === messaging.AuthorizationStatus.PROVISIONAL;\n  if (!enabled) return;\n\n  const token = await messaging().getToken();\n  const cached = await AsyncStorage.getItem('fcm_token');\n  if (token !== cached) {\n    await api.post('/devices/register', { token, userId, platform: Platform.OS });\n    await AsyncStorage.setItem('fcm_token', token);\n  }\n\n  // Listen for FCM-initiated rotations (rare but real)\n  messaging().onTokenRefresh(async (newToken) => {\n    await api.post('/devices/register', { token: newToken, userId, platform: Platform.OS });\n    await AsyncStorage.setItem('fcm_token', newToken);\n  });\n}",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — Foreground vs background vs quit-state handling",
+      },
+      {
+        type: "text",
+        text: "RN Firebase fans out incoming messages across three states: foreground (onMessage — you must display the notification yourself, FCM won't), background (setBackgroundMessageHandler in index.js — runs in a headless task), and quit-state cold launch (getInitialNotification — returns the notification that woke the app). All three need to handle the same deep-link payload consistently. We solved this on Soul33 with a single navigation function that all three handlers call once the navigation ref is ready.",
+      },
+      {
+        type: "code",
+        label: "index.js — register the background handler",
+        text: "import messaging from '@react-native-firebase/messaging';\n\n// MUST be outside any component, BEFORE AppRegistry.registerComponent\nmessaging().setBackgroundMessageHandler(async (remoteMessage) => {\n  // Persist to AsyncStorage; the app will pick it up on next launch\n  await AsyncStorage.setItem(\n    'pending_deep_link',\n    JSON.stringify(remoteMessage.data ?? {}),\n  );\n});",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — Android channels, iOS categories, deep links",
+      },
+      {
+        type: "text",
+        text: "On Android 8+, every notification must belong to a channel — register channels with distinct sound/vibration settings on first launch via notifee or @notifee/react-native. On iOS, register notification categories with actions (Reply, Mark as Read) the same way. Deep links live in remoteMessage.data — a flat object of string-only values. Never rely on FCM's notification.title/body for routing; those are display-only. Always include screen and entityId fields in data and route from there.",
+      },
+      {
+        type: "heading",
+        text: "Why your test pushes never arrive",
+      },
+      {
+        type: "text",
+        text: "Top three silent failures we've debugged: (1) TestFlight builds need a Production APNs auth key — sandbox keys only work in development builds, so a fresh TestFlight install will register but never receive. (2) Android OEMs (Xiaomi, Oppo, Vivo) aggressively kill background processes — users must whitelist the app in battery settings or the FCM service is terminated. (3) priority: 'normal' messages get batched by FCM and may arrive minutes later — use priority: 'high' for chat and time-sensitive content, but reserve normal for marketing pings so you don't burn your sender reputation.",
+      },
+      {
+        type: "callout",
+        text: "Production checklist: APNs .p8 key uploaded to Firebase (not a cert), token rotation endpoint deployed, all three handlers (foreground/background/quit) call the same deep-link router, Android notification channels registered before sending, priority set per message type, and a fallback for users who haven't granted permission (in-app inbox so they don't miss critical messages).",
+      },
+    ],
+  },
+  {
+    id: 12,
+    slug: "reanimated-v4-60fps-reels",
+    title:
+      "60fps Reels on Low-End Android with Reanimated v4 Worklets",
+    excerpt:
+      "How we rebuilt the Yoke Reels feed to hold 60fps on a Snapdragon 665 — covering Reanimated v4 worklets, useAnimatedScrollHandler, runOnJS bridging, and the lifecycle-aware playback trick that cut RAM by ~30%.",
+    date: "Apr 2026",
+    readTime: "7 min read",
+    tags: ["React Native", "Reanimated", "Animation", "Performance"],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "The Yoke Reels feed was the canary for performance on the whole app. TikTok-style vertical paging, video playback, double-tap-to-like with a heart burst — on a flagship iPhone it ran flawlessly. On a 2-year-old Android with a Snapdragon 665, scrolling stuttered, the heart animation skipped frames, and battery temp climbed within 10 minutes of use. The fix wasn't more native code — it was moving every animation off the JS thread using Reanimated v4 worklets.",
+      },
+      {
+        type: "heading",
+        text: "Why JS-thread animation breaks on low-end devices",
+      },
+      {
+        type: "text",
+        text: "By default, an Animated.Value or setState-driven transform runs on the JS thread, then crosses the bridge to the UI thread every frame. If JS is busy doing anything else (a Redux dispatch, a network response, image decoding), frames are dropped. On a Snapdragon 665 the JS thread is already saturated by the React reconciler. Worklets bypass this entirely by compiling animation logic to run on the UI thread directly — no bridge crossing per frame, no JS dependence.",
+      },
+      {
+        type: "heading",
+        text: "Rebuilding the scroll-driven crossfade as a worklet",
+      },
+      {
+        type: "text",
+        text: "The original feed used Animated.event with useNativeDriver: true for the scroll position, but the crossfade between adjacent reels (opacity ramp at the edges) was computed in React on the JS thread. Replacing it with useAnimatedScrollHandler + useAnimatedStyle moved the entire computation to the UI thread. We saw a measurable 12–15ms reduction in scroll-event handling on the JS thread on the Snapdragon device.",
+      },
+      {
+        type: "code",
+        label: "ReelsFeed — worklet-driven crossfade",
+        text: "import Animated, {\n  useAnimatedScrollHandler,\n  useAnimatedStyle,\n  useSharedValue,\n  interpolate,\n  Extrapolation,\n} from 'react-native-reanimated';\n\nconst { height: H } = Dimensions.get('window');\n\nfunction ReelsFeed({ reels }) {\n  const scrollY = useSharedValue(0);\n\n  const onScroll = useAnimatedScrollHandler((e) => {\n    'worklet';\n    scrollY.value = e.contentOffset.y;\n  });\n\n  return (\n    <Animated.FlatList\n      data={reels}\n      onScroll={onScroll}\n      scrollEventThrottle={16}\n      pagingEnabled\n      renderItem={({ item, index }) => (\n        <ReelCard reel={item} index={index} scrollY={scrollY} />\n      )}\n    />\n  );\n}\n\nfunction ReelCard({ reel, index, scrollY }) {\n  const animatedStyle = useAnimatedStyle(() => {\n    'worklet';\n    const start = index * H;\n    const opacity = interpolate(\n      scrollY.value,\n      [start - H * 0.6, start, start + H * 0.6],\n      [0, 1, 0],\n      Extrapolation.CLAMP,\n    );\n    return { opacity };\n  });\n\n  return (\n    <Animated.View style={[styles.card, animatedStyle]}>\n      {/* ... */}\n    </Animated.View>\n  );\n}",
+      },
+      {
+        type: "heading",
+        text: "Double-tap-to-like — gesture-driven worklets",
+      },
+      {
+        type: "text",
+        text: "The heart burst animation used to fire from a Redux dispatch via componentDidUpdate. Result: a 60–100ms delay between tap and visual on the slow device. We moved the entire double-tap detection and burst into a Gesture.Tap().numberOfTaps(2) handler with the animation in a worklet — the spring fires instantly, and the Redux dispatch happens via runOnJS afterward. The user sees instant feedback; the server-side mutation runs in the background.",
+      },
+      {
+        type: "code",
+        label: "Heart-burst gesture with runOnJS",
+        text: "import { Gesture, GestureDetector } from 'react-native-gesture-handler';\nimport Animated, {\n  useSharedValue,\n  useAnimatedStyle,\n  withSpring,\n  withTiming,\n  runOnJS,\n} from 'react-native-reanimated';\n\nfunction HeartBurst({ reelId, onLike }) {\n  const scale = useSharedValue(0);\n  const opacity = useSharedValue(0);\n\n  const doubleTap = Gesture.Tap()\n    .numberOfTaps(2)\n    .onEnd(() => {\n      'worklet';\n      scale.value = withSpring(1, { damping: 9, stiffness: 220 });\n      opacity.value = withTiming(1, { duration: 120 }, () => {\n        opacity.value = withTiming(0, { duration: 280 });\n        scale.value = withTiming(0, { duration: 280 });\n      });\n      runOnJS(onLike)(reelId);   // network call off the UI thread\n    });\n\n  const heartStyle = useAnimatedStyle(() => ({\n    transform: [{ scale: scale.value }],\n    opacity: opacity.value,\n  }));\n\n  return (\n    <GestureDetector gesture={doubleTap}>\n      <Animated.View style={styles.hitbox}>\n        <Animated.View style={[styles.heart, heartStyle]} />\n        {/* video / content underneath */}\n      </Animated.View>\n    </GestureDetector>\n  );\n}",
+      },
+      {
+        type: "heading",
+        text: "Lifecycle-aware playback — the memory win",
+      },
+      {
+        type: "text",
+        text: "Each reel mounts a react-native-video instance. With windowSize: 5 on the FlatList, that's up to 5 video players in memory at any time — most of them out of view but still allocated. On low-end Android this peaked our RAM at 450MB and triggered OOM on Android 8 devices. The fix: use useIsFocused logic on each card and a custom isActiveIndex prop. Only the focused card holds the player; adjacent cards render a static thumbnail. Memory dropped ~30%, scroll became measurably smoother because GC pressure fell off.",
+      },
+      {
+        type: "heading",
+        text: "The Reanimated v4 New Architecture caveat",
+      },
+      {
+        type: "text",
+        text: "Reanimated v4 requires the New Architecture (Fabric + JSI). Some older libraries with class component patterns or imperative refs won't work cleanly with worklets. We had to drop two libraries and reimplement them: a custom carousel that used findNodeHandle (incompatible with Fabric) and a parallax library that mutated refs from outside Animated. If you're on RN < 0.74, evaluate Reanimated v3 first — v4's wins aren't worth a forced architecture migration if you're not already planning one.",
+      },
+      {
+        type: "callout",
+        text: "Rule of thumb on RN animation: if the animation depends on user input (scroll, gesture, drag), it should be a worklet. If it's a fire-and-forget transition (modal open, route change), Animated with useNativeDriver: true is enough. The cost of authoring worklets is real — strict syntax, harder debugging, runOnJS for any JS-side effect — but on low-end Android it's the only path to consistent 60fps.",
+      },
+    ],
+  },
+  {
+    id: 13,
+    slug: "mmkv-vs-asyncstorage-react-native",
+    title:
+      "MMKV vs AsyncStorage in React Native — Picking the Right Persistence Layer",
+    excerpt:
+      "When to use MMKV, when to stick with AsyncStorage, and how to migrate without losing user data. A practical comparison from running both in production on Soul33, plus the secure-storage gotcha you don't want to learn at submission time.",
+    date: "Mar 2026",
+    readTime: "6 min read",
+    tags: ["React Native", "MMKV", "AsyncStorage", "Persistence"],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Persistence is one of those decisions you make at the start of a project and rarely revisit — which is exactly why it's worth getting right. AsyncStorage is the default, MMKV is the modern alternative, and SecureStore / Keychain is what you actually need for tokens. On Soul33 we used all three for different data, and I've seen enough mistakes to write this down.",
+      },
+      {
+        type: "heading",
+        text: "The numbers",
+      },
+      {
+        type: "text",
+        text: "AsyncStorage is asynchronous, JSON-only, and crosses the bridge for every read and write. On Android it's backed by SQLite; on iOS, by a serialized dictionary file. MMKV is synchronous, supports primitives + Buffers natively, and uses memory-mapped IO — meaning reads return at C++ speed without parsing JSON. In our benchmarks reading 1000 small keys: AsyncStorage ~310ms, MMKV ~6ms. For a single get, the difference is invisible; for a redux-persist rehydration on app cold start, it's the difference between a flash of empty UI and instant content.",
+      },
+      {
+        type: "heading",
+        text: "When AsyncStorage is the right call",
+      },
+      {
+        type: "text",
+        text: "When you only read state at boot (a couple of dispatches in your redux-persist hydration), AsyncStorage is fine. It's already in 90% of RN apps, its API is well known, and it ships with most templates. If you're building a small app or an MVP, the migration cost to MMKV isn't worth the perf you'll never measure. Default to AsyncStorage; reach for MMKV when there's a real reason.",
+      },
+      {
+        type: "heading",
+        text: "When MMKV pays off",
+      },
+      {
+        type: "text",
+        text: "Three signals push you to MMKV. First: many small reads on a hot path — feature flags read inside renderItem, A/B test buckets checked per screen, draft-state autosaves while typing. Second: large persisted state — Redux Persist payloads over ~500KB take AsyncStorage hundreds of milliseconds to rehydrate, with a visible loading flash on cold start. Third: structured data with shape that doesn't fit JSON neatly — counters, sets, binary blobs.",
+      },
+      {
+        type: "code",
+        label: "MMKV — typed wrapper for safer access",
+        text: "import { MMKV } from 'react-native-mmkv';\n\nexport const storage = new MMKV({\n  id: 'soul33-default',\n  // Optional encryption — see security note below\n});\n\nexport const kv = {\n  getString:  (k: string)            => storage.getString(k) ?? null,\n  setString:  (k: string, v: string) => storage.set(k, v),\n  getBool:    (k: string)            => storage.getBoolean(k) ?? false,\n  setBool:    (k: string, v: boolean)=> storage.set(k, v),\n  getJSON:    <T>(k: string): T | null => {\n    const raw = storage.getString(k);\n    if (!raw) return null;\n    try { return JSON.parse(raw) as T; } catch { return null; }\n  },\n  setJSON:    (k: string, v: unknown)=> storage.set(k, JSON.stringify(v)),\n  remove:     (k: string)            => storage.delete(k),\n  clear:      ()                     => storage.clearAll(),\n};",
+      },
+      {
+        type: "heading",
+        text: "Migrating an existing app without losing data",
+      },
+      {
+        type: "text",
+        text: "Don't do a hard cutover. Migrate on demand: on app start, for each MMKV key the app needs, check MMKV first; if absent, read from AsyncStorage, write to MMKV, then return the value. After a few weeks you can ship a cleanup that wipes the legacy keys. This pattern survived a real user base on Soul33 with zero reports of lost preferences during the swap.",
+      },
+      {
+        type: "code",
+        label: "Lazy migration helper",
+        text: "import AsyncStorage from '@react-native-async-storage/async-storage';\nimport { storage } from './mmkv';\n\nexport async function readWithMigration(key: string): Promise<string | null> {\n  const mmkvVal = storage.getString(key);\n  if (mmkvVal !== undefined) return mmkvVal;\n\n  const legacy = await AsyncStorage.getItem(key);\n  if (legacy !== null) {\n    storage.set(key, legacy);\n    return legacy;\n  }\n  return null;\n}",
+      },
+      {
+        type: "heading",
+        text: "What MMKV is not — secure storage",
+      },
+      {
+        type: "text",
+        text: "Neither MMKV nor AsyncStorage are secure. On a rooted/jailbroken device, both are trivially readable. Auth tokens, refresh tokens, biometric secrets, and anything regulated belongs in Keychain (iOS) / Keystore (Android) — accessible via react-native-keychain or expo-secure-store. MMKV supports symmetric encryption with a passed key, which is better than plaintext but still requires the key to live somewhere — typically Keychain. Use that combination only when you need encrypted bulk data; for individual secrets, Keychain alone is fine.",
+      },
+      {
+        type: "heading",
+        text: "Redux Persist + MMKV — the real win",
+      },
+      {
+        type: "text",
+        text: "redux-persist defaults to AsyncStorage. Swapping the storage adapter to MMKV via redux-persist-mmkv-storage cut Soul33's hydration time from ~280ms to under 20ms on cold start — the difference between a perceptible flash of empty home screen and the app simply being ready. If you only do one MMKV migration, do this one.",
+      },
+      {
+        type: "callout",
+        text: "Quick decision tree: tokens / passwords / biometrics → Keychain. Large persisted Redux state, hot-path reads, draft autosaves → MMKV. Small preferences, settings flags, last-route — either works, default to whatever the rest of the app uses. Don't introduce a third persistence layer unless there's a real reason.",
+      },
+    ],
+  },
+  {
+    id: 14,
+    slug: "fastlane-ci-cd-react-native",
+    title:
+      "CI/CD for React Native with Fastlane — From Commit to TestFlight & Play",
+    excerpt:
+      "How to wire Fastlane + GitHub Actions so every merge to main builds, signs, and ships a release candidate to TestFlight Internal and Play Internal Testing. Includes match for cert sync, the credentials JSON Play wants, and the cache that cuts build time by ~40%.",
+    date: "Mar 2026",
+    readTime: "8 min read",
+    tags: ["React Native", "CI/CD", "Fastlane", "GitHub Actions", "Deployment"],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Manually archiving in Xcode and uploading AABs through Play Console gets old by the third release. On the EC Infosolutions React Native team we automated the entire iOS + Android release pipeline so a tagged commit ships a release candidate to TestFlight Internal and Play Internal Testing within ~18 minutes — and the on-call engineer's only job is approving the production promotion. Here's the exact setup.",
+      },
+      {
+        type: "heading",
+        text: "The shape of the pipeline",
+      },
+      {
+        type: "text",
+        text: "GitHub Actions on push of a v* tag → spin up macOS + Ubuntu runners → each runs Fastlane → iOS lane archives, signs, uploads to TestFlight; Android lane bundles, signs, uploads to Play Internal Testing. Build numbers auto-increment via the latest_testflight_build_number / google_play_track_version_codes APIs so engineers never edit Info.plist or build.gradle for releases. Slack notifies #releases on success or failure.",
+      },
+      {
+        type: "heading",
+        text: "Step 1 — Fastlane setup",
+      },
+      {
+        type: "code",
+        label: "Install + init",
+        text: "# Run from project root\nbundle init\necho \"gem 'fastlane'\" >> Gemfile\nbundle install\n\n# Init Fastlane for iOS and Android\ncd ios && bundle exec fastlane init && cd ..\ncd android && bundle exec fastlane init && cd ..\n\n# This creates ios/fastlane/Fastfile, android/fastlane/Fastfile, and Appfile\n# Commit Fastfile + Appfile; .gitignore the auth artifacts they suggest",
+      },
+      {
+        type: "heading",
+        text: "Step 2 — Signing without losing your mind: match for iOS",
+      },
+      {
+        type: "text",
+        text: "fastlane match stores your iOS certificates and provisioning profiles in a private Git repo, encrypted with a passphrase. Every CI runner — and every team member's laptop — runs match development / match appstore once and gets the same certs. No more emailing .p12 files or hoping someone remembers the keychain password.",
+      },
+      {
+        type: "code",
+        label: "ios/fastlane/Matchfile + lane",
+        text: "# ios/fastlane/Matchfile\ngit_url(\"git@github.com:your-org/ios-certificates-private.git\")\nstorage_mode(\"git\")\ntype(\"appstore\")\napp_identifier([\"com.yourcompany.yourapp\"])\nusername(\"ci@yourcompany.com\")\n\n# ios/fastlane/Fastfile\nplatform :ios do\n  lane :beta do\n    setup_ci if ENV['CI']                # creates a temp keychain on CI\n    match(type: 'appstore', readonly: true)\n    increment_build_number(\n      build_number: latest_testflight_build_number(\n        app_identifier: 'com.yourcompany.yourapp'\n      ) + 1,\n      xcodeproj: 'YourApp.xcodeproj'\n    )\n    build_app(\n      workspace: 'YourApp.xcworkspace',\n      scheme: 'YourApp',\n      export_method: 'app-store',\n      include_bitcode: false,\n    )\n    upload_to_testflight(\n      skip_waiting_for_build_processing: true,\n      changelog: ENV['CHANGELOG'] || 'CI release'\n    )\n  end\nend",
+      },
+      {
+        type: "heading",
+        text: "Step 3 — Android signing + Play Console API access",
+      },
+      {
+        type: "text",
+        text: "Android signing on CI needs your upload keystore + passwords loaded from secrets. For Play Console uploads, create a Service Account in Google Cloud → grant it Release Manager access in Play Console → download the JSON credentials file. Fastlane uses this to authenticate; without it you'd be uploading AABs manually forever.",
+      },
+      {
+        type: "code",
+        label: "android/fastlane/Fastfile",
+        text: "platform :android do\n  lane :internal do\n    gradle(\n      task: 'bundle',\n      build_type: 'Release',\n      project_dir: '.',\n      properties: {\n        'android.injected.signing.store.file' => ENV['KEYSTORE_PATH'],\n        'android.injected.signing.store.password' => ENV['KEYSTORE_PASSWORD'],\n        'android.injected.signing.key.alias' => ENV['KEY_ALIAS'],\n        'android.injected.signing.key.password' => ENV['KEY_PASSWORD'],\n      }\n    )\n    upload_to_play_store(\n      track: 'internal',\n      aab: 'app/build/outputs/bundle/release/app-release.aab',\n      json_key_data: ENV['PLAY_SERVICE_ACCOUNT_JSON'],\n      release_status: 'completed',\n      skip_upload_metadata: true,\n      skip_upload_changelogs: true,\n      skip_upload_images: true,\n      skip_upload_screenshots: true,\n    )\n  end\nend",
+      },
+      {
+        type: "heading",
+        text: "Step 4 — GitHub Actions workflow",
+      },
+      {
+        type: "code",
+        label: ".github/workflows/release.yml (abridged)",
+        text: "name: Release\n\non:\n  push:\n    tags: ['v*']\n\njobs:\n  ios:\n    runs-on: macos-14\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with: { node-version: 20, cache: 'yarn' }\n      - uses: ruby/setup-ruby@v1\n        with: { ruby-version: 3.2, bundler-cache: true }\n      - run: yarn install --frozen-lockfile\n      - run: cd ios && pod install\n      - name: Fastlane beta\n        env:\n          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}\n          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_AUTH }}\n          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.ASC_KEY_ID }}\n          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}\n          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.ASC_KEY_P8 }}\n        run: cd ios && bundle exec fastlane beta\n\n  android:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with: { node-version: 20, cache: 'yarn' }\n      - uses: actions/setup-java@v4\n        with: { distribution: 'temurin', java-version: 17 }\n      - uses: ruby/setup-ruby@v1\n        with: { ruby-version: 3.2, bundler-cache: true }\n      - run: yarn install --frozen-lockfile\n      - name: Restore keystore\n        run: echo \"${{ secrets.KEYSTORE_BASE64 }}\" | base64 -d > android/app/release.keystore\n      - name: Fastlane internal\n        env:\n          KEYSTORE_PATH: ${{ github.workspace }}/android/app/release.keystore\n          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}\n          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}\n          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}\n          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}\n        run: cd android && bundle exec fastlane internal",
+      },
+      {
+        type: "heading",
+        text: "Step 5 — Cache aggressively or watch your bills",
+      },
+      {
+        type: "text",
+        text: "macOS minutes on GitHub Actions are 10× the price of Linux. Three caches cut our iOS build from 22 minutes to about 13: yarn cache (handled by setup-node), CocoaPods cache (cache ios/Pods + Podfile.lock), and DerivedData (cache ~/Library/Developer/Xcode/DerivedData keyed by the iOS project hash). On Android the Gradle cache + node_modules cache are the equivalent wins. Don't cache the .xcarchive — it's specific to each build and caching invalid archives is worse than re-building.",
+      },
+      {
+        type: "heading",
+        text: "App Store Connect API keys, not passwords",
+      },
+      {
+        type: "text",
+        text: "Stop using Apple ID + password (or app-specific passwords) in CI — they break with 2FA and are deprecated for upload. Generate an App Store Connect API key (Users and Access → Integrations → App Store Connect API), grant it Admin or App Manager access, download the .p8 file, and pass APP_STORE_CONNECT_API_KEY_KEY_ID, _ISSUER_ID, and _KEY contents as env vars. Fastlane picks them up automatically.",
+      },
+      {
+        type: "callout",
+        text: "Wins from automation, in order: humans never touch a keystore again (lower loss risk), build numbers can't drift (no more \"forgot to bump CFBundleVersion\" rejections), TestFlight gets a build per PR if you want it, and rollbacks are a re-tag away. Start with TestFlight Internal + Play Internal Testing only — promotion to Production is the one place humans still belong.",
+      },
+    ],
+  },
+  {
+    id: 15,
+    slug: "in-app-purchases-react-native",
+    title:
+      "In-App Purchases in React Native — Subscriptions on iOS + Android",
+    excerpt:
+      "Wiring App Store and Play Billing into a React Native app with react-native-iap or RevenueCat — covering product setup, server-side receipt validation, restore purchases, the introductory-offer trap on iOS, and why client-side entitlement is always a lie.",
+    date: "May 2026",
+    readTime: "9 min read",
+    tags: ["React Native", "IAP", "Subscriptions", "Monetization"],
+    domain: "mobile",
+    content: [
+      {
+        type: "intro",
+        text: "Soul33's tiered subscription — Free, Seeker, Mastery — was the revenue engine of the app. Built it twice: once with react-native-iap raw, once with RevenueCat after the second App Store rejection over receipt-validation behaviour. Both work. This post is the version of \"how IAP actually fits together\" I wish someone had handed me on day one.",
+      },
+      {
+        type: "heading",
+        text: "Why client-side entitlement is always wrong",
+      },
+      {
+        type: "text",
+        text: "Every IAP library will give you a quick path to \"the user has purchased X\" right in the app. Do not trust it. Jailbroken iOS devices return forged receipts. Android devices can be patched to return fake purchase tokens. Both platforms' SDKs hand you transaction data you must verify server-side against Apple's verifyReceipt endpoint or Google's purchases.subscriptions.get API. If your backend grants entitlement based on a client-side claim, you'll discover a healthy free-rider community within weeks of going live.",
+      },
+      {
+        type: "heading",
+        text: "Architecture: client buys, server entitles",
+      },
+      {
+        type: "text",
+        text: "The flow that survives audits and abuse: client initiates purchase → store returns a receipt / purchaseToken → client posts that to your backend → backend calls Apple/Google verification API → backend records the subscription state in your DB → backend returns the user's entitlement → client unlocks features based on the SERVER response, not the SDK. Receipt validation is also where you record auto-renewal status, grace periods, and billing retry windows.",
+      },
+      {
+        type: "heading",
+        text: "Product setup the dashboards make easy to mess up",
+      },
+      {
+        type: "text",
+        text: "On App Store Connect, every subscription belongs to a Subscription Group — you can only own ONE subscription per group at a time. Most apps want a single group containing all tiers (Free isn't a product; the others are). If you put each tier in its own group, users can subscribe to two tiers simultaneously and Apple will let them. On Google Play Console, subscriptions live under Monetize → Subscriptions, with each tier having a base plan and offers. The product IDs you pick are immutable — pick clear ones (seeker_monthly, seeker_yearly), never reuse them across environments.",
+      },
+      {
+        type: "heading",
+        text: "react-native-iap — the raw path",
+      },
+      {
+        type: "code",
+        label: "Subscribe flow with react-native-iap",
+        text: "import {\n  initConnection,\n  endConnection,\n  getSubscriptions,\n  requestSubscription,\n  purchaseUpdatedListener,\n  finishTransaction,\n  type Subscription,\n  type SubscriptionPurchase,\n} from 'react-native-iap';\n\nconst SKUS = Platform.select({\n  ios: ['seeker_monthly', 'mastery_monthly'],\n  android: ['seeker_monthly', 'mastery_monthly'],\n}) ?? [];\n\nexport async function startBilling() {\n  await initConnection();\n  const subs: Subscription[] = await getSubscriptions({ skus: SKUS });\n\n  const sub = purchaseUpdatedListener(async (purchase: SubscriptionPurchase) => {\n    const receipt = purchase.transactionReceipt;\n    // Send receipt + productId to backend; await entitlement decision\n    const { entitled } = await api.post('/iap/validate', {\n      platform: Platform.OS,\n      productId: purchase.productId,\n      receipt,\n      purchaseToken: purchase.purchaseToken, // Android only\n    });\n\n    if (entitled) {\n      await finishTransaction({ purchase, isConsumable: false });\n    }\n  });\n\n  return () => {\n    sub.remove();\n    endConnection();\n  };\n}",
+      },
+      {
+        type: "heading",
+        text: "RevenueCat — the pragmatic path",
+      },
+      {
+        type: "text",
+        text: "If your business is selling subscriptions, RevenueCat is worth its 1% take. It handles platform receipt validation, subscription state caching, cross-platform entitlement (a user who buys on iOS keeps their entitlement on Android), introductory offer eligibility, and webhook delivery on renewals/refunds/grace-period entries. We rebuilt Soul33's IAP on RevenueCat in two days and deleted ~600 lines of backend validation code. The trade-off: another vendor in your stack and a recurring cost — but for most teams the time saved pays for itself within the first quarter.",
+      },
+      {
+        type: "code",
+        label: "Minimal RevenueCat setup",
+        text: "import Purchases, { PurchasesOffering } from 'react-native-purchases';\n\nexport async function configureBilling(userId: string) {\n  Purchases.configure({\n    apiKey: Platform.OS === 'ios'\n      ? 'appl_xxx_revcat_public_key'\n      : 'goog_xxx_revcat_public_key',\n    appUserID: userId,   // your backend's user ID — never the email\n  });\n\n  const offerings = await Purchases.getOfferings();\n  return offerings.current; // contains all available packages\n}\n\nexport async function purchase(pkg: PurchasesOffering['availablePackages'][number]) {\n  const { customerInfo } = await Purchases.purchasePackage(pkg);\n  return customerInfo.entitlements.active['premium'] != null;\n}\n\nexport async function restorePurchases() {\n  const customerInfo = await Purchases.restorePurchases();\n  return customerInfo.entitlements.active;\n}",
+      },
+      {
+        type: "heading",
+        text: "Restore Purchases — required by both stores",
+      },
+      {
+        type: "text",
+        text: "Apple and Google require a visible Restore Purchases button on any screen where you ask the user to subscribe. App Store reviewers test this — if it's missing or non-functional, your app is rejected within hours. Restore is also how a user moves to a new device while keeping their subscription. With react-native-iap, call getAvailablePurchases() and re-validate each receipt with your backend. With RevenueCat, restorePurchases() handles it.",
+      },
+      {
+        type: "heading",
+        text: "Introductory offers — the trap",
+      },
+      {
+        type: "text",
+        text: "On iOS, a user is eligible for an introductory offer (free trial, intro pricing) once per Subscription Group. If they already used the trial on Seeker and then upgrade to Mastery in the same group, they get standard pricing, not another trial. Your UI must reflect this — querying is_eligible_for_intro_offer via StoreKit's getIntroductoryOfferEligibility and only showing the trial copy when true. Showing \"Free 7-day trial\" to someone Apple will charge full price is a guaranteed support ticket.",
+      },
+      {
+        type: "heading",
+        text: "Sandbox testing — and why it always feels broken",
+      },
+      {
+        type: "text",
+        text: "iOS sandbox subscriptions auto-renew aggressively — a monthly subscription renews every 5 minutes, and after 5 renewals it cancels and you start over. Use a Sandbox tester account from App Store Connect, sign out of your real Apple ID in Settings → Media & Purchases. On Android, add license testers in Play Console → License Testing for fake purchases to work in unpublished apps. Sandbox doesn't perfectly mirror production — promotional offers and family sharing behave differently in sandbox. Always do a final test with TestFlight Internal + real card.",
+      },
+      {
+        type: "callout",
+        text: "Quick decision: if subscriptions are core to your business and you have <2 senior engineers, use RevenueCat. If you have specific compliance requirements (data residency, custom receipt logic) or you've already invested in receipt-validation infra, use react-native-iap. Either way: server-side entitlement only, visible Restore button, accurate introductory-offer eligibility, and webhook your renewal events into your CRM from day one — retention work without renewal data is guesswork.",
+      },
+    ],
+  },
 ];
 
 const blogsWithMeta: Blog[] = blogs.map((b, i) => ({

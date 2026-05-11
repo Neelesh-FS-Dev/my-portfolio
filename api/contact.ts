@@ -17,6 +17,45 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#x27;");
 }
 
+// Sliding-window in-memory rate limit. Best-effort only — Vercel functions
+// are stateless across cold starts, so persistent abusers will still get
+// through eventually. For real spam protection swap this for Upstash Redis.
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX = 3; // requests per window per IP
+const rateLog = new Map<string, number[]>();
+
+function getClientIp(req: VercelRequest): string {
+  const fwd = req.headers["x-forwarded-for"];
+  if (typeof fwd === "string" && fwd.length > 0) {
+    return fwd.split(",")[0].trim();
+  }
+  if (Array.isArray(fwd) && fwd.length > 0) return fwd[0];
+  const real = req.headers["x-real-ip"];
+  if (typeof real === "string") return real;
+  return req.socket?.remoteAddress || "unknown";
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const hits = (rateLog.get(ip) || []).filter((t) => t > cutoff);
+  if (hits.length >= RATE_LIMIT_MAX) {
+    rateLog.set(ip, hits);
+    return true;
+  }
+  hits.push(now);
+  rateLog.set(ip, hits);
+  // Opportunistically prune cold entries so the map doesn't grow forever.
+  if (rateLog.size > 1000) {
+    for (const [k, v] of rateLog) {
+      const fresh = v.filter((t) => t > cutoff);
+      if (fresh.length === 0) rateLog.delete(k);
+      else rateLog.set(k, fresh);
+    }
+  }
+  return false;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const origin = (req.headers.origin as string) || "";
   if (ALLOWED_ORIGIN && origin === ALLOWED_ORIGIN) {
@@ -35,8 +74,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
+  const ip = getClientIp(req);
+  if (isRateLimited(ip)) {
+    res.setHeader("Retry-After", "60");
+    return res
+      .status(429)
+      .json({ message: "Too many messages — please wait a minute." });
+  }
+
   const body = req.body as ContactFormBody | undefined;
-  const { name, email, subject, message } = body ?? {};
+  const { name, email, subject, message, _honey } = body ?? {};
+
+  // Honeypot: silently 200 so bots don't learn they were caught.
+  if (_honey && _honey.trim().length > 0) {
+    return res.status(200).json({ message: "Email sent successfully!" });
+  }
 
   if (!name || !email || !message) {
     return res.status(400).json({ message: "Missing required fields" });

@@ -1,18 +1,22 @@
+import { motion } from "framer-motion";
 import { useIsMobile, useIsSmall } from "../../../shared/hooks/useMediaQuery";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import { generateParticles } from "../../../shared/data/particles";
+import {
+  RevealStagger,
+  fadeUp,
+  scaleIn,
+} from "../../../shared/components/motion";
+import GLSLHills from "../../../shared/components/effects/GLSLHills";
 
 export default function BlogsHero() {
   const isMobile = useIsMobile();
   const isSmall = useIsSmall();
-  const [headerRef, headerVisible] = useReveal<HTMLElement>(0.05);
 
   /* Floating particles */
   const particles = generateParticles(12);
 
   return (
     <section
-      ref={headerRef}
       style={{
         padding: isMobile ? "40px 0 52px" : "60px 0 80px",
         background: "var(--bg2)",
@@ -22,6 +26,7 @@ export default function BlogsHero() {
       }}
       className="grid-bg"
     >
+      <GLSLHills />
       {/* Breathing glow */}
       <div
         style={{
@@ -56,28 +61,19 @@ export default function BlogsHero() {
         />
       ))}
 
-      <div className="container">
-        <div
-          className="section-label"
-          style={{
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 0.5s ease 0.05s, transform 0.5s ease 0.05s",
-          }}
-        >
+      <RevealStagger
+        className="container"
+        stagger={0.12}
+        delayChildren={0.05}
+        style={{ position: "relative", zIndex: 1 }}
+      >
+        <motion.div className="section-label" variants={fadeUp}>
           Writing
-        </div>
-        <h1
+        </motion.div>
+        <motion.h1
           className="section-title"
-          style={{
-            marginBottom: 14,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible
-              ? "translateY(0) skewY(0deg)"
-              : "translateY(20px) skewY(1deg)",
-            transition:
-              "opacity 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s, transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s",
-          }}
+          variants={fadeUp}
+          style={{ marginBottom: 14 }}
         >
           Dev Blog &amp;
           <br />
@@ -85,29 +81,25 @@ export default function BlogsHero() {
             style={{
               color: "var(--accent3)",
               display: "inline-block",
-              animation: headerVisible
-                ? "text-shimmer-orange 4s ease-in-out infinite"
-                : "none",
+              animation: "text-shimmer-orange 4s ease-in-out infinite",
             }}
           >
             Learnings
           </span>
-        </h1>
-        <p
+        </motion.h1>
+        <motion.p
+          variants={scaleIn}
           style={{
             color: "var(--text2)",
             fontSize: isSmall ? 14 : 17,
             maxWidth: 520,
             lineHeight: 1.75,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
           }}
         >
           Technical deep-dives on React Native, React, performance, and
           mobile/web architecture — from real production experience.
-        </p>
-      </div>
+        </motion.p>
+      </RevealStagger>
 
       <style>{`
         @keyframes breathe        { 0%,100%{transform:translateY(-50%) scale(1);opacity:1} 50%{transform:translateY(-50%) scale(1.12);opacity:.7} }

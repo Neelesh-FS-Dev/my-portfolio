@@ -1,8 +1,16 @@
+import { motion } from "framer-motion";
 import { TbBrandReactNative } from "react-icons/tb";
 import { SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import { generateParticles } from "../../../shared/data/particles";
 import { getExperience } from "../../../shared/utils/getExperience";
+import {
+  RevealStagger,
+  fadeUp,
+  scaleIn,
+  popIn,
+  hoverLift,
+} from "../../../shared/components/motion";
+import GLSLHills from "../../../shared/components/effects/GLSLHills";
 
 export interface ExperienceHeroProps {
   isMobile: boolean;
@@ -13,14 +21,42 @@ export default function ExperienceHero({
   isMobile,
   isSmall,
 }: ExperienceHeroProps) {
-  const [headerRef, headerVisible] = useReveal<HTMLElement>(0.05);
-
   /* Floating particles in hero */
   const particles = generateParticles(14);
 
+  const techBadges = [
+    {
+      icon: <TbBrandReactNative size={12} />,
+      label: "React Native",
+      color: "#ffffff",
+      bg: "rgba(59,130,246,0.07)",
+      border: "rgba(59,130,246,0.25)",
+    },
+    {
+      icon: <SiReact size={12} />,
+      label: "React.js / JS",
+      color: "#ffffff",
+      bg: "rgba(59,130,246,0.07)",
+      border: "rgba(59,130,246,0.25)",
+    },
+    {
+      icon: <SiTailwindcss size={12} />,
+      label: "Tailwind CSS / Vite",
+      color: "#ffffff",
+      bg: "rgba(59,130,246,0.07)",
+      border: "rgba(59,130,246,0.25)",
+    },
+    {
+      icon: <SiTypescript size={12} />,
+      label: "TypeScript / Redux",
+      color: "#ffffff",
+      bg: "rgba(59,130,246,0.07)",
+      border: "rgba(59,130,246,0.25)",
+    },
+  ];
+
   return (
     <section
-      ref={headerRef}
       style={{
         padding: isMobile ? "40px 0 52px" : "60px 0 80px",
         background: "var(--bg2)",
@@ -30,6 +66,7 @@ export default function ExperienceHero({
       }}
       className="grid-bg"
     >
+      <GLSLHills />
       {/* Radial glow */}
       <div
         style={{
@@ -64,28 +101,19 @@ export default function ExperienceHero({
         />
       ))}
 
-      <div className="container">
-        <div
-          className="section-label"
-          style={{
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 0.5s ease 0.05s, transform 0.5s ease 0.05s",
-          }}
-        >
+      <RevealStagger
+        className="container"
+        stagger={0.1}
+        delayChildren={0.05}
+        style={{ position: "relative", zIndex: 1 }}
+      >
+        <motion.div className="section-label" variants={fadeUp}>
           Career
-        </div>
-        <h1
+        </motion.div>
+        <motion.h1
           className="section-title"
-          style={{
-            marginBottom: 14,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible
-              ? "translateY(0) skewY(0deg)"
-              : "translateY(20px) skewY(1deg)",
-            transition:
-              "opacity 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s, transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s",
-          }}
+          variants={fadeUp}
+          style={{ marginBottom: 14 }}
         >
           Work
           <br />
@@ -93,67 +121,44 @@ export default function ExperienceHero({
             style={{
               color: "var(--accent2)",
               display: "inline-block",
-              animation: headerVisible
-                ? "text-shimmer 4s ease-in-out infinite"
-                : "none",
+              animation: "text-shimmer 4s ease-in-out infinite",
             }}
           >
             Experience
           </span>
-        </h1>
-        <p
+        </motion.h1>
+        <motion.p
+          variants={scaleIn}
           style={{
             color: "var(--text2)",
             fontSize: isSmall ? 14 : 17,
             maxWidth: 520,
             lineHeight: 1.75,
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.55s ease 0.22s, transform 0.55s ease 0.22s",
           }}
         >
           {getExperience("2023-01-01")} of experience building production-grade
           mobile apps with React Native and web platforms using React &amp;
           Tailwind CSS.
-        </p>
+        </motion.p>
 
         {/* Tech badges — staggered pop-in */}
-        <div
-          style={{ display: "flex", gap: 8, marginTop: 24, flexWrap: "wrap" }}
+        <RevealStagger
+          stagger={0.07}
+          delayChildren={0.3}
+          style={{
+            display: "flex",
+            gap: 8,
+            marginTop: 24,
+            flexWrap: "wrap",
+          }}
         >
-          {[
-            {
-              icon: <TbBrandReactNative size={12} />,
-              label: "React Native",
-              color: "var(--accent)",
-              bg: "rgba(59,130,246,0.07)",
-              border: "rgba(59,130,246,0.25)",
-            },
-            {
-              icon: <SiReact size={12} />,
-              label: "React.js / JS",
-              color: "var(--accent)",
-              bg: "rgba(59,130,246,0.07)",
-              border: "rgba(59,130,246,0.25)",
-            },
-            {
-              icon: <SiTailwindcss size={12} />,
-              label: "Tailwind CSS / Vite",
-              color: "var(--green)",
-              bg: "rgba(59,130,246,0.07)",
-              border: "rgba(59,130,246,0.25)",
-            },
-            {
-              icon: <SiTypescript size={12} />,
-              label: "TypeScript / Redux",
-              color: "var(--accent3)",
-              bg: "rgba(59,130,246,0.07)",
-              border: "rgba(59,130,246,0.25)",
-            },
-          ].map((t, i) => (
-            <span
+          {techBadges.map((t) => (
+            <motion.span
               key={t.label}
               className="badge-hover"
+              variants={popIn}
+              whileHover={{ y: -3, scale: 1.05 }}
+              transition={hoverLift}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -165,19 +170,15 @@ export default function ExperienceHero({
                 color: t.color,
                 border: `1px solid ${t.border}`,
                 background: t.bg,
-                opacity: headerVisible ? 1 : 0,
-                transform: headerVisible
-                  ? "translateY(0) scale(1)"
-                  : "translateY(10px) scale(0.9)",
-                transition: `opacity 0.4s ease ${0.3 + i * 0.07}s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${0.3 + i * 0.07}s`,
                 cursor: "default",
+                willChange: "transform",
               }}
             >
               {t.icon} {t.label}
-            </span>
+            </motion.span>
           ))}
-        </div>
-      </div>
+        </RevealStagger>
+      </RevealStagger>
     </section>
   );
 }

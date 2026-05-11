@@ -1,5 +1,5 @@
+import { motion } from "framer-motion";
 import personal from "../../../shared/data/personal";
-import { useReveal } from "../../../shared/hooks/useReveal";
 import {
   FiMail,
   FiGithub,
@@ -10,15 +10,17 @@ import {
 } from "react-icons/fi";
 import ContactRow from "./ContactRow";
 import type { ContactItem } from "./ContactRow";
+import {
+  Reveal,
+  RevealStagger,
+  scaleIn,
+} from "../../../shared/components/motion";
 
 export interface ContactInfoProps {
   isSmall: boolean;
 }
 
 export default function ContactInfo({ isSmall }: ContactInfoProps) {
-  const [infoRef, infoVisible] = useReveal<HTMLDivElement>(0.08);
-  const [availRef, availVisible] = useReveal<HTMLDivElement>(0.1);
-
   const linkedInHandle = personal.linkedin.replace(/^https?:\/\/(www\.)?/, "");
   const githubHandle = personal.github.replace(/^https?:\/\/(www\.)?/, "");
   const instagramHandle = personal.instagram
@@ -65,21 +67,23 @@ export default function ContactInfo({ isSmall }: ContactInfoProps) {
   ];
 
   return (
-    <div ref={infoRef}>
-      <h2
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: isSmall ? 20 : 24,
-          fontWeight: 700,
-          marginBottom: 24,
-          opacity: infoVisible ? 1 : 0,
-          transform: infoVisible ? "translateY(0)" : "translateY(14px)",
-          transition: "opacity 0.55s ease, transform 0.55s ease",
-        }}
-      >
-        Contact Info
-      </h2>
-      <div
+    <div>
+      <Reveal preset="fadeUp">
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: isSmall ? 20 : 24,
+            fontWeight: 700,
+            marginBottom: 24,
+          }}
+        >
+          Contact Info
+        </h2>
+      </Reveal>
+
+      <RevealStagger
+        stagger={0.07}
+        delayChildren={0.05}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -87,32 +91,24 @@ export default function ContactInfo({ isSmall }: ContactInfoProps) {
           marginBottom: 28,
         }}
       >
-        {contactItems.map((item, idx) => (
-          <ContactRow
-            key={item.label}
-            item={item}
-            idx={idx}
-            visible={infoVisible}
-            isSmall={isSmall}
-          />
+        {contactItems.map((item) => (
+          <ContactRow key={item.label} item={item} isSmall={isSmall} />
         ))}
-      </div>
+      </RevealStagger>
 
       {/* Availability badge */}
-      <div
-        ref={availRef}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={scaleIn}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         style={{
           padding: "20px",
           borderRadius: 16,
           background:
             "linear-gradient(135deg,rgba(59,130,246,0.08) 0%,rgba(59,130,246,0.05) 100%)",
           border: "1px solid rgba(59,130,246,0.2)",
-          opacity: availVisible ? 1 : 0,
-          transform: availVisible
-            ? "translateY(0) scale(1)"
-            : "translateY(16px) scale(0.97)",
-          transition:
-            "opacity 0.6s cubic-bezier(0.16,1,0.3,1) 0.5s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.5s",
         }}
       >
         <div
@@ -165,7 +161,7 @@ export default function ContactInfo({ isSmall }: ContactInfoProps) {
           Open to full-time React Native roles, freelance projects, and
           consulting. Response within 24 hours.
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }

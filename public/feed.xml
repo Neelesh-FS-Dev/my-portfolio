@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neelesh Yadav — Engineering Blog</title>
+    <link>https://neeleshyadav.vercel.app/blogs</link>
+    <atom:link href="https://neeleshyadav.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Engineering write-ups on React Native, React, performance, real-time systems, and shipping production mobile + web apps.</description>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 May 2026 15:07:04 GMT</lastBuildDate>
+    <item>
+      <title>In-App Purchases in React Native — Subscriptions on iOS + Android</title>
+      <link>https://neeleshyadav.vercel.app/blogs/in-app-purchases-react-native</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/in-app-purchases-react-native</guid>
+      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+      <description>Wiring App Store and Play Billing into a React Native app with react-native-iap or RevenueCat — covering product setup, server-side receipt validation, restore purchases, the introductory-offer trap on iOS, and why client-side entitlement is always a lie.</description>
+      <category>React Native</category>
+      <category>IAP</category>
+      <category>Subscriptions</category>
+      <category>Monetization</category>
+    </item>
+    <item>
+      <title>Push Notifications in React Native — FCM + APNs Done Right</title>
+      <link>https://neeleshyadav.vercel.app/blogs/push-notifications-react-native-fcm-apns</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/push-notifications-react-native-fcm-apns</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <description>End-to-end push notification setup for React Native using Firebase Cloud Messaging on Android and APNs via FCM on iOS — covering token rotation, background handlers, deep links, notification channels, and the silent failures nobody documents.</description>
+      <category>React Native</category>
+      <category>Push Notifications</category>
+      <category>Firebase</category>
+      <category>FCM</category>
+      <category>APNs</category>
+    </item>
+    <item>
+      <title>60fps Reels on Low-End Android with Reanimated v4 Worklets</title>
+      <link>https://neeleshyadav.vercel.app/blogs/reanimated-v4-60fps-reels</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/reanimated-v4-60fps-reels</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <description>How we rebuilt the Yoke Reels feed to hold 60fps on a Snapdragon 665 — covering Reanimated v4 worklets, useAnimatedScrollHandler, runOnJS bridging, and the lifecycle-aware playback trick that cut RAM by ~30%.</description>
+      <category>React Native</category>
+      <category>Reanimated</category>
+      <category>Animation</category>
+      <category>Performance</category>
+    </item>
+    <item>
+      <title>MMKV vs AsyncStorage in React Native — Picking the Right Persistence Layer</title>
+      <link>https://neeleshyadav.vercel.app/blogs/mmkv-vs-asyncstorage-react-native</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/mmkv-vs-asyncstorage-react-native</guid>
+      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
+      <description>When to use MMKV, when to stick with AsyncStorage, and how to migrate without losing user data. A practical comparison from running both in production on Soul33, plus the secure-storage gotcha you don&apos;t want to learn at submission time.</description>
+      <category>React Native</category>
+      <category>MMKV</category>
+      <category>AsyncStorage</category>
+      <category>Persistence</category>
+    </item>
+    <item>
+      <title>CI/CD for React Native with Fastlane — From Commit to TestFlight &amp; Play</title>
+      <link>https://neeleshyadav.vercel.app/blogs/fastlane-ci-cd-react-native</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/fastlane-ci-cd-react-native</guid>
+      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
+      <description>How to wire Fastlane + GitHub Actions so every merge to main builds, signs, and ships a release candidate to TestFlight Internal and Play Internal Testing. Includes match for cert sync, the credentials JSON Play wants, and the cache that cuts build time by ~40%.</description>
+      <category>React Native</category>
+      <category>CI/CD</category>
+      <category>Fastlane</category>
+      <category>GitHub Actions</category>
+      <category>Deployment</category>
+    </item>
+    <item>
+      <title>Implementing Sign In with Apple in React Native (iOS + Android)</title>
+      <link>https://neeleshyadav.vercel.app/blogs/sign-in-with-apple-react-native</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/sign-in-with-apple-react-native</guid>
+      <pubDate>Sat, 01 Mar 2025 12:00:00 GMT</pubDate>
+      <description>A complete walkthrough of integrating Sign In with Apple using @invertase/react-native-apple-authentication — covering Xcode capability setup, Android workaround via JWT, private email relay, credential state handling, and App Store compliance gotchas.</description>
+      <category>React Native</category>
+      <category>Authentication</category>
+      <category>iOS</category>
+      <category>Apple</category>
+      <category>Security</category>
+    </item>
+    <item>
+      <title>Google Sign In with React Native — The Complete Guide</title>
+      <link>https://neeleshyadav.vercel.app/blogs/google-sign-in-react-native</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/google-sign-in-react-native</guid>
+      <pubDate>Sat, 01 Mar 2025 12:00:00 GMT</pubDate>
+      <description>Everything you need to implement Google Sign In using @react-native-google-signin/google-signin — from SHA-1 fingerprint setup and OAuth client IDs, to silent sign-in, token refresh, Play Integrity, and the iOS URL scheme trap that breaks half of all setups.</description>
+      <category>React Native</category>
+      <category>Authentication</category>
+      <category>Google</category>
+      <category>OAuth</category>
+      <category>Android</category>
+    </item>
+    <item>
+      <title>Deploying a React Native App to the App Store — Full Xcode Walkthrough</title>
+      <link>https://neeleshyadav.vercel.app/blogs/deploy-react-native-app-store</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/deploy-react-native-app-store</guid>
+      <pubDate>Sat, 01 Mar 2025 12:00:00 GMT</pubDate>
+      <description>A step-by-step production deployment guide for iOS — covering Apple Developer account setup, certificates, provisioning profiles, Xcode archive, TestFlight distribution, App Store Connect metadata, and the review gotchas that cause most first-time rejections.</description>
+      <category>React Native</category>
+      <category>iOS</category>
+      <category>App Store</category>
+      <category>Xcode</category>
+      <category>Deployment</category>
+    </item>
+    <item>
+      <title>Deploying a React Native App to Google Play — Android Studio &amp; Play Console Guide</title>
+      <link>https://neeleshyadav.vercel.app/blogs/deploy-react-native-google-play</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/deploy-react-native-google-play</guid>
+      <pubDate>Sat, 01 Mar 2025 12:00:00 GMT</pubDate>
+      <description>The complete production deployment guide for Android — covering keystore generation, Gradle signing config, AAB builds in Android Studio, Play Console setup, internal/closed/open tracks, Play App Signing, and avoiding the policy violations that get new apps suspended.</description>
+      <category>React Native</category>
+      <category>Android</category>
+      <category>Google Play</category>
+      <category>Android Studio</category>
+      <category>Deployment</category>
+    </item>
+    <item>
+      <title>Boosting React Native Performance: New Architecture Deep Dive</title>
+      <link>https://neeleshyadav.vercel.app/blogs/rn-new-architecture</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/rn-new-architecture</guid>
+      <pubDate>Thu, 01 Feb 2024 12:00:00 GMT</pubDate>
+      <description>How enabling the New React Native Architecture improved Soul33&apos;s runtime performance by 40% — a real migration story covering JSI, Fabric, TurboModules, and the 40+ library audit I did before touching a single line.</description>
+      <category>React Native</category>
+      <category>Performance</category>
+      <category>Architecture</category>
+      <category>TypeScript</category>
+    </item>
+    <item>
+      <title>Building Real-Time Chat with WebSocket in React Native</title>
+      <link>https://neeleshyadav.vercel.app/blogs/websocket-chat-rn</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/websocket-chat-rn</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <description>Lessons from building a production WebSocket group chat supporting 200+ concurrent sessions — covering connection lifecycle, offline queuing, message deduplication, swipe-to-reply, and audio messages.</description>
+      <category>WebSocket</category>
+      <category>Real-time</category>
+      <category>React Native</category>
+      <category>Redux</category>
+    </item>
+    <item>
+      <title>AR Try-On: Three.js + MediaPipe in React Native</title>
+      <link>https://neeleshyadav.vercel.app/blogs/ar-tryon-threejs-mediapipe</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/ar-tryon-threejs-mediapipe</guid>
+      <pubDate>Fri, 01 Dec 2023 12:00:00 GMT</pubDate>
+      <description>How I shipped a real-time AR lipstick try-on for Barva Skin Therapie using Three.js and MediaPipe Face Landmarker inside a React Native WebView — no native AR SDK needed.</description>
+      <category>AR</category>
+      <category>Three.js</category>
+      <category>MediaPipe</category>
+      <category>React Native</category>
+    </item>
+    <item>
+      <title>Optimizing FlatList: Reducing Re-renders by 40%</title>
+      <link>https://neeleshyadav.vercel.app/blogs/flatlist-optimization</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/flatlist-optimization</guid>
+      <pubDate>Wed, 01 Nov 2023 12:00:00 GMT</pubDate>
+      <description>A practical guide to memoisation, getItemLayout, windowSize, and keyExtractor techniques that eliminated 40% of unnecessary re-renders in a 100-screen React Native app.</description>
+      <category>Performance</category>
+      <category>React Native</category>
+      <category>FlatList</category>
+      <category>Memoisation</category>
+    </item>
+    <item>
+      <title>Next.js vs Vite + React: When to Choose What</title>
+      <link>https://neeleshyadav.vercel.app/blogs/nextjs-vs-vite</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/nextjs-vs-vite</guid>
+      <pubDate>Sun, 01 Oct 2023 12:00:00 GMT</pubDate>
+      <description>A practical, opinionated comparison of Next.js and Vite + React based on shipping both in production — covering SSR, SSG, bundle size, DX, and the exact decision matrix I now use on every project.</description>
+      <category>Next.js</category>
+      <category>Vite</category>
+      <category>React</category>
+      <category>Web Performance</category>
+    </item>
+    <item>
+      <title>Tailwind CSS at Scale: Component Patterns That Work</title>
+      <link>https://neeleshyadav.vercel.app/blogs/tailwind-at-scale</link>
+      <guid isPermaLink="true">https://neeleshyadav.vercel.app/blogs/tailwind-at-scale</guid>
+      <pubDate>Fri, 01 Sep 2023 12:00:00 GMT</pubDate>
+      <description>How I structure Tailwind CSS in large React projects without creating utility soup — covering cva for variants, design tokens in config, and the abstraction boundary rule that keeps codebases clean.</description>
+      <category>Tailwind CSS</category>
+      <category>React</category>
+      <category>CSS Architecture</category>
+      <category>DX</category>
+    </item>
+  </channel>
+</rss>

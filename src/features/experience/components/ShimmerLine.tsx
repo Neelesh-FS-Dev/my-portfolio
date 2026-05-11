@@ -1,19 +1,20 @@
-import { useReveal } from "../../../shared/hooks/useReveal";
+import { motion } from "framer-motion";
 
 export default function ShimmerLine() {
-  const [ref, visible] = useReveal(0.3);
   return (
-    <div
-      ref={ref}
+    <motion.div
+      initial={{ opacity: 0, scaleX: 0 }}
+      whileInView={{ opacity: 1, scaleX: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        opacity: { duration: 0.8, ease: "easeOut" },
+        scaleX: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+      }}
       style={{
         height: 1,
         background:
           "linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "scaleX(1)" : "scaleX(0)",
         transformOrigin: "left",
-        transition:
-          "opacity 0.8s ease, transform 1s cubic-bezier(0.16,1,0.3,1)",
         marginBottom: 32,
       }}
     />
