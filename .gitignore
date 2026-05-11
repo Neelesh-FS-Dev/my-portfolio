@@ -60,3 +60,4 @@ coverage/
 *.tgz
 .cache/
 .vercel/
+.claude/
