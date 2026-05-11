@@ -26,6 +26,14 @@ function Phone3D({
     const node = wrapperRef.current;
     if (!node) return;
 
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    if (reduceMotion.matches) {
+      node.style.transform = `translateX(${offsetX}px) translateY(${offsetY}px) rotate(${initialRotateZ}deg)`;
+      return;
+    }
+
     const mouse = { x: 0.5, y: 0.5 };
     const current = { rx: 0, ry: 0 };
     let frame = 0;

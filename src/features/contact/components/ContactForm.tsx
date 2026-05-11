@@ -258,6 +258,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
             >
               <AnimatedField>
                 <label
+                  htmlFor="contact-name"
                   style={{
                     ...labelStyle,
                     color:
@@ -269,6 +270,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   Name
                 </label>
                 <input
+                  id="contact-name"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
@@ -291,6 +293,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
               </AnimatedField>
               <AnimatedField>
                 <label
+                  htmlFor="contact-email"
                   style={{
                     ...labelStyle,
                     color:
@@ -302,6 +305,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   Email
                 </label>
                 <input
+                  id="contact-email"
                   name="email"
                   type="email"
                   value={form.email}
@@ -326,6 +330,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
             </div>
             <AnimatedField>
               <label
+                htmlFor="contact-subject"
                 style={{
                   ...labelStyle,
                   color:
@@ -337,6 +342,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 Subject
               </label>
               <input
+                id="contact-subject"
                 name="subject"
                 value={form.subject}
                 onChange={handleChange}
@@ -358,6 +364,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
             </AnimatedField>
             <AnimatedField>
               <label
+                htmlFor="contact-message"
                 style={{
                   ...labelStyle,
                   color:
@@ -369,6 +376,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 Message
               </label>
               <textarea
+                id="contact-message"
                 name="message"
                 value={form.message}
                 onChange={handleChange}

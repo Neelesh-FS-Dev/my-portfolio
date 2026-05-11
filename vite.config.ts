@@ -225,7 +225,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: "dist",
-      sourcemap: true,
+      sourcemap: isAnalyze ? true : "hidden",
       rollupOptions: {
         output: {
           manualChunks(id: string) {

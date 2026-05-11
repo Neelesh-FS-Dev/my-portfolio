@@ -209,6 +209,7 @@ function Navbar() {
               onClick={toggleMenu}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               whileTap={tapTarget}
               animate={{
                 background: menuOpen
@@ -280,7 +281,10 @@ function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-menu"
             className="nav-mobile-overlay"
+            role="dialog"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
