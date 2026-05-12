@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Project } from "../types";
 import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 import ProjectCard from "./ProjectCard";
@@ -20,7 +19,6 @@ export default function ProjectsGrid({
   category,
 }: ProjectsGridProps) {
   const isMobile = useIsMobile();
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section className="section">
@@ -58,8 +56,6 @@ export default function ProjectsGrid({
                 !isMobile &&
                 category === "All" &&
                 domainTab !== "web";
-              const dimmed =
-                hoveredId !== null && hoveredId !== project.id;
               return (
                 <div
                   key={`${filterKey}-${project.id}`}
@@ -71,9 +67,6 @@ export default function ProjectsGrid({
                 >
                   <SpotlightCard
                     accentColor={project.accent ?? "#3b82f6"}
-                    dimmed={dimmed}
-                    onHoverStart={() => setHoveredId(project.id)}
-                    onHoverEnd={() => setHoveredId(null)}
                     style={{ width: "100%" }}
                   >
                     <ProjectCard

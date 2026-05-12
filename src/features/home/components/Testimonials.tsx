@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import testimonials from "../../../shared/data/testimonials";
 import type { Testimonial } from "../../../shared/data/testimonials";
 import { Reveal } from "../../../shared/components/motion";
@@ -46,25 +46,19 @@ interface ColumnProps {
   className?: string;
 }
 
-// Hoisted so framer-motion sees a stable reference each render and doesn't
-// reschedule the loop. Same for the transition factory.
-const MARQUEE_ANIMATE = { y: "-50%" } as const;
-const buildMarqueeTransition = (duration: number) =>
-  ({
-    duration,
-    repeat: Infinity,
-    ease: "linear",
-    repeatType: "loop",
-  }) as const;
-
 function TestimonialsColumn({ items, duration, className = "" }: ColumnProps) {
   const reduce = useReducedMotion();
   return (
     <div className={`tcol ${className}`.trim()}>
-      <motion.div
+      <div
         className="tcol-track"
-        animate={reduce ? undefined : MARQUEE_ANIMATE}
-        transition={reduce ? undefined : buildMarqueeTransition(duration)}
+        style={
+          reduce
+            ? undefined
+            : {
+                animation: `tcol-marquee ${duration}s linear infinite`,
+              }
+        }
       >
         {[0, 1].map((dup) => (
           <div className="tcol-batch" key={dup} aria-hidden={dup === 1}>
@@ -73,7 +67,7 @@ function TestimonialsColumn({ items, duration, className = "" }: ColumnProps) {
             ))}
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -136,10 +130,23 @@ const STYLES = `
     padding-bottom: 20px;
     will-change: transform;
   }
+  .tcol-row:hover .tcol-track,
+  .tcol-row:focus-within .tcol-track {
+    animation-play-state: paused;
+  }
   .tcol-batch {
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  @keyframes tcol-marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -50%, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tcol-track { animation: none !important; }
   }
 
   .tcol-card {
