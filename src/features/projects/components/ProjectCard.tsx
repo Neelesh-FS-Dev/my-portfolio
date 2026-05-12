@@ -143,7 +143,7 @@ function ProjectCard({ project, featured = false, index = 0 }: ProjectCardProps)
 
   return (
     <motion.article
-      className="interactive-card glass glass-hover"
+      className="interactive-card glass-frost glass-frost-hover"
       role="link"
       tabIndex={0}
       aria-label={`View project: ${project.title}`}
@@ -153,12 +153,12 @@ function ProjectCard({ project, featured = false, index = 0 }: ProjectCardProps)
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
-      initial={{ opacity: 0, y: 80, scale: 0.92 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.8,
-        delay: Math.min(index, 6) * 0.08,
+        duration: 0.5,
+        delay: Math.min(index, 4) * 0.05,
         ease: [0.16, 1, 0.3, 1],
       }}
       style={{

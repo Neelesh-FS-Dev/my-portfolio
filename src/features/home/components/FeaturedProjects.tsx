@@ -16,7 +16,6 @@ export default function FeaturedProjects({
   isSmall,
 }: FeaturedProjectsProps) {
   const [tab, setTab] = useState<ProjectsTab>("mobile");
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const mobileProjects = projects.filter((p) => p.type === "mobile");
   const webProjects = projects.filter((p) => p.type === "web");
@@ -27,9 +26,6 @@ export default function FeaturedProjects({
   ) => (
     <SpotlightCard
       accentColor={p.accent ?? "#3b82f6"}
-      dimmed={hoveredId !== null && hoveredId !== p.id}
-      onHoverStart={() => setHoveredId(p.id)}
-      onHoverEnd={() => setHoveredId(null)}
       style={{ width: "100%" }}
     >
       {children}

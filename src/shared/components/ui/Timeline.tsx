@@ -13,9 +13,9 @@ function ensureStyles() {
   document.head.appendChild(el);
 }
 const RESPONSIVE_GAP = `
-  .tl-wrap { display: flex; flex-direction: column; gap: 96px; }
-  @media (min-width: 768px)  { .tl-wrap { gap: 160px; } }
-  @media (min-width: 1024px) { .tl-wrap { gap: 220px; } }
+  .tl-wrap { display: flex; flex-direction: column; gap: 40px; }
+  @media (min-width: 768px)  { .tl-wrap { gap: 56px; } }
+  @media (min-width: 1024px) { .tl-wrap { gap: 72px; } }
 `;
 
 /**
@@ -128,28 +128,14 @@ const STYLES = `
     line-height: 1.65;
     color: var(--text2);
     margin: 10px 0 0;
-    transition: all .35s;
-  }
-  .tl-card:not(.is-active) .tl-card-desc {
-    color: var(--text3);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    transition: color .25s;
   }
 
   .tl-expand {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    transition: grid-template-rows .5s ease, opacity .35s ease;
-  }
-  .tl-expand.is-active {
-    grid-template-rows: 1fr;
+    display: block;
     opacity: 1;
   }
-  .tl-expand > div { overflow: hidden; min-height: 0; }
+  .tl-expand > div { overflow: visible; }
 
   .tl-items {
     margin-top: 16px;
