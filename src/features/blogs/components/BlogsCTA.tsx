@@ -51,19 +51,48 @@ export default function BlogsCTA() {
         >
           Follow my GitHub for code experiments, open-source work, and updates.
         </motion.p>
-        <motion.a
-          href="https://github.com/Neelesh-FS-Dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline"
+        <motion.div
           variants={popIn}
-          whileHover={{ y: -3, scale: 1.04 }}
-          whileTap={tapTarget}
-          transition={hoverLift}
-          style={{ display: "inline-flex", willChange: "transform" }}
+          style={{
+            display: "flex",
+            gap: 12,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
         >
-          Follow on GitHub ↗
-        </motion.a>
+          <motion.a
+            href="https://github.com/Neelesh-FS-Dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+            whileHover={{ y: -3, scale: 1.04 }}
+            whileTap={tapTarget}
+            transition={hoverLift}
+            style={{ display: "inline-flex", willChange: "transform" }}
+          >
+            Follow on GitHub ↗
+          </motion.a>
+          <motion.a
+            href="/feed.xml"
+            className="btn btn-outline"
+            whileHover={{ y: -3, scale: 1.04 }}
+            whileTap={tapTarget}
+            transition={hoverLift}
+            style={{ display: "inline-flex", willChange: "transform" }}
+          >
+            RSS Feed
+          </motion.a>
+          <motion.a
+            href="/feed.json"
+            className="btn btn-outline"
+            whileHover={{ y: -3, scale: 1.04 }}
+            whileTap={tapTarget}
+            transition={hoverLift}
+            style={{ display: "inline-flex", willChange: "transform" }}
+          >
+            JSON Feed
+          </motion.a>
+        </motion.div>
       </RevealStagger>
     </section>
   );

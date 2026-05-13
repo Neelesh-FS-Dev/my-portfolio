@@ -1,0 +1,27 @@
+{
+  "name": "Neelesh Yadav — Portfolio",
+  "short_name": "Neelesh Yadav",
+  "description": "React Native & React engineer shipping production mobile + web apps. Pune, India.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#04070a",
+  "theme_color": "#3b82f6",
+  "lang": "en-US",
+  "categories": ["portfolio", "developer", "personal"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "772x622",
+      "purpose": "any"
+    }
+  ]
+}

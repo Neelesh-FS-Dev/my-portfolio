@@ -30,9 +30,38 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = join(__dirname, "..");
 
 const DEFAULT_TITLE =
-  "Neelesh Yadav - React Native & React Developer | Pune, India";
+  "Neelesh Yadav — React Native & React Developer | Pune";
 const DEFAULT_DESCRIPTION =
-  "Software Engineer with 3+ years shipping production React Native and React apps end-to-end. 10+ App Store & Play Store releases, 20K+ users. TypeScript, Redux, Firebase, real-time systems, performance, and motion-rich interactive UI. Based in Pune, India.";
+  "React Native & React engineer shipping production mobile + web apps to 20K+ users. 10+ App/Play Store releases. TypeScript, real-time, perf. Pune, India.";
+
+// Google truncates titles around 60 chars and descriptions around 155–160 chars.
+// We aim a little under those caps to leave room for branding in SERPs.
+const TITLE_HARD_CAP = 65;
+const TITLE_BRAND_SUFFIX = " — Neelesh Yadav";
+const DESCRIPTION_TARGET = 155;
+
+function buildTitle(baseTitle) {
+  const base = String(baseTitle || "").trim();
+  if (!base) return DEFAULT_TITLE;
+  // Don't double-suffix if the title was hand-written with the brand already.
+  if (/neelesh yadav/i.test(base)) return base;
+  if (base.length + TITLE_BRAND_SUFFIX.length <= TITLE_HARD_CAP) {
+    return `${base}${TITLE_BRAND_SUFFIX}`;
+  }
+  return base;
+}
+
+function truncateDescription(text, max = DESCRIPTION_TARGET) {
+  const value = String(text || "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (value.length <= max) return value;
+  // Word-boundary cut so we don't slice mid-token, then trim trailing punctuation.
+  const slice = value.slice(0, max - 1);
+  const lastSpace = slice.lastIndexOf(" ");
+  const cut = lastSpace > max * 0.6 ? slice.slice(0, lastSpace) : slice;
+  return cut.replace(/[\s.,;:—-]+$/, "") + "…";
+}
 
 export function absoluteUrl(path) {
   if (/^https?:\/\//i.test(path)) return path;
@@ -78,6 +107,23 @@ function getReadTimeMinutes(readTime) {
 }
 
 function homepageSchema() {
+  return [personSchema(), websiteSchema()];
+}
+
+function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Neelesh Yadav — Portfolio",
+    url: SITE_URL,
+    description:
+      "Portfolio of Neelesh Yadav — React Native & React Developer based in Pune, India.",
+    author: { "@type": "Person", name: "Neelesh Yadav", url: SITE_URL },
+    inLanguage: "en-US",
+  };
+}
+
+function personSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -273,21 +319,48 @@ export function getSeoRoutes() {
       priority: "0.7",
       changefreq: "yearly",
     },
-    ...projects.map((project) => ({
-      path: `/projects/${project.id}`,
-      title: `${project.title} - Neelesh Yadav`,
-      description: project.description,
-      image: project.screenshots?.[0]?.url || `${SITE_URL}/logo.png`,
-      priority: "0.7",
+    {
+      path: "/uses",
+      title: "Uses - Neelesh Yadav | Stack, Tools & Workflow",
+      description:
+        "The editor, languages, mobile and web frameworks, design tools, and infrastructure Neelesh Yadav reaches for when shipping React Native and React work.",
+      priority: "0.5",
       changefreq: "monthly",
-      schema: projectSchema(project),
-    })),
+    },
+    {
+      path: "/resume",
+      title: "Resume - Neelesh Yadav | React Native & React Developer",
+      description:
+        "Printable resume for Neelesh Yadav — React Native & React Developer with 3+ years shipping production mobile and web apps. Work history, education, and certifications.",
+      priority: "0.6",
+      changefreq: "monthly",
+    },
+    ...projects.map((project) => {
+      const heroImage = project.screenshots?.[0]?.url || `${SITE_URL}/logo.png`;
+      return {
+        path: `/projects/${project.id}`,
+        title: buildTitle(project.title),
+        description: truncateDescription(project.description),
+        image: heroImage,
+        // Image-sitemap extension entries — surfaces project screenshots in
+        // Google image search.
+        images: (project.screenshots || []).slice(0, 6).map((s) => ({
+          loc: absoluteUrl(s.url),
+          caption: s.label || project.title,
+          title: project.title,
+        })),
+        priority: "0.7",
+        changefreq: "monthly",
+        schema: projectSchema(project),
+      };
+    }),
     ...blogs.map((post) => ({
       path: `/blogs/${post.slug || post.id}`,
-      title: `${post.title} - Neelesh Yadav`,
-      description: post.excerpt,
+      title: buildTitle(post.title),
+      description: truncateDescription(post.excerpt),
       type: "article",
       image: post.image || `${SITE_URL}/logo.png`,
+      lastmod: getIsoMonthDate(post.date) || LAST_MOD,
       priority: "0.6",
       changefreq: "monthly",
       schema: blogSchema(post),

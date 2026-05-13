@@ -1,13 +1,32 @@
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiGithub, FiMail } from "react-icons/fi";
+import { FiGithub, FiMail, FiSearch } from "react-icons/fi";
 import navLinks from "../../data/navLinks";
 import {
   hoverLift,
   hoverLiftTarget,
   tapTarget,
 } from "../motion";
+
+function isMac(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent);
+}
+
+function openCommandPalette() {
+  // CommandPalette listens for ⌘K / Ctrl+K globally — synthesize the shortcut
+  // so the trigger button and the keystroke share one code path.
+  const mac = isMac();
+  window.dispatchEvent(
+    new KeyboardEvent("keydown", {
+      key: "k",
+      metaKey: mac,
+      ctrlKey: !mac,
+      bubbles: true,
+    }),
+  );
+}
 
 function Navbar() {
   const [navVisible, setNavVisible] = useState(true);
@@ -185,6 +204,45 @@ function Navbar() {
               flexShrink: 0,
             }}
           >
+            <motion.button
+              type="button"
+              onClick={openCommandPalette}
+              className="nav-cmdk-btn"
+              aria-label="Open command palette"
+              whileHover={{ y: -2 }}
+              whileTap={tapTarget}
+              transition={hoverLift}
+              style={{
+                display: "none",
+                alignItems: "center",
+                gap: 8,
+                padding: "7px 10px 7px 12px",
+                borderRadius: 100,
+                border: "1px solid var(--border)",
+                background: "transparent",
+                color: "var(--text3)",
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <FiSearch size={13} aria-hidden />
+              <span>Search</span>
+              <kbd
+                style={{
+                  padding: "1px 6px",
+                  borderRadius: 4,
+                  border: "1px solid var(--border)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--text3)",
+                  background: "rgba(255,255,255,0.04)",
+                }}
+              >
+                {isMac() ? "⌘" : "Ctrl"} K
+              </kbd>
+            </motion.button>
             <motion.div
               className="nav-hire-btn-wrap"
               whileHover={hoverLiftTarget}
@@ -441,13 +499,20 @@ function Navbar() {
         @media (min-width: 901px) {
           .nav-desktop { display: flex !important; }
           .nav-hire-btn-wrap { display: inline-flex !important; }
+          .nav-cmdk-btn { display: inline-flex !important; }
           .nav-hamburger { display: none !important; }
         }
 
         @media (max-width: 900px) {
           .nav-desktop { display: none !important; }
           .nav-hire-btn-wrap { display: none !important; }
+          .nav-cmdk-btn { display: none !important; }
           .nav-hamburger { display: flex !important; }
+        }
+
+        .nav-cmdk-btn:hover {
+          color: var(--text2) !important;
+          border-color: rgba(59,130,246,0.3) !important;
         }
 
         @media (max-width: 900px) and (min-width: 481px) {

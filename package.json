@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsx scripts/generate-sitemap.mjs && tsx scripts/generate-rss.mjs && vite build && tsx scripts/prerender-seo.mjs && tsx scripts/validate-seo.mjs",
+    "build": "tsx scripts/generate-sitemap.mjs && tsx scripts/generate-rss.mjs && tsx scripts/generate-json-feed.mjs && vite build && tsx scripts/prerender-seo.mjs && tsx scripts/validate-seo.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -p . --noEmit && tsc -p tsconfig.node.json --noEmit && tsc -p api --noEmit",
     "lint": "eslint .",
     "analyze": "ANALYZE=true vite build",
     "sitemap": "tsx scripts/generate-sitemap.mjs",
     "rss": "tsx scripts/generate-rss.mjs",
+    "feed:json": "tsx scripts/generate-json-feed.mjs",
     "validate:seo": "tsx scripts/validate-seo.mjs",
     "format": "prettier --write .",
     "lighthouse": "tsx scripts/lighthouse.mjs"

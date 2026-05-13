@@ -139,6 +139,7 @@ const navSections = [
     links: [
       { label: "Contact", to: "/contact" },
       { label: "Resume (PDF)", to: "/resume" },
+      { label: "Uses / Stack", to: "/uses" },
       { label: "Availability", to: "/contact" },
     ],
   },

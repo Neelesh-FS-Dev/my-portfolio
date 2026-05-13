@@ -453,6 +453,9 @@ export default function CinematicHero({
           rotationX: -yVal * 12,
           ease: "power3.out",
           duration: 1.2,
+          // Prevents tween stacking on fast mousemove — GSAP otherwise queues
+          // overlapping tweens that all tick until completion.
+          overwrite: "auto",
         });
       });
     };
@@ -775,9 +778,12 @@ export default function CinematicHero({
         <h1 className="text-track gsap-reveal ch-text-3d-matte ch-tagline">
           {tagline1}
         </h1>
-        <h1 className="text-days gsap-reveal ch-text-silver ch-tagline ch-tagline-2">
+        <p
+          className="text-days gsap-reveal ch-text-silver ch-tagline ch-tagline-2"
+          aria-label={tagline2}
+        >
           {tagline2}
-        </h1>
+        </p>
       </div>
 
       {/* CTA layer (revealed at the end of the scroll timeline) */}

@@ -16,18 +16,35 @@ function xmlEscape(value) {
     .replace(/'/g, "&apos;");
 }
 
+function renderImageBlock(image) {
+  // <image:image> per https://www.google.com/schemas/sitemap-image/1.1
+  const parts = [`      <image:loc>${xmlEscape(image.loc)}</image:loc>`];
+  if (image.caption) {
+    parts.push(`      <image:caption>${xmlEscape(image.caption)}</image:caption>`);
+  }
+  if (image.title) {
+    parts.push(`      <image:title>${xmlEscape(image.title)}</image:title>`);
+  }
+  return `    <image:image>\n${parts.join("\n")}\n    </image:image>`;
+}
+
 function renderUrl(route) {
   const loc = `${SITE_URL}${route.path === "/" ? "/" : route.path}`;
+  const lastmod = route.lastmod || LAST_MOD;
+  const images = Array.isArray(route.images) ? route.images : [];
+  const imageBlocks = images.map(renderImageBlock).join("\n");
   return `  <url>
     <loc>${xmlEscape(loc)}</loc>
-    <lastmod>${LAST_MOD}</lastmod>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
+    <priority>${route.priority}</priority>${imageBlocks ? `\n${imageBlocks}` : ""}
   </url>`;
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${getSeoRoutes().map(renderUrl).join("\n")}
 </urlset>
 `;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://neeleshyadav.vercel.app/</loc>
     <lastmod>2026-05-12</lastmod>
@@ -31,40 +33,187 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://neeleshyadav.vercel.app/uses</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://neeleshyadav.vercel.app/resume</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://neeleshyadav.vercel.app/projects/soul33</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9d/b9/a9/9db9a928-a5fe-7099-ffb8-9cea5180c7b6/Frame_11.jpg/400x800bb.png</image:loc>
+      <image:caption>Home Screen</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/06/0f/4b/060f4b57-4de4-f95e-44f2-548543abae5f/Frame_12.jpg/400x800bb.png</image:loc>
+      <image:caption>Meditation Player</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dc/0d/c6/dc0dc6cc-cf30-52f4-0d10-a906092e0636/Frame_13.jpg/400x800bb.png</image:loc>
+      <image:caption>Group Chat</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/6b/e2/28/6be2280b-b9c1-22cd-0f61-5a65eec0f253/Frame_14.jpg/400x800bb.png</image:loc>
+      <image:caption>Digital Guidance Cards</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/98/1d/90981dc0-1f3c-9c50-a3bb-06bb7914d48d/Frame_16.jpg/400x800bb.png</image:loc>
+      <image:caption>Podcast &amp; Teachings</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6e/c2/47/6ec247ff-127e-1e5b-3e0d-c8d3a60c0967/Frame_19.jpg/400x800bb.png</image:loc>
+      <image:caption>Videos &amp; Remote Healing</image:caption>
+      <image:title>Soul33 – The Beacon</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/yoke</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2b/2b/8d/2b2b8d0d-126d-ad32-3faf-1375aa0adddf/IOS_U20281242__U00d7_2688-9.jpg/157x340bb.webp</image:loc>
+      <image:caption>Onboarding</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2a/35/82/2a358278-a69b-104f-dcef-62ad06a5fa33/IOS_U20281242__U00d7_2688-8.jpg/157x340bb.webp</image:loc>
+      <image:caption>Home Feed</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a8/8d/51/a88d51e5-1c90-e334-ed3a-fcdadfb47417/IOS_U20281242__U00d7_2688-3.jpg/157x340bb.webp</image:loc>
+      <image:caption>Reels Feed</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d4/06/50/d406509e-5490-20bd-b1b3-aabc07bd52b6/IOS_U20281242__U00d7_2688.jpg/157x340bb.webp</image:loc>
+      <image:caption>Live Stream</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/67/74/6b/67746ba6-e83b-7fff-295d-194c523c36bb/IOS_U20281242__U00d7_2688-1.jpg/157x340bb.webp</image:loc>
+      <image:caption>Creator Profile</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/80/7d/7e/807d7eb1-4f3f-deea-ffde-751a650ec432/IOS_U20281242__U00d7_2688-4.jpg/157x340bb.webp</image:loc>
+      <image:caption>Explore</image:caption>
+      <image:title>Yoke Yoga</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/costack-barva</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fb/26/0b/fb260bd2-b526-b7f8-cfcf-aa97c792a6e3/Page_44.jpg/400x800bb.png</image:loc>
+      <image:caption>Product Listing</image:caption>
+      <image:title>Barva Skin Therapie</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ec/d7/ff/ecd7ff7b-19a2-0526-53da-4e32495bd126/Page_47.jpg/400x800bb.png</image:loc>
+      <image:caption>AR Try-On</image:caption>
+      <image:title>Barva Skin Therapie</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8e/42/f6/8e42f642-e21b-fa3b-8a9b-319815ab561a/Page_48.jpg/400x800bb.png</image:loc>
+      <image:caption>Cart</image:caption>
+      <image:title>Barva Skin Therapie</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ee/c4/20/eec420d0-e5fa-9af1-088a-fe1dd0dd41dc/Page_46.jpg/400x800bb.png</image:loc>
+      <image:caption>Order Detail</image:caption>
+      <image:title>Barva Skin Therapie</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/netras</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://play-lh.googleusercontent.com/Ef1pLlFJt5IY3IWG-WzWEADwdawiqGgbyTrnWXszzPqC7XuXSs5LXAAdXl1xzX6OYA4=w526-h296-rw</image:loc>
+      <image:caption>Home / Offers</image:caption>
+      <image:title>Netra&apos;s Organic</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://play-lh.googleusercontent.com/eA2VgTvp3UvUr-e648R9ZDXh-Y-s1XdPj1ohbpIjcJ69l8e5b08T47XRQ8q07sfPWg=w526-h296-rw</image:loc>
+      <image:caption>Product Listing</image:caption>
+      <image:title>Netra&apos;s Organic</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://play-lh.googleusercontent.com/t2tiTD_PPsA6VjoHmwa_1SGA8nzt8f8kwvmq8ve3iVui52d-R_36zUBRswqq2vZsDQ=w526-h296-rw</image:loc>
+      <image:caption>Cart &amp; Checkout</image:caption>
+      <image:title>Netra&apos;s Organic</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/culture-max</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/94/bc/98/94bc98b5-bdb0-a704-d666-7932239bb1c6/1290__U00d7_2796px.jpg/157x340bb.webp</image:loc>
+      <image:caption>Culture Max</image:caption>
+      <image:title>Culture Max</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e8/49/d2/e849d2da-e1ca-ec70-1e39-bf0c53bec21a/1290__U00d7_2796px-3.jpg/157x340bb.webp</image:loc>
+      <image:caption>Culture Max</image:caption>
+      <image:title>Culture Max</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4a/5e/11/4a5e1131-b8b4-0737-8a90-a469f5b8a0f7/1290__U00d7_2796px-4.jpg/157x340bb.webp</image:loc>
+      <image:caption>Culture Max</image:caption>
+      <image:title>Culture Max</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a3/ac/4c/a3ac4cd5-e78f-7bd0-aa77-a0b6af7d0ce2/1290__U00d7_2796px-1.jpg/157x340bb.webp</image:loc>
+      <image:caption>Culture Max</image:caption>
+      <image:title>Culture Max</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/flairish</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://neeleshyadav.vercel.app/</image:loc>
+      <image:caption>Hobbyist Home Feed</image:caption>
+      <image:title>Flairish</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://neeleshyadav.vercel.app/</image:loc>
+      <image:caption>Session Booking</image:caption>
+      <image:title>Flairish</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://neeleshyadav.vercel.app/</image:loc>
+      <image:caption>Live Zoom Session</image:caption>
+      <image:title>Flairish</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://neeleshyadav.vercel.app/</image:loc>
+      <image:caption>Instructor Availability</image:caption>
+      <image:title>Flairish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/projects/jewelry-tryon</loc>
@@ -116,91 +265,91 @@
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/rn-new-architecture</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2024-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/websocket-chat-rn</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/ar-tryon-threejs-mediapipe</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2023-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/flatlist-optimization</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2023-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/nextjs-vs-vite</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2023-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/tailwind-at-scale</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2023-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/sign-in-with-apple-react-native</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2025-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/google-sign-in-react-native</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2025-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/deploy-react-native-app-store</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2025-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/deploy-react-native-google-play</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2025-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/push-notifications-react-native-fcm-apns</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/reanimated-v4-60fps-reels</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/mmkv-vs-asyncstorage-react-native</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/fastlane-ci-cd-react-native</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://neeleshyadav.vercel.app/blogs/in-app-purchases-react-native</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

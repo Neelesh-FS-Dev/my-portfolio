@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, memo, lazy, Suspense } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import Navbar from "../shared/components/layout/Navbar";
 import Footer from "../shared/components/layout/Footer";
 import Cursor from "../shared/components/effects/Cursor";
@@ -8,6 +8,7 @@ import SmoothScroll from "../shared/components/effects/SmoothScroll";
 import NoiseOverlay from "../shared/components/effects/NoiseOverlay";
 import Plausible from "../shared/components/analytics/Plausible";
 import ErrorBoundary from "../shared/components/system/ErrorBoundary";
+import CommandPalette from "../shared/components/system/CommandPalette";
 import {
   HomeSkeleton,
   ProjectsSkeleton,
@@ -16,6 +17,7 @@ import {
   BlogsSkeleton,
   BlogDetailSkeleton,
   ContactSkeleton,
+  UsesSkeleton,
   GenericSkeleton,
 } from "../shared/components/ui/RouteSkeletons";
 
@@ -27,6 +29,7 @@ const Blogs = lazy(() => import("../features/blogs/Blogs"));
 const BlogDetail = lazy(() => import("../features/blogs/BlogDetail"));
 const Contact = lazy(() => import("../features/contact/Contact"));
 const Resume = lazy(() => import("../pages/Resume"));
+const Uses = lazy(() => import("../pages/Uses"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 function ScrollToTop() {
@@ -92,6 +95,7 @@ function AnimatedRoutes() {
             element={lazyRoute(Contact, ContactSkeleton)}
           />
           <Route path="/resume" element={lazyRoute(Resume, GenericSkeleton)} />
+          <Route path="/uses" element={lazyRoute(Uses, UsesSkeleton)} />
           <Route path="*" element={lazyRoute(NotFound, GenericSkeleton)} />
         </Routes>
       </motion.div>
@@ -102,20 +106,23 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <SmoothScroll>
-        <Plausible />
-        <Cursor />
-        <NoiseOverlay />
-        <MemoScrollToTop />
-        <a href="#main-content" className="skip-to-content">
-          Skip to content
-        </a>
-        <Navbar />
-        <main id="main-content" tabIndex={-1}>
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </SmoothScroll>
+      <MotionConfig reducedMotion="user">
+        <SmoothScroll>
+          <Plausible />
+          <Cursor />
+          <NoiseOverlay />
+          <CommandPalette />
+          <MemoScrollToTop />
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
+          <Navbar />
+          <main id="main-content" tabIndex={-1}>
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </SmoothScroll>
+      </MotionConfig>
     </ErrorBoundary>
   );
 }
