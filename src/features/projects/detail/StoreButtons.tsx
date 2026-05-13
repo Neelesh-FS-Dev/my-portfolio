@@ -1,6 +1,7 @@
 import type { Project } from "../types";
 import { BsApple } from "react-icons/bs";
 import { FiGithub } from "react-icons/fi";
+import { trackOutbound } from "../../../shared/lib/analytics";
 
 export interface StoreButtonsProps {
   project: Project;
@@ -25,6 +26,9 @@ export default function StoreButtons({
           href={project.appStoreUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackOutbound(project.appStoreUrl, "App Store", `project:${project.id}`)
+          }
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -81,6 +85,9 @@ export default function StoreButtons({
           href={project.playStoreUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackOutbound(project.playStoreUrl, "Play Store", `project:${project.id}`)
+          }
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -191,6 +198,9 @@ export default function StoreButtons({
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackOutbound(project.githubUrl!, "GitHub", `project:${project.id}`)
+          }
           style={{
             display: "inline-flex",
             alignItems: "center",

@@ -11,6 +11,7 @@ import {
   Globe,
 } from "lucide-react";
 import personal from "../../data/personal";
+import { trackEvent, trackOutbound } from "../../lib/analytics";
 
 /**
  * Adapted from a 21st.dev hover-footer snippet. Tailwind classes replaced
@@ -278,6 +279,16 @@ function Footer() {
                 target={s.external ? "_blank" : undefined}
                 rel={s.external ? "noopener noreferrer" : undefined}
                 className="ny-footer-social"
+                onClick={() => {
+                  if (s.label === "Resume") {
+                    trackEvent("resume_download", {
+                      surface: "footer_social",
+                      method: "pdf",
+                    });
+                  } else if (s.external) {
+                    trackOutbound(s.href, s.label, "footer_social");
+                  }
+                }}
               >
                 {s.icon}
               </a>

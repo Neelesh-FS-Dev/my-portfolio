@@ -7,6 +7,7 @@ import PhoneMockup from "../../../shared/components/effects/PhoneMockup";
 import { FiSmartphone, FiMonitor, FiGithub } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 import type { Project } from "../types";
+import { trackEvent } from "../../../shared/lib/analytics";
 
 interface BrowserMockupProps {
   color: string;
@@ -122,19 +123,28 @@ function ProjectCard({ project, featured = false, index = 0 }: ProjectCardProps)
     [featured, isMobile, isTablet],
   );
 
-  const handleClick = useCallback(
-    () => navigate(`/projects/${project.id}`),
-    [navigate, project.id],
-  );
+  const handleClick = useCallback(() => {
+    trackEvent("project_click", {
+      project_id: project.id,
+      project_title: project.title,
+      surface: "card",
+    });
+    navigate(`/projects/${project.id}`);
+  }, [navigate, project.id, project.title]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
+        trackEvent("project_click", {
+          project_id: project.id,
+          project_title: project.title,
+          surface: "card_keyboard",
+        });
         navigate(`/projects/${project.id}`);
       }
     },
-    [navigate, project.id],
+    [navigate, project.id, project.title],
   );
 
   const stopPropagation = useCallback((e: MouseEvent<HTMLAnchorElement>) => {

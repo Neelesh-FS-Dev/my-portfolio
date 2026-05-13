@@ -8,6 +8,7 @@ import {
   hoverLiftTarget,
   tapTarget,
 } from "../motion";
+import { trackOutbound } from "../../lib/analytics";
 
 function isMac(): boolean {
   if (typeof navigator === "undefined") return false;
@@ -461,6 +462,13 @@ function Navbar() {
                   href="https://github.com/Neelesh-FS-Dev"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    trackOutbound(
+                      "https://github.com/Neelesh-FS-Dev",
+                      "GitHub",
+                      "navbar_mobile",
+                    )
+                  }
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: 12,

@@ -11,6 +11,7 @@ import {
   hoverLiftTarget,
   tapTarget,
 } from "../../../shared/components/motion";
+import { trackEvent } from "../../../shared/lib/analytics";
 
 export interface ContactFormProps {
   isMobile: boolean;
@@ -68,6 +69,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
       const data = await res.json();
       if (!mountedRef.current) return;
       if (res.ok) {
+        trackEvent("contact_submit", { surface: "contact_page" });
         setSent(true);
         setForm({ name: "", email: "", subject: "", message: "", _honey: "" });
       } else {

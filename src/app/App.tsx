@@ -6,7 +6,8 @@ import Footer from "../shared/components/layout/Footer";
 import Cursor from "../shared/components/effects/Cursor";
 import SmoothScroll from "../shared/components/effects/SmoothScroll";
 import NoiseOverlay from "../shared/components/effects/NoiseOverlay";
-import Plausible from "../shared/components/analytics/Plausible";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import ErrorBoundary from "../shared/components/system/ErrorBoundary";
 import CommandPalette from "../shared/components/system/CommandPalette";
 import {
@@ -108,7 +109,8 @@ export default function App() {
     <ErrorBoundary>
       <MotionConfig reducedMotion="user">
         <SmoothScroll>
-          <Plausible />
+          <Analytics />
+          <SpeedInsights />
           <Cursor />
           <NoiseOverlay />
           <CommandPalette />

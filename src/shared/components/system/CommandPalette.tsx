@@ -29,6 +29,7 @@ import {
 import projects from "../../../features/projects/data/projects";
 import blogs from "../../../features/blogs/data/blogs";
 import personal from "../../data/personal";
+import { trackEvent, trackOutbound } from "../../lib/analytics";
 
 type CommandKind = "page" | "project" | "blog" | "external" | "action";
 
@@ -201,6 +202,20 @@ export default function CommandPalette() {
   const runItem = useCallback(
     (item: CommandItem) => {
       closePalette();
+      if (item.kind === "project" && item.to) {
+        trackEvent("project_click", {
+          project_id: item.id.replace(/^project-/, ""),
+          project_title: item.label,
+          surface: "command_palette",
+        });
+      } else if (item.id === "ext-resume-pdf") {
+        trackEvent("resume_download", {
+          surface: "command_palette",
+          method: "pdf",
+        });
+      } else if (item.kind === "external" && item.url) {
+        trackOutbound(item.url, item.label, "command_palette");
+      }
       if (item.to) {
         navigate(item.to);
       } else if (item.url) {

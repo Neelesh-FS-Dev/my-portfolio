@@ -4,6 +4,7 @@ import experience from "../features/experience/data/experience";
 import { degrees, certifications } from "../features/experience/data/education";
 import SEO from "../shared/components/ui/SEO";
 import { getExperience } from "../shared/utils/getExperience";
+import { trackEvent } from "../shared/lib/analytics";
 
 /**
  * /resume — a print-styled single-page resume rendered from the same data
@@ -169,7 +170,13 @@ export default function Resume() {
         <button
           type="button"
           className="resume-print-btn"
-          onClick={() => window.print()}
+          onClick={() => {
+            trackEvent("resume_download", {
+              surface: "resume_page",
+              method: "print",
+            });
+            window.print();
+          }}
         >
           Save as PDF / Print
         </button>
