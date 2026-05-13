@@ -36,7 +36,6 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
   });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
   const mountedRef = useRef(true);
@@ -83,14 +82,12 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
     }
   };
 
-  // Memoised so changing `focusedField` (which triggers per-input re-renders)
-  // doesn't allocate fresh style objects every keystroke.
   const inputBase = useMemo<CSSProperties>(
     () => ({
       width: "100%",
       padding: isSmall ? "12px 14px" : "14px 18px",
-      background: "var(--surface)",
-      border: "1px solid var(--border)",
+      background: "rgba(255,255,255,0.025)",
+      border: "1px solid rgba(255,255,255,0.08)",
       borderRadius: 12,
       color: "var(--text)",
       fontFamily: "var(--font-body)",
@@ -124,14 +121,53 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
       variants={scaleIn}
       transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: 22,
-        padding: isSmall ? "24px 20px" : isMobile ? "32px" : "40px",
+        padding: isSmall ? "28px 20px" : isMobile ? "32px" : "40px",
         position: "relative",
         overflow: "hidden",
+        backdropFilter: "blur(16px) saturate(140%)",
+        WebkitBackdropFilter: "blur(16px) saturate(140%)",
+        boxShadow:
+          "0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 60px rgba(0,0,0,0.28)",
       }}
     >
+      {/* Ambient glow accents */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: -120,
+          left: -80,
+          width: 280,
+          height: 280,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 65%)",
+          filter: "blur(20px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          bottom: -120,
+          right: -80,
+          width: 260,
+          height: 260,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(236,72,153,0.14) 0%, transparent 65%)",
+          filter: "blur(20px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
       {/* Gradient top bar with animation */}
       <div
         style={{
@@ -259,16 +295,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
               }}
             >
               <AnimatedField>
-                <label
-                  htmlFor="contact-name"
-                  style={{
-                    ...labelStyle,
-                    color:
-                      focusedField === "name"
-                        ? "var(--accent)"
-                        : "var(--text3)",
-                  }}
-                >
+                <label htmlFor="contact-name" style={labelStyle}>
                   Name
                 </label>
                 <input
@@ -278,32 +305,11 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   onChange={handleChange}
                   required
                   placeholder="Your name"
-                  style={{
-                    ...inputBase,
-                    borderColor:
-                      focusedField === "name"
-                        ? "var(--accent)"
-                        : "var(--border)",
-                    boxShadow:
-                      focusedField === "name"
-                        ? "0 0 0 3px rgba(59,130,246,0.08)"
-                        : "none",
-                  }}
-                  onFocus={() => setFocusedField("name")}
-                  onBlur={() => setFocusedField(null)}
+                  style={inputBase}
                 />
               </AnimatedField>
               <AnimatedField>
-                <label
-                  htmlFor="contact-email"
-                  style={{
-                    ...labelStyle,
-                    color:
-                      focusedField === "email"
-                        ? "var(--accent)"
-                        : "var(--text3)",
-                  }}
-                >
+                <label htmlFor="contact-email" style={labelStyle}>
                   Email
                 </label>
                 <input
@@ -314,33 +320,12 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  style={{
-                    ...inputBase,
-                    borderColor:
-                      focusedField === "email"
-                        ? "var(--accent)"
-                        : "var(--border)",
-                    boxShadow:
-                      focusedField === "email"
-                        ? "0 0 0 3px rgba(59,130,246,0.08)"
-                        : "none",
-                  }}
-                  onFocus={() => setFocusedField("email")}
-                  onBlur={() => setFocusedField(null)}
+                  style={inputBase}
                 />
               </AnimatedField>
             </div>
             <AnimatedField>
-              <label
-                htmlFor="contact-subject"
-                style={{
-                  ...labelStyle,
-                  color:
-                    focusedField === "subject"
-                      ? "var(--accent)"
-                      : "var(--text3)",
-                }}
-              >
+              <label htmlFor="contact-subject" style={labelStyle}>
                 Subject
               </label>
               <input
@@ -349,32 +334,11 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                 value={form.subject}
                 onChange={handleChange}
                 placeholder="React Native opportunity..."
-                style={{
-                  ...inputBase,
-                  borderColor:
-                    focusedField === "subject"
-                      ? "var(--accent)"
-                      : "var(--border)",
-                  boxShadow:
-                    focusedField === "subject"
-                      ? "0 0 0 3px rgba(59,130,246,0.08)"
-                      : "none",
-                }}
-                onFocus={() => setFocusedField("subject")}
-                onBlur={() => setFocusedField(null)}
+                style={inputBase}
               />
             </AnimatedField>
             <AnimatedField>
-              <label
-                htmlFor="contact-message"
-                style={{
-                  ...labelStyle,
-                  color:
-                    focusedField === "message"
-                      ? "var(--accent)"
-                      : "var(--text3)",
-                }}
-              >
+              <label htmlFor="contact-message" style={labelStyle}>
                 Message
               </label>
               <textarea
@@ -389,17 +353,7 @@ export default function ContactForm({ isMobile, isSmall }: ContactFormProps) {
                   ...inputBase,
                   resize: "vertical",
                   minHeight: 120,
-                  borderColor:
-                    focusedField === "message"
-                      ? "var(--accent)"
-                      : "var(--border)",
-                  boxShadow:
-                    focusedField === "message"
-                      ? "0 0 0 3px rgba(59,130,246,0.08)"
-                      : "none",
                 }}
-                onFocus={() => setFocusedField("message")}
-                onBlur={() => setFocusedField(null)}
               />
             </AnimatedField>
 

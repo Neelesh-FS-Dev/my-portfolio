@@ -9,7 +9,11 @@ export interface AnimatedFieldProps {
 }
 
 function AnimatedField({ children }: AnimatedFieldProps) {
-  return <motion.div variants={fadeUp}>{children}</motion.div>;
+  return (
+    <motion.div className="contact-field" variants={fadeUp}>
+      {children}
+    </motion.div>
+  );
 }
 
 export default memo(AnimatedField);

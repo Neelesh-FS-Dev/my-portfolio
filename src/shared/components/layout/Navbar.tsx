@@ -9,11 +9,80 @@ import {
   tapTarget,
 } from "../motion";
 import { trackOutbound } from "../../lib/analytics";
+import { lockBodyScroll } from "../../lib/scrollLock";
 
 function isMac(): boolean {
   if (typeof navigator === "undefined") return false;
   return /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent);
 }
+
+// Extracted + memo'd so scroll-state changes on the parent Navbar don't
+// re-render the link list (only route changes do, via NavLink's own subscription).
+const NavDesktopLinks = memo(function NavDesktopLinks() {
+  return (
+    <div
+      className="nav-desktop"
+      style={{ display: "flex", gap: 2, alignItems: "center" }}
+    >
+      {navLinks.map((link) => (
+        <motion.div
+          key={link.to}
+          whileHover={{ y: -2 }}
+          whileTap={tapTarget}
+          transition={hoverLift}
+          style={{ position: "relative" }}
+        >
+          <NavLink
+            to={link.to}
+            end={link.to === "/"}
+            style={{ textDecoration: "none", display: "inline-block" }}
+          >
+            {({ isActive }) => (
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  padding: "7px 14px",
+                  borderRadius: 100,
+                  fontFamily: "var(--font-body)",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: isActive ? "var(--accent)" : "var(--text2)",
+                  transition: "color .25s",
+                  whiteSpace: "nowrap",
+                  isolation: "isolate",
+                }}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: 100,
+                      background: "rgba(59,130,246,0.1)",
+                      border: "1px solid rgba(59,130,246,0.22)",
+                      boxShadow:
+                        "0 0 0 1px rgba(59,130,246,0.08), 0 6px 18px -8px rgba(59,130,246,0.45)",
+                      zIndex: -1,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 32,
+                      mass: 0.7,
+                    }}
+                  />
+                )}
+                {link.label}
+              </span>
+            )}
+          </NavLink>
+        </motion.div>
+      ))}
+    </div>
+  );
+});
 
 function openCommandPalette() {
   // CommandPalette listens for ⌘K / Ctrl+K globally — synthesize the shortcut
@@ -67,10 +136,8 @@ function Navbar() {
   useEffect(() => setMenuOpen(false), [location.pathname]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (!menuOpen) return;
+    return lockBodyScroll();
   }, [menuOpen]);
 
   const toggleMenu = useCallback(() => setMenuOpen((v) => !v), []);
@@ -158,44 +225,7 @@ function Navbar() {
             </span>
           </NavLink>
 
-          <div
-            className="nav-desktop"
-            style={{ display: "flex", gap: 2, alignItems: "center" }}
-          >
-            {navLinks.map((link) => (
-              <motion.div
-                key={link.to}
-                whileHover={{ y: -2 }}
-                whileTap={tapTarget}
-                transition={hoverLift}
-              >
-                <NavLink
-                  to={link.to}
-                  end={link.to === "/"}
-                  style={({ isActive }) => ({
-                    padding: "7px 14px",
-                    borderRadius: 100,
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    fontWeight: 500,
-                    color: isActive ? "var(--accent)" : "var(--text2)",
-                    background: isActive
-                      ? "rgba(59,130,246,0.1)"
-                      : "transparent",
-                    border: isActive
-                      ? "1px solid rgba(59,130,246,0.22)"
-                      : "1px solid transparent",
-                    transition: "color .2s, background .2s, border-color .2s",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    display: "inline-block",
-                  })}
-                >
-                  {link.label}
-                </NavLink>
-              </motion.div>
-            ))}
-          </div>
+          <NavDesktopLinks />
 
           <div
             style={{

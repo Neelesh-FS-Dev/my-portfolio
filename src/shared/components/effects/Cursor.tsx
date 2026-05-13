@@ -59,10 +59,10 @@ function Cursor() {
     };
 
     const onLeaveDoc = () => {
-      gsap.to([cursor, follower], { autoAlpha: 0, duration: 0.2 });
+      gsap.to([cursor, follower], { autoAlpha: 0, duration: 0.2, overwrite: "auto" });
     };
     const onEnterDoc = () => {
-      gsap.to([cursor, follower], { autoAlpha: 1, duration: 0.2 });
+      gsap.to([cursor, follower], { autoAlpha: 1, duration: 0.2, overwrite: "auto" });
     };
 
     document.addEventListener("mousemove", onMove);

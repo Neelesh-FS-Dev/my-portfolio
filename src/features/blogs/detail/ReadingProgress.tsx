@@ -1,12 +1,12 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 /**
  * A thin accent-coloured bar fixed to the top of the viewport that tracks
- * how far the reader has scrolled through the article. Throttled to one
- * update per animation frame so it doesn't add scroll-handler cost.
+ * how far the reader has scrolled through the article. Writes width directly
+ * to the DOM via a ref so scroll updates skip React reconciliation entirely.
  */
 function ReadingProgressBase() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let rafId: number | null = null;
@@ -17,7 +17,9 @@ function ReadingProgressBase() {
       const total =
         document.documentElement.scrollHeight - window.innerHeight;
       const next = total > 0 ? Math.min(Math.max(scrolled / total, 0), 1) : 0;
-      setProgress(next);
+      if (barRef.current) {
+        barRef.current.style.width = `${next * 100}%`;
+      }
     };
 
     const onScroll = () => {
@@ -49,9 +51,10 @@ function ReadingProgressBase() {
       }}
     >
       <div
+        ref={barRef}
         style={{
           height: "100%",
-          width: `${progress * 100}%`,
+          width: "0%",
           background:
             "linear-gradient(90deg, var(--accent), #60a5fa)",
           boxShadow: "0 0 12px rgba(59,130,246,0.35)",

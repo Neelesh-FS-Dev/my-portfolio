@@ -30,6 +30,7 @@ import projects from "../../../features/projects/data/projects";
 import blogs from "../../../features/blogs/data/blogs";
 import personal from "../../data/personal";
 import { trackEvent, trackOutbound } from "../../lib/analytics";
+import { lockBodyScroll } from "../../lib/scrollLock";
 
 type CommandKind = "page" | "project" | "blog" | "external" | "action";
 
@@ -253,11 +254,10 @@ export default function CommandPalette() {
   // Lock body scroll while open + autofocus input.
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const release = lockBodyScroll();
     const t = window.setTimeout(() => inputRef.current?.focus(), 30);
     return () => {
-      document.body.style.overflow = prev;
+      release();
       window.clearTimeout(t);
     };
   }, [open]);
@@ -289,6 +289,15 @@ export default function CommandPalette() {
 
   if (typeof document === "undefined") return null;
 
+  // Forward wheel/trackpad scrolling anywhere on the overlay into the results list,
+  // so users don't need to land the cursor precisely on the scrollable region.
+  const onOverlayWheel = (e: React.WheelEvent) => {
+    const list = listRef.current;
+    if (!list) return;
+    if (list.contains(e.target as Node)) return;
+    list.scrollTop += e.deltaY;
+  };
+
   // Compute the running flat index so each row knows where it sits across groups.
   let flatIdx = -1;
   const modKey = isMac() ? "⌘" : "Ctrl";
@@ -302,6 +311,8 @@ export default function CommandPalette() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
           onClick={closePalette}
+          onWheel={onOverlayWheel}
+          data-lenis-prevent
           aria-hidden
           style={{
             position: "fixed",

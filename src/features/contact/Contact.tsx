@@ -30,7 +30,15 @@ export default function Contact() {
           }}
         >
           <ContactInfo isSmall={isSmall} />
-          <ContactForm isMobile={isMobile} isSmall={isSmall} />
+          <div
+            style={
+              isMobile
+                ? undefined
+                : { position: "sticky", top: 96, alignSelf: "start" }
+            }
+          >
+            <ContactForm isMobile={isMobile} isSmall={isSmall} />
+          </div>
         </div>
       </section>
 
@@ -47,6 +55,14 @@ export default function Contact() {
         @keyframes send-fly    { 0%{transform:translateX(0) translateY(0) rotate(0deg); opacity:1} 100%{transform:translateX(20px) translateY(-20px) rotate(30deg); opacity:0} }
 
         input::placeholder, textarea::placeholder { color: var(--text3); }
+
+        /* CSS-only focus styling for contact form — avoids per-keystroke re-renders */
+        .contact-field:focus-within label { color: var(--accent); }
+        .contact-field input:focus,
+        .contact-field textarea:focus {
+          border-color: var(--accent) !important;
+          box-shadow: 0 0 0 3px rgba(59,130,246,0.08) !important;
+        }
 
         /* Contact row icon lift on hover */
         .contact-row:hover .contact-icon {
