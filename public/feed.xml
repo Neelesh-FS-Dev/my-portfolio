@@ -6,7 +6,7 @@
     <atom:link href="https://neeleshyadav.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Engineering write-ups on React Native, React, performance, real-time systems, and shipping production mobile + web apps.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 May 2026 06:32:42 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2026 06:44:31 GMT</lastBuildDate>
     <item>
       <title>In-App Purchases in React Native — Subscriptions on iOS + Android</title>
       <link>https://neeleshyadav.vercel.app/blogs/in-app-purchases-react-native</link>

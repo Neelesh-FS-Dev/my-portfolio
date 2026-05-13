@@ -28,7 +28,7 @@ const personal: Personal = {
   availability: "Open to new roles & freelance",
 
   summary:
-    "Software Engineer with 3+ years specializing in React Native and React, building consumer-facing mobile and web applications used in production. Skilled in architecting scalable component systems, optimizing rendering performance, integrating real-time features (WebSockets, push, live data), and shipping cross-platform apps end-to-end — from design handoff to App Store and Play Store release. Strong focus on Core Web Vitals, accessibility, and SEO for web platforms.",
+    "Software Engineer (3+ years) specialising in React Native and TypeScript — shipped 10+ production apps to App Store and Google Play serving 25,000+ active users at 4.5★ average store rating. Architected real-time systems at scale (WebSocket chat sustaining 200+ concurrent sessions, low-latency live A/V via ZEGOCLOUD and Zoom Video SDK) and drove a 40% render-performance gain through profiling, memoisation, and architectural cleanup. Led React Native version migrations (0.72 → 0.81 + New Architecture), modernised native layers (Java → Kotlin, Objective-C → Swift), built CI/CD on GitHub Actions cutting deployment time 60%, and mentored 100+ engineers across cross-functional teams.",
 
   about: [
     "Software Engineer specialising in React Native and React, with end-to-end ownership of consumer-facing mobile and web products. Led cross-functional teams of 5–6 engineers shipping 10+ production releases with CI/CD, automated testing, and structured release pipelines.",

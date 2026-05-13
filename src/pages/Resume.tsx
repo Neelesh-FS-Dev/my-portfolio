@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import personal from "../shared/data/personal";
 import experience from "../features/experience/data/experience";
 import { degrees, certifications } from "../features/experience/data/education";
+import { skillCategories } from "../features/home/data/skills";
 import SEO from "../shared/components/ui/SEO";
 import { getExperience } from "../shared/utils/getExperience";
 import { trackEvent } from "../shared/lib/analytics";
@@ -101,6 +102,26 @@ const PRINT_STYLES = `
     color: var(--text3);
     margin: 6px 0 4px;
   }
+  .resume-skills { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+  .resume-skill-row {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text2);
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 10px;
+  }
+  .resume-skill-cat {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text);
+    font-size: 12.5px;
+  }
+  .resume-skill-items {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text2);
+  }
   .resume-actions {
     max-width: 820px;
     margin: 0 auto 16px;
@@ -146,6 +167,8 @@ const PRINT_STYLES = `
     .resume-job-company { color: #333 !important; }
     .resume-section-title { color: #1d4ed8 !important; border-bottom-color: #999 !important; }
     .resume-meta a { color: #1d4ed8 !important; }
+    .resume-skill-cat { color: #000 !important; }
+    .resume-skill-items { color: #333 !important; }
   }
 `;
 
@@ -210,6 +233,20 @@ export default function Resume() {
           <p style={{ fontSize: 13, lineHeight: 1.65, margin: 0 }}>
             {personal.summary}
           </p>
+        </section>
+
+        <section className="resume-section">
+          <h2 className="resume-section-title">Skills</h2>
+          <div className="resume-skills">
+            {skillCategories.map((cat) => (
+              <div key={cat.category} className="resume-skill-row">
+                <span className="resume-skill-cat">{cat.category}</span>
+                <span className="resume-skill-items">
+                  {cat.items.join(" · ")}
+                </span>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="resume-section">
